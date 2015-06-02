@@ -1,9 +1,13 @@
 <%@ page contentType="text/html; charset=euc-kr"%>
-<TABLE cellspacing="0" cellpadding="0" border="0">
-	<TR>
-		<TD width="1000" align="center">
-			"bottom"
-		</TD>
 
-	</TR>
-</TABLE>
+<!--
+<LINK href="/css/bottom.css" rel="stylesheet" type="text/css"/>
+ SCRIPT 
+<SCRIPT src="/js/jquery-2.1.3.min.js"></SCRIPT>
+-->
+
+<div class="mastfoot">
+	<div class="inner">
+		<p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+	</div>
+</div>

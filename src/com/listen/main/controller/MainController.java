@@ -22,16 +22,16 @@ public class MainController extends BaseController {
 	}
 
 
-	@RequestMapping("/main.com")
+	@RequestMapping("/main.listen")
 	public String mainPage(HttpServletRequest request, HttpSession session) {
 
-		System.out.println("mainPage µé¾î¿È");
+		System.out.println("mainPage ë“¤ì–´ì˜´");
 			
 		ArrayList itemList  = itemDao.getItemList();
 		
-		//request.setAttribute("itemList", itemList); // ÀÌ·¸°Ô º¸³»°í jsp¿¡¼­ getAttribute·Î ¹Þ½À´Ï´Ù.
+		//request.setAttribute("itemList", itemList); // ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ jspï¿½ï¿½ï¿½ï¿½ getAttributeï¿½ï¿½ ï¿½Þ½ï¿½ï¿½Ï´ï¿½.
 		request.setAttribute("page", "main");
-		//request.setAttribute("mainUrl", prefix + "¸ÞÀÎÄÁÅÙÃ÷·Î º¸³¾ ÆäÀÌÁö.jsp");
+		//request.setAttribute("mainUrl", prefix + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.jsp");
 
 		return frame;
 	}

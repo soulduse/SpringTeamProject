@@ -4,7 +4,7 @@
 	<typeAlias alias="item" type="com.listen.main.vo.Item" />
 
 	<select id="getItemList" resultClass="item">
-		SELECT NAME FROM MEMBER
+		SELECT MEMBER_NAME NAME FROM MEMBER
 	</select>
 
 
