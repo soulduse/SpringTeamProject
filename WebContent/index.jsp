@@ -14,7 +14,7 @@
 			   		// 아래 주소로 이동한다.
 			   		//location.href = "http://m.daum.net/";
 			  	}else{
-			   		alert("PC에서 접속");
+			   		//alert("PC에서 접속");
 			   		location.href = "/main.listen";
 			  	}
 			}

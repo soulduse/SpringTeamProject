@@ -18,9 +18,8 @@ public class ItemDao {
 	public ItemDao() {
 	}
 
-
 	public ArrayList getItemList() {
-		return (ArrayList) smct.queryForList("getItemList");// xml로 가서 "getItemList"인 id를 찾습니다.
+		return (ArrayList) smct.queryForList("getItemList");
 	}
 
 }

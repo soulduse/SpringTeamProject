@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Data">
+	<typeAlias alias="bbsfile" type="com.listen.bbs.vo.BbsFileVo" />
+
+	<select id="getBbsFileList" resultClass="bbsfile">
+		SELECT MEMBER_NAME NAME FROM MEMBER
+	</select>
+
+
+</sqlMap>

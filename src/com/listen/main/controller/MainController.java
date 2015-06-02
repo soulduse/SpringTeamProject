@@ -29,10 +29,24 @@ public class MainController extends BaseController {
 			
 		ArrayList itemList  = itemDao.getItemList();
 		
-		//request.setAttribute("itemList", itemList); // �̷��� ������ jsp���� getAttribute�� �޽��ϴ�.
+		//request.setAttribute("itemList", itemList); 
 		request.setAttribute("page", "main");
-		//request.setAttribute("mainUrl", prefix + "������������ ���� ������.jsp");
+		//request.setAttribute("mainUrl", prefix + "~~~.jsp");
 
+		return frame;
+	}
+	
+	@RequestMapping("/write.listen")
+	public String writePage(HttpServletRequest request, HttpSession session) {
+		
+		System.out.println("writePage 들어옴");
+		
+		//ArrayList itemList  = itemDao.getItemList();
+		
+		//request.setAttribute("itemList", itemList); 
+		request.setAttribute("page", "write");
+		request.setAttribute("mainUrl", prefix + "bbs/BbsWrite.jsp");
+		
 		return frame;
 	}
 
