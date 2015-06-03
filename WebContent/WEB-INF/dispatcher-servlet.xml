@@ -24,13 +24,21 @@
 	
 	<!-- 컨트롤러 -->
 	<bean id="mainController" class="com.listen.main.controller.MainController" >
-		<property name="itemDao" ref="itemDao"></property>
+		<property name="itemDao" ref="itemDao"/>
+	</bean>
+	
+	<bean id="bbsFileController" class="com.listen.bbs.controller.BbsFileController">
+		<property name="bbsDao" ref="bbsDao"/>
 	</bean>
 
 	
 	<!-- 다오 -->
 	<bean id="itemDao" class="com.listen.main.dao.ItemDao">
-		<property name="smct" ref="sqlMapClientTemplate"></property>
+		<property name="smct" ref="sqlMapClientTemplate"/>
+	</bean>
+	
+	<bean id="bbsDao" class="com.listen.bbs.dao.BbsDao">
+		<property name="smct" ref="sqlMapClientTemplate"/>
 	</bean>
 
 	
