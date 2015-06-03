@@ -26,8 +26,8 @@
 	<bean id="mainController" class="com.listen.main.controller.MainController" >
 		<property name="itemDao" ref="itemDao"/>
 	</bean>
-	
-	<bean id="bbsFileController" class="com.listen.bbs.controller.BbsFileController">
+
+	<bean id="bbsController" class="com.listen.bbs.controller.BbsController">
 		<property name="bbsDao" ref="bbsDao"/>
 	</bean>
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Data">
+	<typeAlias alias="bbs" type="com.listen.bbs.vo.BbsTest" />
+
+	<insert id="bbsWrite" parameterClass="bbs">
+		INSERT INTO BBS (BBS_SEQ, BBS_CONTENTS) VALUES (BBS_SEQ.NEXTVAL, #bbs_contents#)
+	</insert>
+	
+	<select id="bbsViewList" resultClass="bbs">
+		SELECT BBS_CONTENTS CONTENT FROM BBS
+	</select>
+
+</sqlMap>

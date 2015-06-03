@@ -41,15 +41,9 @@ public class MainController extends BaseController {
 		
 		System.out.println("writePage 들어옴");
 		
-		//ArrayList itemList  = itemDao.getItemList();
-		
-		//request.setAttribute("itemList", itemList); 
 		request.setAttribute("page", "write");
 		request.setAttribute("mainUrl", prefix + "bbs/BbsWrite.jsp");
 		
 		return frame;
 	}
-
-	
-
 }

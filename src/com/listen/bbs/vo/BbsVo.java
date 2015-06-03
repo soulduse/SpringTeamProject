@@ -1,6 +1,6 @@
 package com.listen.bbs.vo;
 
-public class BbsViewVo {
+public class BbsVo {
 	
 	private int bbs_seq; 				// SEQ
 	private int bg_img_seq;			// 배경 SEQ

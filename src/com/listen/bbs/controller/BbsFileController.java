@@ -22,7 +22,7 @@ import com.listen.bbs.vo.BbsFileVo;
 
 @Controller
 public class BbsFileController extends BaseController{
-	
+/*	
 	@Autowired
 	private FileSystemResource fsResource;
 	
@@ -65,7 +65,7 @@ public class BbsFileController extends BaseController{
 		}
 		System.out.println("writePage 들어옴");
 		
-		int uploadFile = bbsDao.uploadFile();
+		//int uploadFile = bbsDao.uploadFile();
 		//ArrayList itemList  = itemDao.getItemList();
 		
 		//request.setAttribute("itemList", itemList); 
@@ -74,4 +74,5 @@ public class BbsFileController extends BaseController{
 		
 		return frame;
 	}
+	*/
 }
