@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.listen.bbs.dto.BbsDto;
+import com.listen.bbs.dto.BbsWriteDto;
 import com.listen.bbs.vo.BbsFileVo;
 
 @Repository
@@ -27,8 +27,8 @@ public class BbsDao {
 	*/
 	
 	// 글쓰기
-	public void bbsWrite(BbsDto bbsTest){
-		smct.insert("bbsWrite",bbsTest);
+	public void bbsWrite(BbsWriteDto bbsWriteDto){
+		smct.insert("bbsTextWrite",bbsWriteDto);
 	}
 	
 	// 글보기
@@ -38,9 +38,9 @@ public class BbsDao {
 	}
 	
 	// 파일 업로드
-	public void updateRes_pic(BbsFileVo bbsFileVo)
+	public void updateRes_pic(BbsWriteDto bbsWriteDto)
 	{
-		
+		smct.insert("bbsFileUpload", bbsWriteDto);
 	}
 	
 }

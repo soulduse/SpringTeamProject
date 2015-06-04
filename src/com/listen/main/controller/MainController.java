@@ -28,7 +28,6 @@ public class MainController extends BaseController {
 		System.out.println("mainPage 들어옴");
 			
 		ArrayList itemList  = itemDao.getItemList();
-		System.out.println(itemList.get(0)+"!!!!");
 		
 		//request.setAttribute("itemList", itemList); 
 		request.setAttribute("page", "main");

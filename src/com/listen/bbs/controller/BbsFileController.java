@@ -74,7 +74,7 @@ public class BbsFileController extends BaseController{
 				try
 				{
 					resPic.transferTo(outFileName);
-					bbsDao.updateRes_pic(bbsFileVo);
+					//bbsDao.updateRes_pic(bbsFileVo);
 				} catch(IllegalStateException e) {
 					e.printStackTrace();
 				} catch(IOException e) {

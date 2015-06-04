@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="Data">
-	<typeAlias alias="bbs" type="com.listen.bbs.dto.BbsDto" />
+	<typeAlias alias="bbsWriteDto" type="com.listen.bbs.dto.BbsWriteDto" />
 
-	<insert id="bbsWrite" parameterClass="bbs">
+	<!-- 글 등록 -->
+	<insert id="bbsTextWrite" parameterClass="bbsWriteDto">
 		INSERT INTO BBS (BBS_SEQ, BBS_CONTENTS) VALUES (BBS_SEQ.NEXTVAL, #bbs_contents#)
 	</insert>
 	
-	<select id="bbsViewList" resultClass="bbs" >
+	<!-- 파일등록 -->
+	<insert id="bbsFileUpload" parameterClass="bbsWriteDto">
+		INSERT INTO BBS_FILE
+		(BBS_FILE_SEQ, BBS_SEQ, PATH, ORG_NAME, SAVE_NAME, FILE_SIZE)
+		VALUES
+		(BBS_FILE_SEQ.NEXTVAL, #bbs_seq#, #path#, #org_name#, #save_name#, #file_size#)
+	</insert>
+	
+	<select id="bbsViewList" resultClass="bbsWriteDto" >
 		SELECT BBS_CONTENTS CONTENT FROM BBS
 	</select>
 
