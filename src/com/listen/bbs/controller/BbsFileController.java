@@ -25,8 +25,12 @@ import com.listen.bbs.vo.BbsFileVo;
 @Controller
 public class BbsFileController extends BaseController{
 
+	/*
 	@Autowired
 	private FileSystemResource fsResource;
+	*/
+	@Autowired
+	private ServletContext servletContext;
 	
 	private BbsDao bbsDao;
 	
@@ -37,6 +41,19 @@ public class BbsFileController extends BaseController{
 	// 파일 업로드
 	@RequestMapping(value="/saveImage.listen", method = RequestMethod.POST)
 	public String writePage(HttpServletRequest request, HttpSession session, BbsFileVo bbsFileVo) {
+		
+		String confRoot = servletContext.getRealPath("/"); // WebContent경로
+		String path = "upfile/bbs_file/"+TotalDate.getToday("yyyy/MM/dd");
+		String bbsFileUploadPath = confRoot + path;
+
+		File dayFile = new File(bbsFileUploadPath);
+		if (!dayFile.exists()) {
+			dayFile.mkdirs();
+		}
+
+		String savePath = dayFile.getAbsolutePath();
+		
+		
 		MultipartFile resPic = bbsFileVo.getUpload();
 		if(resPic.getSize() > 0)
 		{
@@ -47,31 +64,25 @@ public class BbsFileController extends BaseController{
 			bbsFileVo.setOrg_name(fileName);
 			bbsFileVo.setPath(path);
 			bbsFileVo.setSave_name(System.currentTimeMillis() + "_" +bbsFileVo.getOrg_name());
-			bbsFileVo.setFile_size(file_size);
+			bbsFileVo.setFile_size(fileSize);
 			
 			// upload 가능한 파일 타입 지정
 			// equalsIgnoreCase 의 경우 대소문자 구분하지 않고 비교함
 			if(imgExt.equalsIgnoreCase("JPG") || imgExt.equalsIgnoreCase("JPEG") || imgExt.equalsIgnoreCase("PNG") || imgExt.equalsIgnoreCase("GIF"))
 			{
+				File outFileName = new File(savePath+"\\"+fileName);
 				try
 				{
-					byte[] bytes = bbsFileVo.getUpload().getBytes();
-					File outFileName = new File(fsResource.getPath()+"\\"+TotalDate.getToday("yyyy/MM/dd")+"/"+fileName);
-					if(!outFileName.exists())
-					{
-						outFileName.mkdirs();
-					}
-	
-					FileOutputStream fileOutputStream = new FileOutputStream(outFileName);
-					fileOutputStream.write(bytes);
-					fileOutputStream.close();
+					resPic.transferTo(outFileName);
+					bbsDao.updateRes_pic(bbsFileVo);
+				} catch(IllegalStateException e) {
+					e.printStackTrace();
+				} catch(IOException e) {
+					e.printStackTrace();
 				}
-				catch(IOException ioe)
-				{
-					System.err.println("파일 업로드 실패");
-				} 
 			}else {
-				System.err.println("파일 업로드 성공");
+				System.err.println("파일 형식이 올바르지 않습니다.");
+				message = "파일 형식이 올바르지 않습니다.";
 			}
 		}
 		System.out.println("writePage 들어옴");

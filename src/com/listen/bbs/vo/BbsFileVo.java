@@ -9,7 +9,7 @@ public class BbsFileVo {
 	private String path; // 경로
 	private String org_name; // 원래의 파일이름
 	private String save_name; // 저장된 이름
-	private String file_size; // 파일 사이즈
+	private long file_size; // 파일 사이즈
 	private MultipartFile upload; // 업로드할 파일
 
 	// setter , getter
@@ -53,12 +53,12 @@ public class BbsFileVo {
 		this.save_name = save_name;
 	}
 
-	public String getFile_size() {
+	public long getFile_size() {
 		return file_size;
 	}
 
-	public void setFile_size(String file_size) {
-		this.file_size = file_size;
+	public void setFile_size(long l) {
+		this.file_size = l;
 	}
 
 	public MultipartFile getUpload() {

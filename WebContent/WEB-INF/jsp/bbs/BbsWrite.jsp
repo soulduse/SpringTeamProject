@@ -22,17 +22,12 @@
 	
 </SCRIPT>
 
-<BODY>  
-<!--  
+<BODY>   
 	<FORM name="writeForm" method="post" id="writeForm" enctype="multipart/form-data" action="/writePage.listen">
-		<INPUT type="file" name="upload"/>
-		<INPUT type="button" id="writeBtn" value="등록"/>
-	</FORM>
--->
-	<FORM name="writeForm" id="writeForm" action="/writeSave.listen" method="post">
 		<P>할말 입력해</P>
 		<INPUT type="text" name="bbs_contents" id="bbs_contents">
-		
-		<P><INPUT id="writeBtn" type="button" value="입력"></P>
+		<P>파일 등록해</P>
+		<INPUT type="file" name="upload"/>
+		<INPUT type="button" id="writeBtn" value="등록"/>
 	</FORM>
 </BODY>
