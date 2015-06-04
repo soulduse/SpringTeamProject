@@ -1,6 +1,6 @@
-package com.listen.bbs.vo;
+package com.listen.bbs.dto;
 
-public class BbsTest {
+public class BbsDto {
 	
 	private String bbs_contents;
 

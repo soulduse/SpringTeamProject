@@ -1,5 +1,14 @@
 <%@ page contentType="text/html; charset=euc-kr"%>
 
+<% 
+	String message = "adfasdfasdf";
+	if(request.getAttribute("message") != null && ((String)request.getAttribute("message")).length()>0)
+	{
+		message = (String)request.getAttribute("message");
+	}
+	
+%>
+
 <P>글쓰기 페이지</P>
 
 <SCRIPT>
@@ -7,6 +16,7 @@
 		$('#writeBtn').click(function() {
 			//var writeForm = $('#writeForm');
 			$('#writeForm').submit();
+			alert(<%=message%>);
 		});
 	});
 	

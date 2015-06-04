@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.listen.bbs.vo.BbsTest;
+import com.listen.bbs.dto.BbsDto;
 
 @Repository
 public class BbsDao {
@@ -26,8 +26,8 @@ public class BbsDao {
 	*/
 	
 	// 글쓰기
-	public Object bbsWrite(BbsTest bbsTest){
-		return (Object)smct.insert("bbsWrite");
+	public void bbsWrite(BbsDto bbsTest){
+		smct.insert("bbsWrite",bbsTest);
 	}
 	
 	// 글보기
