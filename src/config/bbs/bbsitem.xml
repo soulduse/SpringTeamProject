@@ -6,9 +6,5 @@
 	<insert id="bbsWrite" parameterClass="bbs">
 		INSERT INTO BBS (BBS_SEQ, BBS_CONTENTS) VALUES (BBS_SEQ.NEXTVAL, #bbs_contents#)
 	</insert>
-	
-	<select id="bbsViewList" resultClass="bbs" >
-		SELECT BBS_CONTENTS CONTENT FROM BBS
-	</select>
 
 </sqlMap>

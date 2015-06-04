@@ -17,7 +17,22 @@ public class BbsVo {
 	private int goodCount;			// 좋아요
 	private char dispYn;				// 게시판 공개여부
 	private char chat_Yn;				// 채팅 사요 여부
+	private String path;
+	private String save_name;
 	
+	
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public String getSave_name() {
+		return save_name;
+	}
+	public void setSave_name(String save_name) {
+		this.save_name = save_name;
+	}
 	// setter , getter
 	public int getBbs_seq() {
 		return bbs_seq;

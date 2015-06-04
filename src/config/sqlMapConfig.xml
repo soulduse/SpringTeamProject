@@ -5,4 +5,5 @@
 <sqlMapConfig>
 	<sqlMap resource="config/main/item.xml"/>
 	<sqlMap resource="config/bbs/bbsitem.xml"/>
+	<sqlMap resource="config/bbs/bbsview.xml"/>
 </sqlMapConfig>

@@ -38,7 +38,7 @@
         <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></a></li>
+        <li><a href="/view.listen"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></a></li>
         <li><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true"></a></li>
         <li><a href="/write.listen"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a></li>
         <li><a href="#"><span class="glyphicon glyphicon-bell" aria-hidden="true"></a></li>

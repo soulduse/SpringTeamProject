@@ -36,11 +36,6 @@ public class BbsDao {
 	{
 		return (ArrayList) smct.queryForList("bbsViewList");
 	}
-	
-	// 파일 업로드
-	public void updateRes_pic(BbsFileVo bbsFileVo)
-	{
-		
-	}
+
 	
 }
