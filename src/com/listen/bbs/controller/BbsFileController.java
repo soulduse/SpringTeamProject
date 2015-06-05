@@ -1,26 +1,34 @@
 package com.listen.bbs.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.listen.base.controller.BaseController;
 import com.listen.base.util.TotalDate;
 import com.listen.bbs.dao.BbsDao;
-import com.listen.bbs.dto.BbsWriteDto;
+import com.listen.bbs.vo.BbsFileVo;
 
 @Controller
-public class BbsController extends BaseController{
-	
+public class BbsFileController extends BaseController{
+
+	/*
+	@Autowired
+	private FileSystemResource fsResource;
+	*/
 	@Autowired
 	private ServletContext servletContext;
 	
@@ -30,27 +38,9 @@ public class BbsController extends BaseController{
 		this.bbsDao = bbsDao;
 	}
 
-	@RequestMapping("/writeSave.listen")
-	public String writePage(BbsWriteDto bbsWriteDto, HttpServletRequest request) {
-		
-		// 글쓰기 부분 
-		try{
-			// 글쓸때 SEQ 값 증분
-			/*
-			BbsWriteDto getBbsSeq  = bbsDao.getBbsNextSeq();
-			String seq = getBbsSeq.getNext_bbs_seq();
-			bbsWriteDto.setNext_bbs_seq(seq);
-			System.out.println("게시판 BBS_SEQ 값 : "+seq);
-			*/
-			
-			bbsDao.bbsWrite(bbsWriteDto);
-			message="작성완료";
-			request.setAttribute("message", message);
-		}catch(Exception e){
-			e.printStackTrace();
-			message="작성에 실패 했습니다.";
-			request.setAttribute("message", message);
-		}
+	// 파일 업로드
+	@RequestMapping(value="/saveImage.listen", method = RequestMethod.POST)
+	public String writePage(HttpServletRequest request, HttpSession session, BbsFileVo bbsFileVo) {
 		
 		String confRoot = servletContext.getRealPath("/"); // WebContent경로
 		String path = "/upfile/bbs_file/"+TotalDate.getToday("yyyy/MM/dd");
@@ -66,17 +56,17 @@ public class BbsController extends BaseController{
 		String savePath = dayFile.getAbsolutePath();
 		
 		
-		MultipartFile resPic = bbsWriteDto.getUpload();
+		MultipartFile resPic = bbsFileVo.getUpload();
 		if(resPic.getSize() > 0)
 		{
 			String fileName = resPic.getOriginalFilename();														// 파일의 이름
 			String imgExt = fileName.substring(fileName.lastIndexOf(".")+1, fileName.length());			// 파일 확장자
 			long fileSize = resPic.getSize();		// 파일 사이즈
 			
-			bbsWriteDto.setOrg_name(fileName);
-			bbsWriteDto.setPath(path);
-			bbsWriteDto.setSave_name(System.currentTimeMillis() + "_" +bbsWriteDto.getOrg_name());
-			bbsWriteDto.setFile_size(fileSize);
+			bbsFileVo.setOrg_name(fileName);
+			bbsFileVo.setPath(path);
+			bbsFileVo.setSave_name(System.currentTimeMillis() + "_" +bbsFileVo.getOrg_name());
+			bbsFileVo.setFile_size(fileSize);
 			
 			// upload 가능한 파일 타입 지정
 			// equalsIgnoreCase 의 경우 대소문자 구분하지 않고 비교함
@@ -87,7 +77,7 @@ public class BbsController extends BaseController{
 				try
 				{
 					resPic.transferTo(outFileName);
-					bbsDao.updateRes_pic(bbsWriteDto);
+					//bbsDao.updateRes_pic(bbsFileVo);
 				} catch(IllegalStateException e) {
 					e.printStackTrace();
 				} catch(IOException e) {
@@ -99,8 +89,15 @@ public class BbsController extends BaseController{
 			}
 		}
 		System.out.println("writePage 들어옴");
-		System.out.println(bbsWriteDto.getBbs_contents());
-
+		
+		//int uploadFile = bbsDao.uploadFile();
+		//ArrayList itemList  = itemDao.getItemList();
+		
+		//request.setAttribute("itemList", itemList); 
+		request.setAttribute("page", "write");
+		request.setAttribute("mainUrl", prefix + "bbs/BbsWrite.jsp");
+		
 		return frame;
 	}
+	//*/
 }

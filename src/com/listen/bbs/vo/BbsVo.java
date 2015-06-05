@@ -19,7 +19,8 @@ public class BbsVo {
 	private char chat_Yn;				// 채팅 사요 여부
 	private String path;
 	private String save_name;
-	
+			// 채팅 사용여부
+
 	
 	public String getPath() {
 		return path;

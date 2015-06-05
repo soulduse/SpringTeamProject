@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=euc-kr"%>
 <HTML>
 	<HEAD>
-		<TITLE>쿡퐁</TITLE>
+		<TITLE>마음이 따뜻해지는 익명SNS - Listen</TITLE>
 		<META http-equiv="Content-Type" content="text/html; charset=euc-kr">
 		<SCRIPT type="text/javascript">
 			 var filter = "win16|win32|win64|mac";

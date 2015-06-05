@@ -23,7 +23,7 @@
 </SCRIPT>
 
 <BODY>   
-	<FORM name="writeForm" method="post" id="writeForm" enctype="multipart/form-data" action="/writePage.listen">
+	<FORM name="writeForm" method="post" id="writeForm" enctype="multipart/form-data" action="/writeSave.listen">
 		<P>할말 입력해</P>
 		<INPUT type="text" name="bbs_contents" id="bbs_contents">
 		<P>파일 등록해</P>
