@@ -31,12 +31,17 @@ public class BbsDao {
 		smct.insert("bbsTextWrite",bbsWriteDto);
 	}
 	
-	// 글보기
+	// 글목록 보기
 	public ArrayList bbsViewList()
 	{
 		return (ArrayList) smct.queryForList("bbsViewList");
 	}
-
+	
+	public ArrayList bbsDetailView()
+	{
+		return (ArrayList) smct.queryForList("bbsDetailView");
+	}
+		
 	// 파일 업로드
 	public void updateRes_pic(BbsWriteDto bbsWriteDto)
 	{

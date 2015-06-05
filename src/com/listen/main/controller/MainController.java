@@ -61,7 +61,7 @@ public class MainController extends BaseController {
 		ArrayList bbsList = bbsDao.bbsViewList();
 		request.setAttribute("page", "view");
 		request.setAttribute("bbsList",  bbsList);
-		request.setAttribute("mainUrl", prefix + "bbs/BbsView.jsp");
+		request.setAttribute("mainUrl", prefix + "bbs/BbsList.jsp");
 		
 		return frame;
 	}
