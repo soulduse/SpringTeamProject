@@ -1,8 +1,20 @@
-
-
-
-
-
+.image {
+    position:relative;
+    float:left; /* optional */
+	background-color:#888888;
+}
+.image .text {
+    position:absolute;
+    color:#ffffff;
+    top:10px; /* in conjunction with left property, decides the text position */
+    left:10px;
+    width:300px; /* optional, though better have one */
+}
+.imageShadow {
+	
+	filter:alhpa(opacity=10);
+	opacity:0.4;
+}
 /*
  * Footer
  */

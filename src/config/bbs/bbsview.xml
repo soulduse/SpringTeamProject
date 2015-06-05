@@ -9,5 +9,7 @@
 		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
 		ORDER BY A.BBS_SEQ DESC
 	</select>
+	
+	
 
 </sqlMap>

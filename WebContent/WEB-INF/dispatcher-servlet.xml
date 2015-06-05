@@ -32,7 +32,17 @@
 		<property name="bbsDao" ref="bbsDao"/>
 	</bean>
 
-	
+	<!-- 컨트롤러 -->
+   <bean id="loginAction" class="com.listen.member.controller.LoginAction" >
+      <property name="memberDao" ref="memberDao"></property>
+   </bean>
+
+   
+   <!-- 다오 -->
+   <bean id="memberDao" class="com.listen.member.dao.MemberDao">
+      <property name="smct" ref="sqlMapClientTemplate"></property>
+   </bean>
+   
 	<!-- 다오 -->
 	<bean id="itemDao" class="com.listen.main.dao.ItemDao">
 		<property name="smct" ref="sqlMapClientTemplate"/>
