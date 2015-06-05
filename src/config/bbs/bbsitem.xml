@@ -6,6 +6,9 @@
 	<!-- 글 등록 -->
 	<insert id="bbsTextWrite" parameterClass="bbsWriteDto">
 		INSERT INTO BBS (BBS_SEQ, BBS_CONTENTS) VALUES (BBS_SEQ.NEXTVAL, #bbs_contents#)
+		<selectKey resultClass="java.lang.String" keyProperty="bbs_seq">
+			SELECT BBS_SEQ.CURRVAL BBS_SEQ FROM DUAL
+		</selectKey>
 	</insert>
 	
 	<!-- 파일등록 -->
@@ -16,8 +19,10 @@
 		(BBS_FILE_SEQ.NEXTVAL, #bbs_seq#, #path#, #org_name#, #save_name#, #file_size#)
 	</insert>
 	
-	<select id="bbsViewList" resultClass="bbsWriteDto" >
-		SELECT BBS_CONTENTS CONTENT FROM BBS
+	
+	<!-- 게시판 SEQ값 가져오기 -->
+	<select id="getNextSeq" resultClass="bbsWriteDto" >
+		SELECT BBS_SEQ.NEXTVAL NEXT_BBS_SEQ FROM DUAL
 	</select>
 
 </sqlMap>

@@ -16,7 +16,7 @@ public class BbsVo {
 	private int badCount;				// 나빠요
 	private int goodCount;			// 좋아요
 	private char dispYn;				// 게시판 공개여부
-	private char chat_Yn;				// 채팅 사요 여부
+	private char chat_Yn;				// 채팅 사용여부
 	
 	// setter , getter
 	public int getBbs_seq() {

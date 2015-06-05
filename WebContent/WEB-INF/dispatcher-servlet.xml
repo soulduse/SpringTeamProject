@@ -47,12 +47,14 @@
 		<property name="maxUploadSize" value="2000000"/>
 	</bean>
 	
+	<!-- 
 	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
 		<constructor-arg>
-			<value>C:\upload/</value>
+			<value>C:\Users\programmerh\git\listen\WebContent</value>
 		</constructor-arg>
 	</bean>
-	
+	 -->
+	 
 	<!-- iBatis설정 -->
 	<context:property-placeholder location="classpath:config/db.properties" />
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">

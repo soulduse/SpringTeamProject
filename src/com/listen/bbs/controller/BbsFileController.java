@@ -43,8 +43,10 @@ public class BbsFileController extends BaseController{
 	public String writePage(HttpServletRequest request, HttpSession session, BbsFileVo bbsFileVo) {
 		
 		String confRoot = servletContext.getRealPath("/"); // WebContent경로
-		String path = "upfile/bbs_file/"+TotalDate.getToday("yyyy/MM/dd");
+		String path = "/upfile/bbs_file/"+TotalDate.getToday("yyyy/MM/dd");
 		String bbsFileUploadPath = confRoot + path;
+		
+		System.out.println("첫번째 경로 : "+bbsFileUploadPath);
 
 		File dayFile = new File(bbsFileUploadPath);
 		if (!dayFile.exists()) {
@@ -71,6 +73,7 @@ public class BbsFileController extends BaseController{
 			if(imgExt.equalsIgnoreCase("JPG") || imgExt.equalsIgnoreCase("JPEG") || imgExt.equalsIgnoreCase("PNG") || imgExt.equalsIgnoreCase("GIF"))
 			{
 				File outFileName = new File(savePath+"\\"+fileName);
+				System.out.println("두번째 경로 : "+savePath+"\\"+fileName);
 				try
 				{
 					resPic.transferTo(outFileName);

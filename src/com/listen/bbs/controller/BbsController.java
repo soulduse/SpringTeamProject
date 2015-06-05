@@ -2,11 +2,13 @@ package com.listen.bbs.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,9 +33,30 @@ public class BbsController extends BaseController{
 	@RequestMapping("/writeSave.listen")
 	public String writePage(BbsWriteDto bbsWriteDto, HttpServletRequest request) {
 		
+		// 글쓰기 부분 
+		try{
+			// 글쓸때 SEQ 값 증분
+			/*
+			BbsWriteDto getBbsSeq  = bbsDao.getBbsNextSeq();
+			String seq = getBbsSeq.getNext_bbs_seq();
+			bbsWriteDto.setNext_bbs_seq(seq);
+			System.out.println("게시판 BBS_SEQ 값 : "+seq);
+			*/
+			
+			bbsDao.bbsWrite(bbsWriteDto);
+			message="작성완료";
+			request.setAttribute("message", message);
+		}catch(Exception e){
+			e.printStackTrace();
+			message="작성에 실패 했습니다.";
+			request.setAttribute("message", message);
+		}
+		
 		String confRoot = servletContext.getRealPath("/"); // WebContent경로
-		String path = "upfile/bbs_file/"+TotalDate.getToday("yyyy/MM/dd");
+		String path = "/upfile/bbs_file/"+TotalDate.getToday("yyyy/MM/dd");
 		String bbsFileUploadPath = confRoot + path;
+		
+		System.out.println("첫번째 경로 : "+bbsFileUploadPath);
 
 		File dayFile = new File(bbsFileUploadPath);
 		if (!dayFile.exists()) {
@@ -60,6 +83,7 @@ public class BbsController extends BaseController{
 			if(imgExt.equalsIgnoreCase("JPG") || imgExt.equalsIgnoreCase("JPEG") || imgExt.equalsIgnoreCase("PNG") || imgExt.equalsIgnoreCase("GIF"))
 			{
 				File outFileName = new File(savePath+"\\"+fileName);
+				System.out.println("두번째 경로 : "+savePath+"\\"+fileName);
 				try
 				{
 					resPic.transferTo(outFileName);
@@ -77,15 +101,6 @@ public class BbsController extends BaseController{
 		System.out.println("writePage 들어옴");
 		System.out.println(bbsWriteDto.getBbs_contents());
 
-		try{
-			bbsDao.bbsWrite(bbsWriteDto);
-			message="작성완료";
-			request.setAttribute("message", message);
-		}catch(Exception e){
-			e.printStackTrace();
-			message="작성에 실패 했습니다.";
-			request.setAttribute("message", message);
-		}
 		return frame;
 	}
 }

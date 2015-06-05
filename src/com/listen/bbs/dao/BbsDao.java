@@ -43,4 +43,10 @@ public class BbsDao {
 		smct.insert("bbsFileUpload", bbsWriteDto);
 	}
 	
+	// 게시판 seq 값 가져오기
+	public BbsWriteDto getBbsNextSeq()
+	{
+		return (BbsWriteDto)smct.queryForObject("getNextSeq");
+	}
+	
 }
