@@ -3,15 +3,21 @@
     float:left; /* optional */
 	background-color:#888888;
 }
-.image .text {
+.text2 {
     position:absolute;
-    color:#ffffff;
-    top:10px; /* in conjunction with left property, decides the text position */
-    left:10px;
-    width:300px; /* optional, though better have one */
+    color:white;
+    top:20%; /* in conjunction with left property, decides the text position */
+    left:15%;
+    width:200px; /* optional, though better have one */
+}
+.text3 {
+    position:absolute;
+    color:white;
+    top:30%; /* in conjunction with left property, decides the text position */
+    left:32%;
+    width:auto; /* optional, though better have one */
 }
 .imageShadow {
-	
 	filter:alhpa(opacity=10);
 	opacity:0.4;
 }
@@ -33,4 +39,9 @@
 /* Padding for spacing */
 .inner {
   padding: 30px;
+}
+
+h3 {
+font-family: Verdana;
+color: white;
 }

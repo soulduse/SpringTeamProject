@@ -2,19 +2,24 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.listen.bbs.vo.*" %>
 <SCRIPT>
-function imgClick(){
-	$('#myModal img').attr('src', $(this).attr('data-img-url'));
-	var divclassname = $("#img9").attr("data-img-url")
-	alert(divclassname);
-}
-
-
-$("#img9").click(function() {
-	var divclassname = $("#img9").attr("class")
-	alert("¿©±â");
-	alert(divclassname);
+$(function(){
+	function imgClick(){
+		var divclassname = $(this).attr("data-img-url");
+		$('#myModal img').attr('src',divclassname);
+		//$('#myModal img').attr('src', $(this).attr('data-img-url'));
+		alert(divclassname);
+	};
+	
+	$('.img').click(function(){
+		var d = $(this).attr("src");
+		var c = $(this).attr("contents");
+		$("#modalImg").attr("src", d);
+		var modalContent = document.getElementById("modalContent");
+		modalContent.innerHTML = c;
+	});
 });
 </SCRIPT>
+
 <% ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
    for(int i=0; i<bbsList.size(); i++)
    {  
@@ -26,23 +31,26 @@ $("#img9").click(function() {
       String path = (String)bbsVo.getPath();
       String save_name = (String)bbsVo.getSave_name();
 %>
-
-
-
-<LINK href="/css/common.css" rel="stylesheet" type="text/css"/>
-
-
-	 
-	 <div class="image">
-  		<img name="img<%=bbs_seq %>" id="img<%=bbs_seq %>" class="imageShadow" data-toggle="modal" 
-		data-target="#myModal" onclick="imgClick();" style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
-		width=300 data-img-url="<%=path%>/<%=save_name%>&text=<%=bbs_contents%>"/>
+	 <div class="image " id="imgRootDiv" >
+  		<img class="img imageShadow" name="bbs<%=bbs_seq%>" data-toggle="modal" 
+		data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
+		width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
 	
-  		<div class="text">
-   	 		<H3><%=bbs_contents%></h3>
+  		<div class="text2">
+  			<table>
+  				<TR height="70%">
+  					<TD>
+			   	 		<H3><%=bbs_contents%></h3>
+			   	 	</TD>
+			   	 </TR>
+			   	 <TR height="30%">
+			   	 	<TD align="left">
+   	 					<%=bbs_hitCount%>
+   	 				</TD>
+   	 			</TR>
+   	 		</table>
+   	 		
    	 	</div>
-   	 	<div alian="right" ><%=bbs_hitCount%></div>
-   	 	</a>
 	</div>
       <%
    }
@@ -50,14 +58,29 @@ $("#img9").click(function() {
 
 
 <!-- Modal -->
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px;">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">¡¿</button>
-</div>
-<div class="modal-body">
-    <img src="#"/>
+<CENTER>
+<div id="myModal" style="width:100%" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+		<div class="modal-header" style="margin-left:25%;text-align: center; vertical-align:middle;">
+			<div class="modal-body image" >
+				<img id="modalImg" class="imageShadow " src="#" width="500"/>
+				<div class="text3">
+			  			<table >
+			  				<TR>
+			  					<TD >
+						   	 		<H3><label id="modalContent"></label></H3>
+						   	 	</TD>
+						   	 </TR>
+						   	 <TR>
+						   	 	<TD align="left">
+			   	 				<h3></h3>	
+			   	 				</TD>
+			   	 			</TR>
+			   	 		</table>
+			   	 	</div>
+			   	 	</div>		   	 	
 </div>
 <div class="modal-footer">
-<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+
 </div>
 </div>
+</CENTER>
