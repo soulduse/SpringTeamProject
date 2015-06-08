@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Data">
+	<typeAlias alias="bbsAddWriteDto" type="com.listen.bbs.dto.BbsAddWriteDto" />
+
+	<!-- 댓글 등록 -->
+	<insert id="bbsAddWrite" parameterClass="bbsAddWriteDto">
+		INSERT INTO BBS_ADD 
+		(BBS_ADD_SEQ, BBS_SEQ, CONTENT, REG_EMAIL, REG_IP, UPD_EMAIL, UPD_IP) 
+		VALUES 
+		(BBS_ADD_SEQ.NEXTVAL, #bbs_seq#, #content#, #reg_email#, #reg_ip#, #reg_email#, #reg_ip#)
+	</insert>
+	
+</sqlMap>

@@ -30,25 +30,28 @@
 
 	<bean id="bbsController" class="com.listen.bbs.controller.BbsController">
 		<property name="bbsDao" ref="bbsDao"/>
+		<property name="bbsAddDao" ref="bbsAddDao"/>
 	</bean>
 
-	<!-- 컨트롤러 -->
    <bean id="loginAction" class="com.listen.member.controller.LoginAction" >
-      <property name="memberDao" ref="memberDao"></property>
+      <property name="memberDao" ref="memberDao"/>
    </bean>
 
    
    <!-- 다오 -->
    <bean id="memberDao" class="com.listen.member.dao.MemberDao">
-      <property name="smct" ref="sqlMapClientTemplate"></property>
+      <property name="smct" ref="sqlMapClientTemplate"/>
    </bean>
    
-	<!-- 다오 -->
 	<bean id="itemDao" class="com.listen.main.dao.ItemDao">
 		<property name="smct" ref="sqlMapClientTemplate"/>
 	</bean>
 	
 	<bean id="bbsDao" class="com.listen.bbs.dao.BbsDao">
+		<property name="smct" ref="sqlMapClientTemplate"/>
+	</bean>
+	
+	<bean id="bbsAddDao" class="com.listen.bbs.dao.BbsAddDao">
 		<property name="smct" ref="sqlMapClientTemplate"/>
 	</bean>
 
