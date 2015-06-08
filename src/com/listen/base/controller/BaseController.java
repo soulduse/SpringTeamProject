@@ -1,5 +1,6 @@
 package com.listen.base.controller;
 
+
 public class BaseController {
 	
 	protected final String frame = "/common/Frame";
