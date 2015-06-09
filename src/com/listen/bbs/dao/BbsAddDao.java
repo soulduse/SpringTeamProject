@@ -1,6 +1,8 @@
 package com.listen.bbs.dao;
 
 
+import java.util.ArrayList;
+
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +24,12 @@ public class BbsAddDao {
 	public void bbsAddWrite(BbsAddWriteDto bbsAddWriteDto)
 	{
 		smct.insert("bbsAddWrite",bbsAddWriteDto);
+	}
+	
+	// 댓글 보기
+	public ArrayList bbsAddList(BbsAddWriteDto bbsAddWriteDto)
+	{
+		return (ArrayList)smct.queryForList("bbsAddList", bbsAddWriteDto);
 	}
 
 }

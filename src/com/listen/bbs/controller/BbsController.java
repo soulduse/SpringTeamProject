@@ -2,14 +2,17 @@ package com.listen.bbs.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import com.listen.base.controller.BaseController;
 import com.listen.base.util.TotalDate;
@@ -39,9 +42,12 @@ public class BbsController extends BaseController{
 	public String writeAddPage(BbsAddWriteDto bbsAddWriteDto, HttpServletRequest request)
 	{
 		bbsAddDao.bbsAddWrite(bbsAddWriteDto);
+		ArrayList bbsAddList = (ArrayList)bbsAddDao.bbsAddList(bbsAddWriteDto);
+		
+		MappingJacksonJsonView dataJson = new MappingJacksonJsonView();
+		// xml 만들기 
 		return frame;
 	}
-	
 
 	@RequestMapping("/writeSave.listen")
 	public String writePage(BbsWriteDto bbsWriteDto, HttpServletRequest request) {

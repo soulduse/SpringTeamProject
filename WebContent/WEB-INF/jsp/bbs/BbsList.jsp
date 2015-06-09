@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/common.js"></script>
-<script type="text/javascript" src="js/comment.js"></script>
+<script type="text/javascript" src="js/ajax-comment.js"></script>
 <SCRIPT>
 	$(function() {
 		$('.img').click(function() {
