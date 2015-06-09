@@ -60,3 +60,36 @@ color: white;
   border: solid 1px #ebebeb;
   border-radius: 4px;
 }
+
+.like-label {
+  padding: 0 7px;
+  height: 28px;
+  display: inline-block;
+  color: #999;
+}
+
+.lcard-button {
+  display: inline-block;
+  height: 30px;
+  padding: 0 7px 0 5px;
+  border-right: 1px solid #ebebeb;
+  color: #999;
+}
+
+.card-like-icon.active {
+  background-position: -102px -173px;
+  height: 18px;
+  width: 18px;
+}
+
+.lcard-button-wrapper {
+  border: 1px solid #ebebeb;
+  border-radius: 4px;
+  height: 30px;
+  line-height: 30px;
+  display: inline-block;
+  letter-spacing: 0pt;
+  word-spacing: 0pt;
+  background-color: #fff;
+  vertical-align: top;
+}
