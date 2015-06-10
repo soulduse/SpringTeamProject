@@ -56,18 +56,14 @@ public class LoginAction extends BaseController {
 		System.out.println(password);
 		
 		System.out.println(EmailList.get(0));
-		//System.out.println(passList.get(0));
 		memberVo = new MemberVo();
 		if(EmailList.size()!=0 && pass.equals(password))
 		{
-		//	if(EmailList.get(0) == passList.get(0))
-			//{
-				MemberVo memberVo = (MemberVo)EmailList.get(0);
-				session.setAttribute("email", memberVo.getEmail());
-				session.setAttribute("pass", memberVo.getPassword()); 
-				session.setAttribute("LoginYn", "Y");
-				return frame;
-			//}
+			MemberVo memberVo = (MemberVo)EmailList.get(0);
+			session.setAttribute("email", memberVo.getEmail());
+			session.setAttribute("pass", memberVo.getPassword()); 
+			session.setAttribute("LoginYn", "Y");
+			return frame;
 		}
 		else{
 			session.setAttribute("Error", "N");
@@ -126,12 +122,9 @@ public class LoginAction extends BaseController {
 		if(EmailList.size()==0)
 		{
 			request.setAttribute("realId", realId);
-			//MemberVo memberVo = (MemberVo)EmailList.get(0);
-			//session.setAttribute("email", memberVo.getEmail());
 
 			request.setAttribute("code", "1");
 			return "member/idCheck";
-			//return "redirect:/member/idCheck.jsp?code=1";
 		}
 		else{
 
