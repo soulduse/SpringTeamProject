@@ -36,7 +36,11 @@
    <bean id="loginAction" class="com.listen.member.controller.LoginAction" >
       <property name="memberDao" ref="memberDao"></property>
    </bean>
-
+   <!-- 
+   <bean id="join" class="com.listen.member.controller.Join">
+   		<property name="memberDao" ref="memberDao"></property>
+   </bean>
+-->
    
    <!-- 다오 -->
    <bean id="memberDao" class="com.listen.member.dao.MemberDao">

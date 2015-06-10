@@ -7,4 +7,5 @@
 	<sqlMap resource="config/bbs/bbsitem.xml"/>
 	<sqlMap resource="config/bbs/bbsview.xml"/>
 	<sqlMap resource="config/member/login.xml"/>
+	<sqlMap resource="config/member/join.xml"/>
 </sqlMapConfig>

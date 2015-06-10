@@ -1,13 +1,16 @@
 <%@ page contentType="text/html;charset=euc-kr" %>
 <%@ page language="java" %>
-<% System.out.println("여기가 로그인"); %>
 
 <HTML>
    <HEAD>
       <TITLE>Login</TITLE>
+      
 	<%
-   if(request.getParameter("error") != null)
+
+
+   if(session.getAttribute("Error") == "N")
    {
+	   System.out.println( session.getAttribute("Error"));
 	%>
 	<SCRIPT>
    	   window.alert("잘못된 정보입니다.");
@@ -33,24 +36,12 @@
                   alert("유효한 이메일 형식이 아닙니다");
                   return false;
                }
-            /*   if(f.id.value.length < 4 || f.id.value.length > 20)
-               {
-                  window.alert("ID는 4자 이상 20자 이하 입니다.");
-                  f.id.select();
-                  return false;
-               }*/
-               
-               //if(!write.Pattern.matches("^[_0-9a-zA-Z-]+@[0-9a-zA-Z-]+(.[_0-9a-zA-Z-]+)*$", write))
-               //{
-               //   window.alert("Email 형식을 입력해주세요");
-               //   write.select();
-               //   return false;
-               //}
-
-
                f.submit();
             }
-
+			function join()
+			{
+				location.href="/join.listen";
+			}
             function logoutAction()
             {
                window.alert("로그아웃 되었습니다");
@@ -66,7 +57,7 @@
 <%
 System.out.println("login.jsp로그인");
    if(session.getAttribute("LoginYn") != null && ((String)session.getAttribute("LoginYn")).length()>0 &&    ((String)session.getAttribute("LoginYn")).equals("Y"))
-   {
+   {   	
       String email = (String)session.getAttribute("email");
 %>
          <TABLE border=0>
@@ -91,11 +82,12 @@ System.out.println("login.jsp로그인");
          <TABLE border=0>
             <FORM name="form" action="loginAction.listen" method="post">
                <TR><TD>User ID(E-mail) : </td><td><input type="text" name="id"></TD></TR>
-               
+               <TR><TD>Password : </TD><td><input type="password" name="pass"></td></TR>
                <TR>
                   <TD colspan="2" align="center">
-                     <INPUT type="button" value="Submit" onclick="loginAction();">
+                     <INPUT type="button" value="Login" onclick="loginAction();">
                      <INPUT type="reset" value="Reset" >
+                     <INPUT type="button" value="회원가입" onclick="join();">
                   </TD>
                </TR>
             </FORM>
