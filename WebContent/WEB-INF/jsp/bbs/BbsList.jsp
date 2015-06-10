@@ -12,8 +12,8 @@
 			var c = $(this).attr("contents");
 			var bbs_seq = $(this).attr("name");
 			var bbs_likeCount = $(this).attr("like-count");
-			
-			$('.like-label').text(bbs_likeCount);	// 공감 버튼 데이터 DB값 가져오기
+
+			$('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
 			$("#modalImg").attr("src", d);
 			$("#bbs_seq").attr("value", bbs_seq);
 			var modalContent = document.getElementById("modalContent");
@@ -71,7 +71,7 @@
 	}
 %>
 
-<!-- Modal -->
+<!-- Modal 글 List-->
 <div class="modal fade" style="width: 100%" id="myModal" tabindex="-1"
 	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -126,6 +126,26 @@
 				<BR>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="button" class="btn btn-primary" id="addWriteBtn">게시</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal 댓글 삭제 확인-->
+<div class="modal fade comment-delete-modal" style="width: 100%" tabindex="-1" role="dialog"
+	aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm" style="margin-top:200px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel">삭제확인</h4>
+			</div>
+			<div class="modal-body">
+				<label for="recipient-name" class="control-label">정말 삭제 하시겠습니까?</label>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">삭제</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 			</div>
 		</div>
 	</div>

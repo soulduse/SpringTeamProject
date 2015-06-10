@@ -11,20 +11,28 @@
 		ORDER BY A.BBS_SEQ DESC
 	</select>
 	
-	<!-- 공감 버튼 Ajax 처리 Query [ 동적쿼리 사용 ] -->
+	<update id="likeCountUpdate" parameterClass="bbsLikeSwitchDto">
+		UPDATE BBS SET
+		GOODCOUNT = #likeValue#
+		WHERE BBS_SEQ = #bbs_seq#
+	</update>
+	
+	<!-- 공감 버튼 Ajax 처리 Query [ 동적쿼리 사용 ] 
 	<update id="likeCountUpdate" parameterClass="bbsLikeSwitchDto">
 		UPDATE BBS SET
 		<dynamic>
 			<isEqual property="likeSw" compareValue="1"> 
-				GOODCOUNT = GOODCOUNT-1
+				GOODCOUNT = GOODCOUNT+1
 			</isEqual>
 		</dynamic>
 		<dynamic>
 			<isEqual property="likeSw" compareValue="0"> 
-				GOODCOUNT = GOODCOUNT+1
+				GOODCOUNT = GOODCOUNT-1
 			</isEqual>
 		</dynamic>
 		WHERE BBS_SEQ=#bbs_seq#
 	</update>
+	
+	-->
 
 </sqlMap>

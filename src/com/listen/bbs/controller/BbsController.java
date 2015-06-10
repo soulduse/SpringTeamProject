@@ -23,6 +23,7 @@ import com.listen.bbs.dto.BbsAddWriteDto;
 import com.listen.bbs.dto.BbsLikeSwitchDto;
 import com.listen.bbs.dto.BbsWriteDto;
 import com.listen.bbs.vo.BbsAddVo;
+import com.listen.bbs.vo.BbsVo;
 
 @Controller
 public class BbsController extends BaseController{

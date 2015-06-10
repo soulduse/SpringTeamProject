@@ -20,11 +20,14 @@ function ajaxBbsAdd() {
 					$(response).find('items').each(function() {
 						var content = $('content', this).text();
 						var reg_date = $('reg_date', this).text();
-						var goodcount = $('goodcount', this).text();
 						var myTR = $('<TR>');
 						myTR.append("<TD>" + content + "</TD>");
 						myTR.append("<TD>" + reg_date + "</TD>");
-						myTR.append("<TD>" + goodcount + "</TD><br>");
+						myTR.append("<TD>" +
+											"<A class='likeBtn' data-toggle='modal' data-target='.comment-delete-modal'>" +
+											"<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>" +
+											"</A></TD>");
+						myTR.append("<TD>clover</TD>");
 						commentTableBody.append(myTR);
 					})
 				});

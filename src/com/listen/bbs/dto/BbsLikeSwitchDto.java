@@ -10,6 +10,15 @@ public class BbsLikeSwitchDto {
 	
 	private String bbs_seq;
 	private String likeSw;
+	private String likeValue;
+
+	public String getLikeValue() {
+		return likeValue;
+	}
+
+	public void setLikeValue(String likeValue) {
+		this.likeValue = likeValue;
+	}
 
 	public String getBbs_seq() {
 		return bbs_seq;

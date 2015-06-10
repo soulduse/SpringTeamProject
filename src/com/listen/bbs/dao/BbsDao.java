@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.listen.bbs.dto.BbsLikeSwitchDto;
 import com.listen.bbs.dto.BbsWriteDto;
+import com.listen.bbs.vo.BbsVo;
 
 @Repository
 public class BbsDao {
