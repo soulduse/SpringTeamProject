@@ -61,7 +61,8 @@ $(function(){
 		var realId2 = emailId2 + "@" + emailDomain2;
 		var birthyear = $('[name=birthyear]').val();
 		var gender = $('input:radio[name=gender]:checked').val();
-	
+		var password = $('input:password[name=password]').val();
+		
 		//alert(emailId + emailDomain + realId + birthyear + gender);
 		
 		if(gender==="01")

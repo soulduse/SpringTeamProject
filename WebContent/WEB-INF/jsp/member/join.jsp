@@ -75,6 +75,12 @@ function cancel()
             <SPAN id="idCheckMessage"><br></SPAN>
          </TD>
          </TR>
+         <tr>
+         	<TD width="100" bgcolor="#CFDDFA" align="center"><B>비밀번호</B></TD>
+         	<TD bgcolor="#FFFFFF" colspan="2">
+         	 <input type="password" name="password" id="password"  />
+         	 </TD>
+         </tr>
        	 <TR>
  			<TD width="100" bgcolor="#CFDDFA" align="center"><B>성별</B></TD>
  			<TD bgcolor="#FFFFFF" colspan="2">
