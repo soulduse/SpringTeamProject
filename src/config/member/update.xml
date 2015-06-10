@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Data">
+ <typeAlias alias="MemberVo" type="com.listen.member.vo.MemberVo" />
+ 	<select id="getInfoList" resultClass="MemberVo" parameterClass="java.lang.String">
+ 		SELECT EMAIL, PASSWORD, GENDER, BIRTHYEAR FROM MEMBERS WHERE EMAIL = #id#
+ 	</select>
+ 	
+  <update id="memberUpdate"  parameterClass="MemberVo">
+ 		UPDATE MEMBERS SET PASSWORD = #password# , GENDER = #gender# , BIRTHYEAR = #birthyear#
+ 		WHERE EMAIL = #realId# 
+ 	</update> 	
+ 
+ 
+ 
+ 
+ </sqlMap>

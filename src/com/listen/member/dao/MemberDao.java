@@ -23,7 +23,11 @@ public class MemberDao
 	{
 		return (ArrayList) smct.queryForList("getPassList", pass);
 	}
-
+	
+	public ArrayList getInfoList(String id)
+	{
+		return (ArrayList) smct.queryForList("getInfoList", id);
+	}
 	public ArrayList loginAction() 
 	{
 		return (ArrayList) smct.queryForList("loginAction");
@@ -31,6 +35,10 @@ public class MemberDao
 	public void join(MemberVo memberVo)
 	{
 		smct.insert("join", memberVo);		
+	}
+	public void memberUpdate(MemberVo memberVo)
+	{
+		smct.update("memberUpdate", memberVo);
 	}
 	public ArrayList getCheckEmail(String id)
 	{

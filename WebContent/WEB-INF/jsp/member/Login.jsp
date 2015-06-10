@@ -10,7 +10,6 @@
 
    if(session.getAttribute("Error") == "N")
    {
-	   System.out.println( session.getAttribute("Error"));
 	%>
 	<SCRIPT>
    	   window.alert("잘못된 정보입니다.");

@@ -24,6 +24,7 @@ public class MemberVo {
 	private String realId;
 	private String password;
 	
+	// setter , getter
 	public String getPassword() {
 		return password;
 	}
@@ -39,7 +40,7 @@ public class MemberVo {
 	public void setBirthyear(String birthyear) {
 		this.birthyear = birthyear;
 	}
-	// setter , getter
+	
 	public String getMembers_seq() {
 		return members_seq;
 	}

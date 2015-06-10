@@ -51,11 +51,7 @@ $(function(){
 	});
 	function joinCheck()
 	{
-		
-		alert("joinBtn누름");
-	
 		var f = $("#joinForm");
-		
 		var emailId2 = $('input:text[name=email_id]').val();
 		var emailDomain2 = $('input:text[name=email_domain]').val();
 		var realId2 = emailId2 + "@" + emailDomain2;
@@ -64,7 +60,6 @@ $(function(){
 		var password = $('input:password[name=password]').val();
 		
 		//alert(emailId + emailDomain + realId + birthyear + gender);
-		
 		if(gender==="01")
 		{
 			gender="1";
@@ -75,14 +70,17 @@ $(function(){
 			gender="2";
 
 		}
-
+		
 		if(emailId2 === "" || emailDomain2 === "")
 		{
 			alert("ID(email) 입력하세요");
 			return false;
 		}
-		
-		
+		else if($('input:password[name=password]').val() =="")
+		{
+			alert("비밀번호를 입력해주세요");
+			return false;
+		}
 		else if(gender  != "1" && gender != "2")
 		{
 			alert("성별을 체크하세요");
@@ -105,7 +103,13 @@ $(function(){
 			alert("아이디를 확인해주세요");
 			return false;
 		}
-		else
+		
+		else if($('input:hidden[name=updateFilter]').val() =="Y")
+		{
+			alert("정보수정이 완료되었습니다");
+			f.submit();
+		}
+		else 
 		{
 			alert("회원가입이 완료되었습니다");
 			f.submit();

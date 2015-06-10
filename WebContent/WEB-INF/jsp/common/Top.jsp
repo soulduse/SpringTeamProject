@@ -37,6 +37,16 @@
         </div>
         <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
       </form>
+ <%
+ System.out.println("Top.jspÁøÀÔ");
+ 	if(session.getAttribute("LoginYn") == "Y")
+ 	{
+ 		%>
+ 		<a href="/memberInfo.listen">
+ 		<font color="white" size="3"><%=session.getAttribute("id") %>´Ô</font> </a>
+ 	<%
+ 	}
+ %>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/view.listen"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></a></li>
         <li><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true"></a></li>
