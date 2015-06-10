@@ -2,7 +2,6 @@ package com.listen.bbs.vo;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "")
 public class BbsAddVo {
 	
 	private String bbs_add_seq;

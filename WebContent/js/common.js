@@ -65,23 +65,3 @@ function isNum(orgNum)
 	}
 	return oxNum;
 }
-
-$(document).ready(function(){
-	  $('.animation-1 .heartImg').on('click', function(){
-	    var attrVal = $(this).attr('alt');
-	    var likeLabel = $('.like-label').text();
-	    var likeCount = parseInt(likeLabel);
-	    
-	    if(attrVal == '0')
-	    {
-	    	$(this).attr('alt','1');
-	    	attrVal = $(this).attr('alt');
-	    	$('.like-label').text(likeCount+1);
-	    }else if(attrVal == '1'){
-	    	$(this).attr('alt','0');
-	    	attrVal = $(this).attr('alt');
-	    	$('.like-label').text(likeCount-1);
-	    }
-	    $(this).toggleClass('toggle-animation');
-	  });
-});

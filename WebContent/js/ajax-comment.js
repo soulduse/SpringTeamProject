@@ -1,49 +1,44 @@
-	var commentList;
-	// Ajax 댓글 처리 function
-	function ajaxBbsAdd()
-	{
-		// 댓글이 위치할 Table
-		commentList = $('.comment-list');
-		
-		// 댓글 내용
-		var content = $('#comment').val();
-		var bbs_seq = $('#bbs_seq').val();
-		var reg_email = $('#reg_email').val();
-		var reg_ip = $('#reg_ip').val();
-		
-		alert("내용 : "+ content);
-		alert("bbs_seq : " + bbs_seq);
-		alert("reg_email : "+reg_email);
-		alert("reg_ip : "+ reg_ip);
-		
-		$.ajax({
-			url:"/bbsAdd.listen",
-			type:'POST',
-			dataType: "xml",
-			data: "content="+content+"&bbs_seq="+bbs_seq+"&reg_email="+reg_email+"&reg_ip="+reg_ip,
-			success: function(response, status, request)
+// Ajax 댓글 처리 function
+function ajaxBbsAdd() {
+	var commentTableBody = $('#comment_table_body');
+	// 댓글 내용
+	var content = $('#comment').val();
+	var bbs_seq = $('#bbs_seq').val();
+	var reg_email = $('#reg_email').val();
+	var reg_ip = $('#reg_ip').val();
+
+	$.ajax({
+		url : "/ajax/bbsAdd.listen",
+		type : 'POST',
+		dataType : "xml",
+		data : "content=" + content + "&bbs_seq=" + bbs_seq + "&reg_email="
+				+ reg_email + "&reg_ip=" + reg_ip,
+		success : function(response, status, request) {
+			if (request.status == 200) {
+				clearTbody(); // 내용 초기화 작업
+				$(response).find('root').each(function() {
+					$(response).find('items').each(function() {
+						var content = $('content', this).text();
+						var reg_date = $('reg_date', this).text();
+						var goodcount = $('goodcount', this).text();
+						var myTR = $('<TR>');
+						myTR.append("<TD>" + content + "</TD>");
+						myTR.append("<TD>" + reg_date + "</TD>");
+						myTR.append("<TD>" + goodcount + "</TD><br>");
+						commentTableBody.append(myTR);
+					})
+				});
+			} else // 데이터가 없을 경우
 			{
-				if(request.status == 200)
-				{
-					alert("입력성공!");
-					/*
-					$(response).find('content').each(function(){
-						var nextNode = $(this).text();
-						var commentContent = $('.comment-content').text(nextNode);
-						commentList.append(commentContent);
-					});
-					
-					$(response).find('reg_date').each(function(){
-						var nextNode = $(this).text();
-						var commentTime = $('.comment-time').text(nextNode);
-						commentList.append(commentTime);
-					});
-					*/
-				}
-				else	// 데이터가 없을 경우
-				{
-					alert("댓글이 존재하지 않습니다.");
-				}
+				clearTbody();
 			}
-		});
-	}
+		}
+	});
+}
+
+// 댓글테이블 초기화
+function clearTbody() {
+	var commentTableBody = $('#comment_table_body');
+	$('#comment').empty();
+	commentTableBody.empty();
+}

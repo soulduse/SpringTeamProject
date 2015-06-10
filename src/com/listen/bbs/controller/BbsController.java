@@ -2,6 +2,8 @@ package com.listen.bbs.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
@@ -12,14 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import com.listen.base.controller.BaseController;
 import com.listen.base.util.TotalDate;
 import com.listen.bbs.dao.BbsAddDao;
 import com.listen.bbs.dao.BbsDao;
 import com.listen.bbs.dto.BbsAddWriteDto;
+import com.listen.bbs.dto.BbsLikeSwitchDto;
 import com.listen.bbs.dto.BbsWriteDto;
+import com.listen.bbs.vo.BbsAddVo;
 
 @Controller
 public class BbsController extends BaseController{
@@ -38,15 +41,47 @@ public class BbsController extends BaseController{
 		this.bbsAddDao = bbsAddDao;
 	}
 
-	@RequestMapping("/bbsAdd.listen")
-	public String writeAddPage(BbsAddWriteDto bbsAddWriteDto, HttpServletRequest request)
+	// 글 공감 버튼처리 Ajax
+	@RequestMapping("/ajax/bbsLikeCount.listen")
+	public void likeCount(BbsLikeSwitchDto bbsLikeSwitchDto)
 	{
-		bbsAddDao.bbsAddWrite(bbsAddWriteDto);
+		bbsDao.likeCountUpdate(bbsLikeSwitchDto);
+	}
+	
+	// 댓글 Ajax 입력
+	@RequestMapping("/ajax/bbsAdd.listen")
+	public void writeAddPage(BbsAddWriteDto bbsAddWriteDto, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		if(bbsAddWriteDto.getContent() != "" && bbsAddWriteDto.getContent().length()>0)
+		{
+			bbsAddDao.bbsAddWrite(bbsAddWriteDto);
+		}
 		ArrayList bbsAddList = (ArrayList)bbsAddDao.bbsAddList(bbsAddWriteDto);
-		
-		MappingJacksonJsonView dataJson = new MappingJacksonJsonView();
-		// xml 만들기 
-		return frame;
+		response.setCharacterEncoding("utf-8");
+		if(bbsAddList.size()>0)
+		{
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html;charset=UTF-8");
+			out.print("<root>");
+			for(int i=0; i<bbsAddList.size(); i++)
+			{
+				BbsAddVo bbsAddVo = (BbsAddVo) bbsAddList.get(i);
+				String content = URLDecoder.decode(bbsAddVo.getContent(), "UTF-8");	// 한글처리부분
+				String reg_date = bbsAddVo.getReg_date();
+				int goodCount = bbsAddVo.getGoodCount();
+				out.println("<items>");
+				out.println("<content>"+content+"</content>");
+				out.println("<reg_date>"+reg_date+"</reg_date>");
+				out.println("<goodcount>"+goodCount+"</goodcount>");
+				out.println("</items>");
+			}
+			out.println("</root>");
+			out.close();
+		}
+		else
+		{
+			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+		}
 	}
 
 	@RequestMapping("/writeSave.listen")
@@ -54,14 +89,6 @@ public class BbsController extends BaseController{
 		
 		// 글쓰기 부분 
 		try{
-			// 글쓸때 SEQ 값 증분
-			/*
-			BbsWriteDto getBbsSeq  = bbsDao.getBbsNextSeq();
-			String seq = getBbsSeq.getNext_bbs_seq();
-			bbsWriteDto.setNext_bbs_seq(seq);
-			System.out.println("게시판 BBS_SEQ 값 : "+seq);
-			*/
-			
 			bbsDao.bbsWrite(bbsWriteDto);
 			message="작성완료";
 			request.setAttribute("message", message);
@@ -122,4 +149,5 @@ public class BbsController extends BaseController{
 
 		return frame;
 	}
+	
 }

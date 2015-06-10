@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.listen.bbs.dto.BbsLikeSwitchDto;
 import com.listen.bbs.dto.BbsWriteDto;
-import com.listen.bbs.vo.BbsFileVo;
 
 @Repository
 public class BbsDao {
@@ -52,6 +52,12 @@ public class BbsDao {
 	public BbsWriteDto getBbsNextSeq()
 	{
 		return (BbsWriteDto)smct.queryForObject("getNextSeq");
+	}
+	
+	// 글 공감버튼 이벤트 처리 Ajax
+	public void likeCountUpdate(BbsLikeSwitchDto bbsLikeSwitchDto)
+	{
+		smct.update("likeCountUpdate", bbsLikeSwitchDto);
 	}
 
 }

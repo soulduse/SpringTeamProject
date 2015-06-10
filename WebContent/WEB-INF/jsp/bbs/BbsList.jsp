@@ -3,7 +3,7 @@
 <%@ page import="com.listen.bbs.vo.*"%>
 
 <link rel="stylesheet" type="text/css" href="css/style.css">
-<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/ajax-bbsview.js"></script>
 <script type="text/javascript" src="js/ajax-comment.js"></script>
 <SCRIPT>
 	$(function() {
@@ -11,10 +11,14 @@
 			var d = $(this).attr("src");
 			var c = $(this).attr("contents");
 			var bbs_seq = $(this).attr("name");
+			var bbs_likeCount = $(this).attr("like-count");
+			
+			$('.like-label').text(bbs_likeCount);	// 공감 버튼 데이터 DB값 가져오기
 			$("#modalImg").attr("src", d);
 			$("#bbs_seq").attr("value", bbs_seq);
 			var modalContent = document.getElementById("modalContent");
 			modalContent.innerHTML = c;
+			ajaxBbsAdd();
 		});
 
 		var addForm = $('#addForm');
@@ -37,6 +41,7 @@
 			int bbs_seq = (int) bbsVo.getBbs_seq();
 			String bbs_contents = (String) bbsVo.getBbs_contents();
 			int bbs_hitCount = (int) bbsVo.getBbs_hitCount();
+			int bbs_goodCount = (int) bbsVo.getGoodCount();
 			String reg_email = (String) bbsVo.getReg_email();
 			String path = (String) bbsVo.getPath();
 			String save_name = (String) bbsVo.getSave_name();
@@ -45,7 +50,8 @@
 	<img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal"
 		data-target="#myModal" style="cursor: pointer"
 		src="<%=path%>/<%=save_name%>" width=300
-		data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>" />
+		data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"
+		like-count="<%=bbs_goodCount%>" />
 
 	<div class="text2">
 		<table>
@@ -79,7 +85,7 @@
 						</div>
 						<span class="ng-binding">좋아요</span>
 					</div>
-					<div class="like-label">131</div>
+					<div class="like-label">0</div>
 				</div>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
@@ -94,29 +100,30 @@
 					</H3>
 				</div>
 			</div>
-			
-			<!-- 댓글이 보일 부분 -->
-			<DIV class="comment-list">
-				<DIV class="comment-picture"></DIV>
-				<DIV class="comment-content"></DIV>
-				<DIV class="comment-time"></DIV>
-			</DIV>
-			
+
+
 			<div class="modal-footer">
-			<!-- 댓글 쓰기 부분 -->
-			<FORM name="addForm" id="addForm" method="post" action="/bbsAdd.listen">
-				<div class="comment-textarea">
-					<textarea name="content" id="comment"
-						class="ng-pristine ng-valid ng-touched"
-						placeholder="어떻게 생각하세요?"
-						style="overflow: hidden; word-wrap: break-word; height: 50px;"></textarea>
-				</div>
-				<INPUT type="hidden" name="bbs_seq" id="bbs_seq" value=""> <INPUT
-					type="hidden" name="reg_ip" id="reg_ip" value="<%=userIp%>">
-				<INPUT type="hidden" name="reg_email" id="reg_email"
-					value="<%=email%>">
-			</FORM>
-			<BR>
+				<!-- 댓글이 보일 부분 -->
+				<DIV id="comment-list">
+					<TABLE id="comment_table" bgcolor="#FFFAFA" border="2"
+						cellspacing="0" cellpadding="0">
+						<TBODY id="comment_table_body"></TBODY>
+					</TABLE>
+				</DIV>
+				<!-- 댓글 쓰기 부분 -->
+				<FORM name="addForm" id="addForm" method="post"
+					action="/bbsAdd.listen">
+					<div class="comment-textarea">
+						<textarea name="content" id="comment"
+							class="ng-pristine ng-valid ng-touched" placeholder="어떻게 생각하세요?"
+							style="overflow: hidden; word-wrap: break-word; height: 50px;"></textarea>
+					</div>
+					<INPUT type="hidden" name="bbs_seq" id="bbs_seq" value="">
+					<INPUT type="hidden" name="reg_ip" id="reg_ip" value="<%=userIp%>">
+					<INPUT type="hidden" name="reg_email" id="reg_email"
+						value="<%=email%>">
+				</FORM>
+				<BR>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="button" class="btn btn-primary" id="addWriteBtn">게시</button>
 			</div>

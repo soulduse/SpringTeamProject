@@ -7,6 +7,24 @@ public class BbsAddWriteDto {
 	private String content;
 	private String reg_email;
 	private String reg_ip;
+	private String reg_date;
+	private int goodCount;
+
+	public int getGoodCount() {
+		return goodCount;
+	}
+
+	public void setGoodCount(int goodCount) {
+		this.goodCount = goodCount;
+	}
+
+	public String getReg_date() {
+		return reg_date;
+	}
+
+	public void setReg_date(String reg_date) {
+		this.reg_date = reg_date;
+	}
 
 	public String getBbs_add_seq() {
 		return bbs_add_seq;
