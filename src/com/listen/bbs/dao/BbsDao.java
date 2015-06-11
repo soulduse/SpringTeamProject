@@ -34,11 +34,11 @@ public class BbsDao {
 		return (ArrayList) smct.queryForList("bbsViewList");
 	}
 	
-	public ArrayList bbsDetailView()
+	public ArrayList bbsDetailView(BbsVo bbsVo)
 	{
-		return (ArrayList) smct.queryForList("bbsDetailView");
+		return (ArrayList) smct.queryForList("bbsDetailView",bbsVo);
 	}
-		
+	
 	// 파일 업로드
 	public void updateRes_pic(BbsWriteDto bbsWriteDto)
 	{

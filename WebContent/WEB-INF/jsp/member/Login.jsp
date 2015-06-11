@@ -1,14 +1,12 @@
 <%@ page contentType="text/html;charset=euc-kr"%>
 <%@ page language="java"%>
-<%
-	System.out.println("여기가 로그인");
-%>
-<!DOCTYPE html>
+
 <HTML>
 <HEAD>
 <TITLE>Login</TITLE>
+
 <%
-	if (request.getParameter("error") != null) {
+	if (session.getAttribute("Error") == "N") {
 %>
 <SCRIPT>
 	window.alert("잘못된 정보입니다.");
@@ -16,7 +14,6 @@
 <%
 	}
 %>
-
 <SCRIPT type="text/javascript" src="http://maps.google.com/maps/api/js-sensor=true"></SCRIPT>
 <SCRIPT type="text/javascript" src="js/geolocation.js" charset="euc-kr"></SCRIPT>
 <SCRIPT language="JavaScript">
@@ -33,23 +30,11 @@
 			alert("유효한 이메일 형식이 아닙니다");
 			return false;
 		}
-		/*   if(f.id.value.length < 4 || f.id.value.length > 20)
-		   {
-		      window.alert("ID는 4자 이상 20자 이하 입니다.");
-		      f.id.select();
-		      return false;
-		   }*/
-
-		//if(!write.Pattern.matches("^[_0-9a-zA-Z-]+@[0-9a-zA-Z-]+(.[_0-9a-zA-Z-]+)*$", write))
-		//{
-		//   window.alert("Email 형식을 입력해주세요");
-		//   write.select();
-		//   return false;
-		//}
-
 		f.submit();
 	}
-
+	function join() {
+		location.href = "/join.listen";
+	}
 	function logoutAction() {
 		window.alert("로그아웃 되었습니다");
 		location.href = "/Logout.listen";
@@ -87,11 +72,15 @@
 					<TD>User ID(E-mail) :</td>
 					<td><input type="text" name="id"></TD>
 				</TR>
-
+				<TR>
+					<TD>Password :</TD>
+					<td><input type="password" name="pass"></td>
+				</TR>
 				<TR>
 					<TD colspan="2" align="center"><INPUT type="button"
-						value="Submit" onclick="loginAction();"> <INPUT
-						type="reset" value="Reset"></TD>
+						value="Login" onclick="loginAction();"> <INPUT
+						type="reset" value="Reset"> <INPUT type="button"
+						value="회원가입" onclick="join();"></TD>
 				</TR>
 			</FORM>
 		</TABLE>

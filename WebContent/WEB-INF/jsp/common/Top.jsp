@@ -1,6 +1,4 @@
 <%@ page contentType="text/html; charset=euc-kr"%>
-
-
 <SCRIPT>
 </SCRIPT>
 
@@ -14,7 +12,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+      <a class="navbar-brand" href="/main.listen"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -37,6 +35,16 @@
         </div>
         <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
       </form>
+ <%
+ System.out.println("Top.jsp진입");
+ 	if(session.getAttribute("LoginYn") == "Y")
+ 	{
+ 		%>
+ 		<a href="/memberInfo.listen">
+ 		<font color="white" size="3"><%=session.getAttribute("id") %>님</font> </a>
+ 	<%
+ 	}
+ %>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/view.listen"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></a></li>
         <li><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true"></a></li>
@@ -45,7 +53,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-          	<P><H3 align="center">Listen</H3></P><BR>
+          	<P><H3 align="center"><font color="#4C4C4C">Listen</font></H3></P><BR>
             <li><a href="#"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"> 공지사항</a></li>
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"> 내 클로버 확인</a></li>
@@ -59,6 +67,16 @@
             <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"> 설정</a></li>
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-send" aria-hidden="true"> 의견 보내기</a></li>
+            <li class="divider"></li>
+            <% 	
+            	if (session.getAttribute("LoginYn") != null && ((String) session.getAttribute("LoginYn")).length() > 0
+					&& ((String) session.getAttribute("LoginYn")).equals("Y"))
+					{ 
+			%>
+            			<li><a href="#"><span class="glyphicon glyphicon-send" aria-hidden="true"> 로그아웃</a></li>
+            <% 	
+            		} 
+            %>
             <li class="divider"></li>
           </ul>
         </li>

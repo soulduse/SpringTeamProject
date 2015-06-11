@@ -4,7 +4,7 @@ public class MemberVo {
 	
 	private String members_seq;
 	private String gender;
-	private String birthYear;
+	private String birthyear;
 	private String email;
 	private String badCount;
 	private String goodCount;
@@ -21,8 +21,26 @@ public class MemberVo {
 	private String chat_yn;
 	private String useClover;
 	private String noti_count;
+	private String realId;
+	private String password;
 	
 	// setter , getter
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getRealId() {
+		return realId;
+	}
+	public void setRealId(String realId) {
+		this.realId = realId;
+	}
+	public void setBirthyear(String birthyear) {
+		this.birthyear = birthyear;
+	}
+	
 	public String getMembers_seq() {
 		return members_seq;
 	}
@@ -35,12 +53,10 @@ public class MemberVo {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getBirthYear() {
-		return birthYear;
+	public String getBirthyear() {
+		return birthyear;
 	}
-	public void setBirthYear(String birthYear) {
-		this.birthYear = birthYear;
-	}
+	
 	public String getEmail() {
 		return email;
 	}

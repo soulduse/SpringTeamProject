@@ -4,7 +4,6 @@
 	<typeAlias alias="bbsAddWriteDto" type="com.listen.bbs.dto.BbsAddWriteDto" />
 	<typeAlias alias="bbsAddVo" type="com.listen.bbs.vo.BbsAddVo" />
 
-
 	<!-- 댓글 등록 -->
 	<insert id="bbsAddWrite" parameterClass="bbsAddWriteDto">
 		INSERT INTO BBS_ADD 
@@ -18,5 +17,4 @@
 		SELECT CONTENT, TO_CHAR(REG_DATE, 'YYYY-MM-DD AM HH:MI:SS') REG_DATE, GOODCOUNT
 		FROM BBS_ADD WHERE BBS_SEQ=#bbs_seq#
 	</select>
-	
 </sqlMap>

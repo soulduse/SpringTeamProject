@@ -24,6 +24,7 @@ import com.listen.bbs.dto.BbsAddWriteDto;
 import com.listen.bbs.dto.BbsLikeSwitchDto;
 import com.listen.bbs.dto.BbsWriteDto;
 import com.listen.bbs.vo.BbsAddVo;
+import com.listen.bbs.vo.BbsVo;
 
 @Controller
 public class BbsController extends BaseController{
@@ -166,4 +167,24 @@ public class BbsController extends BaseController{
 		return frame;
 	}
 	
+	@RequestMapping("/bbsPopList.listen")
+	public String bbsPopListPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
+		
+		String selectItem="bbs_hitCount";
+		
+		if((String)request.getParameter("selectItem")!="")
+		{
+			selectItem = (String)request.getParameter("selectItem");
+			System.out.println("여기");
+		}
+		
+		bbsVo.setSelectItem(selectItem);
+		ArrayList bbsPopList = bbsDao.bbsDetailView(bbsVo);
+		System.out.println("asdf");
+		request.setAttribute("page", "popList");
+		request.setAttribute("bbsPopList",  bbsPopList);
+		request.setAttribute("mainUrl", prefix + "bbs/BbsPopList.jsp");
+		return frame;
+		
+	}
 }

@@ -27,7 +27,6 @@
 		});
 	});
 </SCRIPT>
-
 <%
 	if (session.getAttribute("email") != null
 			&& session.getAttribute("LoginYn") != null
