@@ -52,7 +52,7 @@ public class LoginAction extends BaseController {
 			String email = (String)mv.getEmail();
 			password = (String)mv.getPassword();
 		}
-
+		
 		memberVo = new MemberVo();
 		if(EmailList.size()!=0 && pass.equals(password))
 		{
@@ -61,7 +61,7 @@ public class LoginAction extends BaseController {
 			session.setAttribute("pass", memberVo.getPassword()); 
 			session.setAttribute("id", id);
 			session.setAttribute("LoginYn", "Y");
-			return frame;
+			return "redirect:/main.listen";
 		}
 		else{
 			session.setAttribute("Error", "N");

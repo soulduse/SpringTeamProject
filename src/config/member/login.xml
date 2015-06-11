@@ -4,12 +4,7 @@
    <typeAlias alias="MemberVo" type="com.listen.member.vo.MemberVo" />
 
    <select id="getEmailList" resultClass="MemberVo" parameterClass="java.lang.String">
-      SELECT EMAIL, PASSWORD FROM MEMBERS WHERE EMAIL = #id#  
+      SELECT EMAIL, PASSWORD, MEMBERS_SEQ FROM MEMBERS WHERE EMAIL = #id#  
    </select>
-   
-	<select id="getPassList" resultClass="MemberVo" parameterClass="java.lang.String">
-      SELECT EMAIL FROM MEMBERS WHERE PASSWORD = #pass# 
-   </select>
-   
-	
+   	
 </sqlMap>

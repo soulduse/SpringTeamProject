@@ -34,10 +34,9 @@ public class MainController extends BaseController {
 
 		System.out.println("mainPage 들어옴");
 			
-		ArrayList itemList  = itemDao.getItemList();
-		
-		//request.setAttribute("itemList", itemList); 
+		ArrayList bbsList = bbsDao.bbsViewList();
 		request.setAttribute("page", "main");
+		request.setAttribute("bbsList",  bbsList);
 		//request.setAttribute("mainUrl", prefix + "~~~.jsp");
 
 		return frame;

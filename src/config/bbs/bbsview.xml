@@ -10,6 +10,22 @@
 		ORDER BY A.BBS_SEQ DESC
 	</select>
 	
+	<select id="bbsDetailView" resultClass="bbsView" parameterClass="bbsView">
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME 
+		FROM BBS A, BACKGROUND_IMG B
+		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+		<dynamic>
+		<isEqual property="selectItem" compareValue="bbs_seq">
+				ORDER BY a.bbs_seq DESC
+		</isEqual>
+		</dynamic>
+		<dynamic>
+		<isEqual property="selectItem" compareValue="bbs_hitCount">
+				ORDER BY a.bbs_hitcount DESC
+		</isEqual>
+		</dynamic>
+		
+	</select>
 	
 
 </sqlMap>

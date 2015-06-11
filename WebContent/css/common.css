@@ -45,3 +45,17 @@ h3 {
 font-family: Verdana;
 color: white;
 }
+.comment-textarea textarea {
+  padding: 14px 20px;
+  margin: 0;
+  margin-top: 50;
+  resize: none;
+  width: 90%;
+  height: 20px;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333;
+  border: solid 1px #ebebeb;
+  border-radius: 4px;
+}

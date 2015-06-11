@@ -6,7 +6,7 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.listen.bbs.dto.BbsWriteDto;
-import com.listen.bbs.vo.BbsFileVo;
+import com.listen.bbs.vo.BbsVo;
 
 @Repository
 public class BbsDao {
@@ -37,11 +37,11 @@ public class BbsDao {
 		return (ArrayList) smct.queryForList("bbsViewList");
 	}
 	
-	public ArrayList bbsDetailView()
+	public ArrayList bbsDetailView(BbsVo bbsVo)
 	{
-		return (ArrayList) smct.queryForList("bbsDetailView");
+		return (ArrayList) smct.queryForList("bbsDetailView",bbsVo);
 	}
-		
+	
 	// 파일 업로드
 	public void updateRes_pic(BbsWriteDto bbsWriteDto)
 	{

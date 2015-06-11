@@ -6,6 +6,7 @@
 	<sqlMap resource="config/main/item.xml"/>
 	<sqlMap resource="config/bbs/bbsitem.xml"/>
 	<sqlMap resource="config/bbs/bbsview.xml"/>
+	<sqlMap resource="config/bbs/bbsAddItem.xml"/>
 	<sqlMap resource="config/member/login.xml"/>
 	<sqlMap resource="config/member/join.xml"/>
 	<sqlMap resource="config/member/update.xml"/>

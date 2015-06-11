@@ -6,17 +6,20 @@ import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.listen.base.controller.BaseController;
 import com.listen.base.util.TotalDate;
+import com.listen.bbs.dao.BbsAddDao;
 import com.listen.bbs.dao.BbsDao;
+import com.listen.bbs.dto.BbsAddWriteDto;
 import com.listen.bbs.dto.BbsWriteDto;
+import com.listen.bbs.vo.BbsVo;
 
 @Controller
 public class BbsController extends BaseController{
@@ -25,10 +28,24 @@ public class BbsController extends BaseController{
 	private ServletContext servletContext;
 	
 	private BbsDao bbsDao;
+	private BbsAddDao bbsAddDao;
+	
 	
 	public void setBbsDao(BbsDao bbsDao) {
 		this.bbsDao = bbsDao;
 	}
+	
+	public void setBbsAddDao(BbsAddDao bbsAddDao) {
+		this.bbsAddDao = bbsAddDao;
+	}
+
+	@RequestMapping("/bbsAdd.listen")
+	public String writeAddPage(BbsAddWriteDto bbsAddWriteDto, HttpServletRequest request)
+	{
+		bbsAddDao.bbsAddWrite(bbsAddWriteDto);
+		return frame;
+	}
+	
 
 	@RequestMapping("/writeSave.listen")
 	public String writePage(BbsWriteDto bbsWriteDto, HttpServletRequest request) {
@@ -103,4 +120,27 @@ public class BbsController extends BaseController{
 
 		return frame;
 	}
+	
+	@RequestMapping("/bbsPopList.listen")
+	public String bbsPopListPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
+		
+		
+		String selectItem="bbs_hitCount";
+		
+		if((String)request.getParameter("selectItem")!="")
+		{
+			selectItem = (String)request.getParameter("selectItem");
+			System.out.println("여기");
+		}
+		
+		bbsVo.setSelectItem(selectItem);
+		ArrayList bbsPopList = bbsDao.bbsDetailView(bbsVo);
+		System.out.println("asdf");
+		request.setAttribute("page", "popList");
+		request.setAttribute("bbsPopList",  bbsPopList);
+		request.setAttribute("mainUrl", prefix + "bbs/BbsPopList.jsp");
+		return frame;
+		
+	}
+	
 }

@@ -10,6 +10,11 @@
 			SELECT BBS_SEQ.CURRVAL BBS_SEQ FROM DUAL
 		</selectKey>
 	</insert>
+	<!-- 
+		insert 태그 안에 selectKey를 사용할 수 있다.
+		역할은 SELECT한 결과를 insert시 parameterClass로 전달 할수 있음.
+	 -->
+	
 	<!-- 파일등록 -->
 	<insert id="bbsFileUpload" parameterClass="bbsWriteDto">
 		INSERT INTO BBS_FILE
