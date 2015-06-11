@@ -1,30 +1,36 @@
-<%@ page contentType="text/html; charset=euc-kr" %>
+<%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.listen.bbs.vo.*" %>
+
 <SCRIPT>
-$(function(){
-   $('.img').click(function(){
-      var d = $(this).attr("src");
-      var c = $(this).attr("contents");
-      var bbs_seq = $(this).attr("name");
-      $("#modalImg").attr("src", d);
-      $("#bbs_seq").attr("value", bbs_seq);
-      var modalContent = document.getElementById("modalContent");
-      modalContent.innerHTML = c;
-   });
-   
-   var addForm = $('#addForm');
-   $('#addWriteBtn').click(function()
-	{
-	   addForm.submit();
-	});
-   
-   $('.chkbox').click(function(){
-       alert($(this).attr("value"));
-       $('#checkBoxForm').submit();
-    })
+$(function(){      
+      $('.img').click(function(){
+         var d = $(this).attr("src");
+         var c = $(this).attr("contents");
+         $("#modalImg").attr("src", d);
+         var modalContent = document.getElementById("modalContent");
+         modalContent.innerHTML = c;
+
+      }); //Í∏Ä ÏÉÅÏÑ∏Î≥¥Í∏∞ Ï∞Ω
+
+      $('.groupRadio').click(function(){
+         alert($(this).attr("value"));
+         $('#"radioForm"').submit();
+      })
+      
+      $(window).scroll(function(){
+         var scrollHeight = $(window).scrollTop()+$(window).height();
+         var documentHeight = $(document).height();
+         if(scrollHeight = documentHeight){
+            for(var i=0; i<10; i++)
+               $("<H1>Î¨¥ÌïúÏä§ÌÅ¨Î°§</H1>").appendTo("body");
+         }
+      })
 });
+
+
 </SCRIPT>
+
 <!doctype html>
 <html lang="ko">
   <head>
@@ -48,40 +54,24 @@ $(function(){
            background-color:gray;
       }
        
-       .chkbox{
+       .groupRadio{
              width:13px;
              height:13px;
              vertical-align:text-top
       }
       
-      label{
-            vertical-align:-3px
-      }
-      
    </style>
 </head>
-<% 
-	if(session.getAttribute("email")!=null 
-		&& session.getAttribute("LoginYn") != null 
-		&&((String)session.getAttribute("LoginYn")).equals("Y"))
-		{
-		String email = (String)session.getAttribute("email");
-		String userIp = request.getRemoteAddr();
-		String selectItem = (String)session.getAttribute("selectItem");
-
-%>
 <body>
-	<FORM name="checkBoxForm"  method="post" id="checkBoxForm" action="/bbsPopList.listen">
-   <div class="check" style="margin-left:700px;">
-   <input class="chkbox" name="box" type="checkbox" style="width:17px;height:17px;" value="bbs_add" <%if(selectItem.equals("bbs_add")){%> checked<%}%>>&nbsp;<label for="">¥Ò±€</label>&nbsp;&nbsp;&nbsp;
-   <input class="chkbox" name="box" type="checkbox" style="width:17px;height:17px;" value="∞¯∞®" <%if(selectItem.equals("bbs_like")){%> checked<%}%>>&nbsp;<label for="">∞¯∞®</label>&nbsp;&nbsp;&nbsp;
-   <input class="chkbox" name="box" type="checkbox" style="width:17px;height:17px;" value="¿–¿∫±€" <%if(selectItem.equals("bbs_hitCount")){%> checked<%}%>>&nbsp;<label for="">¡∂»∏ºˆ</label>
+<FORM name="radioForm"  method="post" id=""radioForm"" action="/bbsPopList.listen">
+   <div class="radio" style="margin-left:700px;">
+   <input class="groupRadio"  name="selectItem" type="radio" style="width:17px;height:17px;" value="ÎåìÍ∏Ä" onclick="reply()" checked>ÎåìÍ∏Ä&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <input class="groupRadio" name="selectItem" type="radio" style="width:17px;height:17px;" value="Í≥µÍ∞ê" onclick="agree()">Í≥µÍ∞ê&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <input class="groupRadio" name="selectItem" type="radio" style="width:17px;height:17px;" value="ÏùΩÏùÄÍ∏Ä" onclick="read()">ÏùΩÏùÄÍ∏Ä
    </div>
    </FORM>
-   <div class="jb-content" style="margin-left: 15px;">    
-
-<%
-
+   <div class="jb-content" style="margin-left: 15px;">                
+   <% 
       int i =0;
       ArrayList bbsPopList = (ArrayList)request.getAttribute("bbsPopList");
        for(i=0; i<10; i++)
@@ -205,7 +195,6 @@ $(function(){
              </div>
       </div>
          <%
-         }
       }
      }
       
@@ -226,7 +215,7 @@ $(function(){
       </div>
       <div class="comment-textarea">
          
-         <textarea ng-attr-placeholder="{{ comments.length > 0 ? 'æÓ∂ª∞‘ ª˝∞¢«œººø‰?' : &quot;\ucc98\uc74c\uc73c\ub85c \ub313\uae00\uc744 \ub2ec\uc544\ubcf4\uc138\uc694.&quot; }}" ng-focus="showCommentButton()" ng-keypress="addCommentOnEnter($event)" ng-model="newComment.content" vi-autosize="{ append: false }" class="ng-pristine ng-valid ng-touched" placeholder="æÓ∂ª∞‘ ª˝∞¢«œººø‰?" style="overflow: hidden; word-wrap: break-word; height: 50px;"></textarea>
+         <textarea ng-attr-placeholder="{{ comments.length > 0 ? 'Ïñ¥ÎñªÍ≤å ÏÉùÍ∞ÅÌïòÏÑ∏Ïöî?' : &quot;\ucc98\uc74c\uc73c\ub85c \ub313\uae00\uc744 \ub2ec\uc544\ubcf4\uc138\uc694.&quot; }}" ng-focus="showCommentButton()" ng-keypress="addCommentOnEnter($event)" ng-model="newComment.content" vi-autosize="{ append: false }" class="ng-pristine ng-valid ng-touched" placeholder="Ïñ¥ÎñªÍ≤å ÏÉùÍ∞ÅÌïòÏÑ∏Ïöî?" style="overflow: hidden; word-wrap: break-word; height: 50px;"></textarea>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -1,5 +1,12 @@
 <%@ page contentType="text/html; charset=euc-kr"%>
 <SCRIPT>
+   // 선택한 메뉴의 페이지 이름으로 바꿔주는 Script
+   $(function(){
+      $(".dropdown-menu li a").click(function(){
+           $(this).parents(".dropdown").find('.selection').text($(this).text());
+           $(this).parents(".dropdown").find('.selection').val($(this).text());
+         });
+   });
 </SCRIPT>
 
 <nav class="navbar navbar-inverse">
@@ -19,13 +26,13 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">pageChange <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="selection">LISTEN ALL</span><span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">LISTEN ALL</a></li>
+            <li><a href="/main.listen">LISTEN ALL</a></li>
             <li class="divider"></li>
-            <li><a href="#">MY STORY</a></li>
+            <li><a href="#">MY STORY&nbsp</a></li>
             <li class="divider"></li>
-            <li><a href="#">LISTEN</a></li>
+            <li><a href="#">LISTEN&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a></li>
           </ul>
         </li>
       </ul>
@@ -37,13 +44,13 @@
       </form>
  <%
  System.out.println("Top.jsp진입");
- 	if(session.getAttribute("LoginYn") == "Y")
- 	{
- 		%>
- 		<a href="/memberInfo.listen">
- 		<font color="white" size="3"><%=session.getAttribute("id") %>님</font> </a>
- 	<%
- 	}
+    if(session.getAttribute("LoginYn") == "Y")
+    {
+       %>
+       <a href="/memberInfo.listen">
+       <font color="white" size="3"><%=session.getAttribute("id") %>님</font> </a>
+    <%
+    }
  %>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/view.listen"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></a></li>
@@ -53,14 +60,14 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-          	<P><H3 align="center"><font color="#4C4C4C">Listen</font></H3></P><BR>
+             <P><H3 align="center"><font color="#4C4C4C">Listen</font></H3></P><BR>
             <li><a href="#"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"> 공지사항</a></li>
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"> 내 클로버 확인</a></li>
             <li class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-stats" aria-hidden="true"> 인기 있는 이야기</a></li>
+            <li><a href="/bbsPopList.listen"><span class="glyphicon glyphicon-stats" aria-hidden="true"> 인기 있는 이야기</a></li>
             <li class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"> 관심 있는 이야기</a></li>
+            <li><a href="/bbsIntList.listen"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"> 관심 있는 이야기</a></li>
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"> 탐색환경 설정</a></li>
             <li class="divider"></li>
@@ -68,14 +75,14 @@
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-send" aria-hidden="true"> 의견 보내기</a></li>
             <li class="divider"></li>
-            <% 	
-            	if (session.getAttribute("LoginYn") != null && ((String) session.getAttribute("LoginYn")).length() > 0
-					&& ((String) session.getAttribute("LoginYn")).equals("Y"))
-					{ 
-			%>
-            			<li><a href="#"><span class="glyphicon glyphicon-send" aria-hidden="true"> 로그아웃</a></li>
-            <% 	
-            		} 
+            <%    
+               if (session.getAttribute("LoginYn") != null && ((String) session.getAttribute("LoginYn")).length() > 0
+               && ((String) session.getAttribute("LoginYn")).equals("Y"))
+               { 
+         %>
+                     <li><a href="/Logout.listen"><span class="glyphicon glyphicon-off" aria-hidden="true"> 로그아웃</a></li>
+            <%    
+                  } 
             %>
             <li class="divider"></li>
           </ul>

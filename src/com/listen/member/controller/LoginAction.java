@@ -61,6 +61,7 @@ public class LoginAction extends BaseController {
 			session.setAttribute("pass", memberVo.getPassword()); 
 			session.setAttribute("id", id);
 			session.setAttribute("LoginYn", "Y");
+			session.setAttribute("selectItem", "bbs_hitCount");
 			return "redirect:/main.listen";
 		}
 		else{
