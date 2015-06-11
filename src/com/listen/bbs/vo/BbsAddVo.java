@@ -1,13 +1,16 @@
-package com.listen.bbs.dto;
+package com.listen.bbs.vo;
 
-public class BbsAddWriteDto {
+import javax.xml.bind.annotation.XmlRootElement;
 
+public class BbsAddVo {
+	
 	private String bbs_add_seq;
 	private String bbs_seq;
 	private String content;
 	private String reg_email;
-	private String reg_ip;
 	private String reg_date;
+	private String reg_ip;
+	private int badCount;
 	private int goodCount;
 
 	public String getBbs_add_seq() {
@@ -42,6 +45,14 @@ public class BbsAddWriteDto {
 		this.reg_email = reg_email;
 	}
 
+	public String getReg_date() {
+		return reg_date;
+	}
+
+	public void setReg_date(String reg_date) {
+		this.reg_date = reg_date;
+	}
+
 	public String getReg_ip() {
 		return reg_ip;
 	}
@@ -50,12 +61,12 @@ public class BbsAddWriteDto {
 		this.reg_ip = reg_ip;
 	}
 
-	public String getReg_date() {
-		return reg_date;
+	public int getBadCount() {
+		return badCount;
 	}
 
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
+	public void setBadCount(int badCount) {
+		this.badCount = badCount;
 	}
 
 	public int getGoodCount() {
@@ -65,5 +76,5 @@ public class BbsAddWriteDto {
 	public void setGoodCount(int goodCount) {
 		this.goodCount = goodCount;
 	}
-
+	
 }

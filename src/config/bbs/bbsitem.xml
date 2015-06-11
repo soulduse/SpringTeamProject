@@ -23,9 +23,4 @@
 		(BBS_FILE_SEQ.NEXTVAL, #bbs_seq#, #path#, #org_name#, #save_name#, #file_size#)
 	</insert>
 	
-	
-	<!-- 게시판 SEQ값 가져오기 -->
-	<select id="getNextSeq" resultClass="bbsWriteDto" >
-		SELECT BBS_SEQ.NEXTVAL NEXT_BBS_SEQ FROM DUAL
-	</select>
 </sqlMap>

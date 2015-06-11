@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
@@ -12,32 +10,31 @@
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-	
-	
-	
+
+
+
 	<!--com.cookpon2 하위 모든 패키지에 있는 파일의 어노테이션을 스캔해서 빈으로 등록 -->
 	<context:component-scan base-package="com.listen" />
-	
+
 	<!-- annotation을 쓰겠다 -->
 	<mvc:annotation-driven></mvc:annotation-driven>
-	
-	
+
+
 	<!-- 컨트롤러 -->
-	<bean id="mainController" class="com.listen.main.controller.MainController" >
-		<property name="itemDao" ref="itemDao"/>
-		<property name="bbsDao" ref="bbsDao"/>
+	<bean id="mainController" class="com.listen.main.controller.MainController">
+		<property name="itemDao" ref="itemDao" />
+		<property name="bbsDao" ref="bbsDao" />
 	</bean>
 
 	<bean id="bbsController" class="com.listen.bbs.controller.BbsController">
-		<property name="bbsDao" ref="bbsDao"/>
-		<property name="bbsAddDao" ref="bbsAddDao"/>
+		<property name="bbsDao" ref="bbsDao" />
+		<property name="bbsAddDao" ref="bbsAddDao" />
+	</bean>
+	
+	<bean id="loginAction" class="com.listen.member.controller.LoginAction">
+		<property name="memberDao" ref="memberDao" />
 	</bean>
 
-   <bean id="loginAction" class="com.listen.member.controller.LoginAction" >
-      <property name="memberDao" ref="memberDao"/>
-   </bean>
-
-   
    <!-- 다오 -->
    <bean id="memberDao" class="com.listen.member.dao.MemberDao">
       <property name="smct" ref="sqlMapClientTemplate"/>
@@ -55,20 +52,17 @@
 		<property name="smct" ref="sqlMapClientTemplate"/>
 	</bean>
 
-	
+
 	<!-- FileUplaod 설정 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="2000000"/>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="2000000" />
 	</bean>
-	
-	<!-- 
-	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
-		<constructor-arg>
-			<value>C:\Users\programmerh\git\listen\WebContent</value>
-		</constructor-arg>
-	</bean>
-	 -->
-	 
+
+	<!-- <bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource"> 
+		<constructor-arg> <value>C:\Users\programmerh\git\listen\WebContent</value> 
+		</constructor-arg> </bean> -->
+
 	<!-- iBatis설정 -->
 	<context:property-placeholder location="classpath:config/db.properties" />
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -84,19 +78,18 @@
 	</bean>
 
 	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-		<property name="configLocation" value="classpath:config/sqlMapConfig.xml"/>
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:config/sqlMapConfig.xml" />
 	</bean>
 	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
-		<property name="sqlMapClient" ref="sqlMapClient"/>
+		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
-	
-	
 
 	<!-- 컨트롤러의 처리 결과를 보여줄 뷰를 선택하는 방식 -->
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-	
+
 </beans>

@@ -2,14 +2,36 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="Data">
 	<typeAlias alias="bbsView" type="com.listen.bbs.vo.BbsVo" />
+	<typeAlias alias="bbsLikeSwitchDto" type="com.listen.bbs.dto.BbsLikeSwitchDto" />
+	<typeAlias alias="bbsViewFilterDto" type="com.listen.bbs.dto.BbsViewFilterDto" />
+	<typeAlias alias="ynFilterVo" type="com.listen.bbs.vo.YnFilterVo" />
 
 	<select id="bbsViewList" resultClass="bbsView" >
-		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
 		FROM BBS A, BACKGROUND_IMG B
 		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
 		ORDER BY A.BBS_SEQ DESC
 	</select>
 	
+	<update id="likeCountUpdate" parameterClass="bbsLikeSwitchDto">
+		UPDATE BBS SET
+		GOODCOUNT = #likeValue#
+		WHERE BBS_SEQ = #bbs_seq#
+	</update>
 	
-
+	<!-- 글보기시 YN_FILTER INSERT Query -->
+	<insert id="BbsViewInsertFilter" parameterClass="bbsViewFilterDto">
+		INSERT INTO YN_FILTER 
+		(FILTER_SEQ, BBS_SEQ, MEMBERS_SEQ)
+		VALUES
+		(FILTER_SEQ.NEXTVAL, #bbs_seq#, (SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#))
+	</insert>
+	
+	<!-- 글보기 INSERT 전 Query -->
+  	<select id="BbsViewSelectFilter" resultClass="ynFilterVo" parameterClass="bbsViewFilterDto">
+		SELECT FILTER_SEQ
+		FROM YN_FILTER
+		WHERE BBS_SEQ=#bbs_seq# AND MEMBERS_SEQ=(SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#)
+	</select>
+	
 </sqlMap>

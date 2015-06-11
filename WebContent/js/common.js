@@ -1,4 +1,3 @@
-// 문자열 앞뒤 공백제거
 function trim(str)
 {
 	var count = str.length;
@@ -16,7 +15,6 @@ function trim(str)
 	return ((st > 0) || (len < count)) ? str.substring(st, len) : str ;
 }
 
-// 영문 또는 숫자 체크
 function isEngNum(orgNum)
 {
 	var oxEngNum = false;
@@ -35,7 +33,6 @@ function isEngNum(orgNum)
 	return oxEngNum;
 }
 
-// 이메일 포함 문자 체크
 function isEmailChar(orgChar)
 {
 	var oxEmailChar = false;
@@ -54,7 +51,6 @@ function isEmailChar(orgChar)
 	return oxEmailChar;
 }
 
-// 숫자 체크
 function isNum(orgNum)
 {
 	var oxNum = true;
