@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,21 @@ public class BbsController extends BaseController{
 	public void setBbsAddDao(BbsAddDao bbsAddDao) {
 		this.bbsAddDao = bbsAddDao;
 	}
-
+	
+	// 글 보기 
+	@RequestMapping("/view.listen")
+	public String viewPage(HttpServletRequest request, HttpSession session) {
+		System.out.println("viewPage 들어옴");
+		
+		
+		ArrayList bbsList = bbsDao.bbsViewList();
+		request.setAttribute("page", "view");
+		request.setAttribute("bbsList",  bbsList);
+		request.setAttribute("mainUrl", prefix + "bbs/BbsList.jsp");
+		
+		return frame;
+	}
+	
 	// 글 공감 버튼처리 Ajax
 	@RequestMapping("/ajax/bbsLikeCount.listen")
 	public void likeCount(BbsLikeSwitchDto bbsLikeSwitchDto)
@@ -85,6 +100,7 @@ public class BbsController extends BaseController{
 		}
 	}
 
+	// 글쓰기 및 그림파일 등록
 	@RequestMapping("/writeSave.listen")
 	public String writePage(BbsWriteDto bbsWriteDto, HttpServletRequest request) {
 		

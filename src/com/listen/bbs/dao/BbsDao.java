@@ -20,17 +20,13 @@ public class BbsDao {
 
 	public BbsDao() {
 	}
-
-	/*
-	public ArrayList getBbsFileList() {
-		return (ArrayList) smct.queryForList("getBbsFileList");
-	}
-	*/
 	
 	// 글쓰기
 	public void bbsWrite(BbsWriteDto bbsWriteDto){
 		smct.insert("bbsTextWrite",bbsWriteDto);
 	}
+	
+	// 글 볼때 Filter Insert
 	
 	// 글목록 보기
 	public ArrayList bbsViewList()
@@ -47,12 +43,6 @@ public class BbsDao {
 	public void updateRes_pic(BbsWriteDto bbsWriteDto)
 	{
 		smct.insert("bbsFileUpload", bbsWriteDto);
-	}
-	
-	// 게시판 seq 값 가져오기
-	public BbsWriteDto getBbsNextSeq()
-	{
-		return (BbsWriteDto)smct.queryForObject("getNextSeq");
 	}
 	
 	// 글 공감버튼 이벤트 처리 Ajax

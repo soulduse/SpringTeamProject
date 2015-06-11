@@ -53,16 +53,4 @@ public class MainController extends BaseController {
 		
 		return frame;
 	}
-	
-	@RequestMapping("/view.listen")
-	public String viewPage(HttpServletRequest request, HttpSession session) {
-		
-		System.out.println("viewPage 들어옴");
-		ArrayList bbsList = bbsDao.bbsViewList();
-		request.setAttribute("page", "view");
-		request.setAttribute("bbsList",  bbsList);
-		request.setAttribute("mainUrl", prefix + "bbs/BbsList.jsp");
-		
-		return frame;
-	}
 }
