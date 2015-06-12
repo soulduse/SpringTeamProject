@@ -38,8 +38,15 @@ public class MemberDao
 	}
 	public void memberUpdate(MemberVo memberVo)
 	{
+		System.out.println(memberVo.getEmail());
 		smct.update("memberUpdate", memberVo);
 	}
+	
+	public void locationUpdate(MemberVo memberVo)
+	{
+		smct.update("locationUpdate", memberVo);
+	}
+	
 	public ArrayList getCheckEmail(String id)
 	{
 		return (ArrayList) smct.queryForList("getCheckEmail", id);

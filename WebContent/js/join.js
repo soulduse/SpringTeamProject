@@ -1,6 +1,8 @@
 $(function(){
 	var joinForm = $("#joinForm");
 	var idCheckM = $("#idCheckMessage");
+	var latitude;
+	var longitude;
 	if(emailId !== "")
 	{
 		var emailId = $('#email_id').val();
@@ -47,10 +49,13 @@ $(function(){
 	      }); 
 	   }
 	$('#joinBtn').click(function(){
-		joinCheck();
+		joinCheck();		
+		
 	});
 	function joinCheck()
 	{
+		var lati = $('input:hidden[name=latitude]').val();
+		var longi = $('input:hidden[name=longitude]').val();
 		var f = $("#joinForm");
 		var emailId2 = $('input:text[name=email_id]').val();
 		var emailDomain2 = $('input:text[name=email_domain]').val();
@@ -58,7 +63,7 @@ $(function(){
 		var birthyear = $('[name=birthyear]').val();
 		var gender = $('input:radio[name=gender]:checked').val();
 		var password = $('input:password[name=password]').val();
-		
+	
 		//alert(emailId + emailDomain + realId + birthyear + gender);
 		if(gender==="01")
 		{

@@ -1,93 +1,52 @@
-<%@ page contentType="text/html;charset=euc-kr"%>
-<%@ page language="java"%>
+<!DOCTYPE html>
+<html class="no-js">
 
-<HTML>
-<HEAD>
-<TITLE>Login</TITLE>
+    <head>
+        <meta charset="utf-8">
+        <title>ÎßàÏùåÏù¥ Îî∞ÎúªÌï¥ÏßÄÎäî ÏùµÎ™ÖSNS - Listen</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-<%
-	if (session.getAttribute("Error") == "N") {
-%>
-<SCRIPT>
-	window.alert("¿ﬂ∏¯µ» ¡§∫∏¿‘¥œ¥Ÿ.");
-</SCRIPT>
-<%
-	}
-%>
-<SCRIPT type="text/javascript" src="http://maps.google.com/maps/api/js-sensor=true"></SCRIPT>
-<SCRIPT type="text/javascript" src="js/geolocation.js" charset="euc-kr"></SCRIPT>
-<SCRIPT language="JavaScript">
-	function loginAction() {
-		var f = document.form;
-		var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+        <!-- CSS -->
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/supersized.css">
+        <link rel="stylesheet" href="css/login.css">
 
-		if (f.id.value == "") {
-			window.alert("ID(email)∏¶ π›µÂΩ√ ¿‘∑¬«ÿæﬂ «’¥œ¥Ÿ.");
-			f.id.focus();
-			return false;
-		}
-		if (regex.test(f.id.value) === false) {
-			alert("¿Ø»ø«— ¿Ã∏ﬁ¿œ «¸Ωƒ¿Ã æ∆¥’¥œ¥Ÿ");
-			return false;
-		}
-		f.submit();
-	}
-	function join() {
-		location.href = "/join.listen";
-	}
-	function logoutAction() {
-		window.alert("∑Œ±◊æ∆øÙ µ«æ˙Ω¿¥œ¥Ÿ");
-		location.href = "/Logout.listen";
-	}
-</SCRIPT>
-</HEAD>
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 
-<BODY>
-	<CENTER>
-		<FONT size="4" color="blue"><B>∑Œ±◊¿Œ</B></FONT><BR>
-		<HR>
-		<%
-			System.out.println("login.jsp∑Œ±◊¿Œ");
-			if (session.getAttribute("LoginYn") != null
-					&& ((String) session.getAttribute("LoginYn")).length() > 0
-					&& ((String) session.getAttribute("LoginYn")).equals("Y")) {
-				String email = (String) session.getAttribute("email");
-		%>
-		<TABLE border=0>
-			<TR>
-				<TD>π›∞©Ω¿¥œ¥Ÿ. <%=email%> ¥‘! <BR> ¡¡¿∫«œ∑Á µ«ººø‰~~!
-				</TD>
-			</TR>
-			<TR>
-				<TD align="center"><INPUT type="button" value="Logout"
-					onclick="logoutAction();" style="cursor: hand"></TD>
-			</TR>
-		</TABLE>
-		<%
-			} else {
-		%>
-		<TABLE border=0>
-			<FORM name="form" action="loginAction.listen" method="post">
-				<TR>
-					<TD>User ID(E-mail) :</td>
-					<td><input type="text" name="id"></TD>
-				</TR>
-				<TR>
-					<TD>Password :</TD>
-					<td><input type="password" name="pass"></td>
-				</TR>
-				<TR>
-					<TD colspan="2" align="center"><INPUT type="button"
-						value="Login" onclick="loginAction();"> <INPUT
-						type="reset" value="Reset"> <INPUT type="button"
-						value="»∏ø¯∞°¿‘" onclick="join();"></TD>
-				</TR>
-			</FORM>
-		</TABLE>
-		<%
-			}
-		%>
-		<HR>
-	</CENTER>
-</BODY>
-</HTML>
+    </head>
+
+    <body>
+
+        <div class="page-container">
+            <h1>Login</h1>
+            <form action="loginAction.listen" method="post">
+                <INPUT type="hidden" name="latitude" value="#">
+         		<INPUT type="hidden" name="longitude"  value="#">
+                <input type="text" name="username" class="username" placeholder="Username">
+                <input type="password" name="password" class="password" placeholder="Password">
+                <button type="submit" class="basicBtn">Sign me in</button>
+                <button type="button"  class="basicBtn" onclick="location.href='/join.listen'"> Join </button>
+					<button type="button"  id="facebookBtn"> Facebook </button>      
+                <div class="error"><span>+</span></div>
+            </form>
+            
+        </div>
+
+        <!-- Javascript -->
+        <script src="js/geolocation.js"></script>
+        <script src="js/jquery-1.8.2.min.js"></script>
+        <script src="js/supersized.3.2.7.min.js"></script>
+        <script src="js/supersized-init.js"></script>
+        <script src="js/scripts.js"></script>
+
+
+    </body>
+
+</html>
+

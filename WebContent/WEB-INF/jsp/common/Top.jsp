@@ -41,7 +41,7 @@
  	{
  		%>
  		<a href="/memberInfo.listen">
- 		<font color="white" size="3"><%=session.getAttribute("id") %>´Ô</font> </a>
+ 		<font color="white" size="3"><%=session.getAttribute("email") %>´Ô</font> </a>
  	<%
  	}
  %>
@@ -73,7 +73,7 @@
 					&& ((String) session.getAttribute("LoginYn")).equals("Y"))
 					{ 
 			%>
-            			<li><a href="#"><span class="glyphicon glyphicon-send" aria-hidden="true"> ·Î±×¾Æ¿ô</a></li>
+            			<li><a href="Logout.listen"><span class="glyphicon glyphicon-send" aria-hidden="true"> ·Î±×¾Æ¿ô</a></li>
             <% 	
             		} 
             %>

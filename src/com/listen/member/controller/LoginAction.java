@@ -23,53 +23,52 @@ public class LoginAction extends BaseController {
 		this.memberDao = memberDao;
 	}
 
+	@RequestMapping("/Login.listen") //index.jsp 에서 들어오는 listen
+	public String testmainPage(HttpServletRequest request, HttpSession session) {
 
-	@RequestMapping("/Login.listen")
-	public String mainPage(HttpServletRequest request, HttpSession session) {
-
-		System.out.println("LoginPage 들어옴");
-			
-		//ArrayList memberList  = memberDao.loginAction();
-		
-		//request.setAttribute("memberList", memberList); 
-		request.setAttribute("page", "main");
-		request.setAttribute("mainUrl", prefix + "member/Login.jsp");
-
-		return frame;
+		return "member/Login";
 	}
 	
-	@RequestMapping("/loginAction.listen")
+	@RequestMapping("/loginAction.listen") // login.jsp에서 submit하면 들어오는 listen
 	public String login(HttpServletRequest request, HttpSession session) {
-		String id = (String)request.getParameter("id");
-		String pass = (String)request.getParameter("pass");
-		
+		String id = (String)request.getParameter("username");
+		String pass = (String)request.getParameter("password");
+		String latitude = (String)request.getParameter("latitude");
+		String longitude = (String)request.getParameter("longitude");
+		String email = "";
 		String password ="";
-
+		
 		ArrayList EmailList = memberDao.getEmailList(id);
 		if(EmailList.size() != 0)
 		{
 			MemberVo mv = (MemberVo)EmailList.get(0);
-			String email = (String)mv.getEmail();
+			email = (String)mv.getEmail();
 			password = (String)mv.getPassword();
 		}
-		
+
+
 		memberVo = new MemberVo();
 		if(EmailList.size()!=0 && pass.equals(password))
 		{
 			MemberVo memberVo = (MemberVo)EmailList.get(0);
 			session.setAttribute("email", memberVo.getEmail());
 			session.setAttribute("pass", memberVo.getPassword()); 
-			session.setAttribute("id", id);
+
 			session.setAttribute("LoginYn", "Y");
+			session.setAttribute("selectItem", "bbs_hitCount");
+			memberVo.setEmail(email);
+			memberVo.setLatitude(latitude);
+			memberVo.setLongitude(longitude);
+			memberDao.locationUpdate(memberVo);
 			return "redirect:/main.listen";
 		}
 		else{
 			session.setAttribute("Error", "N");
-			return "member/Login";
+			return "member/testLogin";
 		}
 	}
 	
-	@RequestMapping("/Logout.listen")
+	@RequestMapping("/Logout.listen") // 로그아웃 
 	public String logout(HttpServletRequest request, HttpSession session){
 		System.out.println("Logout!!!!!");
 		session = request.getSession(false);
@@ -83,7 +82,7 @@ public class LoginAction extends BaseController {
 		return "member/join";
 	}
 	
-	@RequestMapping("/joinResult.listen") //회원가입 결과 보냄
+	@RequestMapping("/joinResult.listen") //회원가입 결과 submit
 	public String joinResult(HttpServletRequest request, MemberVo memberVo)
 	{		
 		String email_id = (String)request.getParameter("email_id");
@@ -92,7 +91,9 @@ public class LoginAction extends BaseController {
 		String birthyear = (String)request.getParameter("birthyear");
 		String gender = (String)request.getParameter("gender");
 		String realId = email_id + "@" + email_kind;
-		
+		String latitude = (String)request.getParameter("latitude");
+		String longitude = (String)request.getParameter("longitude");
+
 		if(gender.equals("01"))
 		{
 			gender = "1";
@@ -101,15 +102,16 @@ public class LoginAction extends BaseController {
 		{
 			gender = "2";
 		}		
-	
+		memberVo.setLatitude(latitude);
+		memberVo.setLongitude(longitude);
 		memberVo.setRealId(realId);
 		memberVo.setPassword(password);
 		memberVo.setBirthyear(birthyear);
 		memberVo.setGender(gender);
 		memberDao.join(memberVo);
-		request.setAttribute("page", "main");
+	
 		request.setAttribute("mainUrl", prefix + "member/Login.jsp");
-		return frame;
+		return "redirect:/Login.listen";
 	}
 	
 	@RequestMapping("/emailCheck.listen") //id중복 확인
@@ -170,12 +172,12 @@ public class LoginAction extends BaseController {
 		
 		return "member/memberInfo";
 	}
-	@RequestMapping("/memberUpdate.listen") //회원정보보기
+	@RequestMapping("/memberUpdate.listen") //회원정보수정 페이지진입
 	public String memberUpdate(HttpServletRequest request, HttpSession session)
 	{
 		return "member/memberUpdate";
 	}
-	@RequestMapping("/update.listen") //회원정보 수정하기
+	@RequestMapping("/update.listen") //회원정보 수정하기 submit
 	public String update(HttpServletRequest request, HttpSession session)
 	{
 		String realId = (String)session.getAttribute("email");
@@ -202,4 +204,13 @@ public class LoginAction extends BaseController {
 		request.setAttribute("mainUrl", prefix + "member/Login.jsp");
 		return frame;
 	}
+	
+	////////////////////////////////////////////////////////////////////////////////////////pc끝
+	@RequestMapping("/mLogin.listen") //모바일 로그인
+	public String mLogin(HttpServletRequest request, HttpSession session)
+	{
+		
+		return "";
+	}
+	
 }

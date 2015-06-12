@@ -4,7 +4,6 @@
 <%@ page import="java.awt.Image" %>
 <%@ page import="javax.swing.ImageIcon" %>
 
-
 <script src="js/jquery.masonry.min.js"></script>
 <script src="js/jquery.infinitescroll.min.js"></script>
 
@@ -522,5 +521,6 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
 
 </div>                             
     </div>
+
   </body>
 </html>

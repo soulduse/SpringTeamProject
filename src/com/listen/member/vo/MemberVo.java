@@ -16,7 +16,14 @@ public class MemberVo {
 	private String reg_date;
 	private String reg_ip;
 	private String latitude;
-	private String longtitude;
+	private String longitude;
+	
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
 	private String admin_yn;
 	private String chat_yn;
 	private String useClover;
@@ -122,12 +129,6 @@ public class MemberVo {
 	}
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
-	}
-	public String getLongtitude() {
-		return longtitude;
-	}
-	public void setLongtitude(String longtitude) {
-		this.longtitude = longtitude;
 	}
 	public String getAdmin_yn() {
 		return admin_yn;

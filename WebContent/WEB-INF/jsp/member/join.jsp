@@ -3,6 +3,8 @@
 <SCRIPT type="text/JavaScript" src="/js/jquery-2.1.3.js"></SCRIPT>
 <SCRIPT type="text/JavaScript" src="/js/join.js"></SCRIPT>
 <SCRIPT type="text/JavaScript" src="/js/common.js"></SCRIPT>
+<SCRIPT type="text/Javascript" src="http://maps.google.com/maps/api/js-sensor=true"></SCRIPT>
+<SCRIPT type="text/JavaScript" src="/js/geolocation.js"></SCRIPT>
 <SCRIPT>
 
 function emailChoice()
@@ -18,6 +20,7 @@ function cancel()
 }
 
 </SCRIPT>
+
 <CENTER>
    <TABLE border="1" width="700" height="500">
    
@@ -37,7 +40,7 @@ function cancel()
 
    <TABLE cellspacing="1" cellpadding="5" bgcolor="#7682EB" width="700">
       <FORM name="joinForm" id="joinForm" action="joinResult.listen" method="post">
-         
+
        <DIV class="box">
          <TR>
             <TD width="100" bgcolor="#CFDDFA" align="center"><B>I D(이메일)</B></TD>
@@ -71,6 +74,8 @@ function cancel()
           <INPUT type="button" value="중복 검사"  id="idCheckBtn" name="idCheckBtn" style="cursor:pointer">
 
           <INPUT type="hidden" name="idCheckFilter" value="N">
+          <INPUT type="hidden" name="latitude" value="#">
+          <INPUT type="hidden" name="longitude"  value="#">
           
             <SPAN id="idCheckMessage"><br></SPAN>
          </TD>
