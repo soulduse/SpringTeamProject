@@ -15,12 +15,34 @@ public class BbsVo {
 	private String longtitude; // 경도
 	private int badCount; // 나빠요
 	private int goodCount; // 좋아요
-	private char dispYn; // 게시판 공개여부
-	private char chat_Yn; // 채팅 사요 여부
+	private String dispYn; // 게시판 공개여부
+	private String chat_Yn; // 채팅 사요 여부
 	private String path;
 	private String save_name;
 	// 채팅 사용여부
 	private String selectItem;
+	private int add_count;
+	private int count;
+	
+	
+	
+	
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public int getAdd_count() {
+		return add_count;
+	}
+
+	public void setAdd_count(int add_count) {
+		this.add_count = add_count;
+	}
 
 	public int getBbs_seq() {
 		return bbs_seq;
@@ -126,19 +148,19 @@ public class BbsVo {
 		this.goodCount = goodCount;
 	}
 
-	public char getDispYn() {
+	public String getDispYn() {
 		return dispYn;
 	}
 
-	public void setDispYn(char dispYn) {
+	public void setDispYn(String dispYn) {
 		this.dispYn = dispYn;
 	}
 
-	public char getChat_Yn() {
+	public String getChat_Yn() {
 		return chat_Yn;
 	}
 
-	public void setChat_Yn(char chat_Yn) {
+	public void setChat_Yn(String chat_Yn) {
 		this.chat_Yn = chat_Yn;
 	}
 

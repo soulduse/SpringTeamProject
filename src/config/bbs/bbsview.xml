@@ -14,16 +14,28 @@
    </select>
    
    <select id="bbsDetailView" resultClass="bbsView" parameterClass="bbsView">
-      SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT 
-      FROM BBS A, BACKGROUND_IMG B
-      WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+      
+      <dynamic>
+      <isEqual property="selectItem" compareValue="댓글">
+	      SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.REG_EMAIL, A.BBS_HITCOUNT, A.GOODCOUNT, A.MEMBERS_SEQ, B.ADD_COUNT, C.PATH, C.SAVE_NAME
+			FROM BBS A, (SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) B, BACKGROUND_IMG C
+			WHERE A.BBS_SEQ = B.BBS_SEQ AND A.DISPYN='Y'AND A.BG_IMG_SEQ = C.BG_IMG_SEQ
+			ORDER BY ADD_COUNT DESC 
+      </isEqual>
+      </dynamic>		
       <dynamic>
       <isEqual property="selectItem" compareValue="goodCount">
-            ORDER BY a.GOODCOUNT DESC
+      SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, c.add_count
+			FROM BBS A, BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) c
+			WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq = c.bbs_seq
+			ORDER BY a.GOODCOUNT DESC
       </isEqual>
       </dynamic>
       <dynamic>
       <isEqual property="selectItem" compareValue="bbs_hitCount">
+      		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, c.add_count 
+			FROM BBS A, BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) c
+			WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq = c.bbs_seq
             ORDER BY a.bbs_hitcount DESC
       </isEqual>
       </dynamic>

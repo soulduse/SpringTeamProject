@@ -172,7 +172,7 @@ public class BbsController extends BaseController{
       
       String selectItem="bbs_hitCount";
       
-      if((String)request.getParameter("selectItem")!="")
+      if((String)request.getParameter("selectItem")!=null)
       {
          selectItem = (String)request.getParameter("selectItem");
          System.out.println("여기");
@@ -192,18 +192,20 @@ public class BbsController extends BaseController{
       public String interestPage(BbsVo bbsVo,HttpServletRequest request, HttpSession session) {
          
          System.out.println("관심 들어옴");
-         String selectItem="bbs_hitCount";
          
-         if((String)request.getParameter("selectItem")!="")
+         String selectItem=(String)session.getAttribute("selectItem");
+         System.out.println("세션값 " +selectItem);
+         if((String)request.getParameter("selectItem")!=null)
          {
             selectItem = (String)request.getParameter("selectItem");
-            System.out.println("ㅇㅇㅇㅇ"+selectItem);
+            System.out.println((String)request.getParameter("selectItem"));
          }
          
-      bbsVo.setSelectItem(selectItem);
+         bbsVo.setSelectItem(selectItem);
          ArrayList bbsIntList = bbsDao.bbsDetailView(bbsVo);
          request.setAttribute("page", "interest");
          request.setAttribute("bbsIntList",  bbsIntList);
+         request.setAttribute("selectItem", selectItem);
          request.setAttribute("mainUrl", prefix + "bbs/BbsIntList.jsp");
          
          return frame;
