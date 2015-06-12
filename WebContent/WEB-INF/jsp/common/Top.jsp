@@ -53,6 +53,19 @@
  	}
  %>
       <ul class="nav navbar-nav navbar-right">
+         <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-wrench" aria-hidden="true">관리자<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          	<P><H3 align="center"><font color="#4C4C4C">관리자 메뉴</font></H3></P><BR>
+            <li><a href="/admin/notice.listen"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"> 공지사항</a></li>
+            <li class="divider"></li>
+            <li><a href="/admin/background.listen"><span class="glyphicon glyphicon-picture" aria-hidden="true"> 배경그림 설정</a></li>
+            <li class="divider"></li>
+            <li><a href="/admin/opinion.listen"><span class="glyphicon glyphicon-leaf" aria-hidden="true"> 의견보기</a></li>
+            <li class="divider"></li>
+          </ul>
+        </li>
+        
         <li><a href="/view.listen"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></a></li>
         <li><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true"></a></li>
         <li><a href="/write.listen"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a></li>
@@ -81,10 +94,15 @@
 					{ 
 			%>
             			<li><a href="/Logout.listen"><span class="glyphicon glyphicon-off" aria-hidden="true"> 로그아웃</a></li>
+			            <li class="divider"></li>
             <% 	
-            		} 
+            		}else{
             %>
-            <li class="divider"></li>
+            			<li><a href="/Login.listen"><span class="glyphicon glyphicon-off" aria-hidden="true"> 로그인</a></li>
+			            <li class="divider"></li>
+            <% 
+            		}
+            %>
           </ul>
         </li>
       </ul>

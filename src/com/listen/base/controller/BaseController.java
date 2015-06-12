@@ -8,6 +8,8 @@ public class BaseController {
 	protected String mainUrl = "/WEB-INF/jsp/common/Main.jsp";
 	protected String message = "";
 	
+	protected final String adminFrame = "/admin/AdminFrame";
+	
 	/*
 	public void init(HttpServletRequest request)
 	{

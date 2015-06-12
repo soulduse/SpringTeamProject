@@ -12,44 +12,53 @@ import com.listen.base.controller.BaseController;
 import com.listen.bbs.dao.BbsDao;
 import com.listen.main.dao.ItemDao;
 
-
 @Controller
 public class MainController extends BaseController {
 
 	private ItemDao itemDao;
 	private BbsDao bbsDao;
-	
+
 	public void setBbsDao(BbsDao bbsDao) {
 		this.bbsDao = bbsDao;
 	}
-
 
 	public void setItemDao(ItemDao itemDao) {
 		this.itemDao = itemDao;
 	}
 
-
 	@RequestMapping("/main.listen")
 	public String mainPage(HttpServletRequest request, HttpSession session) {
 
 		System.out.println("mainPage 들어옴");
-			
+
 		ArrayList bbsList = bbsDao.bbsViewList();
 		request.setAttribute("page", "main");
-		request.setAttribute("bbsList",  bbsList);
-		//request.setAttribute("mainUrl", prefix + "~~~.jsp");
+		request.setAttribute("bbsList", bbsList);
+		// request.setAttribute("mainUrl", prefix + "~~~.jsp");
 
 		return frame;
 	}
-	
+
 	@RequestMapping("/write.listen")
 	public String writePage(HttpServletRequest request, HttpSession session) {
-		
+
 		System.out.println("writePage 들어옴");
-		
+
 		request.setAttribute("page", "write");
 		request.setAttribute("mainUrl", prefix + "bbs/BbsWrite.jsp");
-		
+
+		return frame;
+	}
+
+	// 관리자 페이지 가기
+	@RequestMapping("/admin/main.listen")
+	public String adminPage(HttpServletRequest request, HttpSession session) {
+
+		System.out.println("관리자 페이지 들어옴");
+
+		request.setAttribute("page", "admin");
+		request.setAttribute("mainUrl", prefix + "admin/AdminFrame.jsp");
+
 		return frame;
 	}
 }
