@@ -4,7 +4,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>ë§ˆìŒì´ ë”°ëœ»í•´ì§€ëŠ” ìµëª…SNS - Listen</title>
+        <title>¸¶À½ÀÌ µû¶æÇØÁö´Â ÀÍ¸íSNS - Listen</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">

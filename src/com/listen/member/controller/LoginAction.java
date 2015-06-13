@@ -30,40 +30,40 @@ public class LoginAction extends BaseController {
 	}
 
 	@RequestMapping("/loginAction.listen")
-	// login.jsp에서 submit하면 들어오는 listen
-	public String login(HttpServletRequest request, HttpSession session) {
-		String id = (String) request.getParameter("username");
-		String pass = (String) request.getParameter("password");
-		String latitude = (String) request.getParameter("latitude");
-		String longitude = (String) request.getParameter("longitude");
-		String email = "";
-		String password = "";
+	   // login.jsp에서 submit하면 들어오는 listen
+	   public String login(HttpServletRequest request, HttpSession session) {
+	      String id = (String) request.getParameter("username");
+	      String pass = (String) request.getParameter("password");
+	      String latitude = (String) request.getParameter("latitude");
+	      String longitude = (String) request.getParameter("longitude");
+	      String email = "";
+	      String password = "";
 
-		ArrayList EmailList = memberDao.getEmailList(id);
-		if (EmailList.size() != 0) {
-			MemberVo mv = (MemberVo) EmailList.get(0);
-			email = (String) mv.getEmail();
-			password = (String) mv.getPassword();
-		}
+	      ArrayList EmailList = memberDao.getEmailList(id);
+	      if (EmailList.size() != 0) {
+	         MemberVo mv = (MemberVo) EmailList.get(0);
+	         email = (String) mv.getEmail();
+	         password = (String) mv.getPassword();
+	      }
 
-		memberVo = new MemberVo();
-		if (EmailList.size() != 0 && pass.equals(password)) {
-			MemberVo memberVo = (MemberVo) EmailList.get(0);
-			session.setAttribute("email", memberVo.getEmail());
-			session.setAttribute("pass", memberVo.getPassword());
+	      memberVo = new MemberVo();
+	      if (EmailList.size() != 0 && pass.equals(password)) {
+	         MemberVo memberVo = (MemberVo) EmailList.get(0);
+	         session.setAttribute("email", memberVo.getEmail());
+	         session.setAttribute("pass", memberVo.getPassword());
 
-			session.setAttribute("LoginYn", "Y");
-			session.setAttribute("selectItem", "bbs_hitCount");
-			memberVo.setEmail(email);
-			memberVo.setLatitude(latitude);
-			memberVo.setLongitude(longitude);
-			memberDao.locationUpdate(memberVo);
-			return "redirect:/main.listen";
-		} else {
-			session.setAttribute("Error", "N");
-			return "member/testLogin";
-		}
-	}
+	         session.setAttribute("LoginYn", "Y");
+	         session.setAttribute("selectItem", "main");
+	         memberVo.setEmail(email);
+	         memberVo.setLatitude(latitude);
+	         memberVo.setLongitude(longitude);
+	         memberDao.locationUpdate(memberVo);
+	         return "redirect:/main.listen";
+	      } else {
+	         session.setAttribute("Error", "N");
+	         return "member/testLogin";
+	      }
+	   }
 
 	@RequestMapping("/Logout.listen")
 	// 로그아웃

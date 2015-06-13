@@ -24,6 +24,12 @@
 		(BBS_FILE_SEQ.NEXTVAL, #bbs_seq#, #path#, #org_name#, #save_name#, #file_size#)
 	</insert>
 	
+	<!-- 게시글 조회수 증가 --> 
+	<update id="hitPlus" parameterClass="int">
+		UPDATE BBS SET BBS_HITCOUNT = BBS_HITCOUNT+1
+		WHERE BBS_SEQ=#bbs_seq#
+	</update>
+	
 	<!-- 글쓰기 전 Background 갯수 구하기위한 Query -->
 	<!--  <select id="background" resultClass="">
 	

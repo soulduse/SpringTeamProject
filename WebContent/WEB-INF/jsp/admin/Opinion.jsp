@@ -11,5 +11,10 @@
   <button type="button" class="btn btn-success" onclick="location.href='/admin/opinion.listen'">의견보기</button>
 </div>
 
-<BR><BR>
-의견보기
+<BR>
+<BR>
+<BR>
+	<H2 align="center">의견 보기</H2>	
+<BR>
+<BR>
+<BR>
