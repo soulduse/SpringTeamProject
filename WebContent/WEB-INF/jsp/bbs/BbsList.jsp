@@ -11,7 +11,7 @@
          var d = $(this).attr("src");
          var c = $(this).attr("contents");
          var bbs_seq = $(this).attr("name");
-         var bbs_likeCount = $(this).attr("like-count");
+         var bbs_likeCount = $(this).attr("bbs_goodCount");
 
          $('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
          $("#modalImg").attr("src", d);
@@ -48,9 +48,8 @@
 <div class="image " id="imgRootDiv">
    <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal"
       data-target="#myModal" style="cursor: pointer"
-      src="<%=path%>/<%=save_name%>" width=300
-      data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"
-      like-count="<%=bbs_goodCount%>" />
+      src="<%=path%>/<%=save_name%>" width=300 contents="<%=bbs_contents%>"
+      bbs_goodCount="<%=bbs_goodCount%>" />
 
    <div class="text2">
       <table>

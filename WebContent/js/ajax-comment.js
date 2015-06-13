@@ -42,6 +42,6 @@ function ajaxBbsAdd() {
 // 댓글테이블 초기화
 function clearTbody() {
    var commentTableBody = $('#comment_table_body');
-   $('#comment').empty();
+   $('#comment').val("");
    commentTableBody.empty();
 }

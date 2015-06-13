@@ -4,22 +4,32 @@
 <%@ page import="java.awt.Image" %>
 <%@ page import="javax.swing.ImageIcon" %>
 
-<script src="js/jquery.masonry.min.js"></script>
-<script src="js/jquery.infinitescroll.min.js"></script>
-
-
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" src="js/ajax-bbsview.js"></script>
+<script type="text/javascript" src="js/ajax-comment.js"></script>
 <SCRIPT>
-$(function(){      
-   $('.img').click(function(){
-      var d = $(this).attr("src");
-      var c = $(this).attr("contents");
-      $("#modalImg").attr("src", d);
-      var modalContent = document.getElementById("modalContent");
-      modalContent.innerHTML = c;
+   $(function() {
+      $('.img').click(function() {
+    	 clearTbody();
+         var d = $(this).attr("src");
+         var c = $(this).attr("contents");
+         var bbs_seq = $(this).attr("name");
+         var bbs_likeCount = $(this).attr("bbs_goodCount");
+
+         $('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
+         $("#modalImg").attr("src", d);
+         $("#bbs_seq").attr("value", bbs_seq);
+         var modalContent = document.getElementById("modalContent");
+         modalContent.innerHTML = c;
+         
+         ajaxBbsAdd();
+      });
+
+      var addForm = $('#addForm');
+      $('#addWriteBtn').click(function() {
+         ajaxBbsAdd();
+      });
    });
-});  //글 상세보기 창
-
-
 </SCRIPT>
 
 <!doctype html>
@@ -46,7 +56,7 @@ $(function(){
         width: 1160px;
         height: 620px; 
         padding: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         margin-left: 20px;
         float: left;
         border: 1px solid #bcbcbc;
@@ -72,6 +82,28 @@ $(function(){
         margin-left: 10px;
         float: left;
         border: 1px solid #bcbcbc;
+      }
+      .listen-content1_2 {
+
+        width: 260px;
+        height: 100px; 
+        padding: 10px;
+        margin-bottom: 10px;
+        margin-left:62px;
+        float: left;
+            
+      }
+      
+      .listen-content1_3 {
+
+        width: 350px;
+        height: 220px; 
+        padding: 10px;
+        margin-bottom: 15px;
+        margin-left: 20px;
+        float: left;
+        border: 1px solid #bcbcbc;
+        
       }
       
       .listen-content2 {
@@ -101,87 +133,113 @@ $(function(){
          border: 1px solid #bcbcbc;         
       }
        .listen-content4 {
-        width: 367px;
+        width: 375px;
          height: 400px;
-        padding: 10px;
-        margin-bottom: 20px;
-        margin-left: 23px;
+        padding:3px;
+        margin-bottom: 5px;
+        margin-left: 18px;
         float:left; 
-        border: 5px solid #454545;        
+        border: 8px solid #454545;        
       }
+      
+      .listen-content4_1 {
+        width: 1190px;
+         height: 405px;
+        padding:0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        float:left; 
+          
+      }
+      
       .listen-content5 {
-        width: 335px;
+        width: 350px;
         height: 130px;
-        padding: 10px;
+        padding: 0px;
         margin-bottom: 10px;
-        margin-left: 5px;
-        float:left;          
+        margin-left: 2px;
+        float:left; 
+                 
       }
       .listen-content5_5 {
-        width: 335px;
-        height: 245px;
-        padding: 10px;
+        width: 350px;
+        height: 240px;
+        padding:0px;
         margin-bottom: 10px;
-       
+        margin-left: 2px;  
         float:left; 
         
       }
       .listen-content6 {
         width: 1190px;
-        height:410px;             
+        height:400px;
+        padding:0px;             
         margin-left: 15px;
         float:left; 
-            
+           
       }
       .listen-content7 {
-       background: #454545;
-        width: 490px;
-        height:375px;            
-        margin-left: 5px;          
+        background: #454545;
+        width: 495px;
+        height:375px;
+        padding:5px;             
+        margin-left: 3px;          
         float:left;
-        border: 3px solid #454545;  
+        border: 2px solid #454545;
             
       }
        .listen-content8 {
        padding:10px;
-        width: 670px;
+        width: 666px;
         height:175px;            
         float:left; 
-        border: 3px solid #454545;        
+        border: 5px solid #454545;       
       }
       .listen-content9 {
-        width: 670px;
+        width: 666px;
         height:200px;            
         float:left;         
-        border: 3px solid #454545;       
+        border: 5px solid #454545;
       }
       .listen-content10 {
-        width: 350px;
-        height:193px;            
+        width: 345px;
+        height:193px;
+        padding:10px;
+        margin-bottom: 5px;            
         float:left; 
+         border: 2px solid #454545; 
               
       }
       .listen-content11 {
-      padding:10px;
-        width: 350px;
-        height:195px;            
+        padding:10px;
+        width: 335px;
+        height:180px;            
         float:left;        
-        margin-bottom: 5px;                
-        border: 1px solid #454545; 
+        margin-bottom: 5px;  
+                   
+        
          
       }
       .listen-content12 {
-        width: 314px;
-        height:195px;            
+        width: 311px;
+        height:193px;            
         float:left;
-        border: 1px solid #454545;
+        border: 2px solid #454545;
                    
       }
       
        .jb-content {
+        width: 1190px;
+        padding: 0px;
+        margin-bottom: 5px;        
+        float: left; 
+                   
+      }
+            
+       .jb-content1 {
         width: 375px;
-        padding: 5px;
-        margin-bottom: 25px;        
+        padding: 0px;
+        margin-bottom: 5px;        
         float: left;
        
        
@@ -201,13 +259,22 @@ $(function(){
       .listen-footer {
         clear: both;
         padding: 20px;
-        border: 1px solid #bcbcbc;
+        
       }
      
     </style>
   </head>
+  
+  <%
+   if (session.getAttribute("email") != null
+         && session.getAttribute("LoginYn") != null
+         && ((String) session.getAttribute("LoginYn")).equals("Y")) {
+      String email = (String) session.getAttribute("email");
+      String userIp = request.getRemoteAddr();
+      
+      %>
   <body>
-      <div class="listen-container">
+    <div class="listen-container">
       <div class="listen-header">
         <img alt="" src="images/logo1.png" height="200" width="700">
       </div>
@@ -215,7 +282,7 @@ $(function(){
       <div class="listen-big">
        <div class="listen-content1_1">
                              
-             <div class="listen-content2" style="color:black; background-image:url(images/back2.png); height:220;  " >
+             <div class="listen-content2" style="color:black; background-image:url(images/back2.png);   " >
                 <center>
                 <B><p><h2>또래 이야기</h2></p></B>
                 <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="">10대 이야기</div>
@@ -244,8 +311,12 @@ $(function(){
       </div>
       
       <div class="listen-content1" style="background-image:url(images/back4.png);">
-      <B><h1>MY STORY</h1></B>
-       <p><h4>(최근에 내가 올린 이야기)</h4></p>
+            <div class="listen-content1_2" style="cursor:pointer;" onclick="">
+            <B><h1>MY STORY</h1></B>
+             <p><h4>(최근에 내가 올린 이야기)</h4></p>
+             </div>
+             <div class="listen-content1_3"></div>
+             <div class="listen-content1_3"></div>
       </div>
       
       
@@ -255,13 +326,14 @@ $(function(){
            <p>사랑이란?</p>
        </div>       
       </div>
-     
+   
+   
+   <div class="listen-content4_1">  
  <%   
     // 서버의 context 경로 구하기
      String root = request.getSession().getServletContext().getRealPath("/");
      int count=0;
      ArrayList bbsList4 = (ArrayList)request.getAttribute("bbsList");
-
    for(int i=0; count<=3; i++)
    {  
       
@@ -274,49 +346,49 @@ $(function(){
       String save_name = (String)bbsVo.getSave_name();
        // 이미지 파일 위치
       String filename = root+path+"/"+save_name ;
-      
+   
       // 이미지 읽기
       Image img = new ImageIcon(filename).getImage();
+   
       int imgWidth = img.getWidth(null);      //가로 사이즈
       int imgHeight = img.getHeight(null);        //세로 사이즈
- 
+   
+      
       if(imgWidth > imgHeight)
       {
-         if(imgHeight > 220)
+         if(imgHeight > 235)
          {
-            imgHeight = 220;
+            imgHeight = 235;
          }
          count++;
          if(count<=3)
-         {            	 
+         {     
       
       %>
         <div class="listen-content4"> 
                                                
-              <%
-                if(count==2)
+              <% if(count==2)
               { %> 
             <div class="listen-content5_5">
-              <img alt="" width="320"  height=<%=imgHeight%> src="<%=path%>/<%=save_name%>">
+              <img alt="" width="350"  height=<%=imgHeight%> src="<%=path%>/<%=save_name%>">
                </div>
-             <div class="listen-content5"> 
-              <p><%=bbs_contents %></p></div>
+             <div class="listen-content5" style="background-image:url(images/textimg1.png);"> 
+              <B><p><%=bbs_contents %></p></B></div>
               <% }
               else 
-              %>
               {
-              <div class="listen-content5"> 
-              <p><%=bbs_contents %></p></div>
+              %>
+              <div class="listen-content5" style="background-image:url(images/textimg1.png);"> 
+              <B><p><%=bbs_contents %></p></B></div>
                <div class="listen-content5_5">
-              <img alt="" width="320"  height=<%=imgHeight%> src="<%=path%>/<%=save_name%>">
+              <img alt="" width="350"  height=<%=imgHeight%> src="<%=path%>/<%=save_name%>">
               </div>
               <%} %>
           </div>
         <%
-         } 
-         }
-   
-      %>
+         } }}%>
+                  
+  </div>
 <%
 int count1=0;
 ArrayList bbsList5 = (ArrayList)request.getAttribute("bbsList");
@@ -335,6 +407,7 @@ for(int i=0; count1<=1; i++)
 
    // 이미지 읽기
    Image img = new ImageIcon(filename).getImage();
+
    int imgWidth = img.getWidth(null);      //가로 사이즈
    int imgHeight = img.getHeight(null);        //세로 사이즈
    if(imgWidth < imgHeight)
@@ -346,28 +419,29 @@ for(int i=0; count1<=1; i++)
    
           <div class="listen-content6"> 
            <div class="listen-content7" >
-              <img alt="" width="482" height="368" src="<%=path%>/<%=save_name%>">           
+              <img alt="" width="480" height="360" src="<%=path%>/<%=save_name%>">           
               </div>
-             <div class="listen-content8" style="background-color:#e6e6e6;">
-                 <center><p><%=bbs_contents %></p></center>
+             <div class="listen-content8" style="background-image:url(images/textimg2.png);">
+                 <center><B><p><%=bbs_contents %></p></B></center>
              </div>
 <% } 
       else
-   {
-   %>
+   {%>
              <div class="listen-content9">
-                <div class="listen-content10">
-                 <div class="listen-content11"> 
+                <div class="listen-content10" style="background-image:url(images/textimg1.png);">
+                 <div class="listen-content11" > 
                    <center><p><%=bbs_contents %></p></center>
                 </div> 
                 </div>
                 <div class="listen-content12">
-                   <img alt="" width="312" height="189" src="<%=path%>/<%=save_name%>"></div>
+                   <img alt="" width="309" height="188" src="<%=path%>/<%=save_name%>"></div>
                 </div>
                    </div>
  <% } } }%>   
+      
+  <div class="jb-content">    
                    
-   <div class="jb-content" style="margin-left: 5px;">                 
+   <div class="jb-content1" style="margin-left: 5px;">                 
 <%
 ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
    for(int i=0; i<bbsList.size(); i++)
@@ -379,12 +453,13 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       String reg_email = (String)bbsVo.getReg_email();
       String path = (String)bbsVo.getPath();
       String save_name = (String)bbsVo.getSave_name();
+      int bbs_goodCount = (int) bbsVo.getGoodCount();
       if(i%3==1){
 %>
     <div class="image" id="imgRootDiv"  style="margin-left: 15px;">
-        <img class="img imageShadow" name="bbs<%=bbs_seq%>" data-toggle="modal" 
+        <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
-      width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
+      width=300 contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"/>
    
         <div class="text2">
            <table>
@@ -411,7 +486,7 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
 
 
       
- <div class="jb-content" style="margin-left: 15px;">                 
+ <div class="jb-content1" style="margin-left: 15px;">                 
 <% ArrayList bbsList2 = (ArrayList)request.getAttribute("bbsList");
    for(int i=0; i<bbsList.size(); i++)
    {  
@@ -422,12 +497,13 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       String reg_email = (String)bbsVo.getReg_email();
       String path = (String)bbsVo.getPath();
       String save_name = (String)bbsVo.getSave_name();
+      int bbs_goodCount = (int) bbsVo.getGoodCount();
       if(i%3==2){
 %>
     <div class="image " id="imgRootDiv" style="margin-left: 23px;" >
-        <img class="img imageShadow" name="bbs<%=bbs_seq%>" data-toggle="modal" 
+        <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
-      width=310 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
+      width=310 contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"/>
    
         <div class="text2">
            <table>
@@ -452,7 +528,7 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
 %>
    </div>
       
- <div class="jb-content" style="margin-left: 15px;">                 
+ <div class="jb-content1" style="margin-left: 15px;">                 
 <% ArrayList bbsList3 = (ArrayList)request.getAttribute("bbsList");
    for(int i=0; i<bbsList.size(); i++)
    {  
@@ -463,12 +539,13 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       String reg_email = (String)bbsVo.getReg_email();
       String path = (String)bbsVo.getPath();
       String save_name = (String)bbsVo.getSave_name();
+      int bbs_goodCount = (int) bbsVo.getGoodCount();
       if(i%3==0){
 %>
     <div class="image " id="imgRootDiv" style="margin-left: 33px;">
-        <img class="img imageShadow" name="bbs<%=bbs_seq%>" data-toggle="modal" 
+        <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
-      width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
+      width=300 contents="<%=bbs_contents%>"  bbs_goodCount="<%=bbs_goodCount%>"/>
    
         <div class="text2">
            <table>
@@ -493,34 +570,85 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
 %>
     </div>
     
-<!-- Modal -->
-<div class="modal fade"  style="width:100%" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<!-- Modal 글 List-->
+<div class="modal fade" style="width: 100%" id="myModal" tabindex="-1"
+   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <div class="lcard-button-wrapper">
+               <div class="lcard-button">
+                  <div class="container animation-1">
+                     <div class="heartImg" alt="0"></div>
+                  </div>
+                  <span class="ng-binding">좋아요</span>
+               </div>
+               <div class="like-label">0</div>
+            </div>
+            <button type="button" class="close" data-dismiss="modal"
+               aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body" style="background-color:gray;margin-left:0;border:30px white solid">
+            <img id="modalImg" class="imageShadow" src="#" width="500" />
+            <div class="text3">
+               <H3>
+                  <label id="modalContent"></label>
+               </H3>
+            </div>
+         </div>
+
+
+         <div class="modal-footer">
+            <!-- 댓글이 보일 부분 -->
+            <DIV id="comment-list">
+               <TABLE id="comment_table" bgcolor="#FFFAFA" border="2"
+                  cellspacing="0" cellpadding="0">
+                  <TBODY id="comment_table_body"></TBODY>
+               </TABLE>
+            </DIV>
+            <!-- 댓글 쓰기 부분 -->
+            <FORM name="addForm" id="addForm" method="post"
+               action="/bbsAdd.listen">
+               <div class="comment-textarea">
+                  <textarea name="content" id="comment"
+                     class="ng-pristine ng-valid ng-touched" placeholder="어떻게 생각하세요?"
+                     style="overflow: hidden; word-wrap: break-word; height: 50px;"></textarea>
+               </div>
+               <INPUT type="hidden" name="bbs_seq" id="bbs_seq" value="">
+               <INPUT type="hidden" name="reg_ip" id="reg_ip" value="<%=userIp%>">
+               <INPUT type="hidden" name="reg_email" id="reg_email"
+                  value="<%=email%>">
+            </FORM>
+            <BR>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="addWriteBtn">게시</button>
+         </div>
       </div>
-      <div class="modal-body " style="background-color:gray; margin-left:0; padding: 10px;">
-      <img id="modalImg" class="imageShadow" src="#" width="500"/>
-       <div class="text3">
-       <H3><label id="modalContent"></label></H3>
-       </div>
-      </div>
-      <div class="comment-textarea">
-         
-         <textarea ng-attr-placeholder="{{ comments.length > 0 ? '어떻게 생각하세요?' : &quot;\ucc98\uc74c\uc73c\ub85c \ub313\uae00\uc744 \ub2ec\uc544\ubcf4\uc138\uc694.&quot; }}" ng-focus="showCommentButton()" ng-keypress="addCommentOnEnter($event)" ng-model="newComment.content" vi-autosize="{ append: false }" class="ng-pristine ng-valid ng-touched" placeholder="어떻게 생각하세요?" style="overflow: hidden; word-wrap: break-word; height: 50px;"></textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
+   </div>
 </div>
-           <div class="modal-footer">
 
-</div>                             
-    </div>
 
-  </body>
-</html>
+<!-- Modal 댓글 삭제 확인-->
+<div class="modal fade comment-delete-modal" style="width: 100%" tabindex="-1" role="dialog"
+   aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-sm" style="margin-top:200px">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title" id="exampleModalLabel">삭제확인</h4>
+         </div>
+         <div class="modal-body">
+            <label for="recipient-name" class="control-label">정말 삭제 하시겠습니까?</label>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-primary">삭제</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+<%
+   }
+%>

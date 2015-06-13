@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.listen.base.controller.BaseController;
 import com.listen.bbs.dao.BbsDao;
+import com.listen.bbs.vo.BbsVo;
 import com.listen.main.dao.ItemDao;
 
 
@@ -30,11 +31,13 @@ public class MainController extends BaseController {
 
 
 	@RequestMapping("/main.listen")
-	public String mainPage(HttpServletRequest request, HttpSession session) {
+	public String mainPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
 
 		System.out.println("mainPage 들어옴");
-			
-		ArrayList bbsList = bbsDao.bbsViewList();
+		String selectItem=(String)session.getAttribute("selectItem");
+		bbsVo.setSelectItem(selectItem);
+		
+		ArrayList bbsList = bbsDao.bbsDetailView(bbsVo);
 		request.setAttribute("page", "main");
 		request.setAttribute("bbsList",  bbsList);
 		
