@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=euc-kr"%>
 
 <%
-	String name = 
+	String email = (String)session.getAttribute("email");
+	String reg_ip = request.getRemoteAddr();
 
 %>
 <SCRIPT>
