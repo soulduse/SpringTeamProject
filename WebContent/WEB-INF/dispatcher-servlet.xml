@@ -22,6 +22,10 @@
 		<property name="itemDao" ref="itemDao" />
 		<property name="bbsDao" ref="bbsDao" />
 	</bean>
+	
+	<bean id="adminController" class="com.listen.admin.controller.AdminController">
+		<property name="adminDao" ref="adminDao" />
+	</bean>
 
 	<bean id="bbsController" class="com.listen.bbs.controller.BbsController">
 		<property name="bbsDao" ref="bbsDao" />
@@ -34,6 +38,10 @@
 
    <!-- 다오 -->
    <bean id="memberDao" class="com.listen.member.dao.MemberDao">
+      <property name="smct" ref="sqlMapClientTemplate"/>
+   </bean>
+   
+   <bean id="adminDao" class="com.listen.admin.dao.AdminDao">
       <property name="smct" ref="sqlMapClientTemplate"/>
    </bean>
    

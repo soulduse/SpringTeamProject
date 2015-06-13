@@ -2,10 +2,11 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="Data">
 	<typeAlias alias="bbsWriteDto" type="com.listen.bbs.dto.BbsWriteDto" />
+	<typeAlias alias="backgroundVo" type="com.listen.bbs.vo.BackgroundVo" />
 
 	<!-- 글 등록 -->
 	<insert id="bbsTextWrite" parameterClass="bbsWriteDto">
-		INSERT INTO BBS (BBS_SEQ, BBS_CONTENTS) VALUES (BBS_SEQ.NEXTVAL, #bbs_contents#)
+		INSERT INTO BBS (BBS_SEQ, BBS_CONTENTS, BBS_INFO_SEQ) VALUES (BBS_SEQ.NEXTVAL, #bbs_contents# '2')
 		<selectKey resultClass="java.lang.String" keyProperty="bbs_seq">
 			SELECT BBS_SEQ.CURRVAL BBS_SEQ FROM DUAL
 		</selectKey>
@@ -23,4 +24,9 @@
 		(BBS_FILE_SEQ.NEXTVAL, #bbs_seq#, #path#, #org_name#, #save_name#, #file_size#)
 	</insert>
 	
+	<!-- 글쓰기 전 Background 갯수 구하기위한 Query -->
+	<!--  <select id="background" resultClass="">
+	
+	</select>
+	-->
 </sqlMap>
