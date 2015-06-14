@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Data">
+	<typeAlias alias="memberVo" type="com.listen.member.vo.MemberVo" />
+		<insert id="join" parameterClass="MemberVo">
+		INSERT INTO MEMBERS 
+		(MEMBERS_SEQ, GENDER, BIRTHYEAR, EMAIL, REG_EMAIL, REG_IP, UPD_EMAIL, UPD_IP, LATITUDE, LONGITUDE, PASSWORD ) 
+		VALUES (MEMBERS_SEQ.NEXTVAL, #gender#, #birthyear#, #realId#, #realId#, '127.0.0.1', #realId#, '127.0.0.1', '130','140', #password#)		
+	</insert>
+	
+	<select id="getCheckEmail"  resultClass="MemberVo" parameterClass="java.lang.String">
+		SELECT EMAIL FROM MEMBERS WHERE EMAIL=#realId#
+	</select>
+</sqlMap>

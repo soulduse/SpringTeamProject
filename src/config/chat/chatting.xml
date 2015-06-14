@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Data">
+	<typeAlias alias="ChattingVo" type="com.listen.chatting.vo.ChattingVo" />
+	<typeAlias alias="ChattingMemberVo" type="com.listen.chatting.vo.ChattingMemberVo" />
+
+	<!-- 채팅방 만들기 -->
+	<insert id="craeteRoom" parameterClass="ChattingVo">
+		INSERT INTO CHATTING_LIST (CHATTING_SEQ, CHATTING_NAME, REG_EMAIL, REG_IP) VALUES (CHATTING_SEQ.NEXTVAL, #chatting_name#, #email#, #reg_ip#)
+		<selectKey resultClass="java.lang.String" keyProperty="chatting_seq">
+			SELECT CHATTING_SEQ.CURRVAL CHATTING_SEQ FROM DUAL
+		</selectKey>
+	</insert>
+	
+	<select id="chattingList" resultClass="ChattingVo" >
+		SELECT A.CHATTING_SEQ, A.CHATTING_NAME, B.RAMDOM_NAME, B.MEMBERS_SEQ
+		FROM CHATTING_LIST A, (SELECT D.RAMDOM_NAME, D.CHATTING_LIST_SEQ, C.MEMBERS_SEQ FROM MEMBERS C, CHATTING_MEMBER_LIST D WHERE C.EMAIL = #email# AND C.MEMBERS_SEQ = D.MEMBERS_SEQ) B
+		WHERE A.CHAT_YN='Y'AND B.CHATTING_LIST_SEQ = A.CHATTING_SEQ
+		ORDER BY A.CHATTING_SEQ DESC
+	</select>
+	
+	
+	<!-- 렌덤이름1  -->
+	<select id="randomName" resultClass="ChattingMemberVo">
+		SELECT RANDOM_NAME1
+		FROM RANDOMNAME1
+		ORDER BY RN1_SEQ DESC
+	</select>
+	<!-- 렌덤이름2  -->
+	<select id="randomName2" resultClass="ChattingMemberVo">
+		SELECT RANDOM_NAME2
+		FROM RANDOMNAME2
+		ORDER BY RN2_SEQ DESC
+	</select>
+
+	<!-- 채팅방 send유저 저장 -->
+	<insert id="chattinUser1" parameterClass="map">
+		INSERT INTO CHATTING_MEMBER_LIST (CML_SEQ, CHATTING_LIST_SEQ, RAMDOM_NAME, MEMBERS_SEQ) VALUES (CML_SEQ.NEXTVAL, #chatting_seq#, #send_nickname#, #send_seq#)
+	</insert>
+	<!-- 채팅방 reciver유저 저장 -->
+	<insert id="chattinUser2" parameterClass="map">
+		INSERT INTO CHATTING_MEMBER_LIST (CML_SEQ, CHATTING_LIST_SEQ, RAMDOM_NAME, MEMBERS_SEQ) VALUES (CML_SEQ.NEXTVAL, #chatting_seq#, #rec_nickname#, #rec_seq#)
+	</insert>
+	
+	<delete id="deleteChat" parameterClass="map">
+		DELETE FROM CHATTING_MEMBER_LIST
+		WHERE (
+		select a.cml_seq
+		from CHATTING_MEMBER_LIST A, MEMBERS B, CHATTING_LIST C 
+		WHERE B.MEMBERS_SEQ = A.MEMBERS_SEQ AND B.EMAIL = #email# AND C.CHATTING_NAME = #chatting_name# AND C.CHATTING_SEQ = A.CHATTING_LIST_SEQ
+		)  = cml_seq
+	</delete>
+</sqlMap>

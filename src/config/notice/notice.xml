@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Data">
+	<typeAlias alias="noticeVo" type="com.listen.notice.vo.NoticeVo" />
+
+	<!-- 알림 리스트 -->
+	<select id="noticeList" resultClass="noticeVo" >
+		SELECT A.NOTIFICATIONS_SEQ, A.CONTENT, B.NOTI_STATE_SEQ, C.members_seq, C.REC_SEQ
+		FROM NOTIFICATIONS A, NOTIFICATIONS_STATE B, (SELECT email,NOTIFICATIONS_SEQ, e.members_seq, e.REC_SEQ FROM MEMBERS D,NOTIFICATIONS E WHERE D.MEMBERS_SEQ = E.REC_SEQ) C
+		WHERE A.NOTI_STATE_SEQ = B.NOTI_STATE_SEQ AND C.email = #email# AND C.NOTIFICATIONS_SEQ = A.NOTIFICATIONS_SEQ AND A.SEEYN = 'Y'
+		ORDER BY A.NOTIFICATIONS_SEQ DESC
+	</select>
+	
+		<!-- 채팅요청 -->
+	<insert id="chattingReqAdd" parameterClass="noticeVo">
+		INSERT INTO NOTIFICATIONS (NOTIFICATIONS_SEQ, BBS_SEQ, NOTI_STATE_SEQ, CONTENT, MEMBERS_SEQ, REC_SEQ) VALUES (NOTI_STATE_SEQ.NEXTVAL, #bbs_seq#, '1', 
+		(SELECT SUBSTR(BBS_CONTENTS, 0, 10)||'...' FROM BBS WHERE BBS_SEQ=#bbs_seq# ),
+		(SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#email# ) , (SELECT A.MEMBERS_SEQ FROM MEMBERS A, BBS B WHERE B.BBS_SEQ=#bbs_seq# AND A.EMAIL= B.REG_EMAIL) )
+	</insert>
+	
+	<update id="updateNotification" parameterClass="java.lang.String">
+		UPDATE NOTIFICATIONS SET SEEYN = 'N' WHERE NOTIFICATIONS_SEQ = #notifications_seq#
+	</update>
+	
+</sqlMap>

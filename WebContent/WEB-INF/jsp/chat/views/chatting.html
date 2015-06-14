@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+      body { font: 13px Helvetica, Arial; width: 503px; }
+.chatting {
+	position: fixed;
+}
+
+.textarea{
+	width: 100%;
+	height: 485px;
+	background-image: url("/images/Background.jpg");
+	background-position: 0 -1;
+  background-color: lightblue;
+  font-family: "Ubuntu-Italic", "Lucida Sans", helvetica, sans;
+	
+  border: 2px solid #666;
+}
+#text{
+
+	width: 80%;
+	height:80px;
+}
+.entry
+{	width: 100%; height: 40px; border: 2px solid #666;}
+#btn{
+	width:17%;
+	height: 80px;
+}
+#btn1{
+	width: 100%;
+	height: 50px;
+
+}
+ .input
+ {
+  border: 1px solid #666;
+ }
+.textclass{ list-style-type: none; margin: 0; padding: 0; overflow-y: scroll; height: 500px; top: 40px; w}
+ 
+/* container */
+.container {
+  padding: 5% 5%;
+}
+
+/* CSS talk bubble */
+.talk-bubble {
+	margin: 5px 40px 5px 40px;
+  display: inline-block;
+  position: relative;
+	width: 38%;
+	height: auto;
+	background-color: lightyellow;
+}
+.border{
+  border: 8px solid #666;
+}
+.round{
+  border-radius: 30px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+
+}
+
+/* Right triangle placed top left flush. */
+.tri-right.border.left-top:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: -40px;
+	right: auto;
+  top: -8px;
+	bottom: auto;
+	border: 32px solid;
+	border-color: #666 transparent transparent transparent;
+}
+.tri-right.left-top:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: -20px;
+	right: auto;
+  top: 0px;
+	bottom: auto;
+	border: 22px solid;
+	border-color: lightyellow transparent transparent transparent;
+}	
+
+
+
+/*Right triangle, placed bottom right side slightly in*/
+.tri-right.border.btm-right-in:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: auto;
+	right: 30px;
+	bottom: -40px;
+	border: 20px solid;
+	border-color: #666 #666 transparent transparent;
+}
+.tri-right.btm-right-in:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: auto;
+	right: 38px;
+	bottom: -20px;
+	border: 12px solid;
+	border-color: lightyellow lightyellow transparent transparent;
+}
+.border.right-top:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: auto;
+	right: -40px;
+  top: -8px;
+	bottom: auto;
+	border: 32px solid;
+	border-color: #666 transparent transparent transparent;
+}
+.right-top:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: auto;
+	right: -20px;
+  top: 0px;
+	bottom: auto;
+	border: 20px solid;
+	border-color: lightyellow transparent transparent transparent;
+	
+}
+
+ .left { text-align: left; float: left; align:left }
+ .right { text-align: right; float: right; align:right}
+/* talk bubble contents */
+.talktext{
+  padding: 1em;
+	text-align: left;
+  line-height: 1.5em;
+}
+.talktext p{
+  /* remove webkit p margins */
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+}
+      #top { border: 2px solid #666; width: 100%; height: 40px; background-color: #269BAF; color: white; font-size: px; text-align: left; }
+</style>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+
+	var socket = io.connect();
+	var room = "<%=room%>";
+	var name = "<%=name%>";
+
+	socket.emit('join', {
+		'name' : name,
+		'room' : room
+	});
+	socket.emit('name', name);
+	
+	
+	$('#btn').click(function() {
+		btnClick();
+	}); //#btn
+
+	$('#btn1').click(function() {
+ 		btn1Click();
+		location.href="http://106.242.203.67:9020/deleteChat.listen?room="+room;
+		self.close(); 
+	}); //#btn
+
+	
+	$("#text").on("keyup", function(event) {
+		if (event.keyCode == 13) {
+			fnDoLogin();
+		}
+	}); //#text
+
+	
+	//마우스
+	function btnClick() {
+		var content = document.getElementById('text').value;
+
+        var msg = $('<div>');
+        msg.attr('class', 'talk-bubble tri-right round border right-top right');
+        var msgtext = $('<div>');
+        msgtext.attr('class', 'talktext');
+        msgtext.text(content);
+        msg.append();
+        msg.append(msgtext);
+        $('.textarea').append(msg);
+        
+		socket.emit('message', {
+			'name' : name,
+			'content' : content
+		});
+		
+		text.value = ""; //텍스트필드를 다시 리셋 시켜준다.
+
+        scrollDown();
+	}
+	
+	
+	function btn1Click() {
+		socket.emit('message1', {
+			'name' : name,
+			'content' : "퇴장 하셨습니다."
+		});
+
+		
+		text.value = ""; //텍스트필드를 다시 리셋 시켜준다.
+
+	}
+
+	//키보드
+	function fnDoLogin() {
+		var content = document.getElementById('text').value;
+
+        var msg = $('<div>');
+        msg.attr('class', 'talk-bubble tri-right round border right-top right');
+        var msgtext = $('<div>');
+        msgtext.attr('class', 'talktext');
+        msgtext.text(content);
+        msg.append();
+        msg.append(msgtext);
+        $('.textarea').append(msg);
+        
+		socket.emit('message', {
+			'name' : name,
+			'content' : content
+		});
+
+		text.value = ""; //텍스트필드를 다시 리셋 시켜준다.
+
+        scrollDown();
+	}
+	
+
+
+
+//	}//END
+	socket.on('message', function(data) {
+        var msg = $('<div>');
+        msg.attr('class', 'talk-bubble tri-right round border left-top left');
+        var msgtext = $('<div>');
+        msgtext.attr('class', 'talktext');
+        msgtext.text(data.name + ": "+data.content);
+        msg.append(msgtext);
+        
+        $('.textarea').append(msg);
+        
+		text.value = "";
+
+        scrollDown();
+	});
+	
+	
+	
+
+	//input message
+	socket.on('input',function(data){
+		$('.entry').text(
+				$('.entry').text()+data+"님이 입장하였습니다.").append("\n\n");;
+	});
+	
+
+	socket.on('message1', function(data) {
+		// $('<p>'+data.name +' : '+data.content + '<p>').prependTo('#aaa'); 
+// 		alert(data.name);
+		$('.entry').text(
+				$('.entry').text() + data.name + ' 님이 '
+						+ data.content).append("\n");
+
+	});
+	
+	
+
+    function scrollDown() {
+      var messages = document.getElementById("textarea");
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+});
+
+</script>
+</head>
+<body>
+
+	<div id="top"><%=room%></div>
+	<div class="entry" style="overflow: hidden;"></div>
+	<div class="textarea textclass" id="textarea"></div>
+
+	<div class="input">
+		<input type="text" id="text" name="text" />
+		
+		
+		
+		<button id="btn">전송</button><br><br>
+		<button id="btn1">나가기</button>
+	</div>
+</body>
+</html>
