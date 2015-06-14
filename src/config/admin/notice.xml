@@ -19,16 +19,27 @@
 		SELECT BBS_SEQ, BBS_TITLE, REG_EMAIL, 
 		TO_CHAR(REG_DATE, 'YYYY.MM.DD') REG_DATE, BBS_HITCOUNT
 		FROM BBS
-		WHERE BBS_INFO_SEQ = '1' ORDER BY BBS_SEQ DESC
+		WHERE BBS_INFO_SEQ = '1' AND DISPYN='Y' ORDER BY BBS_SEQ DESC
 	</select>
 	
 	<!-- 공지사항 글 보기 -->
-	<select id="noticeView" resultClass="adminNoticeVo" parameterClass="java.lang.String">
-		SELECT BBS_TITLE, BBS_CONTENTS, BBS_HITCOUNT, REG_EMAIL, 
+	<select id="noticeView" resultClass="adminNoticeVo" parameterClass="java.lang.Integer">
+		SELECT BBS_SEQ, BBS_TITLE, BBS_CONTENTS, BBS_HITCOUNT, REG_EMAIL, 
 		TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI') REG_DATE 
 		FROM BBS
 		WHERE BBS_INFO_SEQ='1' AND BBS_SEQ=#bbs_seq#
 	</select>
 	
-
+	<!-- 공지사항 글 수정 -->
+	<update id="noticeUpdate" parameterClass="noticeDto">
+		UPDATE BBS SET BBS_TITLE=#bbs_title#, BBS_CONTENTS=#bbs_contents#, 
+		UPD_EMAIL = #reg_email#, UPD_DATE=SYSDATE, UPD_IP =#reg_ip#
+		WHERE BBS_SEQ = #bbs_seq#
+	</update>
+	
+	<!-- 공지사항 글 삭제 -->
+	<update id="noticeDelete" parameterClass="java.lang.Integer">
+		UPDATE BBS SET DISPYN='N'
+		WHERE BBS_SEQ = #bbs_seq#
+	</update>
 </sqlMap>

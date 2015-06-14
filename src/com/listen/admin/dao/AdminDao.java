@@ -34,6 +34,22 @@ public class AdminDao {
 		return (AdminNoticeVo)smct.queryForObject("noticeView", bbs_seq);
 	}
 	
+	// 공지사항 글 수정
+	public void noticeUpdate(NoticeDto noticeDto)
+	{
+		smct.update("noticeUpdate", noticeDto);
+	}
+	
+	// 공지사항 글 삭제
+	public void noticeDelete(int bbs_seq) {
+		smct.update("noticeDelete", bbs_seq);
+	}
+	
+	// 공지사항 다중글 삭제
+	public void noticeArrayDelete(int[] bbs_seq) {
+		smct.update("noticeDelete", bbs_seq);
+	}
+	
 	// 조회수 증가
 	public void hitPlus(int bbs_seq)
 	{

@@ -86,7 +86,8 @@
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"> 설정</a></li>
             <li class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-send" aria-hidden="true"> 의견 보내기</a></li>
+            <li><a data-toggle="modal" data-target="#opinionModal" style="cursor:pointer;">
+            	<span class="glyphicon glyphicon-send" aria-hidden="true"> 의견 보내기</a></li>
             <li class="divider"></li>
             <% 	
             	if (session.getAttribute("LoginYn") != null && ((String) session.getAttribute("LoginYn")).length() > 0

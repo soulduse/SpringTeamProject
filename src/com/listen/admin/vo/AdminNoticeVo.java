@@ -4,11 +4,20 @@ public class AdminNoticeVo {
 
 	private int bbs_seq;
 	private String bbs_title;
+	private String bbs_contents;
 	private String bbs_count;
 	private String reg_email;
 	private String reg_date;
 	private int bbs_hitCount;
-	
+
+	public String getBbs_contents() {
+		return bbs_contents;
+	}
+
+	public void setBbs_contents(String bbs_contents) {
+		this.bbs_contents = bbs_contents;
+	}
+
 	public String getBbs_count() {
 		return bbs_count;
 	}

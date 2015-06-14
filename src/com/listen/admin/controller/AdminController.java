@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.listen.admin.dao.AdminDao;
@@ -60,19 +61,49 @@ public class AdminController extends BaseController{
 	}
 	
 	// 공지사항 글 보기
-	@RequestMapping("/admin/noticeView.listen")
+	@RequestMapping(value="/admin/noticeView.listen", method=RequestMethod.POST)
 	public String noticeView(@RequestParam(value="bbs_seq") int bbs_seq, 
 			@RequestParam(value="hit") String hit, HttpServletRequest request)
 	{
+		System.out.println("hit : "+ hit +", bbs_seq : "+bbs_seq);
 		AdminNoticeVo adminNoticeVo = (AdminNoticeVo)adminDao.noticeView(bbs_seq);
 		if(hit == null || hit.equals("Y"))
 		{
 			adminDao.hitPlus(bbs_seq);
 		}
 		request.setAttribute("adminNoticeVo", adminNoticeVo);
-		request.setAttribute("mainUrl", prefix + "admin/Notice.jsp");
+		request.setAttribute("mainUrl", prefix + "admin/NoticeView.jsp");
 		
 		return frame;
+	}
+	
+	// 공지사항 글 수정
+	@RequestMapping("/admin/noticeUpdate.listen")
+	public String noticeUpdate(NoticeDto noticeDto, HttpServletRequest request)
+	{
+		adminDao.noticeUpdate(noticeDto);
+		
+		// redirect: url - GET 방식으로 데이터 전송
+		// forward: url - POST 방식으로 데이터 전송
+		 return "forward:/admin/noticeView.listen?bbs_seq="+noticeDto.getBbs_seq()+"&hit='N'";
+	}
+	
+	// 공지사항 글 삭제
+	@RequestMapping("/admin/noticeDelete.listen")
+	public String noticeDelete(@RequestParam(value="bbs_seq")int bbs_seq)
+	{
+		adminDao.noticeDelete(bbs_seq);
+		System.out.println("글 삭제 성공!");
+		return "redirect:/admin/notice.listen";
+	}
+	
+	// 공지사항 다중글 삭제
+	@RequestMapping("/admin/noticeArrayDel.listen")
+	public String noticeArrayDelete(@RequestParam(value="bbs_seq")int[] bbs_seq)
+	{
+		adminDao.noticeArrayDelete(bbs_seq);
+		System.out.println("글 삭제 성공!");
+		return "redirect:/admin/notice.listen";
 	}
 
 	// 의견 게시판

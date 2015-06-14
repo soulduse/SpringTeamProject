@@ -47,6 +47,9 @@
 			<div id="footer">
 				<jsp:include page="Bottom.jsp" />
 			</div>
+			<div id="modal">
+				<jsp:include page="Modal.jsp" />
+			</div>
 		</div>
 	</center>
 </BODY>
