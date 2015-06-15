@@ -3,6 +3,8 @@
 <sqlMap namespace="Data">
 	<typeAlias alias="bbsAddWriteDto" type="com.listen.bbs.dto.BbsAddWriteDto" />
 	<typeAlias alias="bbsAddVo" type="com.listen.bbs.vo.BbsAddVo" />
+	<typeAlias alias="myBackGroundVo" type="com.listen.bbs.vo.MyBackGroundVo" />
+    <typeAlias alias="bbsVo" type="com.listen.bbs.vo.BbsVo" /> 
 
 	<!-- 댓글 등록 -->
 	<insert id="bbsAddWrite" parameterClass="bbsAddWriteDto">
@@ -17,4 +19,24 @@
       SELECT CONTENT, TO_CHAR(REG_DATE, 'YYYY-MM-DD AM HH:MI:SS') REG_DATE, GOODCOUNT
       FROM BBS_ADD WHERE BBS_SEQ=#bbs_seq# order by bbs_add_seq desc
    </select>
+   
+   <insert id="myBgFileInsert" parameterClass="myBackGroundVo">
+      INSERT INTO MYBACKGROUND_IMG
+      (MYBG_IMG_SEQ,PATH,ORG_NAME,SAVE_NAME,FILE_SIZE,REG_EMAIL)
+      VALUES
+      (MYBG_IMG_SEQ.NEXTVAL,  #path#, #org_name#, #save_name#, #file_size#, #reg_email#)
+   </insert>
+   
+   <insert id="myBgFileUpload" parameterClass="myBackGroundVo">
+      update mybackground_img SET PATh=#path#, ORG_NAME = #org_name#, SAVE_NAME=#save_name#, FILE_SIZE=#file_size#     
+       where reg_email =#reg_email#
+   </insert>
+   
+   <select id="bbsMybgimg" resultClass="myBackGroundVo" parameterClass="bbsVo">
+      select PATH,ORG_NAME,SAVE_NAME,FILE_SIZE
+       from MYBACKGROUND_IMG
+        where reg_email =#reg_email#
+   </select>
+   
+   
 </sqlMap>

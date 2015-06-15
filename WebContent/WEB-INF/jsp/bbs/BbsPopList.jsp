@@ -8,7 +8,7 @@
 <SCRIPT>
 $(function() {
     $('.img').click(function() {
-      clearTbody();
+  	 clearTbody();
        var d = $(this).attr("src");
        var c = $(this).attr("contents");
        var bbs_seq = $(this).attr("name");
@@ -113,7 +113,7 @@ $(function() {
          String path = (String)bbsVo.getPath();
          String save_name = (String)bbsVo.getSave_name();
          int goodCount = (int)bbsVo.getGoodCount();
-       int add_count = (int)bbsVo.getAdd_count();
+		 int add_count = (int)bbsVo.getAdd_count();
          if(i%3==0){
    %>
        <div class="image " id="imgRootDiv" style="margin-left: 15px;">
@@ -130,9 +130,9 @@ $(function() {
                    </TR>
                    <TR height="30%">
                       <TD align="left">
-                            조회수 : <%=bbs_hitCount%> / <br>
-                            좋아요 : <%=goodCount %> / <br>
-                            댓글수 : <%=add_count %>
+                         	조회수 : <%=bbs_hitCount%> / <br>
+                         	좋아요 : <%=goodCount %> / <br>
+                         	댓글수 : <%=add_count %>
                          
                       </TD>
                    </TR>
@@ -178,9 +178,9 @@ $(function() {
                    </TR>
                    <TR height="30%">
                       <TD align="left">
-                            조회수 : <%=bbs_hitCount%> / <br>
-                            좋아요 : <%=goodCount %> / <br>
-                            댓글수 : <%=add_count %>
+                      		조회수 : <%=bbs_hitCount%> / <br>
+                         	좋아요 : <%=goodCount %> / <br>
+                         	댓글수 : <%=add_count %>
                       </TD>
                    </TR>
                 </table>
@@ -228,9 +228,9 @@ $(function() {
                    </TR>
                    <TR height="30%">
                       <TD align="left">
-                            조회수 : <%=bbs_hitCount%> / <br>
-                            좋아요 : <%=goodCount %> / <br>
-                             댓글수 : <%=add_count %>
+                         	조회수 : <%=bbs_hitCount%> / <br>
+                         	좋아요 : <%=goodCount %> / <br>
+                      		 댓글수 : <%=add_count %>
                       </TD>
                    </TR>
                 </table>
@@ -324,4 +324,4 @@ $(function() {
 </body>
 </html>         
 
-<%} %>          
+<%} %>

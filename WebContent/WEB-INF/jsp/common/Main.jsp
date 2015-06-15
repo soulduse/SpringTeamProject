@@ -7,8 +7,6 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/ajax-bbsview.js"></script>
 <script type="text/javascript" src="js/ajax-comment.js"></script>
-
-
 <script type="text/javascript" src="js/ajax-chattingRequest.js"></script>
 
 
@@ -37,7 +35,6 @@
       
       var chatReqForm = $('#chatReqForm');
 		$('#chattingRequset').click(function() {
-			alert("22");
 			chattingRequest();
 		});
 		
@@ -52,6 +49,8 @@
     <title>Listen</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+    
+    
       .listen-container {
         background: #f6f6f6;
         margin: 0px auto;
@@ -275,6 +274,19 @@
         
       }
      
+      .cover {
+        width: 1240px;
+        margin: 0px auto;       
+        padding: 10px;
+        float: center;
+         
+      }
+      
+      .listen-footer {
+        clear: both;
+        padding: 20px;
+        
+      }
     </style>
   </head>
   
@@ -295,21 +307,21 @@
       <div class="listen-big">
        <div class="listen-content1_1">
                              
-             <div class="listen-content2" style="color:black; background-image:url(images/back2.png);   " >
+            <div class="listen-content2" style="color:black; background-image:url(images/back2.png);   " >
                 <center>
                 <B><p><h2>또래 이야기</h2></p></B>
-                <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="">10대 이야기</div>
-                <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="" >20대 이야기</div>
-                <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="">30대 이야기</div>
-                <div class="listen-content2_1" style=" font-weight: 300; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="">40대이상 이야기</div>
+                <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="location.href='/bbsAgeList.listen?selectAge=10&?selectItem=bbs_hitCount'">10대 이야기</div>
+                <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="location.href='/bbsAgeList.listen?selectAge=20&?selectItem=bbs_hitCount" >20대 이야기</div>
+                <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="location.href='/bbsAgeList.listen?selectAge=30&?selectItem=bbs_hitCount">30대 이야기</div>
+                <div class="listen-content2_1" style=" font-weight: 300; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="location.href='/bbsAgeList.listen?selectAge=40&?selectItem=bbs_hitCount">40대이상 이야기</div>
                 </center>
              </div>
              
              <div class="listen-content2" style="background-color:#f2f2f2; background-image:url(images/back5.png); height:180;">
               <center><B><p><h2>추천 이야기</h2></p></B>
-               <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 35px; cursor:pointer;" onclick="" >공감순 이야기</div>
-               <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 35px; cursor:pointer;" onclick="" >댓글순 이야기</div>
-               <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 35px; cursor:pointer;" onclick="">인기순 이야기</div>
+               <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 35px; cursor:pointer;" onclick="location.href='/bbsPopList.listen?selectItem=goodCount" >공감순 이야기</div>
+               <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 35px; cursor:pointer;" onclick="location.href='/bbsPopList.listen?selectItem=bbs_add_count" >댓글순 이야기</div>
+               <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 35px; cursor:pointer;" onclick="location.href='/bbsPopList.listen?selectItem=bbs_hitCount">인기순 이야기</div>
                 </center>
              </div>           
              
@@ -323,14 +335,53 @@
              </div>          
       </div>
       
-      <div class="listen-content1" style="background-image:url(images/back4.png);">
-            <div class="listen-content1_2" style="cursor:pointer;" onclick="">
-            <B><h1>MY STORY</h1></B>
+       <div class="listen-content1" style="background-image:url(images/back4.png);">
+            <div class="listen-content1_2" style="cursor:pointer;">
+            <B><a href="/bbsMyViewList.listen"><h1>MY STORY</h1></a></B>
              <p><h4>(최근에 내가 올린 이야기)</h4></p>
              </div>
-             <div class="listen-content1_3"></div>
-             <div class="listen-content1_3"></div>
-      </div>
+             
+    <% ArrayList mainMyStory = (ArrayList)request.getAttribute("mainMyStory");
+   for(int i=0; i<mainMyStory.size(); i++)
+   {  
+      BbsVo bbsVo = (BbsVo)mainMyStory.get(i);
+      int bbs_seq = (int)bbsVo.getBbs_seq();
+      String bbs_contents = (String)bbsVo.getBbs_contents();
+      int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
+      String reg_email = (String)bbsVo.getReg_email();
+      String path = (String)bbsVo.getPath();
+      String save_name = (String)bbsVo.getSave_name();
+%>
+            <div class="listen-content1_3">
+               <div class="image" id="imgRootDiv"
+                  style=" width: 320px; background-color:gray;  ">
+                  <img class="img imageShadow" name="bbs<%=bbs_seq%>"
+                     data-toggle="modal" data-target="#myModal"
+                     style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=300
+                     data-img-url="<%=path%>/<%=save_name%>"
+                     contents="<%=bbs_contents%>" />
+
+                  <div class="text2">
+                     <table>
+                        <TR height="70%">
+                           <TD>
+                              <H3><%=bbs_contents%></h3>
+                           </TD>
+                        </TR>
+                        <TR height="30%">
+                           <TD align="left"><%=bbs_hitCount%></TD>
+                        </TR>
+                     </table>
+
+                  </div>
+               </div>
+            </div>
+            <%
+               }
+            %>
+
+              </div>
+      
       
       
          <div class="listen-content3">            
@@ -350,40 +401,43 @@
    for(int i=0; count<=3; i++)
    {  
       
-      BbsVo bbsVo = (BbsVo)bbsList4.get(i);
-      int bbs_seq = (int)bbsVo.getBbs_seq();
-      String bbs_contents = (String)bbsVo.getBbs_contents();
-      int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
-      String reg_email = (String)bbsVo.getReg_email();
-      String path = (String)bbsVo.getPath();
-      String save_name = (String)bbsVo.getSave_name();
-       // 이미지 파일 위치
-      String filename = root+path+"/"+save_name ;
-   
-      // 이미지 읽기
-      Image img = new ImageIcon(filename).getImage();
-   
-      int imgWidth = img.getWidth(null);      //가로 사이즈
-      int imgHeight = img.getHeight(null);        //세로 사이즈
-   
-      
-      if(imgWidth > imgHeight)
-      {
-         if(imgHeight > 235)
-         {
-            imgHeight = 235;
-         }
-         count++;
-         if(count<=3)
-         {     
-      
-      %>
-        <div class="listen-content4"> 
+	   BbsVo bbsVo = (BbsVo)bbsList4.get(i);
+	      int bbs_seq = (int)bbsVo.getBbs_seq();
+	      String bbs_contents = (String)bbsVo.getBbs_contents();
+	      int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
+	      String reg_email = (String)bbsVo.getReg_email();
+	      int bbs_goodCount = (int) bbsVo.getGoodCount();
+	      String path = (String)bbsVo.getPath();
+	      String save_name = (String)bbsVo.getSave_name();
+	       // 이미지 파일 위치
+	      String filename = root+path+"/"+save_name ;
+	   
+	      // 이미지 읽기
+	      Image img = new ImageIcon(filename).getImage();
+	   
+	      int imgWidth = img.getWidth(null);      //가로 사이즈
+	      int imgHeight = img.getHeight(null);        //세로 사이즈
+	   
+	      
+	      if(imgWidth > imgHeight)
+	      {
+	         if(imgHeight > 235)
+	         {
+	            imgHeight = 235;
+	         }
+	         count++;
+	         if(count<=3)
+	         {     
+	      
+	      %>
+         <div class="listen-content4"> 
                                                
               <% if(count==2)
               { %> 
             <div class="listen-content5_5">
-              <img alt="" width="350"  height=<%=imgHeight%> src="<%=path%>/<%=save_name%>">
+              <img class="img" data-toggle="modal" data-target="#myModal" style="cursor:pointer" 
+              alt="" width="350"  height=<%=imgHeight%> src="<%=path%>/<%=save_name%>"
+              contents="<%=bbs_contents%>"  bbs_goodCount="<%=bbs_goodCount%>"/>
                </div>
              <div class="listen-content5" style="background-image:url(images/textimg1.png);"> 
               <B><p><%=bbs_contents %></p></B></div>
@@ -394,7 +448,9 @@
               <div class="listen-content5" style="background-image:url(images/textimg1.png);"> 
               <B><p><%=bbs_contents %></p></B></div>
                <div class="listen-content5_5">
-              <img alt="" width="350"  height=<%=imgHeight%> src="<%=path%>/<%=save_name%>">
+              <img class = "img" data-toggle="modal" data-target="#myModal" style="cursor:pointer" 
+              alt="" width="350"  height=<%=imgHeight%> src="<%=path%>/<%=save_name%>"
+              contents="<%=bbs_contents%>"  bbs_goodCount="<%=bbs_goodCount%>"/>
               </div>
               <%} %>
           </div>
@@ -413,6 +469,7 @@ for(int i=0; count1<=1; i++)
    String bbs_contents = (String)bbsVo.getBbs_contents();
    int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
    String reg_email = (String)bbsVo.getReg_email();
+   int bbs_goodCount = (int) bbsVo.getGoodCount();
    String path = (String)bbsVo.getPath();
    String save_name = (String)bbsVo.getSave_name();
      // 이미지 파일 위치
@@ -432,7 +489,9 @@ for(int i=0; count1<=1; i++)
    
           <div class="listen-content6"> 
            <div class="listen-content7" >
-              <img alt="" width="480" height="360" src="<%=path%>/<%=save_name%>">           
+              <img class="img" data-toggle="modal" data-target="#myModal" style="cursor:pointer" 
+              alt="" width="480" height="360" src="<%=path%>/<%=save_name%>"
+              contents="<%=bbs_contents%>"  bbs_goodCount="<%=bbs_goodCount%>"/>           
               </div>
              <div class="listen-content8" style="background-image:url(images/textimg2.png);">
                  <center><B><p><%=bbs_contents %></p></B></center>
@@ -447,14 +506,16 @@ for(int i=0; count1<=1; i++)
                 </div> 
                 </div>
                 <div class="listen-content12">
-                   <img alt="" width="309" height="188" src="<%=path%>/<%=save_name%>"></div>
+                   <img class="img" data-toggle="modal" data-target="#myModal" style="cursor:pointer" 
+                   alt="" width="309" height="188" src="<%=path%>/<%=save_name%>" 
+                   contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"/></div>
                 </div>
                    </div>
  <% } } }%>   
       
   <div class="jb-content">    
                    
-   <div class="jb-content1" style="margin-left: 5px;">                 
+   <div class="jb-content1" style="margin-left: 5px;">                      
 <%
 ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
    for(int i=0; i<bbsList.size(); i++)
@@ -673,3 +734,6 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
 <%
    }
 %>
+ <div class="listen-footer">
+
+</div> 

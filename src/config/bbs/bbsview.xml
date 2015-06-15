@@ -70,5 +70,23 @@
       WHERE BBS_SEQ=#bbs_seq# AND MEMBERS_SEQ=(SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#)
    </select>
    
+   
+   <select id="bbsMyViewList" resultClass="bbsView" parameterClass="bbsView">
+      SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, A.DISPYN, B.PATH, B.SAVE_NAME
+      FROM BBS A, BACKGROUND_IMG B
+      WHERE  A.BG_IMG_SEQ = B.BG_IMG_SEQ
+       AND A.REG_EMAIL = #reg_email#
+      ORDER BY A.BBS_SEQ DESC
+   </select>
+   
+   <select id="mainMyStory" resultClass="bbsView" parameterClass="bbsView">
+   <![CDATA[
+      select rownum ,A.BBS_SEQ,A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, A.DISPYN, A.REG_DATE, A.PATH, A.SAVE_NAME
+      from (select A.BBS_SEQ,A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, A.DISPYN, A.REG_DATE, B.PATH, B.SAVE_NAME
+    from BBS A, BACKGROUND_IMG B 
+     where A.reg_email = #reg_email#  order by A.reg_date desc) A
+       where rownum > 0 and rownum < 3
+    ]]>
+   </select>
 </sqlMap>
 

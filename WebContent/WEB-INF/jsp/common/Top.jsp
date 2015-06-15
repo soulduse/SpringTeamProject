@@ -56,7 +56,7 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href="/main.listen">LISTEN ALL</a></li>
             <li class="divider"></li>
-            <li><a href="#">MY STORY&nbsp</a></li>
+            <li><a href="bbsMyViewList.listen">MY STORY&nbsp</a></li>
             <li class="divider"></li>
             <li><a href="#">LISTEN&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a></li>
           </ul>

@@ -21,7 +21,17 @@ public class BbsVo {
 	private String save_name;
 	private String selectItem;
 	private int add_count;
-	private int count;
+	private String selectAge;
+	
+	
+
+	public String getSelectAge() {
+		return selectAge;
+	}
+
+	public void setSelectAge(String selectAge) {
+		this.selectAge = selectAge;
+	}
 
 	public int getBbs_seq() {
 		return bbs_seq;
@@ -174,13 +184,4 @@ public class BbsVo {
 	public void setAdd_count(int add_count) {
 		this.add_count = add_count;
 	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
 }
