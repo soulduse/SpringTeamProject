@@ -14,7 +14,6 @@
    </select>
    
    <select id="bbsDetailView" resultClass="bbsView" parameterClass="bbsView">
-      
       <dynamic>
       <isEqual property="selectItem" compareValue="댓글">
          SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.REG_EMAIL, A.BBS_HITCOUNT, A.GOODCOUNT, A.MEMBERS_SEQ, B.ADD_COUNT, C.PATH, C.SAVE_NAME

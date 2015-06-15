@@ -6,6 +6,7 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.listen.admin.dto.NoticeDto;
+import com.listen.admin.dto.OpinionDto;
 import com.listen.admin.vo.AdminNoticeVo;
 
 @Repository
@@ -54,6 +55,21 @@ public class AdminDao {
 	public void hitPlus(int bbs_seq)
 	{
 		smct.update("hitPlus", bbs_seq);
+	}
+
+	// 의견 보내기
+	public void opinionWrite(OpinionDto opinionDto) {
+		smct.insert("opinionWrite", opinionDto);
+	}
+	
+	// 의견보기
+	public ArrayList opinionList() {
+		return (ArrayList)smct.queryForList("opinionList");
+	}
+
+	// 배경그림 관리 페이지 목록 보기
+	public ArrayList backgroundList() {
+		return (ArrayList)smct.queryForList("backgroundList");
 	}
 
 }

@@ -6,6 +6,4 @@
 	<select id="getItemList" resultClass="item">
 		SELECT BBS_CONTENTS FROM BBS
 	</select>
-
-
 </sqlMap>

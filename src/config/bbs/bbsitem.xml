@@ -2,7 +2,6 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="Data">
 	<typeAlias alias="bbsWriteDto" type="com.listen.bbs.dto.BbsWriteDto" />
-	<typeAlias alias="backgroundVo" type="com.listen.bbs.vo.BackgroundVo" />
 
 	<!-- 글 등록 -->
 	<insert id="bbsTextWrite" parameterClass="bbsWriteDto">

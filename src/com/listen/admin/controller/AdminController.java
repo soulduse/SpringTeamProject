@@ -12,8 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.listen.admin.dao.AdminDao;
 import com.listen.admin.dto.NoticeDto;
+import com.listen.admin.dto.OpinionDto;
 import com.listen.admin.vo.AdminNoticeVo;
 import com.listen.base.controller.BaseController;
+
+
+/*
+ *  작업명세
+ * BBS TABLE 작성시 ADMIN 관련 게시판의 경우
+ * BBS_INFO_SEQ = 1 로 설정
+ */
 
 @Controller
 public class AdminController extends BaseController{
@@ -106,16 +114,26 @@ public class AdminController extends BaseController{
 		return "redirect:/admin/notice.listen";
 	}
 
-	// 의견 게시판
+	// 의견 보기
 	@RequestMapping("/admin/opinion.listen")
 	public String opinionMenu(HttpServletRequest request, HttpSession session) {
 		
 		System.out.println("의견 게시판 들어옴");
-		
-		request.setAttribute("page", "admin");
+		ArrayList opinionList = (ArrayList)adminDao.opinionList();
+		request.setAttribute("page", "adminOpinion");
+		request.setAttribute("opinionList", opinionList);
 		request.setAttribute("mainUrl", prefix + "admin/Opinion.jsp");
 		
 		return frame;
+	}
+	
+	// 의견 작성하기
+	@RequestMapping("/admin/opinionWrite.listen")
+	public String opinionWrite(OpinionDto opinionDto, HttpServletRequest request)
+	{
+		adminDao.opinionWrite(opinionDto);
+		System.out.println("의견등록 완료!");
+		return "redirect:/main.listen";
 	}
 
 	// 배경 관리페이지
@@ -123,8 +141,11 @@ public class AdminController extends BaseController{
 	public String backgroundMenu(HttpServletRequest request, HttpSession session) {
 
 		System.out.println("배경 관리 페이지 들어옴");
-
-		request.setAttribute("page", "admin");
+		
+		ArrayList backgroundList = (ArrayList)adminDao.backgroundList();
+		
+		request.setAttribute("page", "adminBackground");
+		request.setAttribute("backgroundList", backgroundList);
 		request.setAttribute("mainUrl", prefix + "admin/Background.jsp");
 
 		return frame;

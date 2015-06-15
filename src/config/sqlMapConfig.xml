@@ -13,4 +13,6 @@
 	
 	<!-- 관리자 메뉴 -->
 	<sqlMap resource="config/admin/notice.xml"/>
+	<sqlMap resource="config/admin/opinion.xml"/>
+	<sqlMap resource="config/admin/adminBackground.xml"/>
 </sqlMapConfig>

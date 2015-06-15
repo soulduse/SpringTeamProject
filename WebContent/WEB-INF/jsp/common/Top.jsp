@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=euc-kr"%>
+
 <SCRIPT>
 	// 선택한 메뉴의 페이지 이름으로 바꿔주는 Script
 	$(function(){

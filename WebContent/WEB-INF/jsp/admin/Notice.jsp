@@ -131,6 +131,7 @@
 <BR>
 <BR>
 
+<!-- ³»¿ë º¸±â Æû -->
 <FORM name="noticeViewForm" id="noticeViewForm"	action="/admin/noticeView.listen" method="post">
 	<INPUT type="hidden" name="bbs_seq"> <INPUT type="hidden" name="hit">
 </FORM>
