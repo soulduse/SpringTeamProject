@@ -65,26 +65,27 @@
 
 		// 공지사항 리스트 체크박스 이용한삭제
 		$('#noticeListDelete').click(function(){
+			var arr_seq = $('#array_bbs_seq');
 			var eachObj = document.getElementsByName("noticeCheck");
 			var eachObjSize = eachObj.length;  
 			var arrFir = new Array();
 			var cnt = 0;
-			
-			alert(eachObjSize);
 			
 			for (var i = 0; i < eachObjSize; ++i) 
 			{
 				if (eachObj[i].checked == true) 
 				{
 					arrFir[cnt] = eachObj[i].value;
-					$('#array_bbs_seq').val(arrFir[i]);
+					arr_seq.val(arrFir[cnt]);
+					$('#arrayDelForm').submit();
 					cnt++;
 				}
 			}
-			if(arrFir.length != 0)
+			if(arrFir.length == null || arrFir.length<=0)
 			{
-				$('#arrayDelForm').submit();
+				alert("체크된 항목이 존재하지 않습니다.");
 			}
+			
 		});
 	});
 
@@ -137,7 +138,7 @@
 </FORM>
 
 <!-- 삭제 히든 폼 -->
-<FORM name="arrayDelForm" id="arrayDelForm" action="/admin/noticeArrayDel.listen" method="post">
+<FORM name="arrayDelForm" id="arrayDelForm" action="/admin/noticeDelete.listen" method="post">
 	<INPUT type="hidden" name="bbs_seq" id="array_bbs_seq">
 </FORM>
 

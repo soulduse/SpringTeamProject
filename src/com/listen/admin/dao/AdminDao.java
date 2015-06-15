@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.listen.admin.dto.BackgroundDto;
 import com.listen.admin.dto.NoticeDto;
 import com.listen.admin.dto.OpinionDto;
 import com.listen.admin.vo.AdminNoticeVo;
@@ -47,7 +48,7 @@ public class AdminDao {
 	}
 	
 	// 공지사항 다중글 삭제
-	public void noticeArrayDelete(int[] bbs_seq) {
+	public void noticeArrayDelete(int bbs_seq) {
 		smct.update("noticeDelete", bbs_seq);
 	}
 	
@@ -70,5 +71,10 @@ public class AdminDao {
 	// 배경그림 관리 페이지 목록 보기
 	public ArrayList backgroundList() {
 		return (ArrayList)smct.queryForList("backgroundList");
+	}
+	
+	// 배경그림 등록
+	public void backgroundWrite(BackgroundDto backgroundDto){
+		smct.insert("backgroundWrite", backgroundDto);
 	}
 }

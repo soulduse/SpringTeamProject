@@ -27,13 +27,16 @@
 
 <!-- 기본 Js -->
 <SCRIPT src="/js/common.js"></SCRIPT>
+<link href="/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+<script src="/js/fileinput.js" type="text/javascript" charset="euc-kr"></script>
+<script src="/js/fileinput_locale_fr.js" type="text/javascript"></script>
+<script src="/js/fileinput_locale_es.js" type="text/javascript"></script>
 
 </HEAD>
 
 <BODY style="margin: 0px">
 	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-	<SCRIPT
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></SCRIPT>
+	<SCRIPT src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></SCRIPT>
 	<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 	<SCRIPT src="/js/bootstrap.min.js"></SCRIPT>
 
