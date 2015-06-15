@@ -1,18 +1,18 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.listen.admin.vo.BackgroundVo" %>
 
 
 <div class="btn-group" role="group" aria-label="menuGroup">
-  <button type="button" class="btn btn-success" onclick="location.href='/admin/notice.listen'">°øÁö»çÇ×</button>
-  <button type="button" class="btn btn-success" onclick="location.href='/admin/background.listen'">¹è°æ±×¸² ¼³Á¤</button>
-  <button type="button" class="btn btn-success" onclick="location.href='/admin/opinion.listen'">ÀÇ°ßº¸±â</button>
+  <button type="button" class="btn btn-success" onclick="location.href='/admin/notice.listen'">ê³µì§€ì‚¬í•­</button>
+  <button type="button" class="btn btn-success" onclick="location.href='/admin/background.listen'">ë°°ê²½ê·¸ë¦¼ ì„¤ì •</button>
+  <button type="button" class="btn btn-success" onclick="location.href='/admin/opinion.listen'">ì˜ê²¬ë³´ê¸°</button>
 </div>
 
 <BR>
 <BR>
 <BR>
-	<H2 align="center">¹è°æ±×¸² °ü¸®</H2>	
+	<H2 align="center">ë°°ê²½ê·¸ë¦¼ ê´€ë¦¬</H2>	
 <BR>
 <BR>
 <BR>
@@ -24,10 +24,10 @@
 			<tr>
 				<th class="col-md-1">#</th>
 				<th class="col-md-1">No.</th>
-				<th class="col-md-2">»çÁø</th>
-				<th class="col-md-1">»çÀÌÁî</th>
-				<th class="col-md-1">µî·ÏÀÚ</th>
-				<th class="col-md-1">µî·ÏÀÏ</th>
+				<th class="col-md-2">ì‚¬ì§„</th>
+				<th class="col-md-1">ì‚¬ì´ì¦ˆ</th>
+				<th class="col-md-1">ë“±ë¡ìž</th>
+				<th class="col-md-1">ë“±ë¡ì¼</th>
 			</tr>
 		</thead>
 		<tbody>

@@ -88,6 +88,10 @@ public class BbsDao {
 	      return (MyBackGroundVo) smct.queryForObject("bbsMybgimg", vo);
 	   }
 	   
-	
+	   // 무한스크롤 글 보기
+		public ArrayList bbsViewList2(BbsVo bbsVo)
+		{
+			return (ArrayList) smct.queryForList("bbsViewList2",bbsVo);
+		}
 	   
 }

@@ -7,11 +7,22 @@
    <typeAlias alias="ynFilterVo" type="com.listen.bbs.vo.YnFilterVo" />
 
    <select id="bbsViewList" resultClass="bbsView" >
-      SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
       FROM BBS A, BACKGROUND_IMG B
       WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
       ORDER BY A.BBS_SEQ DESC
+		
    </select>
+   
+   <select id="bbsViewList2" resultClass="bbsView" parameterClass="bbsView">
+      select ROWNUM , c.*
+		from (SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
+      FROM BBS A, BACKGROUND_IMG B
+      WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+      ORDER BY A.BBS_SEQ DESC) c
+		where ROWNUM > #no# and #no#+10 > ROWNUM
+   </select>
+ 
    
    <select id="bbsDetailView" resultClass="bbsView" parameterClass="bbsView">
       <dynamic>

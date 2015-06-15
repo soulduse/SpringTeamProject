@@ -1,11 +1,11 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 
 <SCRIPT>
 $(function(){
-	// ¿«∞ﬂ ∫∏≥ª±‚ πˆ∆∞
+	// ÏùòÍ≤¨ Î≥¥ÎÇ¥Í∏∞ Î≤ÑÌäº
 	$('#opinionWriteBtn').click(function(){
 		$('#opinionWriteForm').submit();
-		alert("¿«∞ﬂ¿Ã ¿¸¥ﬁ µ«æ˙Ω¿¥œ¥Ÿ.")
+		alert("ÏùòÍ≤¨Ïù¥ Ï†ÑÎã¨ ÎêòÏóàÏäµÎãàÎã§.")
 	});
 });
 
@@ -14,7 +14,7 @@ $(function(){
 	String reg_email = (String) session.getAttribute("email");
 	String reg_ip = request.getRemoteAddr();
 %>
-<!-- ¿«∞ﬂ∫∏≥ª±‚ Modal -->
+<!-- ÏùòÍ≤¨Î≥¥ÎÇ¥Í∏∞ Modal -->
 <div class="modal fade" id="opinionModal" style="width: 100%"
 	tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 	aria-hidden="true">
@@ -24,22 +24,22 @@ $(function(){
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="exampleModalLabel">¿«∞ﬂ ∫∏≥ª±‚</h4>
+				<h4 class="modal-title" id="exampleModalLabel">ÏùòÍ≤¨ Î≥¥ÎÇ¥Í∏∞</h4>
 			</div>
 			<div class="modal-body">
 				<form name="opinionWriteForm" id="opinionWriteForm"	action="/admin/opinionWrite.listen" method="post">
 					<div class="form-group">
-						<label for="message-text" class="control-label">¿«∞ﬂ</label>
+						<label for="message-text" class="control-label">ÏùòÍ≤¨</label>
 						<textarea class="form-control" id="bbs_contents"
-							name="bbs_contents" rows="12" placeholder="ø©±‚ø° ¿˚æÓ¡÷ººø‰."></textarea>
+							name="bbs_contents" rows="12" placeholder="Ïó¨Í∏∞Ïóê Ï†ÅÏñ¥Ï£ºÏÑ∏Ïöî."></textarea>
 					</div>
 					<INPUT type="hidden" name="reg_email" value="<%=reg_email%>">
 					<INPUT type="hidden" name="reg_ip" value="<%=reg_ip%>">
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="opinionWriteBtn">∫∏≥ª±‚</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">√Îº“</button>
+				<button type="button" class="btn btn-primary" id="opinionWriteBtn">Î≥¥ÎÇ¥Í∏∞</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Ï∑®ÏÜå</button>
 			</div>
 		</div>
 	</div>

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="com.listen.admin.vo.AdminNoticeVo"%>
 
@@ -28,12 +28,12 @@
 		//var noticeSection = noticeViewForm.find('input:hidden[name=section]');
 		//var noticePageNum = noticeViewForm.find('input:hidden[name=pageNum]');
 
-		// °øÁö»çÇ× µî·Ï
+		// ê³µì§€ì‚¬í•­ ë“±ë¡
 		$('#write-btn').click(function() {
 			var titleInput = $('input:text[name=bbs_title]');
 			var titleValue = trim(titleInput.val());
 			if (titleValue === "") {
-				window.alert("±Û Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+				window.alert("ê¸€ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”.");
 				titleInput.select();
 				return false;
 			}
@@ -42,7 +42,7 @@
 			var contentInput = $('[name=bbs_contents]');
 			var contentValue = trim(contentInput.val());
 			if (contentValue === "") {
-				window.alert("±Û ³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+				window.alert("ê¸€ ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”.");
 				contentInput.select();
 				return false;
 			}
@@ -55,7 +55,7 @@
 			textClear();
 		});
 
-		// °øÁö»çÇ× ±Ûº¸±â
+		// ê³µì§€ì‚¬í•­ ê¸€ë³´ê¸°
 		$('.noticeView').click(function() {
 			var noticeArticle = $(this);
 			noticeSeq.val(noticeArticle.attr('bbs_seq'));
@@ -63,7 +63,7 @@
 			noticeViewForm.submit();
 		});
 
-		// °øÁö»çÇ× ¸®½ºÆ® Ã¼Å©¹Ú½º ÀÌ¿ëÇÑ»èÁ¦
+		// ê³µì§€ì‚¬í•­ ë¦¬ìŠ¤íŠ¸ ì²´í¬ë°•ìŠ¤ ì´ìš©í•œì‚­ì œ
 		$('#noticeListDelete').click(function(){
 			var eachObj = document.getElementsByName("noticeCheck");
 			var eachObjSize = eachObj.length;  
@@ -96,19 +96,19 @@
 		contentInput.val("");
 	}
 
-	// Ã¼Å©¹Ú½º ÀüÃ¼ ¼±ÅÃ
-	function selectAllCheckBox(chbox) //chbox selectAll º»ÀÎÀ» ¹ŞÀ½.
+	// ì²´í¬ë°•ìŠ¤ ì „ì²´ ì„ íƒ
+	function selectAllCheckBox(chbox) //chbox selectAll ë³¸ì¸ì„ ë°›ìŒ.
 	{
 		var eachObj = document.getElementsByName("noticeCheck"); //
 		var eachObjSize = eachObj.length; // 
 
 		if (chbox.checked == true) {
 			for (i = 0; i < eachObjSize; ++i) {
-				eachObj[i].checked = true; // ÀüÃ¼ ¼±ÅÃµÈ true¸¦ ¸ğµç selectOne¿¡´Ù°¡ ´ëÀÔ
+				eachObj[i].checked = true; // ì „ì²´ ì„ íƒëœ trueë¥¼ ëª¨ë“  selectOneì—ë‹¤ê°€ ëŒ€ì…
 			}
 		} else {
 			for (i = 0; i < eachObjSize; ++i) {
-				eachObj[i].checked = false; // ÀüÃ¼ ¼±ÅÃµÈ true¸¦ ¸ğµç selectOne¿¡´Ù°¡ ´ëÀÔ
+				eachObj[i].checked = false; // ì „ì²´ ì„ íƒëœ trueë¥¼ ëª¨ë“  selectOneì—ë‹¤ê°€ ëŒ€ì…
 			}
 		}
 	}
@@ -116,27 +116,27 @@
 
 <div class="btn-group" role="group" aria-label="menuGroup">
 	<button type="button" class="btn btn-success"
-		onclick="location.href='/admin/notice.listen'">°øÁö»çÇ×</button>
+		onclick="location.href='/admin/notice.listen'">ê³µì§€ì‚¬í•­</button>
 	<button type="button" class="btn btn-success"
-		onclick="location.href='/admin/background.listen'">¹è°æ±×¸² ¼³Á¤</button>
+		onclick="location.href='/admin/background.listen'">ë°°ê²½ê·¸ë¦¼ ì„¤ì •</button>
 	<button type="button" class="btn btn-success"
-		onclick="location.href='/admin/opinion.listen'">ÀÇ°ßº¸±â</button>
+		onclick="location.href='/admin/opinion.listen'">ì˜ê²¬ë³´ê¸°</button>
 </div>
 
 <BR>
 <BR>
 <BR>
-<H2 align="center">°øÁö»çÇ×</H2>
+<H2 align="center">ê³µì§€ì‚¬í•­</H2>
 <BR>
 <BR>
 <BR>
 
-<!-- ³»¿ë º¸±â Æû -->
+<!-- ë‚´ìš© ë³´ê¸° í¼ -->
 <FORM name="noticeViewForm" id="noticeViewForm"	action="/admin/noticeView.listen" method="post">
 	<INPUT type="hidden" name="bbs_seq"> <INPUT type="hidden" name="hit">
 </FORM>
 
-<!-- »èÁ¦ È÷µç Æû -->
+<!-- ì‚­ì œ íˆë“  í¼ -->
 <FORM name="arrayDelForm" id="arrayDelForm" action="/admin/noticeArrayDel.listen" method="post">
 	<INPUT type="hidden" name="bbs_seq" id="array_bbs_seq">
 </FORM>
@@ -150,10 +150,10 @@
 			<tr>
 				<th class="col-md-1">#</th>
 				<th class="col-md-1">No</th>
-				<th class="col-md-5">Á¦¸ñ</th>
-				<th class="col-md-2">ÀÛ¼ºÀÚ</th>
-				<th class="col-md-2">ÀÛ¼ºÀÏ</th>
-				<th class="col-md-1">Á¶È¸</th>
+				<th class="col-md-5">ì œëª©</th>
+				<th class="col-md-2">ì‘ì„±ì</th>
+				<th class="col-md-2">ì‘ì„±ì¼</th>
+				<th class="col-md-1">ì¡°íšŒ</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -191,7 +191,7 @@
 				<td><A bbs_seq="<%=bbs_seq%>" hit="<%=hit%>" class="noticeView"
 					style="cursor: pointer" data-toggle="modal"
 					data-target="#viewModal"><%=bbs_title%></A></td>
-				<td>°ü¸®ÀÚ</td>
+				<td>ê´€ë¦¬ì</td>
 				<td><%=date%></td>
 				<td><%=hitCount%></td>
 			</tr>
@@ -205,16 +205,16 @@
 </DIV>
 </CENTER>
 <DIV class="col-md-5">
-		<input type="checkbox" name="selectAll" value="selectAll" onclick="selectAllCheckBox(this)">ÀüÃ¼¼±ÅÃ
+		<input type="checkbox" name="selectAll" value="selectAll" onclick="selectAllCheckBox(this)">ì „ì²´ì„ íƒ
 </DIV>
 <DIV class="col-md-6 col-md-offset-3" style="margin-bottom: 150px;">
 	<button type="button" class="btn btn-primary" data-toggle="modal"
-		data-target="#deleteModal" id="modalDeleteBtn">»èÁ¦</button>
+		data-target="#deleteModal" id="modalDeleteBtn">ì‚­ì œ</button>
 	<button type="button" class="btn btn-primary" data-toggle="modal"
-		data-target="#writeModal" id="modalWriteBtn">±Û¾²±â</button>
+		data-target="#writeModal" id="modalWriteBtn">ê¸€ì“°ê¸°</button>
 </DIV>
 
-<!-- ±Û ¾²±â Modal -->
+<!-- ê¸€ ì“°ê¸° Modal -->
 <div class="modal fade" id="writeModal" style="width: 100%"
 	tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 	aria-hidden="true">
@@ -225,50 +225,50 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="exampleModalLabel">°øÁö»çÇ× ±Û¾²±â</h4>
+				<h4 class="modal-title" id="exampleModalLabel">ê³µì§€ì‚¬í•­ ê¸€ì“°ê¸°</h4>
 			</div>
 			<div class="modal-body">
 				<form name="writeForm" id="writeForm"
 					action="/admin/noticeWrite.listen" method="post">
 					<div class="form-group">
-						<label for="recipient-name" class="control-label">Á¦¸ñ</label> <input
+						<label for="recipient-name" class="control-label">ì œëª©</label> <input
 							type="text" class="form-control" id="bbs_title" name="bbs_title"
-							placeholder="±Û Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä.">
+							placeholder="ê¸€ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”.">
 					</div>
 					<div class="form-group">
-						<label for="message-text" class="control-label">³»¿ë</label>
+						<label for="message-text" class="control-label">ë‚´ìš©</label>
 						<textarea class="form-control" id="bbs_contents"
-							name="bbs_contents" rows="12" placeholder="±Û ³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä."></textarea>
+							name="bbs_contents" rows="12" placeholder="ê¸€ ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”."></textarea>
 					</div>
 					<INPUT type="hidden" name="reg_email" value="<%=reg_email%>">
 					<INPUT type="hidden" name="reg_ip" value="<%=reg_ip%>">
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="write-btn">±Û¾²±â</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Ãë¼Ò</button>
+				<button type="button" class="btn btn-primary" id="write-btn">ê¸€ì“°ê¸°</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">ì·¨ì†Œ</button>
 			</div>
 		</div>
 	</div>
 </div>
 
 
-<!-- »èÁ¦ È®ÀÎ-->
+<!-- ì‚­ì œ í™•ì¸-->
 <div class="modal fade" id="deleteModal" style="width: 100%"
 	tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-sm" style="margin-top: 200px">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel">»èÁ¦È®ÀÎ</h4>
+				<h4 class="modal-title" id="exampleModalLabel">ì‚­ì œí™•ì¸</h4>
 			</div>
 			<div class="modal-body">
-				<label for="recipient-name" class="control-label">Á¤¸» »èÁ¦
-					ÇÏ½Ã°Ú½À´Ï±î?</label>
+				<label for="recipient-name" class="control-label">ì •ë§ ì‚­ì œ
+					í•˜ì‹œê² ìŠµë‹ˆê¹Œ?</label>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="noticeListDelete">»èÁ¦</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Ãë¼Ò</button>
+				<button type="button" class="btn btn-primary" id="noticeListDelete">ì‚­ì œ</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">ì·¨ì†Œ</button>
 			</div>
 		</div>
 	</div>

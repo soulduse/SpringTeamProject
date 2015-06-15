@@ -8,7 +8,11 @@
 <script type="text/javascript" src="js/ajax-bbsview.js"></script>
 <script type="text/javascript" src="js/ajax-comment.js"></script>
 <script type="text/javascript" src="js/ajax-chattingRequest.js"></script>
+<%
 
+int rownum = 0;
+int rownum2 = rownum+9;
+%>
 
 <SCRIPT>
    $(function() {
@@ -38,17 +42,19 @@
 			chattingRequest();
 		});
 		
-		
-   });
-   $(window).scroll(function(){
-		if  ($(window).scrollTop() >= $(document).height() - $(window).height()){
-		alert($(window).scrollTop());
-		alert($(document).height());
-		alert($(window).height());
-		}
-	});
+	 });
+  
 </SCRIPT>
+<SCRIPT>
+$(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
+    if  ($(window).scrollTop() == ($(document).height() - $(window).height()))	{  //② 현재스크롤의 위치가 화면의 보이는 위치보다 크다면
+   	alert(<%=rownum2%>);
+    	 //ajaxBbsList();
+    }
+});
 
+	
+</SCRIPT>
 <!doctype html>
 <html lang="ko">
   <head>
@@ -520,12 +526,16 @@ for(int i=0; count1<=1; i++)
                    </div>
  <% } } }%>   
       
+      
+      
+      
+      <!-- 메인 하단 부분 글 보여주기 -->
   <div class="jb-content">    
                    
    <div class="jb-content1" style="margin-left: 5px;">                      
 <%
 ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
-   for(int i=0; i<bbsList.size(); i++)
+   for(int i=0; i<rownum2; i++)
    {  
       BbsVo bbsVo = (BbsVo)bbsList.get(i);
       int bbs_seq = (int)bbsVo.getBbs_seq();
@@ -569,7 +579,7 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       
  <div class="jb-content1" style="margin-left: 15px;">                 
 <% ArrayList bbsList2 = (ArrayList)request.getAttribute("bbsList");
-   for(int i=0; i<bbsList.size(); i++)
+   for(int i=0; i<rownum2; i++)
    {  
       BbsVo bbsVo = (BbsVo)bbsList.get(i);
       int bbs_seq = (int)bbsVo.getBbs_seq();
@@ -611,7 +621,7 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       
  <div class="jb-content1" style="margin-left: 15px;">                 
 <% ArrayList bbsList3 = (ArrayList)request.getAttribute("bbsList");
-   for(int i=0; i<bbsList.size(); i++)
+   for(int i=0; i<rownum2; i++)
    {  
       BbsVo bbsVo = (BbsVo)bbsList.get(i);
       int bbs_seq = (int)bbsVo.getBbs_seq();

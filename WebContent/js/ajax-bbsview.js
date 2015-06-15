@@ -26,7 +26,6 @@ $(document).ready(function() {
 
 //Ajax 글 공감 버튼처리
 function bbsLike() {
-	alert();
 	//var likeSw = $('.animation-1 .heartImg').attr('alt');
 	var likeValue = $('.like-label').text();
 	var bbs_seq = $("#bbs_seq").attr("value");
@@ -46,3 +45,64 @@ function bbsLike() {
 	});
 }
 
+
+//Ajax 글 추가하기
+function ajaxBbsList() {
+	/*
+	var likeValue = $('.like-label').text();
+	var bbs_seq = $("#bbs_seq").attr("value");
+
+	$.ajax({
+		url : "/ajax/bbsLikeCount.listen",
+		type : 'POST',
+		data : "likeValue="+likeValue+"&bbs_seq="+bbs_seq,
+		success : function(response, status, request) {
+			if (response.status == 200) {
+				alert("성공!");
+			} else // 데이터가 없을 경우
+			{
+				alert("실패!");
+			}
+		}
+	});
+	
+	///
+	 var commentTableBody = $('#comment_table_body');
+   // 댓글 내용
+   var content = $('#comment').val();
+   var bbs_seq = $('#bbs_seq').val();
+   var reg_email = $('#reg_email').val();
+   var reg_ip = $('#reg_ip').val();
+
+   $.ajax({
+      url : "/ajax/bbsAdd.listen",
+      type : 'POST',
+      dataType : "xml",
+      data : "content=" + content + "&bbs_seq=" + bbs_seq + "&reg_email="
+            + reg_email + "&reg_ip=" + reg_ip,
+      success : function(response, status, request) {
+         if (request.status == 200) {
+            clearTbody(); // 내용 초기화 작업
+            $(response).find('root').each(function() {
+               $(response).find('items').each(function() {
+                  var content = $('content', this).text();
+                  var reg_date = $('reg_date', this).text();
+                  var myTR = $('<TR>');
+                  myTR.append("<TD>" + content + "</TD>");
+                  myTR.append("<TD>" + reg_date + "</TD>");
+                  myTR.append("<TD>" +
+                                 "<A class='likeBtn' data-toggle='modal' data-target='.comment-delete-modal'>" +
+                                 "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>" +
+                                 "</A></TD>");
+                  myTR.append("<TD>clover</TD>");
+                  commentTableBody.append(myTR);
+               })
+            });
+         } else // 데이터가 없을 경우
+         {
+            clearTbody();
+         }
+      }
+   });
+	*/
+}
