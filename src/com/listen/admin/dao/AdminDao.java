@@ -71,5 +71,4 @@ public class AdminDao {
 	public ArrayList backgroundList() {
 		return (ArrayList)smct.queryForList("backgroundList");
 	}
-
 }

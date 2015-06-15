@@ -1,4 +1,12 @@
 <%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.listen.chatting.vo.*" %>
+<%@ page import="com.listen.notice.vo.*" %>
+
+<% 
+	ArrayList chatList = (ArrayList)session.getAttribute("chatList");
+	ArrayList noticeList = (ArrayList)session.getAttribute("noticeList");
+%>
 
 <SCRIPT>
 	// 선택한 메뉴의 페이지 이름으로 바꿔주는 Script
@@ -7,6 +15,23 @@
 			  $(this).parents(".dropdown").find('.selection').text($(this).text());
 			  $(this).parents(".dropdown").find('.selection').val($(this).text());
 			});
+		
+		//방만들기 
+		$(".room_make").click(function() {
+			var num = $(this).attr("id");
+			var CreateRoomForm = "#CreateRoomForm" + num;
+			$(CreateRoomForm).submit();
+		});
+		
+		// 방 입장
+		$(".chattingroom").click(function() {
+			var num =  $(this).attr("id");
+			var roomname = $('#roomname'+num).val();
+			var nickname = $('#nickname'+num).val();
+			var email = $('#email'+num).val();
+			window.open("http://localhost:900/chatting/"+encodeURIComponent(roomname)+"?name="
+					+encodeURIComponent(nickname)+"?email="+encodeURIComponent(email), '1', 'width=600, height=800, resizable=no');
+		});
 	});
 </SCRIPT>
 
@@ -68,9 +93,100 @@
         </li>
         
         <li><a href="/view.listen"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true"></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-comment" aria-hidden="true"></a>
+          <ul class="dropdown-menu" role="menu">
+          	<P><H3 align="center"><font color="#4C4C4C">Chatting List</font></H3></P><BR>
+          	
+<% 
+if(session.getAttribute("email")!=null)
+{
+	for(int i=0; i < chatList.size(); i++)
+	{
+		ChattingVo chattingVo = (ChattingVo) chatList.get(i);
+		String roomname = (String)chattingVo.getChatting_name();
+		String nickname = (String)chattingVo.getRamdom_name();
+		String email = (String)session.getAttribute("email");
+%>
+	<INPUT type="hidden" name="roomname<%=i %>" id="roomname<%=i %>" value="<%=roomname %>">
+	<INPUT type="hidden" name="nickname<%=i %>" id="nickname<%=i %>" value="<%=nickname %>">
+	<INPUT type="hidden" name="email<%=i %>" id="email<%=i %>" value="<%=email %>">
+    <li><a href="#" class ="chattingroom" id="<%=i %>"><%= roomname %></a></li>
+    <li class="divider"></li>
+	
+<%
+	}
+}
+%>
+          </ul>
+        </li>
         <li><a href="/write.listen"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-bell" aria-hidden="true"></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-bell" aria-hidden="true"></a>
+          <ul class="dropdown-menu" role="menu">
+          	<P><H3 align="center"><font color="#4C4C4C">알림</font></H3></P><BR>
+          	
+<% 
+if(session.getAttribute("email")!=null)
+{
+	for(int i=0; i < noticeList.size(); i++)
+	{
+		NoticeVo noticeVo = (NoticeVo) noticeList.get(i);
+		int notifications_seq = (int)noticeVo.getNotifications_seq();	
+		int send_seq = (int)noticeVo.getMembers_seq();
+		int rec_seq = (int)noticeVo.getRec_seq();
+		int noti_state_seq = (int)noticeVo.getNoti_state_seq();
+		String content = (String)noticeVo.getContent();
+			
+%>
+	<FORM name="CreateRoomForm<%=i %>>" method="post" id="CreateRoomForm<%=i %>" action="/createRoom.listen">
+				<INPUT type="hidden" name="notifications_seq" value="<%= notifications_seq%>">
+				<INPUT type="hidden" name="send_seq" value="<%= send_seq%>">
+				<INPUT type="hidden" name="rec_seq" value="<%= rec_seq%>">
+<%
+		if(noti_state_seq == 1)
+		{
+%>
+			<img src="/images/message.png">     <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "수락">
+            <li class="divider"></li>
+<%
+		}
+		if(noti_state_seq == 2)
+		{
+%>
+			<img src="/images/clover.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "수락">
+    		<li class="divider"></li>
+<%
+		}
+		if(noti_state_seq == 4)
+		{
+%>
+			<img src="/images/heart.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "수락">
+            <li class="divider"></li>
+<%
+		}
+		if(noti_state_seq == 5)
+		{
+%>
+			<img src="/images/port.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "수락">
+            <li class="divider"></li>
+<%
+		}
+		if(noti_state_seq == 6)
+		{
+%>
+			<img src="/images/notice.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "수락">
+            <li class="divider"></li>
+<%
+		}
+%>
+	</FORM> 
+<%
+	}
+}
+%>
+          </ul>
+        </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">

@@ -1,5 +1,6 @@
 // Ajax 댓글 처리 function
 function ajaxBbsAdd() {
+
    var commentTableBody = $('#comment_table_body');
    // 댓글 내용
    var content = $('#comment').val();

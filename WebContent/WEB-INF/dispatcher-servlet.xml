@@ -34,6 +34,17 @@
 	
 	<bean id="loginAction" class="com.listen.member.controller.LoginAction">
 		<property name="memberDao" ref="memberDao" />
+		<property name="chattingDao" ref="chattingDao"/>
+		<property name="noticeDao" ref="noticeDao"/>
+	</bean>
+	
+	<bean id="createChatting" class="com.listen.chatting.controller.CreateChatting">
+		<property name="chattingDao" ref="chattingDao"/>
+		<property name="noticeDao" ref="noticeDao"/>
+	</bean>
+	
+	<bean id="noticeAdd" class="com.listen.notice.controller.NoticeAdd">
+		<property name="noticeDao" ref="noticeDao"/>
 	</bean>
 
    <!-- 다오 -->
@@ -56,7 +67,14 @@
 	<bean id="bbsAddDao" class="com.listen.bbs.dao.BbsAddDao">
 		<property name="smct" ref="sqlMapClientTemplate"/>
 	</bean>
-
+	
+	<bean id="noticeDao" class="com.listen.notice.dao.NoticeDao">
+		<property name="smct" ref="sqlMapClientTemplate"/>
+	</bean>
+	
+	<bean id="chattingDao" class="com.listen.chatting.dao.ChattingDao">
+		<property name="smct" ref="sqlMapClientTemplate"/>
+	</bean>
 
 	<!-- FileUplaod 설정 -->
 	<bean id="multipartResolver"

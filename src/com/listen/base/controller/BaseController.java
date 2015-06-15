@@ -7,20 +7,6 @@ public class BaseController {
 	protected final String prefix = "/WEB-INF/jsp/";
 	protected String mainUrl = "/WEB-INF/jsp/common/Main.jsp";
 	protected String message = "";
+	protected final String popup = "/common/Popup";
 	
-	protected final String adminFrame = "/admin/AdminFrame";
-	
-	/*
-	public void init(HttpServletRequest request)
-	{
-
-		session = request.getSession(false);
-		if(session==null || session.getAttribute("loginYn")==null)
-		{
-			session = request.getSession(true);
-			session.setAttribute("loginYn", "N");
-		}	
-	}
-	*/
-
 }

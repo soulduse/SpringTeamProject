@@ -26,6 +26,7 @@ $(document).ready(function() {
 
 //Ajax 글 공감 버튼처리
 function bbsLike() {
+	alert();
 	//var likeSw = $('.animation-1 .heartImg').attr('alt');
 	var likeValue = $('.like-label').text();
 	var bbs_seq = $("#bbs_seq").attr("value");

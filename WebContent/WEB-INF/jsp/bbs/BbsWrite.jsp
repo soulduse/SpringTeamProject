@@ -16,7 +16,7 @@
 		$('#writeBtn').click(function() {
 			//var writeForm = $('#writeForm');
 			$('#writeForm').submit();
-			alert(<%=message%>);
+			alert("<%=message%>");
 		});
 	});
 	

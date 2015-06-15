@@ -13,9 +13,9 @@
 			   		alert("모바일 기기에서 접속");
 			   		// 아래 주소로 이동한다.
 			   		location.href = "/Login.listen";
+			  
 			  	}else{
 			   		//alert("PC에서 접속");
-			   		
 			   		location.href = "/Login.listen";
 			  	}
 			}

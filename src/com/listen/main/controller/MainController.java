@@ -18,47 +18,50 @@ public class MainController extends BaseController {
 
 	private ItemDao itemDao;
 	private BbsDao bbsDao;
-
+	
 	public void setBbsDao(BbsDao bbsDao) {
 		this.bbsDao = bbsDao;
 	}
+
 
 	public void setItemDao(ItemDao itemDao) {
 		this.itemDao = itemDao;
 	}
 
+
 	@RequestMapping("/main.listen")
-	public String mainPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
+	public String mainPage(HttpServletRequest request, HttpSession session) {
 
 		System.out.println("mainPage 들어옴");
-		String selectItem=(String)session.getAttribute("selectItem");
-		bbsVo.setSelectItem(selectItem);
-		ArrayList bbsList = bbsDao.bbsDetailView(bbsVo);
+			
+		ArrayList bbsList = bbsDao.bbsViewList();
 		request.setAttribute("page", "main");
 		request.setAttribute("bbsList",  bbsList);
-		
 		//request.setAttribute("mainUrl", prefix + "~~~.jsp");
 
 		return frame;
 	}
-
+	
 	@RequestMapping("/write.listen")
 	public String writePage(HttpServletRequest request, HttpSession session) {
-
+		
 		System.out.println("writePage 들어옴");
+		
 		request.setAttribute("page", "write");
 		request.setAttribute("mainUrl", prefix + "bbs/BbsWrite.jsp");
-
+		
 		return frame;
 	}
-
-	// 관리자 페이지 가기
-	@RequestMapping("/admin/main.listen")
-	public String adminPage(HttpServletRequest request, HttpSession session) {
-
-		System.out.println("관리자 페이지 들어옴");
-		request.setAttribute("page", "admin");
-		request.setAttribute("mainUrl", prefix + "admin/AdminFrame.jsp");
+	
+	@RequestMapping("/bbsMyViewList.listen")
+	public String bbsMyViewList(HttpServletRequest request, HttpSession session) {
+		String reg_email = (String)session.getAttribute("email");
+		BbsVo bv = new BbsVo();
+		bv.setReg_email(reg_email);
+		ArrayList bbsMyViewList = bbsDao.bbsMyViewList(bv);
+		request.setAttribute("page", "myStory");
+		request.setAttribute("bbsMyViewList",  bbsMyViewList);
+		request.setAttribute("mainUrl", prefix + "myStory/myStory.jsp");
 
 		return frame;
 	}

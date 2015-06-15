@@ -7,6 +7,11 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/ajax-bbsview.js"></script>
 <script type="text/javascript" src="js/ajax-comment.js"></script>
+
+
+<script type="text/javascript" src="js/ajax-chattingRequest.js"></script>
+
+
 <SCRIPT>
    $(function() {
       $('.img').click(function() {
@@ -29,6 +34,14 @@
       $('#addWriteBtn').click(function() {
          ajaxBbsAdd();
       });
+      
+      var chatReqForm = $('#chatReqForm');
+		$('#chattingRequset').click(function() {
+			alert("22");
+			chattingRequest();
+		});
+		
+		
    });
 </SCRIPT>
 
@@ -576,6 +589,12 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
+         <FORM name="chatReqForm" id="chatReqForm" method="post"
+					action="/chattingRequest.listen">
+					<INPUT type="hidden" name="bbs_seq" id="bbs_seq" value="">
+					<INPUT type="hidden" name="email" id="email"
+						value="<%=email%>">
+				</FORM>
             <div class="lcard-button-wrapper">
                <div class="lcard-button">
                   <div class="container animation-1">
@@ -585,6 +604,8 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
                </div>
                <div class="like-label">0</div>
             </div>
+            <div id="chattingRequset" class ="glyphicon glyphicon-comment" style="left: 100px; cursor:pointer;" >채팅 요청</div>
+				
             <button type="button" class="close" data-dismiss="modal"
                aria-label="Close">
                <span aria-hidden="true">&times;</span>

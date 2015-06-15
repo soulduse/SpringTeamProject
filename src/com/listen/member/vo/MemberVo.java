@@ -1,7 +1,6 @@
 package com.listen.member.vo;
 
 public class MemberVo {
-
 	private String members_seq;
 	private String gender;
 	private String birthyear;
@@ -26,34 +25,6 @@ public class MemberVo {
 
 	// setter , getter
 
-	public String getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getRealId() {
-		return realId;
-	}
-
-	public void setRealId(String realId) {
-		this.realId = realId;
-	}
-
-	public void setBirthyear(String birthyear) {
-		this.birthyear = birthyear;
-	}
-
 	public String getMembers_seq() {
 		return members_seq;
 	}
@@ -72,6 +43,10 @@ public class MemberVo {
 
 	public String getBirthyear() {
 		return birthyear;
+	}
+
+	public void setBirthyear(String birthyear) {
+		this.birthyear = birthyear;
 	}
 
 	public String getEmail() {
@@ -162,6 +137,14 @@ public class MemberVo {
 		this.latitude = latitude;
 	}
 
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
 	public String getAdmin_yn() {
 		return admin_yn;
 	}
@@ -192,5 +175,21 @@ public class MemberVo {
 
 	public void setNoti_count(String noti_count) {
 		this.noti_count = noti_count;
+	}
+
+	public String getRealId() {
+		return realId;
+	}
+
+	public void setRealId(String realId) {
+		this.realId = realId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

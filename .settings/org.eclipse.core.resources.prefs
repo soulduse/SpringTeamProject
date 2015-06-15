@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/jsp/bbs/BbsView.jsp=UTF-8
 encoding//WebContent/WEB-INF/jsp/common/Main.jsp=UTF-8
+<<<<<<< HEAD
 encoding//WebContent/WEB-INF/jsp/member/mLogin.jsp=UTF-8
+=======
+>>>>>>> refs/remotes/origin/houngjun

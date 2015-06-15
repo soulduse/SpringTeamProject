@@ -15,4 +15,8 @@
 	<sqlMap resource="config/admin/notice.xml"/>
 	<sqlMap resource="config/admin/opinion.xml"/>
 	<sqlMap resource="config/admin/adminBackground.xml"/>
+	
+	<!-- 채팅 xml -->
+	<sqlMap resource="config/chat/chatting.xml"/>
+	<sqlMap resource="config/notice/notice.xml"/>
 </sqlMapConfig>

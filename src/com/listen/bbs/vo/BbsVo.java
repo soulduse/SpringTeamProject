@@ -16,33 +16,12 @@ public class BbsVo {
 	private int badCount; // 나빠요
 	private int goodCount; // 좋아요
 	private String dispYn; // 게시판 공개여부
-	private String chat_Yn; // 채팅 사요 여부
+	private String chat_Yn; // 채팅 사용 여부
 	private String path;
 	private String save_name;
-	// 채팅 사용여부
 	private String selectItem;
 	private int add_count;
 	private int count;
-	
-	
-	
-	
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
-	public int getAdd_count() {
-		return add_count;
-	}
-
-	public void setAdd_count(int add_count) {
-		this.add_count = add_count;
-	}
 
 	public int getBbs_seq() {
 		return bbs_seq;
@@ -187,4 +166,21 @@ public class BbsVo {
 	public void setSelectItem(String selectItem) {
 		this.selectItem = selectItem;
 	}
+
+	public int getAdd_count() {
+		return add_count;
+	}
+
+	public void setAdd_count(int add_count) {
+		this.add_count = add_count;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 }

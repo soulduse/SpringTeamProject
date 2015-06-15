@@ -9,17 +9,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.listen.base.controller.BaseController;
+import com.listen.chatting.dao.ChattingDao;
 import com.listen.member.dao.MemberDao;
 import com.listen.member.vo.MemberVo;
+import com.listen.notice.dao.NoticeDao;
 
 @Controller
 public class LoginAction extends BaseController {
 
 	private MemberDao memberDao;
 	private MemberVo memberVo;
+	private ChattingDao chattingDao;
+	private NoticeDao noticeDao;
 
 	public void setMemberDao(MemberDao memberDao) {
 		this.memberDao = memberDao;
+	}
+
+	public void setChattingDao(ChattingDao chattingDao) {
+		this.chattingDao = chattingDao;
+	}
+
+	public void setNoticeDao(NoticeDao noticeDao) {
+		this.noticeDao = noticeDao;
 	}
 
 	@RequestMapping("/Login.listen")
@@ -38,12 +50,22 @@ public class LoginAction extends BaseController {
 	      String longitude = (String) request.getParameter("longitude");
 	      String email = "";
 	      String password = "";
+	      
 
 	      ArrayList EmailList = memberDao.getEmailList(id);
 	      if (EmailList.size() != 0) {
 	         MemberVo mv = (MemberVo) EmailList.get(0);
 	         email = (String) mv.getEmail();
 	         password = (String) mv.getPassword();
+	         
+	         System.out.println(email);
+	         System.out.println("chatPage 들어옴");
+	         ArrayList chatList = chattingDao.getChattinglist(email);
+	         session.setAttribute("chatList",  chatList);
+	         System.out.println(chatList.size());
+	         ArrayList noticeList = noticeDao.getNoticelist(email);
+	         session.setAttribute("noticeList",  noticeList);
+	         System.out.println(noticeList.size());
 	      }
 
 	      memberVo = new MemberVo();
@@ -201,5 +223,4 @@ public class LoginAction extends BaseController {
 
 		return "";
 	}
-
 }

@@ -50,5 +50,10 @@ public class BbsDao {
 	{
 		smct.update("likeCountUpdate", bbsLikeSwitchDto);
 	}
-
+	
+	// 마이 페이지
+	public ArrayList bbsMyViewList(BbsVo vo)
+	{
+		return (ArrayList) smct.queryForList("bbsMyViewList", vo);
+	}
 }

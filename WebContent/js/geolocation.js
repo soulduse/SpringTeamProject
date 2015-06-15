@@ -1,3 +1,4 @@
+
 var lati;
 var longi
 if(navigator.geolocation)
@@ -17,5 +18,3 @@ else
 {
 	alert("지원하지 않습니다.")
 }
-
-
