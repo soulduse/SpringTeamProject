@@ -40,6 +40,13 @@
 		
 		
    });
+   $(window).scroll(function(){
+		if  ($(window).scrollTop() >= $(document).height() - $(window).height()){
+		alert($(window).scrollTop());
+		alert($(document).height());
+		alert($(window).height());
+		}
+	});
 </SCRIPT>
 
 <!doctype html>

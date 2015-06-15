@@ -88,5 +88,51 @@
        where rownum > 0 and rownum < 3
     ]]>
    </select>
+   
+   <!-- 메인에서 연령별 선택 쿼리 -->	
+   <select id="bbsAgeList" resultClass="bbsView" parameterClass="bbsView">
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, nvl(c.add_count,0) add_count, 
+		EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1 age
+		FROM BBS A, BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*)ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) c, members d
+		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq = c.bbs_seq(+) and a.reg_email = d.email
+		
+		<dynamic>
+			<isEqual property="selectAge" compareValue="10">
+				and EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1 > 9 and 20 > EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1
+			</isEqual>
+		</dynamic>
+		<dynamic>
+			<isEqual property="selectAge" compareValue="20">
+				and EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1 > 19 and 30 > EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1 
+			</isEqual>
+		</dynamic>		
+		<dynamic>
+			<isEqual property="selectAge" compareValue="30">
+				and EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1 > 29 and 40 > EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1
+			</isEqual>
+		</dynamic>		
+		<dynamic>
+			<isEqual property="selectAge" compareValue="40">
+				and EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1 > 39
+			</isEqual>
+		</dynamic>		
+		
+		<dynamic>
+			<isEqual property="selectItem" compareValue="bbs_add_count">
+				ORDER BY ADD_COUNT DESC 
+			</isEqual>
+		</dynamic>
+		<dynamic>
+			<isEqual property="selectItem" compareValue="bbs_hitCount">
+				ORDER BY a.bbs_hitCount DESC 
+			</isEqual>
+		</dynamic>
+		<dynamic>
+			<isEqual property="selectItem" compareValue="goodCount">
+				ORDER BY a.goodCount DESC 
+			</isEqual>
+		</dynamic>
+		 
+   </select>
 </sqlMap>
 
