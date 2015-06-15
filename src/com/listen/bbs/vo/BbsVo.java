@@ -23,18 +23,18 @@ public class BbsVo {
 	private int add_count;
 	private String selectAge;
 	private int no;
-	private int rownum;
+	private int rn;
 	
 	
 	
 	
 
-	public int getRownum() {
-		return rownum;
+	public int getRn() {
+		return rn;
 	}
 
-	public void setRownum(int rownum) {
-		this.rownum = rownum;
+	public void setRn(int rn) {
+		this.rn = rn;
 	}
 
 	public int getNo() {
