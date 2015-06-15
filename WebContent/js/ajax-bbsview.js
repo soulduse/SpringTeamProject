@@ -47,24 +47,23 @@ function bbsLike() {
 
 
 //Ajax 글 추가하기
-function ajaxBbsList() {
-	/*
-	var likeValue = $('.like-label').text();
-	var bbs_seq = $("#bbs_seq").attr("value");
-
+function ajaxBbsList(no) {
+	
+	alert("넘어온 " + no);
+	
+	
 	$.ajax({
-		url : "/ajax/bbsLikeCount.listen",
+		url : "/ajax/bbsViewListAdd.listen",
 		type : 'POST',
-		data : "likeValue="+likeValue+"&bbs_seq="+bbs_seq,
+		dataType : "xml",
+		data : "no="+no,
 		success : function(response, status, request) {
-			if (response.status == 200) {
-				alert("성공!");
-			} else // 데이터가 없을 경우
-			{
-				alert("실패!");
+			if (request.status == 200) {
+				alert("됐다");
 			}
 		}
-	});
+	})
+	/*
 	
 	///
 	 var commentTableBody = $('#comment_table_body');

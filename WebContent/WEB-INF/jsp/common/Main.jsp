@@ -48,8 +48,8 @@ int rownum2 = rownum+9;
 <SCRIPT>
 $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
     if  ($(window).scrollTop() == ($(document).height() - $(window).height()))	{  //② 현재스크롤의 위치가 화면의 보이는 위치보다 크다면
-   	alert(<%=rownum2%>);
-    	 //ajaxBbsList();
+   	
+    ajaxBbsList(<%=rownum2%>);
     }
 });
 
