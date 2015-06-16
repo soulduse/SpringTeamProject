@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 
 <% 
 	String message = "adfasdfasdf";
@@ -9,7 +9,7 @@
 	
 %>
 
-<P>±Û¾²±â ÆäÀÌÁö</P>
+<P>ê¸€ì“°ê¸° íŽ˜ì´ì§€</P>
 
 <SCRIPT>
 	$(function() {
@@ -24,10 +24,10 @@
 
 <BODY>   
 	<FORM name="writeForm" method="post" id="writeForm" enctype="multipart/form-data" action="/writeSave.listen">
-		<P>ÇÒ¸» ÀÔ·ÂÇØ</P>
+		<P>í• ë§ ìž…ë ¥í•´</P>
 		<INPUT type="text" name="bbs_contents" id="bbs_contents">
-		<P>ÆÄÀÏ µî·ÏÇØ</P>
+		<P>íŒŒì¼ ë“±ë¡í•´</P>
 		<INPUT type="file" name="upload"/>
-		<INPUT type="button" id="writeBtn" value="µî·Ï"/>
+		<INPUT type="button" id="writeBtn" value="ë“±ë¡"/>
 	</FORM>
 </BODY>

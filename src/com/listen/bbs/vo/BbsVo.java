@@ -22,8 +22,28 @@ public class BbsVo {
 	private String selectItem;
 	private int add_count;
 	private String selectAge;
+	private int no;
+	private int rn;
 	
 	
+	
+	
+
+	public int getRn() {
+		return rn;
+	}
+
+	public void setRn(int rn) {
+		this.rn = rn;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
 
 	public String getSelectAge() {
 		return selectAge;

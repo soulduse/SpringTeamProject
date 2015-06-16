@@ -7,10 +7,10 @@
    <typeAlias alias="ynFilterVo" type="com.listen.bbs.vo.YnFilterVo" />
 
    <select id="bbsViewList" resultClass="bbsView" >
-      SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
-      FROM BBS A, BACKGROUND_IMG B
-      WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
-      ORDER BY A.BBS_SEQ DESC
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
+		FROM BBS A, BACKGROUND_IMG B
+		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+		ORDER BY A.BBS_SEQ DESC
    </select>
    
    
@@ -24,6 +24,18 @@
 		    ) 
 		where 20 >= ROWNUM
    </select>
+   
+   <select id="bbsViewList2" resultClass="bbsView" parameterClass="bbsView">
+		SELECT * 
+		FROM 
+		(SELECT ROWNUM RN, C.*
+		FROM (SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
+		FROM BBS A, BACKGROUND_IMG B
+		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+		ORDER BY A.BBS_SEQ DESC) C) D
+		WHERE RN > #no# AND #no#+10 > RN
+   </select>
+ 
    
    <select id="bbsDetailView" resultClass="bbsView" parameterClass="bbsView">
       <dynamic>

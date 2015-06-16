@@ -305,4 +305,45 @@ public class BbsController extends BaseController{
 
       return frame;
    }
+   
+   
+   @RequestMapping("/ajax/bbsViewListAdd.listen")
+   public void bbsViewListAddPage(HttpServletRequest request, HttpServletResponse response) throws IOException
+   {
+	   
+	   System.out.println("여기까찐 되네");
+	   
+	   /*
+      if(bbsAddWriteDto.getContent() != "" && bbsAddWriteDto.getContent().length()>0)
+      {
+         bbsAddDao.bbsAddWrite(bbsAddWriteDto);
+      }
+      ArrayList bbsAddList = (ArrayList)bbsAddDao.bbsAddList(bbsAddWriteDto);
+      response.setCharacterEncoding("utf-8");
+      if(bbsAddList.size()>0)
+      {
+         PrintWriter out = response.getWriter();
+         response.setContentType("text/html;charset=UTF-8");
+         out.print("<root>");
+         for(int i=0; i<bbsAddList.size(); i++)
+         {
+            BbsAddVo bbsAddVo = (BbsAddVo) bbsAddList.get(i);
+            String content = URLDecoder.decode(bbsAddVo.getContent(), "UTF-8");   // 한글처리부분
+            String reg_date = bbsAddVo.getReg_date();
+            int goodCount = bbsAddVo.getGoodCount();
+            out.println("<items>");
+            out.println("<content>"+content+"</content>");
+            out.println("<reg_date>"+reg_date+"</reg_date>");
+            out.println("<goodcount>"+goodCount+"</goodcount>");
+            out.println("</items>");
+         }
+         out.println("</root>");
+         out.close();
+      }
+      else
+      {
+         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+      }
+      */
+   }
 }

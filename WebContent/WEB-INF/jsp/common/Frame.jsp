@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=euc-kr"%>
+<%@ page contentType="text/html;charset=utf-8"%>
 <%
 	String mainUrl = "/WEB-INF/jsp/common/Main.jsp";
 	System.out.println("frame.jsp");
@@ -8,15 +8,16 @@
 		System.out.println("mainUrl: " + mainUrl);
 	}
 %>
+
 <HTML>
 <HEAD>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<TITLE>¸¶À½ÀÌ µû¶æÇØÁö´Â ÀÍ¸íSNS - Listen</TITLE>
+<TITLE>ë§ˆìŒì´ ë”°ëœ»í•´ì§€ëŠ” ìµëª…SNS - Listen</TITLE>
 
-<!-- ºÎÆ®½ºÆ®·¦ -->
+<!-- ë¶€íŠ¸ìŠ¤íŠ¸ëž© -->
 <LINK href="/css/bootstrap.css" rel="stylesheet">
 
 <!-- Main CSS -->
@@ -25,16 +26,16 @@
 <!-- JQuery -->
 <SCRIPT src="/js/jquery-2.1.3.min.js"></SCRIPT>
 
-<!-- ±âº» Js -->
+<!-- ê¸°ë³¸ Js -->
 <SCRIPT src="/js/common.js"></SCRIPT>
 
 </HEAD>
 
 <BODY style="margin: 0px">
-	<!-- jQuery (ºÎÆ®½ºÆ®·¦ÀÇ ÀÚ¹Ù½ºÅ©¸³Æ® ÇÃ·¯±×ÀÎÀ» À§ÇØ ÇÊ¿äÇÕ´Ï´Ù) -->
+	<!-- jQuery (ë¶€íŠ¸ìŠ¤íŠ¸ëž©ì˜ ìžë°”ìŠ¤í¬ë¦½íŠ¸ í”ŒëŸ¬ê·¸ì¸ì„ ìœ„í•´ í•„ìš”í•©ë‹ˆë‹¤) -->
 	<SCRIPT
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></SCRIPT>
-	<!-- ¸ðµç ÄÄÆÄÀÏµÈ ÇÃ·¯±×ÀÎÀ» Æ÷ÇÔÇÕ´Ï´Ù (¾Æ·¡), ¿øÇÏÁö ¾Ê´Â´Ù¸é ÇÊ¿äÇÑ °¢°¢ÀÇ ÆÄÀÏÀ» Æ÷ÇÔÇÏ¼¼¿ä -->
+	<!-- ëª¨ë“  ì»´íŒŒì¼ëœ í”ŒëŸ¬ê·¸ì¸ì„ í¬í•¨í•©ë‹ˆë‹¤ (ì•„ëž˜), ì›í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ í•„ìš”í•œ ê°ê°ì˜ íŒŒì¼ì„ í¬í•¨í•˜ì„¸ìš” -->
 	<SCRIPT src="/js/bootstrap.min.js"></SCRIPT>
 
 	<center>
@@ -45,9 +46,7 @@
 			<div id="content">
 				<jsp:include page="<%=mainUrl%>" flush="true" />
 			</div>
-			<div id="footer">
-				<jsp:include page="Bottom.jsp" />
-			</div>
+			
 			<div id="modal">
 				<jsp:include page="Modal.jsp" />
 			</div>

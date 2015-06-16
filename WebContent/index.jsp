@@ -2,7 +2,7 @@
 <HTML>
 	<HEAD>
 		<TITLE>마음이 따뜻해지는 익명SNS - Listen</TITLE>
-		<META http-equiv="Content-Type" content="text/html; charset=euc-kr">
+		<META http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<SCRIPT type="text/javascript">
 			 var filter = "win16|win32|win64|mac";
 	
