@@ -324,9 +324,9 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
                 <center>
                 <B><p><h2>또래 이야기</h2></p></B>
                 <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="location.href='/bbsAgeList.listen?selectAge=10&?selectItem=bbs_hitCount'">10대 이야기</div>
-                <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="location.href='/bbsAgeList.listen?selectAge=20&?selectItem=bbs_hitCount" >20대 이야기</div>
-                <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="location.href='/bbsAgeList.listen?selectAge=30&?selectItem=bbs_hitCount">30대 이야기</div>
-                <div class="listen-content2_1" style=" font-weight: 300; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="location.href='/bbsAgeList.listen?selectAge=40&?selectItem=bbs_hitCount">40대이상 이야기</div>
+                <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="location.href='/bbsAgeList.listen?selectAge=20&?selectItem=bbs_hitCount'" >20대 이야기</div>
+                <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="location.href='/bbsAgeList.listen?selectAge=30&?selectItem=bbs_hitCount'">30대 이야기</div>
+                <div class="listen-content2_1" style=" font-weight: 300; font-size: 1em;font-family: 맑은고딕; height: 30px; cursor:pointer;" onclick="location.href='/bbsAgeList.listen?selectAge=40&?selectItem=bbs_hitCount'">40대이상 이야기</div>
                 </center>
              </div>
              

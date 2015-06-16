@@ -208,30 +208,30 @@ public class BbsController extends BaseController{
    
    @RequestMapping("/bbsAgeList.listen")
    public String bbsAgePage(BbsVo bbsVo,HttpServletRequest request, HttpSession session) {
-	   
-	  String selectAge = (String)request.getParameter("selectAge");
-	  String selectItem=(String)session.getAttribute("selectItem");
+
+	  String selectAge = "";
+	  String selectItem = "";
 	  
 	  if((String)request.getParameter("selectItem")!=null)
 	  {
-		  System.out.println("어 있네 셀렉트아이템");
 	      selectItem = (String)request.getParameter("selectItem");
 	  }
+	  
+	  if((String)request.getParameter("selectAge")!=null)
+	  {
+		  selectAge = (String)request.getParameter("selectAge");
+	  }
 	  session.setAttribute("selectItem",selectItem);
-	 
-	  System.out.println("요기도 들어왔지 아이템을 찍어라 " +(String)request.getParameter("selectItem"));
+	  session.setAttribute("selectAge",selectAge);
 	  
 	  bbsVo.setSelectItem(selectItem);
-	  request.setAttribute("selectItem", selectItem);
-	  
-	  
-	  System.out.println("여기 들어왔다 나이를 찍거라 "+(String)request.getParameter("selectAge"));
 	  bbsVo.setSelectAge(selectAge);
+	  
 	  ArrayList bbsAgeList = bbsDao.bbsAgeList(bbsVo);
-	  request.setAttribute("page", "all");
+	  request.setAttribute("page", "bbsAgeList");
 	  request.setAttribute("bbsAgeList",  bbsAgeList);
 	  request.setAttribute("selectAge", selectAge);
-	 
+	  request.setAttribute("selectItem", selectItem);
 	  request.setAttribute("mainUrl", prefix + "bbs/BbsAgeList.jsp");
       
       return frame;
