@@ -51,6 +51,21 @@ public class MainController extends BaseController {
 		return frame;
 	}
 	
+
+	@RequestMapping("/m_main.listen")
+	public String m_mainPage(HttpServletRequest request, HttpSession session) {
+
+		System.out.println("m_mainPage 들어옴");
+			
+		ArrayList bbsList = bbsDao.m_bbsViewList();
+		request.setAttribute("page", "main");
+		request.setAttribute("bbsList",  bbsList);
+
+		request.setAttribute("mainUrl", prefix + "common/m_poto.jsp");
+
+		return m_frame;
+	}
+	
 	@RequestMapping("/write.listen")
 	public String writePage(HttpServletRequest request, HttpSession session) {
 		

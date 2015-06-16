@@ -1,7 +1,7 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <HTML>
 	<HEAD>
-		<TITLE>¸¶À½ÀÌ µû¶æÇØÁö´Â ÀÍ¸íSNS - Listen</TITLE>
+		<TITLE>ë§ˆìŒì´ ë”°ëœ»í•´ì§€ëŠ” ìµëª…SNS - Listen</TITLE>
 		<META http-equiv="Content-Type" content="text/html; charset=euc-kr">
 		<SCRIPT type="text/javascript">
 			 var filter = "win16|win32|win64|mac";
@@ -10,12 +10,12 @@
 			 {
 			 	if( filter.indexOf(navigator.platform.toLowerCase())<0 )
 			 	{
-			   		alert("¸ğ¹ÙÀÏ ±â±â¿¡¼­ Á¢¼Ó");
-			   		// ¾Æ·¡ ÁÖ¼Ò·Î ÀÌµ¿ÇÑ´Ù.
+			   		alert("ëª¨ë°”ì¼ ê¸°ê¸°ì—ì„œ ì ‘ì†");
+			   		// ì•„ë˜ ì£¼ì†Œë¡œ ì´ë™í•œë‹¤.
 			   		location.href = "/Login.listen";
 			  
 			  	}else{
-			   		//alert("PC¿¡¼­ Á¢¼Ó");
+			   		//alert("PCì—ì„œ ì ‘ì†");
 			   		location.href = "/Login.listen";
 			  	}
 			}
