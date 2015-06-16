@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class BackgroundDto {
 
+	private int bg_img_seq;
 	private MultipartFile upload; // 업로드할 파일
 	private String path;
 	private String org_name;
@@ -11,6 +12,23 @@ public class BackgroundDto {
 	private long file_size;
 	private String reg_email;
 	private String reg_ip;
+	private String state;
+
+	public int getBg_img_seq() {
+		return bg_img_seq;
+	}
+
+	public void setBg_img_seq(int bg_img_seq) {
+		this.bg_img_seq = bg_img_seq;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 	public MultipartFile getUpload() {
 		return upload;

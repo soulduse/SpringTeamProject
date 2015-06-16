@@ -19,4 +19,19 @@
 		VALUES
 		(BG_IMG_SEQ.NEXTVAL, #path#, #org_name#, #save_name#, #file_size#, #reg_email#, #reg_ip#, #reg_email#, #reg_ip#)
 	</insert>
+	
+	<!-- 배경이미지 수정 -->
+	<update id="backgroundUpdate" parameterClass="backgroundDto">
+		UPDATE BACKGROUND_IMG SET
+		PATH = #path#, ORG_NAME=#org_name#, SAVE_NAME=#save_name#, FILE_SIZE=#file_size#, 
+		UPD_EMAIL=#reg_email#, UPD_IP=#reg_ip#
+		WHERE BG_IMG_SEQ = #bg_img_seq#
+	</update>
+	
+	<!-- 배경 이미지 삭제 -->
+	<update id="bgImgDelete" parameterClass="java.lang.Integer">
+		UPDATE BACKGROUND_IMG SET
+		DISP_YN = 'N'
+		WHERE BG_IMG_SEQ = #bg_img_seq#
+	</update>
 </sqlMap>

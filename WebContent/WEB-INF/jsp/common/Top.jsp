@@ -120,7 +120,7 @@ if(session.getAttribute("email")!=null)
 %>
           </ul>
         </li>
-        <li><a href="/write.listen"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a></li>
+        <li><a data-toggle="modal" data-target="#BbswriteModal" style="cursor:pointer;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-bell" aria-hidden="true"></a>
           <ul class="dropdown-menu" role="menu">

@@ -107,19 +107,14 @@ public class AdminController extends BaseController {
 	}
 
 	// 공지사항 글 삭제
-	@RequestMapping("/admin/noticeDelete.listen")
-	public String noticeDelete(@RequestParam(value = "bbs_seq") int bbs_seq) {
-		adminDao.noticeDelete(bbs_seq);
-		System.out.println("글 삭제 성공!");
-		return "redirect:/admin/notice.listen";
-	}
-
-	// 공지사항 다중글 삭제
 	@RequestMapping("/admin/noticeArrayDel.listen")
-	public String noticeArrayDelete(
-			@RequestParam(value = "bbs_seq") int[] bbs_seq) {
-		for (int i = 0; i < bbs_seq.length; i++) {
-			adminDao.noticeDelete(bbs_seq[i]);
+	public String noticeArrayDelete(@RequestParam(value = "bbs_seq") String seqArray) {
+		
+		String bbs_seqArray [] = seqArray.split(",");
+		for(int i=0; i<bbs_seqArray.length; i++)
+		{
+			int bbs_seq = Integer.parseInt(bbs_seqArray[i].trim());
+			adminDao.noticeDelete(bbs_seq);
 		}
 		System.out.println("글 삭제 성공!");
 		return "redirect:/admin/notice.listen";
@@ -161,7 +156,7 @@ public class AdminController extends BaseController {
 		return frame;
 	}
 
-	// 배경 이미지 등록
+	// 배경 이미지 등록 & 수정
 	@RequestMapping("/admin/bgImgWrite.listen")
 	public String backgroundWrite(BackgroundDto backgroundDto) {
 		String confRoot = servletContext.getRealPath("/"); // WebContent경로
@@ -184,6 +179,7 @@ public class AdminController extends BaseController {
 			String imgExt = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length()); // 파일 확장자
 			String saveName = System.currentTimeMillis()+"_"+fileName;
 			long fileSize = resPic.getSize(); // 파일 사이즈
+			String state = backgroundDto.getState();
 
 			backgroundDto.setOrg_name(fileName);
 			backgroundDto.setPath(path);
@@ -197,7 +193,15 @@ public class AdminController extends BaseController {
 				System.out.println("두번째 경로 : " + savePath + "\\" + saveName);
 				try {
 					resPic.transferTo(outFileName);		// 해당 경로로 파일을 업로드함.
-					adminDao.backgroundWrite(backgroundDto);
+					// 사진 등록
+					if(state.equals("1"))
+					{
+						adminDao.backgroundWrite(backgroundDto);
+					}
+					// 사진 업로드
+					else if(state.equals("2")){
+						adminDao.backgroundUpload(backgroundDto);
+					}
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -210,5 +214,22 @@ public class AdminController extends BaseController {
 		}
 		return "redirect:/admin/background.listen";
 	}
+	
+	// 공지사항 글 삭제
+	@RequestMapping("/admin/bgImgDel.listen")
+	public String bgImgDelete(@RequestParam(value = "bg_img_seq") String seqArray) {
+		
+		String bbs_seqArray [] = seqArray.split(",");
+		for(int i=0; i<bbs_seqArray.length; i++)
+		{
+			int bg_seq_img = Integer.parseInt(bbs_seqArray[i].trim());
+			adminDao.bgImgDelete(bg_seq_img);
+		}
+		System.out.println("배경 삭제 성공!");
+		
+		return "redirect:/admin/background.listen";
+	}
+	
+	
 
 }

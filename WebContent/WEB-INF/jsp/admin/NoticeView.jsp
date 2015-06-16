@@ -34,7 +34,7 @@
 			textClear();
 		});
 		
-		
+		// ¼öÁ¤
 		$('#update-btn').click(function(){
 			$('#updateForm').submit();
 		});
@@ -89,7 +89,7 @@
 <BR>
 <BR>
 
-<FORM name="delForm" id="delForm" action="/admin/noticeDelete.listen" method="POST">
+<FORM name="delForm" id="delForm" action="/admin/noticeArrayDel.listen" method="POST">
 	<INPUT type="hidden" name="bbs_seq" value="<%=bbs_seq %>">
 </FORM>
 

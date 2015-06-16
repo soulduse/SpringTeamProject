@@ -77,4 +77,14 @@ public class AdminDao {
 	public void backgroundWrite(BackgroundDto backgroundDto){
 		smct.insert("backgroundWrite", backgroundDto);
 	}
+	
+	// 배경그림 수정
+	public void backgroundUpload(BackgroundDto backgroundDto) {
+		smct.update("backgroundUpdate", backgroundDto);
+	}
+	
+	// 배경 그림 삭제
+	public void bgImgDelete(int bg_seq_img) {
+		smct.update("bgImgDelete", bg_seq_img);
+	}
 }
