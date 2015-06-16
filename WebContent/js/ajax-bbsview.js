@@ -49,13 +49,9 @@ function bbsLike() {
 //Ajax 글 추가하기
 function ajaxBbsList(no) {
 	
-	alert("넘어온 " + no);
-	
-	
 	$.ajax({
 		url : "/ajax/bbsViewListAdd.listen",
 		type : 'POST',
-		dataType : "xml",
 		data : "no="+no,
 		success : function(response, status, request) {
 			if (request.status == 200) {

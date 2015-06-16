@@ -47,7 +47,7 @@ int rownum2 = rownum+9;
 </SCRIPT>
 <SCRIPT>
 $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
-    if  ($(window).scrollTop() == ($(document).height() - $(window).height()))	{  //② 현재스크롤의 위치가 화면의 보이는 위치보다 크다면
+    if  ($(window).scrollTop() + $(window).height() > ($(document).height() - 50))	{
    	
     ajaxBbsList(<%=rownum2%>);
     }
@@ -332,9 +332,9 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
              
              <div class="listen-content2" style="background-color:#f2f2f2; background-image:url(images/back5.png); height:180;">
               <center><B><p><h2>추천 이야기</h2></p></B>
-               <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 35px; cursor:pointer;" onclick="location.href='/bbsPopList.listen?selectItem=goodCount" >공감순 이야기</div>
-               <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 35px; cursor:pointer;" onclick="location.href='/bbsPopList.listen?selectItem=bbs_add_count" >댓글순 이야기</div>
-               <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 35px; cursor:pointer;" onclick="location.href='/bbsPopList.listen?selectItem=bbs_hitCount">인기순 이야기</div>
+               <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 35px; cursor:pointer;" onclick="location.href='/bbsPopList.listen?selectItem=goodCount'" >공감순 이야기</div>
+               <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 35px; cursor:pointer;" onclick="location.href='/bbsPopList.listen?selectItem=bbs_add_count'" >댓글순 이야기</div>
+               <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 35px; cursor:pointer;" onclick="location.href='/bbsPopList.listen?selectItem=bbs_hitCount'">인기순 이야기</div>
                 </center>
              </div>           
              
@@ -532,7 +532,7 @@ for(int i=0; count1<=1; i++)
       <!-- 메인 하단 부분 글 보여주기 -->
   <div class="jb-content">    
                    
-   <div class="jb-content1" style="margin-left: 5px;">                      
+   <div class="jb-content1" id="imgRootDiv1" style="margin-left: 5px;">                      
 <%
 ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
    for(int i=0; i<rownum2; i++)
@@ -547,7 +547,8 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       int bbs_goodCount = (int) bbsVo.getGoodCount();
       if(i%3==1){
 %>
-    <div class="image" id="imgRootDiv"  style="margin-left: 15px;">
+
+    <div class="image" style="margin-left: 15px;">
         <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
       width=300 contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"/>
@@ -577,7 +578,7 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
 
 
       
- <div class="jb-content1" style="margin-left: 15px;">                 
+ <div class="jb-content1" id="imgRootDiv2" style="margin-left: 15px;">                 
 <% ArrayList bbsList2 = (ArrayList)request.getAttribute("bbsList");
    for(int i=0; i<rownum2; i++)
    {  
@@ -591,7 +592,7 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       int bbs_goodCount = (int) bbsVo.getGoodCount();
       if(i%3==2){
 %>
-    <div class="image " id="imgRootDiv" style="margin-left: 23px;" >
+    <div class="image "  style="margin-left: 23px;" >
         <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
       width=310 contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"/>
@@ -619,7 +620,7 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
 %>
    </div>
       
- <div class="jb-content1" style="margin-left: 15px;">                 
+ <div class="jb-content1"  id="imgRootDiv3"  style="margin-left: 15px;">                 
 <% ArrayList bbsList3 = (ArrayList)request.getAttribute("bbsList");
    for(int i=0; i<rownum2; i++)
    {  
@@ -633,7 +634,7 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       int bbs_goodCount = (int) bbsVo.getGoodCount();
       if(i%3==0){
 %>
-    <div class="image " id="imgRootDiv" style="margin-left: 33px;">
+    <div class="image " style="margin-left: 33px;">
         <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
       width=300 contents="<%=bbs_contents%>"  bbs_goodCount="<%=bbs_goodCount%>"/>

@@ -308,31 +308,38 @@ public class BbsController extends BaseController{
    
    
    @RequestMapping("/ajax/bbsViewListAdd.listen")
-   public void bbsViewListAddPage(HttpServletRequest request, HttpServletResponse response) throws IOException
+   public void bbsViewListAddPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException
    {
 	   
 	   System.out.println("여기까찐 되네");
+	   ArrayList bbsViewListAdd = (ArrayList)bbsDao.bbsViewList2(bbsVo);
+	   
+	   request.setAttribute("bbsViewListAdd", bbsViewListAdd);
+	   
+	   
+	   
 	   
 	   /*
-      if(bbsAddWriteDto.getContent() != "" && bbsAddWriteDto.getContent().length()>0)
-      {
-         bbsAddDao.bbsAddWrite(bbsAddWriteDto);
-      }
-      ArrayList bbsAddList = (ArrayList)bbsAddDao.bbsAddList(bbsAddWriteDto);
       response.setCharacterEncoding("utf-8");
-      if(bbsAddList.size()>0)
+      if(bbsViewListAdd.size()>0)
       {
          PrintWriter out = response.getWriter();
          response.setContentType("text/html;charset=UTF-8");
          out.print("<root>");
-         for(int i=0; i<bbsAddList.size(); i++)
+         for(int i=0; i<bbsViewListAdd.size(); i++)
          {
-            BbsAddVo bbsAddVo = (BbsAddVo) bbsAddList.get(i);
-            String content = URLDecoder.decode(bbsAddVo.getContent(), "UTF-8");   // 한글처리부분
-            String reg_date = bbsAddVo.getReg_date();
-            int goodCount = bbsAddVo.getGoodCount();
+        	 BbsVo bbsViewListAddVo = (BbsVo) bbsViewListAdd.get(i);
+            String bbs_contents = URLDecoder.decode(bbsViewListAddVo.getBbs_contents(), "UTF-8");   // 한글처리부분
+            int bbs_seq = (int)bbsViewListAddVo.getBbs_seq();
+            int bbs_hitCount = (int)bbsViewListAddVo.getBbs_hitCount();
+            String reg_email = (String)bbsViewListAddVo.getReg_email();
+            String path = (String)bbsViewListAddVo.getPath();
+            String save_name = (String)bbsViewListAddVo.getSave_name();
+            int bbs_goodCount = (int) bbsViewListAddVo.getGoodCount();
+            
+            int goodCount = bbsViewListAddVo.getGoodCount();
             out.println("<items>");
-            out.println("<content>"+content+"</content>");
+            out.println("<bbs_contents>"+bbs_contents+"</bbs_contents>");
             out.println("<reg_date>"+reg_date+"</reg_date>");
             out.println("<goodcount>"+goodCount+"</goodcount>");
             out.println("</items>");
@@ -344,6 +351,7 @@ public class BbsController extends BaseController{
       {
          response.setStatus(HttpServletResponse.SC_NO_CONTENT);
       }
-      */
+   */
    }
+   
 }
