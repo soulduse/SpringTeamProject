@@ -102,10 +102,10 @@ $(function() {
 <%
 
       int i =0;
-      ArrayList bbsIntList = (ArrayList)request.getAttribute("bbsIntList");
+      ArrayList bbsPopList = (ArrayList)request.getAttribute("bbsPopList");
        for(i=0; i<10; i++)
        {  
-         BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
+         BbsVo bbsVo = (BbsVo)bbsPopList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
@@ -151,7 +151,7 @@ $(function() {
       
       for(i=0; i<=10; i++)
       {  
-         BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
+         BbsVo bbsVo = (BbsVo)bbsPopList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
@@ -203,7 +203,7 @@ $(function() {
    <%
       for(i=0; i<10; i++)
       {  
-         BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
+         BbsVo bbsVo = (BbsVo)bbsPopList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();

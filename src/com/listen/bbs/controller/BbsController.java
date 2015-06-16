@@ -178,9 +178,9 @@ public class BbsController extends BaseController{
        }
        session.setAttribute("selectItem",selectItem);
        bbsVo.setSelectItem(selectItem);
-       ArrayList bbsIntList = bbsDao.bbsDetailView(bbsVo);
+       ArrayList bbsPopList = bbsDao.bbsDetailView(bbsVo);
        request.setAttribute("page", "interest");
-       request.setAttribute("bbsIntList",  bbsIntList);
+       request.setAttribute("bbsPopList",  bbsPopList);
        request.setAttribute("selectItem", selectItem);
       request.setAttribute("mainUrl", prefix + "bbs/BbsPopList.jsp");
       return frame;
@@ -307,51 +307,36 @@ public class BbsController extends BaseController{
    }
    
    
-   @RequestMapping("/ajax/bbsViewListAdd.listen")
-   public void bbsViewListAddPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException
+   @RequestMapping("/ajax/bbsViewListAdd1.listen")
+   public String bbsViewListAddPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException
    {
+	   int rownum2 = (int)bbsVo.getNo();
+	   request.setAttribute("rownum2", rownum2);
+	   ArrayList ajaxBbsViewList = (ArrayList)bbsDao.bbsViewList2(bbsVo);
 	   
-	   System.out.println("여기까찐 되네");
-	   ArrayList bbsViewListAdd = (ArrayList)bbsDao.bbsViewList2(bbsVo);
-	   
-	   request.setAttribute("bbsViewListAdd", bbsViewListAdd);
-	   
-	   
-	   
-	   
-	   /*
-      response.setCharacterEncoding("utf-8");
-      if(bbsViewListAdd.size()>0)
-      {
-         PrintWriter out = response.getWriter();
-         response.setContentType("text/html;charset=UTF-8");
-         out.print("<root>");
-         for(int i=0; i<bbsViewListAdd.size(); i++)
-         {
-        	 BbsVo bbsViewListAddVo = (BbsVo) bbsViewListAdd.get(i);
-            String bbs_contents = URLDecoder.decode(bbsViewListAddVo.getBbs_contents(), "UTF-8");   // 한글처리부분
-            int bbs_seq = (int)bbsViewListAddVo.getBbs_seq();
-            int bbs_hitCount = (int)bbsViewListAddVo.getBbs_hitCount();
-            String reg_email = (String)bbsViewListAddVo.getReg_email();
-            String path = (String)bbsViewListAddVo.getPath();
-            String save_name = (String)bbsViewListAddVo.getSave_name();
-            int bbs_goodCount = (int) bbsViewListAddVo.getGoodCount();
-            
-            int goodCount = bbsViewListAddVo.getGoodCount();
-            out.println("<items>");
-            out.println("<bbs_contents>"+bbs_contents+"</bbs_contents>");
-            out.println("<reg_date>"+reg_date+"</reg_date>");
-            out.println("<goodcount>"+goodCount+"</goodcount>");
-            out.println("</items>");
-         }
-         out.println("</root>");
-         out.close();
-      }
-      else
-      {
-         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-      }
-   */
+	   request.setAttribute("ajaxBbsViewList", ajaxBbsViewList);
+	   return "ajaxList/ajaxBbsViewList1";  
    }
    
+   @RequestMapping("/ajax/bbsViewListAdd2.listen")
+   public String bbsViewListAddPage2(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException
+   {
+	   int rownum2 = (int)bbsVo.getNo();
+	   request.setAttribute("rownum2", rownum2);
+	   ArrayList ajaxBbsViewList = (ArrayList)bbsDao.bbsViewList2(bbsVo);
+	   
+	   request.setAttribute("ajaxBbsViewList", ajaxBbsViewList);
+	   return "ajaxList/ajaxBbsViewList2";  
+   }
+   
+   @RequestMapping("/ajax/bbsViewListAdd3.listen")
+   public String bbsViewListAddPage3(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException
+   {
+	   int rownum2 = (int)bbsVo.getNo();
+	   request.setAttribute("rownum2", rownum2);
+	   ArrayList ajaxBbsViewList = (ArrayList)bbsDao.bbsViewList2(bbsVo);
+	   
+	   request.setAttribute("ajaxBbsViewList", ajaxBbsViewList);
+	   return "ajaxList/ajaxBbsViewList3";  
+   }
 }

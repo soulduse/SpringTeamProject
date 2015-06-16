@@ -8,13 +8,11 @@
 <script type="text/javascript" src="js/ajax-bbsview.js"></script>
 <script type="text/javascript" src="js/ajax-comment.js"></script>
 <script type="text/javascript" src="js/ajax-chattingRequest.js"></script>
-<%
 
-int rownum = 0;
-int rownum2 = rownum+9;
-%>
 
 <SCRIPT>
+var windowHeight = $(window).height();
+var rownum2 = 9;
    $(function() {
       $('.img').click(function() {
     	 clearTbody();
@@ -47,9 +45,12 @@ int rownum2 = rownum+9;
 </SCRIPT>
 <SCRIPT>
 $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
-    if  ($(window).scrollTop() + $(window).height() > ($(document).height() - 50))	{
+    if  ($(window).scrollTop() + windowHeight > ($(document).height() - 50))	{
    	
-    ajaxBbsList(<%=rownum2%>);
+    ajaxBbsList1(rownum2);
+    ajaxBbsList2(rownum2);
+    ajaxBbsList3(rownum2);
+    rownum2 = rownum2 +9;
     }
 });
 
@@ -535,7 +536,7 @@ for(int i=0; count1<=1; i++)
    <div class="jb-content1" id="imgRootDiv1" style="margin-left: 5px;">                      
 <%
 ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
-   for(int i=0; i<rownum2; i++)
+   for(int i=0; i<9; i++)
    {  
       BbsVo bbsVo = (BbsVo)bbsList.get(i);
       int bbs_seq = (int)bbsVo.getBbs_seq();
@@ -580,7 +581,7 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       
  <div class="jb-content1" id="imgRootDiv2" style="margin-left: 15px;">                 
 <% ArrayList bbsList2 = (ArrayList)request.getAttribute("bbsList");
-   for(int i=0; i<rownum2; i++)
+   for(int i=0; i<9; i++)
    {  
       BbsVo bbsVo = (BbsVo)bbsList.get(i);
       int bbs_seq = (int)bbsVo.getBbs_seq();
@@ -622,12 +623,12 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       
  <div class="jb-content1"  id="imgRootDiv3"  style="margin-left: 15px;">                 
 <% ArrayList bbsList3 = (ArrayList)request.getAttribute("bbsList");
-   for(int i=0; i<rownum2; i++)
+   for(int i=0; i<9; i++)
    {  
       BbsVo bbsVo = (BbsVo)bbsList.get(i);
       int bbs_seq = (int)bbsVo.getBbs_seq();
       String bbs_contents = (String)bbsVo.getBbs_contents();
-      int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
+      int bbs_hitCount = (int)bbsVo.getBbs_hitCount(); 
       String reg_email = (String)bbsVo.getReg_email();
       String path = (String)bbsVo.getPath();
       String save_name = (String)bbsVo.getSave_name();

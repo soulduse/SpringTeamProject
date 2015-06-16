@@ -91,6 +91,7 @@ public class BbsDao {
 	   // 무한스크롤 글 보기
 		public ArrayList bbsViewList2(BbsVo bbsVo)
 		{
+			System.out.println("bbsVIewLIst2 로 왔음 : "+(int)bbsVo.getNo());
 			return (ArrayList) smct.queryForList("bbsViewList2",bbsVo);
 		}
 	   
