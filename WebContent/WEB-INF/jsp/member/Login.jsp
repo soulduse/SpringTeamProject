@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=utf-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html class="no-js">
 
@@ -9,6 +10,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
+ 
         <!-- CSS -->
         <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
         <link rel="stylesheet" href="css/reset.css">
@@ -21,8 +23,18 @@
         <![endif]-->
 
     </head>
+<%
+if(request.getAttribute("Error") == "N")
+{
+%><SCRIPT>
+	window.alert("잘못된 정보입니다");
+	</SCRIPT>
+<%
+	}
 
+%>
     <body>
+    
 
         <div class="page-container">
             <h1>Login</h1>
@@ -46,9 +58,7 @@
         <script src="js/supersized-init.js"></script>
         <script src="js/scripts.js"></script>
 
-
     </body>
 
 </html>
-
 

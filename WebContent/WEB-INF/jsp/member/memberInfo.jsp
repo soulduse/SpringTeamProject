@@ -8,7 +8,7 @@ function overLap()
 }
 function cancel()
 {
-	location.href	= "/view.listen";
+	location.href	= "/main.listen";
 }
 </SCRIPT>
 

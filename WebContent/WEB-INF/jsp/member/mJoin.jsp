@@ -16,7 +16,7 @@ function emailChoice()
 
 function cancel()
 {
-	location.href = "/Login.listen";
+	location.href = "/mLogin.listen";
 }
 
 </SCRIPT>
@@ -39,7 +39,7 @@ function cancel()
    </TABLE>
 
    <TABLE cellspacing="1" cellpadding="5" bgcolor="#7682EB" width="700">
-      <FORM name="joinForm" id="joinForm" action="joinResult.listen" method="post">
+      <FORM name="joinForm" id="joinForm" action="mJoinResult.listen" method="post">
 
        <DIV class="box">
          <TR>
@@ -96,6 +96,8 @@ function cancel()
  		<TR>
  			<TD width="100" bgcolor="#CFDDFA" align="center"><B>출생년도</B></TD>
             <TD bgcolor="#FFFFFF" colspan="2">
+            <div data-role="fieldcontain">
+            <!-- <label for="birthyear">출생년도</label> 책 예제--> 
          <select name="birthyear" >
  <%
  	for(int i=1930; i<=2015; i++)
@@ -104,6 +106,7 @@ function cancel()
          	<option value=<%= i %>><%=i %></option>
          	<%} %>
        </select>
+       </div>
          </TD>
          </TR>
 

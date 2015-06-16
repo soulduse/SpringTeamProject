@@ -51,6 +51,27 @@ public class MainController extends BaseController {
 		return frame;
 	}
 	
+	@RequestMapping("/mMain.listen")
+	public String mMainPage(HttpServletRequest request, HttpSession session) {
+
+		System.out.println("mMainPage 들어옴");
+			
+		ArrayList bbsList = bbsDao.bbsViewList();
+		request.setAttribute("page", "mMain");
+		request.setAttribute("bbsList",  bbsList);
+		
+		
+		String reg_email = (String)session.getAttribute("email");      
+	      BbsVo bv = new BbsVo();
+	      bv.setReg_email(reg_email);      
+	      ArrayList mainMyStory = bbsDao.mainMyStory(bv);   
+	      request.setAttribute("page", "myStory");
+	      request.setAttribute("mainMyStory",  mainMyStory);
+		//request.setAttribute("mainUrl", prefix + "~~~.jsp");
+
+		return mFrame;
+	}
+	
 	@RequestMapping("/write.listen")
 	public String writePage(HttpServletRequest request, HttpSession session) {
 		
@@ -81,4 +102,6 @@ public class MainController extends BaseController {
 
 	      return frame;
 	   }
+	   
+	   
 }
