@@ -14,7 +14,7 @@
 	
 	<!-- 댓글 보기 -->
    <select id="bbsAddList" resultClass="bbsAddVo" parameterClass="bbsAddWriteDto">
-      SELECT CONTENT, TO_CHAR(REG_DATE, 'YYYY-MM-DD AM HH:MI:SS') REG_DATE, GOODCOUNT
+      SELECT CONTENT, TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') REG_DATE, GOODCOUNT
       FROM BBS_ADD WHERE BBS_SEQ=#bbs_seq# order by bbs_add_seq desc
    </select>
 </sqlMap>

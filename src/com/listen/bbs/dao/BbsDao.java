@@ -6,6 +6,7 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.listen.bbs.dto.BbsLikeSwitchDto;
+import com.listen.bbs.dto.BbsViewFilterDto;
 import com.listen.bbs.dto.BbsWriteDto;
 import com.listen.bbs.vo.BbsVo;
 
@@ -55,7 +56,24 @@ public class BbsDao {
 	public void likeCountUpdate(BbsLikeSwitchDto bbsLikeSwitchDto)
 	{
 		smct.update("likeCountUpdate", bbsLikeSwitchDto);
-		smct.insert("BbsLikeYnFilter", bbsLikeSwitchDto);
+		System.out.println("게시글의 GOODCOUNT UPDATE 됨");
+		int updCheck = (int)smct.update("checkYnFilter",bbsLikeSwitchDto);
+		if(updCheck == 0)
+		{
+			smct.insert("BbsLikeYnFilter", bbsLikeSwitchDto);
+			System.out.println("YN_FILTER UPDATE의 조건이 없어 INSERT 실행");
+		}
+	}
+	
+	// 글 보기시 Ajax 처리 
+	public String bbsSelectView(BbsViewFilterDto bbsViewFilterDto){
+		ArrayList updCheck = (ArrayList)smct.queryForList("bbsViewSelectFilter", bbsViewFilterDto);
+		if(updCheck.size() == 0)
+		{
+			smct.insert("bbsViewInsertFilter",bbsViewFilterDto);
+		}
+		smct.queryForObject("bbsSelectView",bbsViewFilterDto);
+		return "";
 	}
 	
 	// 마이 페이지
@@ -63,4 +81,5 @@ public class BbsDao {
 	{
 		return (ArrayList) smct.queryForList("bbsMyViewList", vo);
 	}
+
 }

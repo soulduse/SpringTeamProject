@@ -17,7 +17,12 @@
     	 clearTbody();
          var d = $(this).attr("src");
          var c = $(this).attr("contents");
+         var email =$(this).attr('email');
          var bbs_seq = $(this).attr("name");
+         
+      	// YnFilter 사용 및 BBS Re Select
+      	
+         
          var bbs_likeCount = $(this).attr("bbs_goodCount");
 
          $('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
@@ -25,7 +30,6 @@
          $("#bbs_seq").attr("value", bbs_seq);
          var modalContent = document.getElementById("modalContent");
          modalContent.innerHTML = c;
-         
          ajaxBbsAdd();
       });
 
@@ -61,6 +65,12 @@
       
       %>
   <body>
+  	<FORM name="filterForm" id="filterForm" method="post" action="ynFilter.listen">
+  		<INPUT type="hidden" name="bbs_seq"> 
+  		<INPUT type="hidden" name="bbs_seq"> 
+  	</FORM>
+  
+  
     <div class="listen-container">
       <div class="listen-header">
         <img alt="" src="images/logo1.png" height="200" width="700">
@@ -246,7 +256,8 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
     <div class="image" id="imgRootDiv"  style="margin-left: 15px;">
         <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
-      width=300 contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"/>
+      width=300 contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"
+      email="<%=email %>"/>
    
         <div class="text2">
            <table>
@@ -392,8 +403,6 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
                </H3>
             </div>
          </div>
-
-
          <div class="modal-footer">
             <!-- 댓글이 보일 부분 -->
             <DIV id="comment-list">

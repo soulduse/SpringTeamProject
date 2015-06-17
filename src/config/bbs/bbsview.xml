@@ -4,13 +4,36 @@
    <typeAlias alias="bbsView" type="com.listen.bbs.vo.BbsVo" />
    <typeAlias alias="bbsLikeSwitchDto" type="com.listen.bbs.dto.BbsLikeSwitchDto" />
    <typeAlias alias="bbsViewFilterDto" type="com.listen.bbs.dto.BbsViewFilterDto" />
+   
    <typeAlias alias="ynFilterVo" type="com.listen.bbs.vo.YnFilterVo" />
+   <typeAlias alias="bbsSelectViewVo" type="com.listen.bbs.vo.BbsSelectViewVo" />
 
    <select id="bbsViewList" resultClass="bbsView" >
       SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
       FROM BBS A, BACKGROUND_IMG B
       WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
       ORDER BY A.BBS_SEQ DESC
+   </select>
+   
+   <!-- 글보기시 YN_FILTER INSERT Query -->
+   <insert id="bbsViewInsertFilter" parameterClass="bbsViewFilterDto">
+      INSERT INTO YN_FILTER 
+      (FILTER_SEQ, BBS_SEQ, MEMBERS_SEQ)
+      VALUES
+      (FILTER_SEQ.NEXTVAL, #bbs_seq#, (SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#email#))
+   </insert>
+   
+   <!-- 글보기 INSERT 전 Query -->
+   <update id="bbsViewSelectFilter" parameterClass="bbsViewFilterDto">
+   		UPDATE YN_FILTER SET
+   		BBS_SEQ
+   
+   </update>
+   
+   <!-- 글을 볼때 Ajax 형식으로 데이터 가져오기 -->
+   <select id="bbsSelectView" resultClass="bbsSelectViewVo" parameterClass="bbsViewFilterDto">
+   		SELECT 
+   		FROM BBS
    </select>
    
    <select id="bbsDetailView" resultClass="bbsView" parameterClass="bbsView">
@@ -48,34 +71,37 @@
       </dynamic>
    </select>
    
-   <!-- 글공감 Like Update 처리 -->
+   <!-- 글공감 Like Update 처리 #1 -->
    <update id="likeCountUpdate" parameterClass="bbsLikeSwitchDto">
       UPDATE BBS SET
       GOODCOUNT = #likeValue#
       WHERE BBS_SEQ = #bbs_seq#
    </update>
    
+   <!-- 글 공감 INSERT 전 UPDATE를 통한 YNFILTER CHECK -->
+   <update id="checkYnFilter" parameterClass="bbsLikeSwitchDto">
+   		UPDATE YN_FILTER SET
+   		<dynamic>
+   			<isEqual property="bbs_good_yn" compareValue="Y">
+		   		BBS_GOOD_YN = 'Y'
+   			</isEqual>
+   			<isEqual property="bbs_good_yn" compareValue="N">
+		   		BBS_GOOD_YN = 'N'
+   			</isEqual>
+   		</dynamic>
+   		WHERE BBS_SEQ = #bbs_seq# 	AND 
+   		MEMBERS_SEQ = (SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#)
+   </update>
+   
+   <!-- 글공감 Like Update 처리 #2 -->
    <insert id="BbsLikeYnFilter" parameterClass="bbsLikeSwitchDto">
    		INSERT INTO YN_FILTER
-   		(FILTER_SEQ, BBS_SEQ, BBS_GOOD_YN)
+   		(FILTER_SEQ, BBS_SEQ, MEMBERS_SEQ, BBS_GOOD_YN)
    		VALUES
-   		(FILTER_SEQ.NEXTVAL, #bbs_seq#, #bbs_good_yn#)
+   		(FILTER_SEQ.NEXTVAL, #bbs_seq#, 
+   		(SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#),
+   		#bbs_good_yn#)
    </insert>
-   
-   <!-- 글보기시 YN_FILTER INSERT Query -->
-   <insert id="BbsViewInsertFilter" parameterClass="bbsViewFilterDto">
-      INSERT INTO YN_FILTER 
-      (FILTER_SEQ, BBS_SEQ, MEMBERS_SEQ)
-      VALUES
-      (FILTER_SEQ.NEXTVAL, #bbs_seq#, (SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#))
-   </insert>
-   
-   <!-- 글보기 INSERT 전 Query -->
-     <select id="BbsViewSelectFilter" resultClass="ynFilterVo" parameterClass="bbsViewFilterDto">
-      SELECT FILTER_SEQ
-      FROM YN_FILTER
-      WHERE BBS_SEQ=#bbs_seq# AND MEMBERS_SEQ=(SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#)
-   </select>
    
 </sqlMap>
 

@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +25,7 @@ import com.listen.bbs.dao.BbsAddDao;
 import com.listen.bbs.dao.BbsDao;
 import com.listen.bbs.dto.BbsAddWriteDto;
 import com.listen.bbs.dto.BbsLikeSwitchDto;
+import com.listen.bbs.dto.BbsViewFilterDto;
 import com.listen.bbs.dto.BbsWriteDto;
 import com.listen.bbs.vo.BbsAddVo;
 import com.listen.bbs.vo.BbsVo;
@@ -43,15 +47,14 @@ public class BbsController extends BaseController{
       this.bbsAddDao = bbsAddDao;
    }
    
-   // 글 보기 
-   @RequestMapping("/view.listen")
-   public String viewPage(HttpServletRequest request, HttpSession session) {
+   // 글 클릭시 Ajax 처리 부분 
+   @RequestMapping("/ajax/bbsSelect.listen")
+   public String viewPage(BbsViewFilterDto bbsViewFilterDto, HttpServletRequest request, HttpSession session) {
       System.out.println("viewPage 들어옴");
       
+      bbsDao.bbsSelectView(bbsViewFilterDto);
       
-      ArrayList bbsList = bbsDao.bbsViewList();
       request.setAttribute("page", "view");
-      request.setAttribute("bbsList",  bbsList);
       request.setAttribute("mainUrl", prefix + "bbs/BbsList.jsp");
       
       return frame;
@@ -84,10 +87,19 @@ public class BbsController extends BaseController{
             BbsAddVo bbsAddVo = (BbsAddVo) bbsAddList.get(i);
             String content = URLDecoder.decode(bbsAddVo.getContent(), "UTF-8");   // 한글처리부분
             String reg_date = bbsAddVo.getReg_date();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String msg = "";
+            try {
+            	Date date = format.parse(reg_date);
+				msg = TotalDate.formatTimeString(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+            
             int goodCount = bbsAddVo.getGoodCount();
             out.println("<items>");
             out.println("<content>"+content+"</content>");
-            out.println("<reg_date>"+reg_date+"</reg_date>");
+            out.println("<reg_date>"+msg+"</reg_date>");
             out.println("<goodcount>"+goodCount+"</goodcount>");
             out.println("</items>");
          }

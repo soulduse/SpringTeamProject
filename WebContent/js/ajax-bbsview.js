@@ -24,18 +24,20 @@ $(document).ready(function() {
 });
 
 
+
 //Ajax 글 공감 버튼처리
 function bbsLike() {
-	var attrVal = $('.heartImg').attr('alt');
-	var likeValue = $('.like-label').text();
-	var email = likeValue.attr("email");
+	var likeLabel = $('.like-label');
+	var likeYn = $('.heartImg').attr('alt');
+	var likeValue = likeLabel.text();
+	var email = likeLabel.attr("email");
 	var bbs_seq = $("#bbs_seq").attr("value");
 
 	$.ajax({
 		url : "/ajax/bbsLikeCount.listen",
 		type : 'POST',
 		data : "likeValue="+likeValue+"&bbs_seq="+bbs_seq
-		+"&reg_email="+email+"&bbs_good_yn="+attrVal,
+		+"&reg_email="+email+"&bbs_good_yn="+likeYn,
 		success : function(response, status, request) {
 			if (response.status == 200) {
 				alert("성공!");
