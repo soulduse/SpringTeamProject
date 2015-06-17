@@ -26,4 +26,9 @@ public class BbsAddDao {
 	public ArrayList bbsAddList(BbsAddWriteDto bbsAddWriteDto) {
 		return (ArrayList) smct.queryForList("bbsAddList", bbsAddWriteDto);
 	}
+
+	public ArrayList m_bbsAddList(BbsAddWriteDto bbsAddWriteDto) {
+		// TODO Auto-generated method stub
+		return (ArrayList) smct.queryForList("bbsAddList", bbsAddWriteDto);
+	}
 }

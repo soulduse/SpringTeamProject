@@ -2,6 +2,25 @@
 <!DOCTYPE html>
 <html class="no-js">
 
+
+		<SCRIPT type="text/javascript">
+			 var loginFrom = dcument.loginFrom;
+			 var filter = "win16|win32|win64|mac";
+			
+			 if( navigator.platform  )
+			 {
+			 	if( filter.indexOf(navigator.platform.toLowerCase())<0 )
+			 	{
+			   		alert("ëª¨ë°”ì¼ ê¸°ê¸°ì—ì„œ ì ‘ì†");
+			   		// ì•„ë˜ ì£¼ì†Œë¡œ ì´ë™í•œë‹¤.
+			   		loginFrom.action = "/loginAction.listen";
+			  
+			  	}else{
+			   		//alert("PCì—ì„œ ì ‘ì†");
+			   		loginFrom.action = "/m_loginAction.listen";
+			  	}
+			}
+		</SCRIPT>
     <head>
         <meta charset="utf-8">
         <title>ë§ˆìŒì´ ë”°ëœ»í•´ì§€ëŠ” ìµëª…SNS - Listen</title>
@@ -19,27 +38,8 @@
         <!--[if lt IE 9]>
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-
     </head>
 
-		<SCRIPT type="text/javascript">
-			 var loginFrom = dcument.loginFrom;
-			 var filter = "win16|win32|win64|mac";
-			
-			 if( navigator.platform  )
-			 {
-			 	if( filter.indexOf(navigator.platform.toLowerCase())<0 )
-			 	{
-			   		alert("¸ğ¹ÙÀÏ ±â±â¿¡¼­ Á¢¼Ó");
-			   		// ¾Æ·¡ ÁÖ¼Ò·Î ÀÌµ¿ÇÑ´Ù.
-			   		loginFrom.action = "/m_loginAction.listen";
-			  
-			  	}else{
-			   		//alert("PC¿¡¼­ Á¢¼Ó");
-			   		 loginFrom.action = "/loginAction.listen";
-			  	}
-			}
-		</SCRIPT>
     <body>
 
         <div class="page-container">

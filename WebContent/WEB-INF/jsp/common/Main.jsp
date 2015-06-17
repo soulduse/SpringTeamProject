@@ -612,7 +612,7 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
              
           </div>
    </div>
-      <%
+<%
    }
   }
    

@@ -77,7 +77,16 @@ public class MainController extends BaseController {
 		return frame;
 	}
 	
-	
+	@RequestMapping("/m_write.listen")
+	public String m_writePage(HttpServletRequest request, HttpSession session) {
+		
+		System.out.println("m_writePage 들어옴");
+		
+		request.setAttribute("page", "write");
+		request.setAttribute("mainUrl", prefix + "bbs/m_BbsWrite.jsp");
+		
+		return m_frame;
+	}
 	
 	//메인 마이스토리 부분
 	   @RequestMapping("/bbsMyViewList.listen")
