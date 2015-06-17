@@ -51,7 +51,7 @@ public class MainController extends BaseController {
 		return frame;
 	}
 	
-/*	@RequestMapping("/mMain.listen")
+	@RequestMapping("/mMain.listen")
 	public String mMainPage(HttpServletRequest request, HttpSession session) {
 
 		System.out.println("mMainPage 들어옴");
@@ -70,21 +70,6 @@ public class MainController extends BaseController {
 		//request.setAttribute("mainUrl", prefix + "~~~.jsp");
 
 		return mFrame;
-	}
-*/
-
-		@RequestMapping("/mMain.listen")
-	public String m_mainPage(HttpServletRequest request, HttpSession session) {
-
-		System.out.println("m_mainPage 들어옴");
-			
-		ArrayList bbsList = bbsDao.m_bbsViewList();
-		request.setAttribute("page", "main");
-		request.setAttribute("bbsList",  bbsList);
-
-		request.setAttribute("mainUrl", prefix + "common/m_poto.jsp");
-
-		return m_frame;
 	}
 	
 	@RequestMapping("/write.listen")

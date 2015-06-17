@@ -69,7 +69,6 @@
         <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
       </form>
  <%
- System.out.println("Top.jsp진입");
  	if(session.getAttribute("LoginYn") == "Y")
  	{
  		%>

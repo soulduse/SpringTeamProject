@@ -12,7 +12,6 @@ function cancel()
 }
 </SCRIPT>
 
-
 <TABLE cellspacing="1" cellpadding="5" bgcolor="#7682EB" width="250">
 		<TR>
 			<TD align="center" bgcolor="#E4F2FC" width="250">

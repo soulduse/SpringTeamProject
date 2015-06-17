@@ -40,5 +40,5 @@ function cancel()
 			<TD bgcolor="#FFFFFF" colspan="3"><%= request.getAttribute("birthyear")%>년 </TD>
 		</TR>
 	</TABLE>
-	<input type="button" value="정보수정하기" onclick=overLap();>
-	<input type="button" value="전으로" onclick=cancel();>
+	<input type="button" value="정보수정하기"  onclick=overLap();>
+	<input type="button" value="전으로"  onclick=cancel();>

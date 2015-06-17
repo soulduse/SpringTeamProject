@@ -87,6 +87,11 @@ public class BbsDao {
 	   {
 	      return (MyBackGroundVo) smct.queryForObject("bbsMybgimg", vo);
 	   }
+
+	public ArrayList m_bbsViewList() {
+		// TODO Auto-generated method stub
+		return (ArrayList) smct.queryForList("m_bbsViewList");
+	}
 	   
 	   // 무한스크롤 글 보기
 		public ArrayList bbsViewList2(BbsVo bbsVo)

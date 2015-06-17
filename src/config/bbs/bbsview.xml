@@ -13,6 +13,18 @@
 		ORDER BY A.BBS_SEQ DESC
    </select>
    
+   
+   <select id="m_bbsViewList" resultClass="bbsView" >
+		select * 
+		  from ( 
+		      SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
+		      FROM BBS A, BACKGROUND_IMG B
+		      WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+		      ORDER BY A.BBS_SEQ DESC
+		    ) 
+		where 20 >= ROWNUM
+   </select>
+   
    <select id="bbsViewList2" resultClass="bbsView" parameterClass="bbsView">
 		SELECT * 
 		FROM 
