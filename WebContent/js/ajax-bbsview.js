@@ -81,8 +81,7 @@ function ajaxBbsList2(no) {
 }
 
 //Ajax 글 추가하기 3
-function ajaxBbsList3(no) {
-	
+function ajaxBbsList3(no) {	
 	$.ajax({
 		url : "/ajax/bbsViewListAdd3.listen",
 		type : 'POST',
@@ -96,3 +95,23 @@ function ajaxBbsList3(no) {
 		}
 	})
 }
+
+/*
+$(function() {
+	   $('.img').click(function() {
+	 	 clearTbody();
+	      var d = $(this).attr("src");
+	      var c = $(this).attr("contents");
+	      var bbs_seq = $(this).attr("name");
+	      var bbs_likeCount = $(this).attr("bbs_goodCount");
+
+	      $('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
+	      $("#modalImg").attr("src", d);
+	      $("#bbs_seq").attr("value", bbs_seq);
+	      var modalContent = document.getElementById("modalContent");
+	      modalContent.innerHTML = c;
+	      
+	      ajaxBbsAdd();
+	   });
+
+*/

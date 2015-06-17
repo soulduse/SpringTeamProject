@@ -365,29 +365,35 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
       String reg_email = (String)bbsVo.getReg_email();
       String path = (String)bbsVo.getPath();
       String save_name = (String)bbsVo.getSave_name();
+      int goodCount = (int)bbsVo.getGoodCount();
+		 int add_count = (int)bbsVo.getAdd_count();
 %>
             <div class="listen-content1_3">
                <div class="image" id="imgRootDiv"
                   style=" width: 320px; background-color:gray;  ">
-                  <img class="img imageShadow" name="bbs<%=bbs_seq%>"
+                  <img class="img imageShadow" name="<%=bbs_seq%>"
                      data-toggle="modal" data-target="#myModal"
                      style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=300
-                     data-img-url="<%=path%>/<%=save_name%>"
                      contents="<%=bbs_contents%>" />
-
-                  <div class="text2">
-                     <table>
-                        <TR height="70%">
-                           <TD>
-                              <H3><%=bbs_contents%></h3>
-                           </TD>
-                        </TR>
-                        <TR height="30%">
-                           <TD align="left"><%=bbs_hitCount%></TD>
-                        </TR>
-                     </table>
-
-                  </div>
+			
+			<div class="text2">
+              <table>
+                 <TR height="70%">
+                    <TD>
+                         <H3><%=bbs_contents%></h3>
+                      </TD>
+                   </TR>
+                   <TR height="30%">
+                      <TD align="left">
+                         	조회수 : <%=bbs_hitCount%> / <br>
+                         	좋아요 : <%=goodCount %> / <br>
+                         	댓글수 : <%=add_count %>
+                         
+                      </TD>
+                   </TR>
+                </table>
+                
+             </div>
                </div>
             </div>
             <%
@@ -546,6 +552,8 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       String path = (String)bbsVo.getPath();
       String save_name = (String)bbsVo.getSave_name();
       int bbs_goodCount = (int) bbsVo.getGoodCount();
+      int goodCount = (int)bbsVo.getGoodCount();
+		 int add_count = (int)bbsVo.getAdd_count();
       if(i%3==1){
 %>
 
@@ -555,20 +563,23 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       width=300 contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"/>
    
         <div class="text2">
-           <table>
-              <TR height="70%">
-                 <TD>
-                      <H3><%=bbs_contents%></h3>
-                   </TD>
-                </TR>
-                <TR height="30%">
-                   <TD align="left">
-                    <%=bbs_hitCount%>
-                   </TD>
-                </TR>
-             </table>
-             
-          </div>
+              <table>
+                 <TR height="70%">
+                    <TD>
+                         <H3><%=bbs_contents%></h3>
+                      </TD>
+                   </TR>
+                   <TR height="30%">
+                      <TD align="left">
+                         	조회수 : <%=bbs_hitCount%> / <br>
+                         	좋아요 : <%=goodCount %> / <br>
+                         	댓글수 : <%=add_count %>
+                         
+                      </TD>
+                   </TR>
+                </table>
+                
+             </div>
    </div>
       <%
    }
@@ -591,6 +602,8 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       String path = (String)bbsVo.getPath();
       String save_name = (String)bbsVo.getSave_name();
       int bbs_goodCount = (int) bbsVo.getGoodCount();
+      int goodCount = (int)bbsVo.getGoodCount();
+		 int add_count = (int)bbsVo.getAdd_count();
       if(i%3==2){
 %>
     <div class="image "  style="margin-left: 23px;" >
@@ -599,20 +612,22 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       width=310 contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"/>
    
         <div class="text2">
-           <table>
-              <TR height="70%">
-                 <TD>
-                      <H3><%=bbs_contents%></h3>
-                   </TD>
-                </TR>
-                <TR height="30%">
-                   <TD align="left">
-                      <%=bbs_hitCount%>
-                   </TD>
-                </TR>
-             </table>
-             
-          </div>
+              <table>
+                 <TR height="70%">
+                    <TD>
+                         <H3><%=bbs_contents%></h3>
+                      </TD>
+                   </TR>
+                   <TR height="30%">
+                      <TD align="left">
+                         	조회수 : <%=bbs_hitCount%> / <br>
+                         	좋아요 : <%=goodCount %> / <br>
+                         	댓글수 : <%=add_count %>
+                      </TD>
+                   </TR>
+                </table>
+                
+             </div>
    </div>
       <%
    }
@@ -633,6 +648,8 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       String path = (String)bbsVo.getPath();
       String save_name = (String)bbsVo.getSave_name();
       int bbs_goodCount = (int) bbsVo.getGoodCount();
+      int goodCount = (int)bbsVo.getGoodCount();
+		 int add_count = (int)bbsVo.getAdd_count();
       if(i%3==0){
 %>
     <div class="image " style="margin-left: 33px;">
@@ -641,20 +658,23 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
       width=300 contents="<%=bbs_contents%>"  bbs_goodCount="<%=bbs_goodCount%>"/>
    
         <div class="text2">
-           <table>
-              <TR height="70%">
-                 <TD>
-                      <H3><%=bbs_contents%></h3>
-                   </TD>
-                </TR>
-                <TR height="30%">
-                   <TD align="left">
-                      <%=bbs_hitCount%>
-                   </TD>
-                </TR>
-             </table>
-             
-          </div>
+              <table>
+                 <TR height="70%">
+                    <TD>
+                         <H3><%=bbs_contents%></h3>
+                      </TD>
+                   </TR>
+                   <TR height="30%">
+                      <TD align="left">
+                         	조회수 : <%=bbs_hitCount%> / <br>
+                         	좋아요 : <%=goodCount %> / <br>
+                         	댓글수 : <%=add_count %>
+                         
+                      </TD>
+                   </TR>
+                </table>
+                
+             </div>
    </div>
       <%
    }
