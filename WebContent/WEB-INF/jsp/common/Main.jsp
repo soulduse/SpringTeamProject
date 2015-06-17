@@ -776,3 +776,8 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
  <div class="listen-footer">
 
 </div> 
+
+</div>
+</div>
+</body>
+</html>

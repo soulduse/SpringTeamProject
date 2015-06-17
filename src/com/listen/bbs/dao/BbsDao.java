@@ -77,7 +77,8 @@ public class BbsDao {
 	   //마이스토리 배경화면 업로드
 	   public void update_img(MyBackGroundVo myBgImg)
 	   {
-	      if(0 == smct.update("myBgFileUpload", myBgImg)){
+	      if(0 == smct.update("myBgFileUpload", myBgImg))
+	      {
 	         smct.insert("myBgFileInsert", myBgImg);
 	      }
 	   }
