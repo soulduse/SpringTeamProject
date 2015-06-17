@@ -11,7 +11,7 @@
 
 ArrayList ajaxBbsViewList = (ArrayList)request.getAttribute("ajaxBbsViewList");
 System.out.println("ajax데이터 들어옴: "+ajaxBbsViewList.size());
-   for(int i=0; i<7; i++)
+   for(int i=0; i<9; i++)
    {  
       BbsVo bbsVo = (BbsVo)ajaxBbsViewList.get(i);
       int bbs_seq = (int)bbsVo.getBbs_seq();
