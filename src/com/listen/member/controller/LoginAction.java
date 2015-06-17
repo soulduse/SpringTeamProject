@@ -37,7 +37,6 @@ public class LoginAction extends BaseController {
 	@RequestMapping("/Login.listen")
 	// index.jsp 에서 들어오는 listen
 	public String testmainPage(HttpServletRequest request, HttpSession session) {
-
 		return "member/Login";
 	}
 
@@ -156,7 +155,7 @@ public class LoginAction extends BaseController {
 	@RequestMapping("/memberInfo.listen")
 	// 회원정보보기
 	public String memberInfo(HttpServletRequest request, HttpSession session) {
-		String id = (String) session.getAttribute("id");
+		String id = (String) session.getAttribute("email");
 
 		String email = "";
 		String password = "";

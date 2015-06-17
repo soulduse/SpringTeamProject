@@ -55,6 +55,13 @@
       WHERE BBS_SEQ = #bbs_seq#
    </update>
    
+   <insert id="BbsLikeYnFilter" parameterClass="bbsLikeSwitchDto">
+   		INSERT INTO YN_FILTER
+   		(FILTER_SEQ, BBS_SEQ, BBS_GOOD_YN)
+   		VALUES
+   		(FILTER_SEQ.NEXTVAL, #bbs_seq#, #bbs_good_yn#)
+   </insert>
+   
    <!-- 글보기시 YN_FILTER INSERT Query -->
    <insert id="BbsViewInsertFilter" parameterClass="bbsViewFilterDto">
       INSERT INTO YN_FILTER 

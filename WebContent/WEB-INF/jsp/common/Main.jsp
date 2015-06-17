@@ -5,10 +5,9 @@
 <%@ page import="javax.swing.ImageIcon" %>
 
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
 <script type="text/javascript" src="js/ajax-bbsview.js"></script>
 <script type="text/javascript" src="js/ajax-comment.js"></script>
-
-
 <script type="text/javascript" src="js/ajax-chattingRequest.js"></script>
 
 
@@ -51,231 +50,6 @@
     <meta charset="utf-8">
     <title>Listen</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-      .listen-container {
-        background: #f6f6f6;
-        margin: 0px auto;
-        padding: 20px;
-        border: 1px solid #bcbcbc;
-      }
-      .listen-header {
-         
-        padding: 20px;
-        margin-bottom: 20px;
-        
-      }
-      .listen-big {
-        background: #454545;
-        width: 1160px;
-        height: 620px; 
-        padding: 10px;
-        margin-bottom: 10px;
-        margin-left: 20px;
-        float: left;
-        border: 1px solid #bcbcbc;
-        
-       
-      }
-      .listen-content1 {
-      background: #f6f6f6;
-        width: 410px;
-        height: 600px; 
-        padding: 10px;
-        margin-bottom: 10px;
-        margin-left: 16px;
-        float: left;
-        border: 1px solid #bcbcbc;
-      }
-      .listen-content1_1 {
-      background: #f6f6f6;
-        width: 280px;
-        height: 600px; 
-        padding: 10px;
-        margin-bottom: 10px;
-        margin-left: 10px;
-        float: left;
-        border: 1px solid #bcbcbc;
-      }
-      .listen-content1_2 {
-
-        width: 260px;
-        height: 100px; 
-        padding: 10px;
-        margin-bottom: 10px;
-        margin-left:62px;
-        float: left;
-            
-      }
-      
-      .listen-content1_3 {
-
-        width: 350px;
-        height: 220px; 
-        padding: 10px;
-        margin-bottom: 15px;
-        margin-left: 20px;
-        float: left;
-        border: 1px solid #bcbcbc;
-        
-      }
-      
-      .listen-content2 {
-         
-        width: 260px;        
-        padding:5px;
-        margin-bottom: 10px;        
-        float: left;               
-      }
-      
-      .listen-content2_1 {             
-        width: 250px;                  
-        padding:5px;
-        margin-bottom: 5px;        
-        float: left; 
-        border: 1px solid #bcbcbc;              
-      }
-      
-       .listen-content3 {
-       background: #f6f6f6;
-        width: 400px;
-        height: 600px; 
-        padding: 10px;
-        margin-bottom: 10px;
-        margin-left: 18px;
-        float: left; 
-         border: 1px solid #bcbcbc;         
-      }
-       .listen-content4 {
-        width: 375px;
-         height: 400px;
-        padding:3px;
-        margin-bottom: 5px;
-        margin-left: 18px;
-        float:left; 
-        border: 8px solid #454545;        
-      }
-      
-      .listen-content4_1 {
-        width: 1190px;
-         height: 405px;
-        padding:0px;
-        margin-bottom: 0px;
-        margin-left: 0px;
-        float:left; 
-          
-      }
-      
-      .listen-content5 {
-        width: 350px;
-        height: 130px;
-        padding: 0px;
-        margin-bottom: 10px;
-        margin-left: 2px;
-        float:left; 
-                 
-      }
-      .listen-content5_5 {
-        width: 350px;
-        height: 240px;
-        padding:0px;
-        margin-bottom: 10px;
-        margin-left: 2px;  
-        float:left; 
-        
-      }
-      .listen-content6 {
-        width: 1190px;
-        height:400px;
-        padding:0px;             
-        margin-left: 15px;
-        float:left; 
-           
-      }
-      .listen-content7 {
-        background: #454545;
-        width: 495px;
-        height:375px;
-        padding:5px;             
-        margin-left: 3px;          
-        float:left;
-        border: 2px solid #454545;
-            
-      }
-       .listen-content8 {
-       padding:10px;
-        width: 666px;
-        height:175px;            
-        float:left; 
-        border: 5px solid #454545;       
-      }
-      .listen-content9 {
-        width: 666px;
-        height:200px;            
-        float:left;         
-        border: 5px solid #454545;
-      }
-      .listen-content10 {
-        width: 345px;
-        height:193px;
-        padding:10px;
-        margin-bottom: 5px;            
-        float:left; 
-         border: 2px solid #454545; 
-              
-      }
-      .listen-content11 {
-        padding:10px;
-        width: 335px;
-        height:180px;            
-        float:left;        
-        margin-bottom: 5px;  
-                   
-        
-         
-      }
-      .listen-content12 {
-        width: 311px;
-        height:193px;            
-        float:left;
-        border: 2px solid #454545;
-                   
-      }
-      
-       .jb-content {
-        width: 1190px;
-        padding: 0px;
-        margin-bottom: 5px;        
-        float: left; 
-                   
-      }
-            
-       .jb-content1 {
-        width: 375px;
-        padding: 0px;
-        margin-bottom: 5px;        
-        float: left;
-       
-       
-      }
-      
-      .image{
-        
-        width: 350px;
-        padding: 10px;
-        margin-bottom: 10px;        
-        float: left;
-        border: 1px solid #bcbcbc;
-        background-color:gray;
-      }
-      
-      
-      .listen-footer {
-        clear: both;
-        padding: 20px;
-        
-      }
-     
-    </style>
   </head>
   
   <%
@@ -589,8 +363,7 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
-         <FORM name="chatReqForm" id="chatReqForm" method="post"
-					action="/chattingRequest.listen">
+         <FORM name="chatReqForm" id="chatReqForm" method="post" action="/chattingRequest.listen">
 					<INPUT type="hidden" name="bbs_seq" id="bbs_seq" value="">
 					<INPUT type="hidden" name="email" id="email"
 						value="<%=email%>">
@@ -598,11 +371,11 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
             <div class="lcard-button-wrapper">
                <div class="lcard-button">
                   <div class="container animation-1">
-                     <div class="heartImg" alt="0"></div>
+                     <div class="heartImg" alt="N"></div>
                   </div>
                   <span class="ng-binding">좋아요</span>
                </div>
-               <div class="like-label">0</div>
+               <div class="like-label" email=<%=email %>>0</div>
             </div>
             <div id="chattingRequset" class ="glyphicon glyphicon-comment" style="left: 100px; cursor:pointer;" >채팅 요청</div>
 				

@@ -45,10 +45,17 @@ public class BbsDao {
 		smct.insert("bbsFileUpload", bbsWriteDto);
 	}
 	
+	// 파일이 있을때 BBS TABLE의 BBS_FILE_SEQ 값을 UPDATE 해줌
+	public void fileSeqUpdate(BbsWriteDto bbsWriteDto)
+	{
+		smct.update("fileSeqUpdate", bbsWriteDto);
+	}
+	
 	// 글 공감버튼 이벤트 처리 Ajax
 	public void likeCountUpdate(BbsLikeSwitchDto bbsLikeSwitchDto)
 	{
 		smct.update("likeCountUpdate", bbsLikeSwitchDto);
+		smct.insert("BbsLikeYnFilter", bbsLikeSwitchDto);
 	}
 	
 	// 마이 페이지

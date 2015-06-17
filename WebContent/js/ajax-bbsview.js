@@ -7,13 +7,13 @@ $(document).ready(function() {
 		var likeLabel = $('.like-label').text();
 		var likeCount = parseInt(likeLabel);
 
-		if (attrVal == '0') {
-			$(this).attr('alt', '1');
+		if (attrVal == 'N') {
+			$(this).attr('alt', 'Y');
 			attrVal = $(this).attr('alt');
 			$('.like-label').text(likeCount+1);
 			bbsLike();
-		} else if (attrVal == '1') {
-			$(this).attr('alt', '0');
+		} else if (attrVal == 'Y') {
+			$(this).attr('alt', 'N');
 			attrVal = $(this).attr('alt');
 			$('.like-label').text(likeCount-1);
 			bbsLike();
@@ -26,15 +26,16 @@ $(document).ready(function() {
 
 //Ajax 글 공감 버튼처리
 function bbsLike() {
-	alert();
-	//var likeSw = $('.animation-1 .heartImg').attr('alt');
+	var attrVal = $('.heartImg').attr('alt');
 	var likeValue = $('.like-label').text();
+	var email = likeValue.attr("email");
 	var bbs_seq = $("#bbs_seq").attr("value");
 
 	$.ajax({
 		url : "/ajax/bbsLikeCount.listen",
 		type : 'POST',
-		data : "likeValue="+likeValue+"&bbs_seq="+bbs_seq,
+		data : "likeValue="+likeValue+"&bbs_seq="+bbs_seq
+		+"&reg_email="+email+"&bbs_good_yn="+attrVal,
 		success : function(response, status, request) {
 			if (response.status == 200) {
 				alert("성공!");

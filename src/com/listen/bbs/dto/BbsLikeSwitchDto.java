@@ -9,8 +9,18 @@ public class BbsLikeSwitchDto {
 	 */
 	
 	private String bbs_seq;
+	private String bbs_good_yn;
 	private String likeSw;
 	private String likeValue;
+
+	
+	public String getBbs_good_yn() {
+		return bbs_good_yn;
+	}
+
+	public void setBbs_good_yn(String bbs_good_yn) {
+		this.bbs_good_yn = bbs_good_yn;
+	}
 
 	public String getLikeValue() {
 		return likeValue;

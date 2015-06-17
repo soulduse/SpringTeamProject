@@ -5,15 +5,23 @@ $(function(){
 	// 의견 보내기 버튼
 	$('#opinionWriteBtn').click(function(){
 		$('#opinionWriteForm').submit();
-		alert("의견이 전달 되었습니다.")
+		alert("의견이 전달 되었습니다.");
+	});
+	
+	$('#bbsWriteModalBtn').click(function(){
+		inputClear();
 	});
 	
 	$('#bbsWriteBtn').click(function(){
-		
+		$('#bbsWriteForm').submit();
+		alert("글이 등록 되었습니다.");
 	});
-	
-	//bbs_contents file-0a
 });
+
+function inputClear() {
+	var contentInput = $('[name=bbs_contents]');
+	contentInput.val("");
+}
 
 </SCRIPT>
 <%
@@ -51,7 +59,7 @@ $(function(){
 	</div>
 </div>
 
-
+<!-- 글작성 모달 -->
 <div class="modal fade" id="BbswriteModal" tabindex="-1" role="dialog"
 	style="width: 100%" aria-labelledby="exampleModalLabel"
 	aria-hidden="true">

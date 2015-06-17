@@ -135,22 +135,24 @@ public class BbsController extends BaseController{
          String fileName = resPic.getOriginalFilename();                                          // 파일의 이름
          String imgExt = fileName.substring(fileName.lastIndexOf(".")+1, fileName.length());         // 파일 확장자
          long fileSize = resPic.getSize();      // 파일 사이즈
+         String saveName = System.currentTimeMillis()+"_"+fileName;
          
          bbsWriteDto.setOrg_name(fileName);
          bbsWriteDto.setPath(path);
-         bbsWriteDto.setSave_name(System.currentTimeMillis() + "_" +bbsWriteDto.getOrg_name());
+         bbsWriteDto.setSave_name(saveName);
          bbsWriteDto.setFile_size(fileSize);
          
          // upload 가능한 파일 타입 지정
          // equalsIgnoreCase 의 경우 대소문자 구분하지 않고 비교함
          if(imgExt.equalsIgnoreCase("JPG") || imgExt.equalsIgnoreCase("JPEG") || imgExt.equalsIgnoreCase("PNG") || imgExt.equalsIgnoreCase("GIF"))
          {
-            File outFileName = new File(savePath+"\\"+fileName);
+            File outFileName = new File(savePath+"\\"+saveName);
             System.out.println("두번째 경로 : "+savePath+"\\"+fileName);
             try
             {
                resPic.transferTo(outFileName);
                bbsDao.updateRes_pic(bbsWriteDto);
+               bbsDao.fileSeqUpdate(bbsWriteDto);
             } catch(IllegalStateException e) {
                e.printStackTrace();
             } catch(IOException e) {
@@ -164,7 +166,7 @@ public class BbsController extends BaseController{
       System.out.println("writePage 들어옴");
       System.out.println(bbsWriteDto.getBbs_contents());
 
-      return frame;
+      return "redirect:/main.listen";
    }
    
    @RequestMapping("/bbsPopList.listen")

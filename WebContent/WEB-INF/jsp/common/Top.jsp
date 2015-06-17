@@ -11,6 +11,8 @@
 <SCRIPT>
 	// 선택한 메뉴의 페이지 이름으로 바꿔주는 Script
 	$(function(){
+		
+		
 		$(".dropdown-menu li a").click(function(){
 			  $(this).parents(".dropdown").find('.selection').text($(this).text());
 			  $(this).parents(".dropdown").find('.selection').val($(this).text());
@@ -92,7 +94,6 @@
           </ul>
         </li>
         
-        <li><a href="/view.listen"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-comment" aria-hidden="true"></a>
           <ul class="dropdown-menu" role="menu">
@@ -120,7 +121,7 @@ if(session.getAttribute("email")!=null)
 %>
           </ul>
         </li>
-        <li><a data-toggle="modal" data-target="#BbswriteModal" style="cursor:pointer;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a></li>
+        <li><a id="bbsWriteModalBtn" data-toggle="modal" data-target="#BbswriteModal" style="cursor:pointer;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-bell" aria-hidden="true"></a>
           <ul class="dropdown-menu" role="menu">
@@ -200,8 +201,6 @@ if(session.getAttribute("email")!=null)
             <li><a href="/bbsIntList.listen"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"> 관심 있는 이야기</a></li>
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"> 탐색환경 설정</a></li>
-            <li class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"> 설정</a></li>
             <li class="divider"></li>
             <li><a data-toggle="modal" data-target="#opinionModal" style="cursor:pointer;">
             	<span class="glyphicon glyphicon-send" aria-hidden="true"> 의견 보내기</a></li>
