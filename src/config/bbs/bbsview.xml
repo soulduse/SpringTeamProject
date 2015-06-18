@@ -146,5 +146,11 @@
 		</dynamic>
 		 
    </select>
+   
+   <!-- 마이스토리 비공개->공개 업로드 -->
+   <update id="dispUpload" parameterClass="bbsView">
+      update BBS SET DISPYN ='Y'     
+      WHERE BBS_SEQ = #bbs_seq#
+   </update>
 </sqlMap>
 

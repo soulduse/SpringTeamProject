@@ -94,5 +94,11 @@ public class BbsDao {
 		{
 			return (ArrayList) smct.queryForList("bbsViewList2",bbsVo);
 		}
+		
+		//마이스토리 비공개글 -->공개
+		public void dispSave(BbsVo bv)
+		{    
+			smct.update("dispUpload", bv);
+		} 
 	   
 }

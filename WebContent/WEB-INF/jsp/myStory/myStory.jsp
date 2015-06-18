@@ -116,16 +116,10 @@ background-size: cover;
 	 });
    $(function() {
       $('#fileBtn').click(function() {
-         //var writeForm = $('#writeForm');
          $('#imgForm').submit();      
       });
    });
-   $(function() {
-      $('#dispBtn').click(function() {
-         //var writeForm = $('#writeForm');
-         $('#dispForm').submit();      
-      });
-   });
+  
    
 </SCRIPT>
     
@@ -160,7 +154,7 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
          if(dispYn.equals("Y")){
          
 %>
-    <div class="image " id="imgRootDiv" style="background-color:gray;">     
+    <div class="image" id="imgRootDiv" style="background-color:gray;">     
         <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
       width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
@@ -207,8 +201,10 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
              </table>
              
           </div>
-          <form class="dispForm" method="post" id="dispForm" action="/dispSave.listen">
-          <input type="button" id="dispBtn" value="공개" "></form>
+          <form class="dispForm" method="post" id="dispForm1"action="/dispSave.listen">                  
+               <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
+               <input type="submit" class="dispBtn" value="공개"/>
+               </form>
    </div>
    <%
    }         
@@ -288,7 +284,10 @@ ArrayList bbsMyViewList1 = (ArrayList)request.getAttribute("bbsMyViewList");
              </table>
              
           </div>
-          <input type="button" id="dispBtn" value="공개" ">
+          <form class="dispForm" method="post" id="dispForm2"action="/dispSave.listen">                  
+               <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
+               <input type="submit" class="dispBtn" value="공개"/>
+               </form>
    </div>
    <%
    }         
@@ -368,7 +367,10 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
              </table>
              
           </div>
-          <input type="button" id="dispBtn" value="공개" ">
+          <form class="dispForm" method="post" id="dispForm3"action="/dispSave.listen">                  
+               <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
+               <input type="submit" class="dispBtn" value="공개"/>
+          </form>
    </div>
    <%
    }         

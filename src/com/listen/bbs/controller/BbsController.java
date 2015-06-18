@@ -339,4 +339,21 @@ public class BbsController extends BaseController{
 	   request.setAttribute("ajaxBbsViewList", ajaxBbsViewList);
 	   return "ajaxList/ajaxBbsViewList3";  
    }
+   
+   @RequestMapping("/dispSave.listen")
+   public String dispSave(HttpServletRequest request, HttpSession session) {
+
+      String bbs_seq = (String) request.getParameter("seq");
+      System.out.println(bbs_seq);
+      String reg_email = (String) session.getAttribute("email");
+      System.out.println(reg_email);
+      
+      BbsVo bv = new BbsVo();
+      bv.setReg_email(reg_email);
+      bv.setBbs_seq(Integer.parseInt(bbs_seq));
+      
+      bbsDao.dispSave(bv);
+
+      return "redirect:bbsMyViewList.listen";
+   }
 }

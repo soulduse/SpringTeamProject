@@ -84,8 +84,7 @@ $(function() {
       String email = (String)session.getAttribute("email");
       String userIp = request.getRemoteAddr();
       String selectItem = (String)session.getAttribute("selectItem");
-      System.out.println("Age jsp 들어옴 "+selectItem);
-
+		System.out.println(selectItem);
 %>
 <body>
 
