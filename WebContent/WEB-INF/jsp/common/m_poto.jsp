@@ -98,7 +98,9 @@ bbsList = (ArrayList)request.getAttribute("bbsList");
 %>
 			
 </ul>   	
-<a href="#popupWirth" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="a" data-transition="pop" style="position: relative; top: -100px; left : 100px">글쓰기</a>
+
+               
+<a href="#popupWirth" data-rel="popup" data-position-to="window" data-inline="true" data-icon="check" data-theme="a" data-transition="pop" style="position: relative; top: -70px; left : 140px"><img class="img" src="images/mobile_write.jpg"></a>
 <div data-role="popup" id="popupWirth" data-theme="a" class="ui-corner-all">
 	<FORM name="writeForm" method="post" id="writeForm" enctype="multipart/form-data" action="/m_writeSave.listen">
         <div style="padding:10px 20px;">

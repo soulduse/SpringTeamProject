@@ -1,115 +1,150 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="Data">
-   <typeAlias alias="bbsView" type="com.listen.bbs.vo.BbsVo" />
-   <typeAlias alias="bbsLikeSwitchDto" type="com.listen.bbs.dto.BbsLikeSwitchDto" />
-   <typeAlias alias="bbsViewFilterDto" type="com.listen.bbs.dto.BbsViewFilterDto" />
-   <typeAlias alias="ynFilterVo" type="com.listen.bbs.vo.YnFilterVo" />
+	<typeAlias alias="bbsView" type="com.listen.bbs.vo.BbsVo" />
+	<typeAlias alias="bbsLikeSwitchDto" type="com.listen.bbs.dto.BbsLikeSwitchDto" />
+	<typeAlias alias="bbsViewFilterDto" type="com.listen.bbs.dto.BbsViewFilterDto" />
+	<typeAlias alias="ynFilterVo" type="com.listen.bbs.vo.YnFilterVo" />
 
-   <select id="bbsViewList" resultClass="bbsView" >
-		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
+	<select id="bbsViewList" resultClass="bbsView">
+		SELECT A.BBS_SEQ,
+		A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT,
+		A.REG_EMAIL, B.PATH, B.SAVE_NAME
+		FROM BBS A, BACKGROUND_IMG B
+		WHERE
+		A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+		ORDER BY A.BBS_SEQ DESC
+	</select>
+
+
+	<select id="m_bbsViewList" resultClass="bbsView">
+		select *
+		from (
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, SUBSTR(A.BBS_CONTENTS, 0, 10)||'...' BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT,
+		A.REG_EMAIL, B.PATH, B.SAVE_NAME
 		FROM BBS A, BACKGROUND_IMG B
 		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
 		ORDER BY A.BBS_SEQ DESC
-   </select>
-   
-   
-   <select id="m_bbsViewList" resultClass="bbsView" >
-		select * 
-		  from ( 
-		      SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
-		      FROM BBS A, BACKGROUND_IMG B
-		      WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
-		      ORDER BY A.BBS_SEQ DESC
-		    ) 
+		)
 		where 20 >= ROWNUM
-   </select>
-   
-   <select id="m_bbsinit" resultClass="bbsView" parameterClass="bbsView">
-		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
+	</select>
+
+	<select id="m_myBbsList" resultClass="bbsView" parameterClass="bbsView">
+		select *
+		from (
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT,
+		A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.DISPYN
 		FROM BBS A, BACKGROUND_IMG B
-		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ AND A.BBS_SEQ = #bbs_seq#
-   </select>
-   
-   <select id="bbsViewList2" resultClass="bbsView" parameterClass="bbsView">
-		SELECT * 
-		FROM 
+		WHERE A.REG_EMAIL=#reg_email# AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+		ORDER BY A.BBS_SEQ DESC
+		)
+		where 20 >= ROWNUM
+	</select>
+
+	<select id="m_bbsinit" resultClass="bbsView" parameterClass="bbsView">
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT,
+		A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
+		FROM BBS A,
+		BACKGROUND_IMG B
+		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ AND
+		A.BBS_SEQ = #bbs_seq#
+	</select>
+
+	<select id="bbsViewList2" resultClass="bbsView" parameterClass="bbsView">
+		SELECT *
+		FROM
 		(SELECT ROWNUM RN, C.*
-		FROM (SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
-		FROM BBS A, BACKGROUND_IMG B
+		FROM (SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS,
+		A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
+		FROM BBS
+		A, BACKGROUND_IMG B
 		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
 		ORDER BY A.BBS_SEQ DESC) C) D
 		WHERE RN > #no# AND #no#+10 > RN
-   </select>
- 
-   
-   <select id="bbsDetailView" resultClass="bbsView" parameterClass="bbsView">
-      <dynamic>
-      <isEqual property="selectItem" compareValue="댓글">
-         SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.REG_EMAIL, A.BBS_HITCOUNT, A.GOODCOUNT, A.MEMBERS_SEQ, B.ADD_COUNT, C.PATH, C.SAVE_NAME
-         FROM BBS A, (SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) B, BACKGROUND_IMG C
-         WHERE A.BBS_SEQ = B.BBS_SEQ AND A.DISPYN='Y'AND A.BG_IMG_SEQ = C.BG_IMG_SEQ
-         ORDER BY ADD_COUNT DESC 
-      </isEqual>
-      </dynamic>      
-      <dynamic>
-      <isEqual property="selectItem" compareValue="goodCount">
-      SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, c.add_count
-         FROM BBS A, BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) c
-         WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq = c.bbs_seq(+)
-         ORDER BY a.GOODCOUNT DESC
-      </isEqual>
-      </dynamic>
-      <dynamic>
-      <isEqual property="selectItem" compareValue="bbs_hitCount">
-            SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, c.add_count 
-         FROM BBS A, BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) c
-         WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq = c.bbs_seq(+)
-            ORDER BY a.bbs_hitcount DESC
-      </isEqual>
-      </dynamic>
-       <dynamic>
-      <isEqual property="selectItem" compareValue="main">
-            SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
-            FROM BBS A, BACKGROUND_IMG B
-            WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
-            ORDER BY A.BBS_SEQ DESC
-      </isEqual>
-      </dynamic>
-   </select>
-   
-   <!-- 글공감 Like Update 처리 -->
-   <update id="likeCountUpdate" parameterClass="bbsLikeSwitchDto">
-      UPDATE BBS SET
-      GOODCOUNT = #likeValue#
-      WHERE BBS_SEQ = #bbs_seq#
-   </update>
-   
-   <!-- 글보기시 YN_FILTER INSERT Query -->
-   <insert id="BbsViewInsertFilter" parameterClass="bbsViewFilterDto">
-      INSERT INTO YN_FILTER 
-      (FILTER_SEQ, BBS_SEQ, MEMBERS_SEQ)
-      VALUES
-      (FILTER_SEQ.NEXTVAL, #bbs_seq#, (SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#))
-   </insert>
-   
-   <!-- 글보기 INSERT 전 Query -->
-     <select id="BbsViewSelectFilter" resultClass="ynFilterVo" parameterClass="bbsViewFilterDto">
-      SELECT FILTER_SEQ
-      FROM YN_FILTER
-      WHERE BBS_SEQ=#bbs_seq# AND MEMBERS_SEQ=(SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#)
-   </select>
-   
-   
-   <select id="bbsMyViewList" resultClass="bbsView" parameterClass="bbsView">
-      SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, A.DISPYN, B.PATH, B.SAVE_NAME
-      FROM BBS A, BACKGROUND_IMG B
-      WHERE  A.BG_IMG_SEQ = B.BG_IMG_SEQ
-       AND A.REG_EMAIL = #reg_email#
-      ORDER BY A.BBS_SEQ DESC
-   </select>
-   
-   <select id="mainMyStory" resultClass="bbsView" parameterClass="bbsView">
+	</select>
+
+
+	<select id="bbsDetailView" resultClass="bbsView" parameterClass="bbsView">
+		<dynamic>
+			<isEqual property="selectItem" compareValue="댓글">
+				SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.REG_EMAIL,
+				A.BBS_HITCOUNT, A.GOODCOUNT, A.MEMBERS_SEQ, B.ADD_COUNT, C.PATH,
+				C.SAVE_NAME
+				FROM BBS A, (SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY
+				BBS_SEQ ) B, BACKGROUND_IMG C
+				WHERE A.BBS_SEQ = B.BBS_SEQ AND A.DISPYN='Y'AND A.BG_IMG_SEQ =
+				C.BG_IMG_SEQ
+				ORDER BY ADD_COUNT DESC
+			</isEqual>
+		</dynamic>
+		<dynamic>
+			<isEqual property="selectItem" compareValue="goodCount">
+				SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT,
+				A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, c.add_count
+				FROM BBS A, BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM
+				BBS_ADD GROUP BY BBS_SEQ ) c
+				WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq =
+				c.bbs_seq(+)
+				ORDER BY a.GOODCOUNT DESC
+			</isEqual>
+		</dynamic>
+		<dynamic>
+			<isEqual property="selectItem" compareValue="bbs_hitCount">
+				SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT,
+				A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, c.add_count
+				FROM BBS A, BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM
+				BBS_ADD GROUP BY BBS_SEQ ) c
+				WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq =
+				c.bbs_seq(+)
+				ORDER BY a.bbs_hitcount DESC
+			</isEqual>
+		</dynamic>
+		<dynamic>
+			<isEqual property="selectItem" compareValue="main">
+				SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT,
+				A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
+				FROM BBS A, BACKGROUND_IMG B
+				WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+				ORDER BY A.BBS_SEQ DESC
+			</isEqual>
+		</dynamic>
+	</select>
+
+	<!-- 글공감 Like Update 처리 -->
+	<update id="likeCountUpdate" parameterClass="bbsLikeSwitchDto">
+		UPDATE BBS SET
+		GOODCOUNT = #likeValue#
+		WHERE BBS_SEQ = #bbs_seq#
+	</update>
+
+	<!-- 글보기시 YN_FILTER INSERT Query -->
+	<insert id="BbsViewInsertFilter" parameterClass="bbsViewFilterDto">
+		INSERT INTO YN_FILTER
+		(FILTER_SEQ, BBS_SEQ, MEMBERS_SEQ)
+		VALUES
+		(FILTER_SEQ.NEXTVAL, #bbs_seq#, (SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#))
+	</insert>
+
+	<!-- 글보기 INSERT 전 Query -->
+	<select id="BbsViewSelectFilter" resultClass="ynFilterVo"
+		parameterClass="bbsViewFilterDto">
+		SELECT FILTER_SEQ
+		FROM YN_FILTER
+		WHERE BBS_SEQ=#bbs_seq# AND MEMBERS_SEQ=(SELECT MEMBERS_SEQ FROM MEMBERS
+		WHERE EMAIL=#reg_email#)
+	</select>
+
+
+	<select id="bbsMyViewList" resultClass="bbsView" parameterClass="bbsView">
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT,
+		A.REG_EMAIL, A.DISPYN, B.PATH, B.SAVE_NAME
+		FROM BBS A, BACKGROUND_IMG B
+		WHERE A.BG_IMG_SEQ = B.BG_IMG_SEQ
+		AND A.REG_EMAIL = #reg_email#
+		ORDER BY A.BBS_SEQ DESC
+	</select>
+
+	<select id="mainMyStory" resultClass="bbsView" parameterClass="bbsView">
    <![CDATA[
       select rownum ,A.BBS_SEQ,A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, A.DISPYN, A.REG_DATE, A.PATH, A.SAVE_NAME
       from (select A.BBS_SEQ,A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, A.DISPYN, A.REG_DATE, B.PATH, B.SAVE_NAME
@@ -117,52 +152,93 @@
      where A.reg_email = #reg_email#  order by A.reg_date desc) A
        where rownum > 0 and rownum < 3
     ]]>
-   </select>
-   
-   <!-- 메인에서 연령별 선택 쿼리 -->	
-   <select id="bbsAgeList" resultClass="bbsView" parameterClass="bbsView">
-		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, nvl(c.add_count,0) add_count, 
+	</select>
+
+	<!-- 메인에서 연령별 선택 쿼리 -->
+	<select id="bbsAgeList" resultClass="bbsView" parameterClass="bbsView">
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT,
+		A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, nvl(c.add_count,0)
+		add_count,
 		EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1 age
-		FROM BBS A, BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*)ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) c, members d
-		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq = c.bbs_seq(+) and a.reg_email = d.email
-		
+		FROM BBS A, BACKGROUND_IMG B,(SELECT
+		BBS_SEQ, COUNT(*)ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) c, members
+		d
+		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq =
+		c.bbs_seq(+) and a.reg_email = d.email
+
 		<dynamic>
 			<isEqual property="selectAge" compareValue="10">
-				and EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1 > 9 and 20 > EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1
+				and EXTRACT(YEAR
+				FROM SYSDATE)-d.birthyear+1 > 9 and 20 > EXTRACT(YEAR FROM
+				SYSDATE)-d.birthyear+1
 			</isEqual>
 		</dynamic>
 		<dynamic>
 			<isEqual property="selectAge" compareValue="20">
-				and EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1 > 19 and 30 > EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1 
+				and EXTRACT(YEAR
+				FROM SYSDATE)-d.birthyear+1 > 19 and 30 > EXTRACT(YEAR FROM
+				SYSDATE)-d.birthyear+1
 			</isEqual>
-		</dynamic>		
+		</dynamic>
 		<dynamic>
 			<isEqual property="selectAge" compareValue="30">
-				and EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1 > 29 and 40 > EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1
+				and EXTRACT(YEAR
+				FROM SYSDATE)-d.birthyear+1 > 29 and 40 > EXTRACT(YEAR FROM
+				SYSDATE)-d.birthyear+1
 			</isEqual>
-		</dynamic>		
+		</dynamic>
 		<dynamic>
 			<isEqual property="selectAge" compareValue="40">
-				and EXTRACT(YEAR FROM SYSDATE)-d.birthyear+1 > 39
+				and EXTRACT(YEAR
+				FROM SYSDATE)-d.birthyear+1 > 39
 			</isEqual>
-		</dynamic>		
-		
+		</dynamic>
+
 		<dynamic>
 			<isEqual property="selectItem" compareValue="bbs_add_count">
-				ORDER BY ADD_COUNT DESC 
+				ORDER BY
+				ADD_COUNT DESC
 			</isEqual>
 		</dynamic>
 		<dynamic>
 			<isEqual property="selectItem" compareValue="bbs_hitCount">
-				ORDER BY a.bbs_hitCount DESC 
+				ORDER BY
+				a.bbs_hitCount DESC
 			</isEqual>
 		</dynamic>
 		<dynamic>
 			<isEqual property="selectItem" compareValue="goodCount">
-				ORDER BY a.goodCount DESC 
+				ORDER BY
+				a.goodCount DESC
 			</isEqual>
 		</dynamic>
-		 
-   </select>
+
+	</select>
+
+	<select id="m_bbsTopStoriesList" resultClass="bbsView">
+
+		select *
+		from (
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT,
+		A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, c.add_count
+		FROM BBS A,
+		BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM
+		BBS_ADD GROUP
+		BY BBS_SEQ ) c
+		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and
+		a.bbs_seq =
+		c.bbs_seq(+)
+		ORDER BY a.bbs_hitcount DESC
+		)
+		where 20 >= ROWNUM
+	</select>
+	
+	<!-- 글공감 Like Update 처리 -->
+	<update id="myStoryDispY" parameterClass="bbsView">
+		UPDATE BBS SET
+		DISPYN = 'Y'
+		WHERE BBS_SEQ = #bbs_seq#
+	</update>
+
 </sqlMap>
 

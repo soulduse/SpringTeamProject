@@ -1,25 +1,27 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%
 	String mainUrl = "/WEB-INF/jsp/common/m_poto.jsp";
-	int change = 0;
+	int change = 1;
 	System.out.println("m_frame.jsp");
 	if (request.getAttribute("mainUrl") != null
 			&& ((String) request.getAttribute("mainUrl")).length() > 0) {
 		mainUrl = (String) request.getAttribute("mainUrl");
 		System.out.println("mainUrl: " + mainUrl);
-		change = 1;
+		change = 0;
 	}
 %>
 
 <script src="js/jquery-1.8.2.min.js"></script>
 <script>
 	$(function() {
+		$.mobile.ajaxEnabled = false;
+		 	
 		$('#select-h-2b').change(function() {
 			var selectvar = $('#select-h-2b').val();
 			if (selectvar == "m_main")
 				location.href = "/m_main.listen";
 			else
-				location.href = "/m_myStory.listen";
+				location.href = "/m_myStory.listen?reg_email=houng9065@hanmail.net";
 
 		});
 	});
@@ -60,21 +62,10 @@
 			<div class="ui-block-b">
 				<h1 style="margin: 0; padding: 0;">
 					<select name="select-h-2b" id="select-h-2b" data-mini="true">
-						<%
-							if (change == 0) {
-						%>
-						<option value="m_main" class="standard"><span
-								data-icon="home" data-iconpos="left"><a href="">LISTEN</span></option>
-						<option value="m_mystroy" class="mystroy">MY STORY</option>
-						<%
-							} else if (change == 1) {
-						%>
-						<option value="m_main" class="standard">LISTEN</option>
-						<option value="m_mystroy" class="mystroy"><span
-								data-icon="home" data-iconpos="left">MY STORY</span></option>
-						<%
-							}
-						%>
+						<option value="m_main" class="standard" <%if(!mainUrl.equals("/WEB-INF/jsp/myStory/m_myStory.jsp")){  %>selected="selected"<%} %>><span
+								data-icon="home" data-iconpos="left" >LISTEN</span></option>
+						<option value="m_mystroy" class="mystroy" <%if(mainUrl.equals("/WEB-INF/jsp/myStory/m_myStory.jsp")){  %>selected="selected"<%} %>>MY STORY</option>
+
 					</select>
 				</h1>
 			</div>
@@ -101,9 +92,9 @@
 			data-display="overlay" data-dismissible="true">
 			<H2>Listen</H2>
 			<ul>
-				<li><a href="http://www.naver.com"><span class="icon"></span>인기
+				<li><a href="/topStories.listen"><span class="icon"></span>인기
 						있는 이야기</a></li>
-				<li><a href="http://www.naver.com"><span class="icon"></span>관심
+				<li><a href="/interest.listen"><span class="icon"></span>관심
 						있는 이야기</a></li>
 				<li><a href="#opinion" data-rel="popup"
 					data-position-to="window" data-transition="pop">의견 보내기</a><span
@@ -112,8 +103,7 @@
 			</ul>
 		</div>
 
-		<div data-role="popup" id="opinion" data-theme="a"
-			>
+		<div data-role="popup" id="opinion" data-theme="a">
 			<form name="opinionWriteForm" id="opinionWriteForm"
 				action="/admin/m_opinionWrite.listen" method="post">
 				<div style="padding: 10px 20px;">
@@ -123,8 +113,8 @@
 						id="bbs_contents"></textarea>
 					<button type="submit" data-theme="b" data-icon="check">보내기</button>
 				</div>
-               <INPUT type="hidden" name="reg_email" value="houng9065@hanmail.net">
-               <INPUT type="hidden" name="reg_ip" value="127.0.0.1">
+				<INPUT type="hidden" name="reg_email" value="houng9065@hanmail.net">
+				<INPUT type="hidden" name="reg_ip" value="127.0.0.1">
 			</form>
 		</div>
 

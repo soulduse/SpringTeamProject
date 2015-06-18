@@ -71,6 +71,29 @@ public class BbsController extends BaseController{
       return frame;
    }
    
+   // 인기 있는 글 보기 
+   @RequestMapping("/topStories.listen")
+   public String m_topStoriesPage(HttpServletRequest request, HttpSession session) {
+      String selectStoryName = "인기 있는 글 보기";
+      ArrayList m_bbsViewList = (ArrayList)bbsDao.m_bbsTopStoriesList();
+      request.setAttribute("m_bbsViewList",  m_bbsViewList);
+      request.setAttribute("selectStoryName",  selectStoryName);
+      request.setAttribute("mainUrl", prefix + "bbs/selectStory.jsp");
+      
+      return m_frame;
+   }
+   
+   // 관심 있는 글 보기 
+   @RequestMapping("/interest.listen")
+   public String m_interestPage(HttpServletRequest request, HttpSession session) {
+	  String selectStoryName = "관심 있는 글 보기";
+      ArrayList m_bbsViewList = (ArrayList)bbsDao.m_bbsViewList();
+      request.setAttribute("m_bbsViewList",  m_bbsViewList);
+      request.setAttribute("selectStoryName",  selectStoryName);
+      request.setAttribute("mainUrl", prefix + "bbs/selectStory.jsp");
+      
+      return m_frame;
+   }
    // 글 공감 버튼처리 Ajax
    @RequestMapping("/ajax/bbsLikeCount.listen")
    public void likeCount(BbsLikeSwitchDto bbsLikeSwitchDto)
@@ -149,6 +172,17 @@ public class BbsController extends BaseController{
          response.setStatus(HttpServletResponse.SC_NO_CONTENT);
       }
    }
+   
+	// 모바일 내가 작성 한 글 공개 입력
+	@RequestMapping("/m_dispYBbs.listen")
+	public String m_dispYBbsPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		bbsDao.myStoryDispY(bbsVo);
+		System.out.println("안녕 나 여기 들왔졍!!");
+
+		return "redirect:/m_myStory.listen";
+	}
+   
+   
    // 글쓰기 및 그림파일 등록
    @RequestMapping("/writeSave.listen")
    public String writePage(BbsWriteDto bbsWriteDto, HttpServletRequest request) {
@@ -263,25 +297,24 @@ public class BbsController extends BaseController{
       return frame;
       
    }
-   
-   @RequestMapping("/bbsIntList.listen")
-      public String bbsIntListPage(BbsVo bbsVo,HttpServletRequest request, HttpSession session) {
- 
-         String selectItem=(String)session.getAttribute("selectItem");
-         if((String)request.getParameter("selectItem")!=null)
-         {
-            selectItem = (String)request.getParameter("selectItem");
-         }
-         session.setAttribute("selectItem",selectItem);
-         bbsVo.setSelectItem(selectItem);
-         ArrayList bbsIntList = bbsDao.bbsDetailView(bbsVo);
-         request.setAttribute("page", "interest");
-         request.setAttribute("bbsIntList",  bbsIntList);
-         request.setAttribute("selectItem", selectItem);
-         request.setAttribute("mainUrl", prefix + "bbs/BbsIntList.jsp");
-         
-         return frame;
-      }
+
+	@RequestMapping("/bbsIntList.listen")
+	public String bbsIntListPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
+
+		String selectItem = (String) session.getAttribute("selectItem");
+		if ((String) request.getParameter("selectItem") != null) {
+			selectItem = (String) request.getParameter("selectItem");
+		}
+		session.setAttribute("selectItem", selectItem);
+		bbsVo.setSelectItem(selectItem);
+		ArrayList bbsIntList = bbsDao.bbsDetailView(bbsVo);
+		request.setAttribute("page", "interest");
+		request.setAttribute("bbsIntList", bbsIntList);
+		request.setAttribute("selectItem", selectItem);
+		request.setAttribute("mainUrl", prefix + "bbs/BbsIntList.jsp");
+
+		return frame;
+	}
    
    @RequestMapping("/bbsAgeList.listen")
    public String bbsAgePage(BbsVo bbsVo,HttpServletRequest request, HttpSession session) {

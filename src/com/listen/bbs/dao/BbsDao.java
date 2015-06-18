@@ -96,4 +96,20 @@ public class BbsDao {
 		smct.update("fileSeqUpdate", bbsWriteDto);
 	}
 
+	public ArrayList m_myBbsList(BbsVo bbsVo) {
+		// TODO Auto-generated method stub
+		return (ArrayList) smct.queryForList("m_myBbsList", bbsVo);
+	}
+
+	public ArrayList m_bbsTopStoriesList() {
+		// TODO Auto-generated method stub
+		return (ArrayList) smct.queryForList("m_bbsTopStoriesList");
+	}
+
+	public void myStoryDispY(BbsVo bbsVo) {
+		// TODO Auto-generated method stub
+		smct.update("myStoryDispY", bbsVo);
+		
+	}
+
 }
