@@ -4,6 +4,43 @@
 <%@ page import="java.awt.Image" %>
 <%@ page import="javax.swing.ImageIcon" %>
 
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" src="js/ajax-bbsview.js"></script>
+<script type="text/javascript" src="js/ajax-comment.js"></script>
+<script type="text/javascript" src="js/ajax-chattingRequest.js"></script>
+<SCRIPT>
+  $(function() {
+	  alert("dddd");
+	   $('.img').click(function() {
+		   clearTbody();
+	         var d = $(this).attr("src");
+	         
+	         var c = $(this).attr("contents");
+	         var bbs_seq = $(this).attr("name");
+	         var bbs_likeCount = $(this).attr("bbs_goodCount");
+
+	         $('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
+	         $("#modalImg").attr("src", d);
+	         $("#bbs_seq").attr("value", bbs_seq);
+	         var modalContent = document.getElementById("modalContent");
+	         modalContent.innerHTML = c;
+	         
+	         ajaxBbsAdd();
+	      });
+
+	      var addForm = $('#addForm');
+	      $('#addWriteBtn').click(function() {
+	         ajaxBbsAdd();
+	      });
+	 });
+   $(function() {
+      $('#fileBtn').click(function() {
+         $('#imgForm').submit();      
+      });
+   });
+  
+   
+</SCRIPT>
 <!doctype html>
 <html lang="ko">
  <head>
@@ -90,38 +127,7 @@ background-size: cover;
   </head>
   
   
-  <SCRIPT>
-  $(function() {
-	   $('.img').click(function() {
-	    	 clearTbody();
-	         var d = $(this).attr("src");
-	         alert(d);
-	         var c = $(this).attr("contents");
-	         var bbs_seq = $(this).attr("name");
-	         var bbs_likeCount = $(this).attr("bbs_goodCount");
-
-	         $('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
-	         $("#modalImg").attr("src", d);
-	         $("#bbs_seq").attr("value", bbs_seq);
-	         var modalContent = document.getElementById("modalContent");
-	         modalContent.innerHTML = c;
-	         
-	         ajaxBbsAdd();
-	      });
-
-	      var addForm = $('#addForm');
-	      $('#addWriteBtn').click(function() {
-	         ajaxBbsAdd();
-	      });
-	 });
-   $(function() {
-      $('#fileBtn').click(function() {
-         $('#imgForm').submit();      
-      });
-   });
   
-   
-</SCRIPT>
     
   
   <body>
@@ -157,7 +163,7 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
     <div class="image" id="imgRootDiv" style="background-color:gray;">     
         <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
-      width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
+      width=300 contents="<%=bbs_contents%>"/>
    
         <div class="text2">
               <table>
@@ -382,7 +388,16 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
 %>
     
      
-<!-- Modal 글 List-->
+
+
+
+</div>
+   </div>
+
+ <div class="story_footer"></div> 
+    
+ </div>
+ <!-- Modal 글 List-->
 <div class="modal fade" style="width: 100%" id="myModal" tabindex="-1"
    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
@@ -466,11 +481,5 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
 <%
    }
 %>
-</div>
-   </div>
-
- <div class="story_footer"></div> 
-    
- </div>
  </body>
 </html>   
