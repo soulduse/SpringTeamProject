@@ -1,4 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="com.listen.chatting.vo.*"%>
+<%@ page import="com.listen.notice.vo.*"%>
+
 <%
 	String mainUrl = "/WEB-INF/jsp/common/m_poto.jsp";
 	int change = 1;
@@ -9,21 +13,51 @@
 		System.out.println("mainUrl: " + mainUrl);
 		change = 0;
 	}
+	ArrayList chatList = (ArrayList) session.getAttribute("chatList");
+	ArrayList noticeList = (ArrayList) session
+			.getAttribute("noticeList");
+	String email = "houng9065@hanmail.net";
 %>
 
 <script src="js/jquery-1.8.2.min.js"></script>
 <script>
 	$(function() {
 		$.mobile.ajaxEnabled = false;
-		 	
+
 		$('#select-h-2b').change(function() {
 			var selectvar = $('#select-h-2b').val();
 			if (selectvar == "m_main")
 				location.href = "/m_main.listen";
 			else
-				location.href = "/m_myStory.listen?reg_email=houng9065@hanmail.net";
+				location.href = "/m_myStory.listen";
 
 		});
+
+		//방만들기 
+		$(".room_make").click(function() {
+			window.open("http://localhost:900/m_chatting/"
+					+ encodeURIComponent(roomname) + "?name="
+					+ encodeURIComponent(nickname) + "?email="
+					+ encodeURIComponent(email), '1',
+					'width=600, height=800, resizable=no');
+			var num = $(this).attr("id");
+			var CreateRoomForm = "#CreateRoomForm" + num;
+			$(CreateRoomForm).submit();
+		});
+
+		// 방 입장
+		$(".chattingroom").click(
+				function() {
+					var num = $(this).attr("id");
+					var roomname = $('#roomname' + num).val();
+					var nickname = $('#nickname' + num).val();
+					var email = $('#email' + num).val();
+					window.open("http://localhost:900/m_chatting/"
+							+ encodeURIComponent(roomname) + "?name="
+							+ encodeURIComponent(nickname) + "?email="
+							+ encodeURIComponent(email), '1',
+							'width=600, height=800, resizable=no');
+				});
 	});
 </script>
 <!DOCTYPE html>
@@ -54,7 +88,7 @@
 				</div>
 				<div class="ui-block-b">
 					<a href="#chatting" data-rel="popup" data-role="button"
-						data-role="button" data-transition="slideup" class="chaticon"
+						data-role="button" data-transition="pop" class="chaticon"
 						data-iconpos="notext">chatting</a>
 				</div>
 				<div class="ui-block-c"></div>
@@ -62,9 +96,13 @@
 			<div class="ui-block-b">
 				<h1 style="margin: 0; padding: 0;">
 					<select name="select-h-2b" id="select-h-2b" data-mini="true">
-						<option value="m_main" class="standard" <%if(!mainUrl.equals("/WEB-INF/jsp/myStory/m_myStory.jsp")){  %>selected="selected"<%} %>><span
-								data-icon="home" data-iconpos="left" >LISTEN</span></option>
-						<option value="m_mystroy" class="mystroy" <%if(mainUrl.equals("/WEB-INF/jsp/myStory/m_myStory.jsp")){  %>selected="selected"<%} %>>MY STORY</option>
+						<option value="m_main" class="standard"
+							<%if (!mainUrl.equals("/WEB-INF/jsp/myStory/m_myStory.jsp")) {%>
+							selected="selected" <%}%>><span data-icon="home"
+								data-iconpos="left">LISTEN</span></option>
+						<option value="m_mystroy" class="mystroy"
+							<%if (mainUrl.equals("/WEB-INF/jsp/myStory/m_myStory.jsp")) {%>
+							selected="selected" <%}%>>MY STORY</option>
 
 					</select>
 				</h1>
@@ -73,7 +111,7 @@
 				<div class="ui-block-a"></div>
 				<div class="ui-block-b">
 					<a href="#notification" data-rel="popup" data-role="button"
-						class="bellicon" data-transition="slideup" data-iconpos="notext">notification</a>
+						class="bellicon" data-transition="pop" data-iconpos="notext">notification</a>
 
 				</div>
 				<div class="ui-block-c">
@@ -124,10 +162,34 @@
 			<ul data-role="listview" data-inset="true" style="min-width: 210px;"
 				data-theme="d">
 				<li data-role="divider" data-theme="a">Chatting List</li>
-				<li><a href="#">체팅</a></li>
-				<li><a href="#">뎃글</a></li>
-				<li><a href="#">클로버</a></li>
-				<li><a href="#">공감</a></li>
+				<%
+					if (session.getAttribute("email") != null) {
+						for (int i = 0; i < chatList.size(); i++) {
+							ChattingVo chattingVo = (ChattingVo) chatList.get(i);
+							String roomname = (String) chattingVo.getChatting_name();
+							String nickname = (String) chattingVo.getRamdom_name();
+							email = (String) session.getAttribute("email");
+							if (chatList.size() > 0) {
+				%>
+				<INPUT type="hidden" name="roomname<%=i%>" id="roomname<%=i%>"
+					value="<%=roomname%>">
+				<INPUT type="hidden" name="nickname<%=i%>" id="nickname<%=i%>"
+					value="<%=nickname%>">
+				<INPUT type="hidden" name="email<%=i%>" id="email<%=i%>"
+					value="<%=email%>">
+				<li><a href="#" class="chattingroom" id="<%=i%>"><%=roomname%></a></li>
+
+				<%
+					} else {
+				%>
+
+
+				<li><a href="#">회원자의 개설된 채팅 방이 없습니다.</a></li>
+				<%
+					}
+						}
+					}
+				%>
 			</ul>
 		</div>
 
@@ -135,10 +197,67 @@
 			<ul data-role="listview" data-inset="true" style="min-width: 210px;"
 				data-theme="d">
 				<li data-role="divider" data-theme="a">알림</li>
-				<li><a href="#">체팅</a></li>
-				<li><a href="#">뎃글</a></li>
-				<li><a href="#">클로버</a></li>
-				<li><a href="#">공감</a></li>
+				<%
+					if (session.getAttribute("email") != null) {
+						for (int i = 0; i < noticeList.size(); i++) {
+							NoticeVo noticeVo = (NoticeVo) noticeList.get(i);
+							int notifications_seq = (int) noticeVo
+									.getNotifications_seq();
+							int send_seq = (int) noticeVo.getMembers_seq();
+							int rec_seq = (int) noticeVo.getRec_seq();
+							int noti_state_seq = (int) noticeVo.getNoti_state_seq();
+							String content = (String) noticeVo.getContent();
+							if (noticeList.size() > 0) {
+				%>
+				<FORM name="CreateRoomForm<%=i%>>" method="post"
+					id="CreateRoomForm<%=i%>" action="/m_createRoom.listen">
+					<INPUT type="hidden" name="notifications_seq"
+						value="<%=notifications_seq%>"> <INPUT type="hidden"
+						name="send_seq" value="<%=send_seq%>"> <INPUT
+						type="hidden" name="rec_seq" value="<%=rec_seq%>">
+					<%
+						if (noti_state_seq == 1) {
+					%>
+					<li><img src="/images/message.png"><%=content%>&nbsp;&nbsp;<input
+						class="room_make" id="<%=i%>" type="button" value="수락"></li>
+					<%
+						}
+									if (noti_state_seq == 2) {
+					%>
+					<li><img src="/images/clover.png"></li>
+					<%
+						}
+									if (noti_state_seq == 4) {
+					%>
+					<li><img src="/images/heart.png"><a><%=content%></a>&nbsp;&nbsp;
+					</li>
+					<%
+						}
+									if (noti_state_seq == 5) {
+					%>
+					<li><img src="/images/port.png"><a><%=content%></a>&nbsp;&nbsp;
+					</li>
+					<%
+						}
+									if (noti_state_seq == 6) {
+					%>
+					<li><img src="/images/notice.png"><a><%=content%></a>&nbsp;&nbsp;
+					</li>
+					<%
+						}
+								} else {
+					%>
+
+					<li><a href="#">회원자의 개설된 채팅 방이 없습니다.</a></li>
+
+					<%
+						}
+					%>
+				</FORM>
+				<%
+					}
+					}
+				%>
 			</ul>
 		</div>
 

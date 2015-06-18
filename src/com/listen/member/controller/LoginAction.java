@@ -83,7 +83,7 @@ public class LoginAction extends BaseController {
 	         return "redirect:/main.listen";
 	      } else {
 	         session.setAttribute("Error", "N");
-	         return "member/testLogin";
+	         return "member/Login";
 	      }
 	   }
 
@@ -265,10 +265,166 @@ public class LoginAction extends BaseController {
 	}
 
 	// //////////////////////////////////////////////////////////////////////////////////////pc끝
-	@RequestMapping("/mLogin.listen")
-	// 모바일 로그인
+	
+	@RequestMapping("/m_Login.listen") //모바일 로그인 첫페이지
 	public String mLogin(HttpServletRequest request, HttpSession session) {
 
-		return "";
+		return "member/m_Login";
+	}
+	@RequestMapping("/m_LoginAction.listen") //모바일 로그인
+	public String m_LoginAction(HttpServletRequest request, HttpSession session)
+	{
+		String id = (String)request.getParameter("username");
+		String pass = (String)request.getParameter("password");
+		String latitude = (String)request.getParameter("latitude");
+		String longitude = (String)request.getParameter("longitude");
+		String email = "";
+		String password ="";
+		
+		ArrayList EmailList = memberDao.getEmailList(id);
+		if(EmailList.size() != 0)
+		{
+			MemberVo mv = (MemberVo)EmailList.get(0);
+			email = (String)mv.getEmail();
+			password = (String)mv.getPassword();
+		}
+
+
+		memberVo = new MemberVo();
+		if(EmailList.size()!=0 && pass.equals(password))
+		{
+			MemberVo memberVo = (MemberVo)EmailList.get(0);
+			session.setAttribute("email", memberVo.getEmail());
+			session.setAttribute("pass", memberVo.getPassword()); 
+
+			session.setAttribute("LoginYn", "Y");
+			session.setAttribute("selectItem", "bbs_hitCount");
+			memberVo.setEmail(email);
+			memberVo.setLatitude(latitude);
+			memberVo.setLongitude(longitude);
+			memberDao.locationUpdate(memberVo);
+
+			return "redirect:/m_main.listen";  // main.jsp 넘어가는부분  web과 다른페이지로 넘겨야할듯... mMain.jsp라던지
+		}
+		else{
+			session.setAttribute("Error", "N");
+			return "member/m_Login";
+		}
+
+	}
+	
+	
+	@RequestMapping("/mJoin.listen") // join.jsp로 진입
+	public String mJoin(HttpServletRequest request, HttpSession session)
+	{
+		return "member/mJoin";
+	}
+	
+	@RequestMapping("/mJoinResult.listen") //회원가입 결과 submit
+	public String mJoinResult(HttpServletRequest request, MemberVo memberVo)
+	{		
+		String email_id = (String)request.getParameter("email_id");
+		String email_kind = (String)request.getParameter("email_domain");
+		String password = (String)request.getParameter("password");
+		String birthyear = (String)request.getParameter("birthyear");
+		String gender = (String)request.getParameter("gender");
+		String realId = email_id + "@" + email_kind;
+		String latitude = (String)request.getParameter("latitude");
+		String longitude = (String)request.getParameter("longitude");
+
+		if(gender.equals("01"))
+		{
+			gender = "1";
+		}
+		else if(gender.equals("02"))
+		{
+			gender = "2";
+		}		
+		memberVo.setLatitude(latitude);
+		memberVo.setLongitude(longitude);
+		memberVo.setRealId(realId);
+		memberVo.setPassword(password);
+		memberVo.setBirthyear(birthyear);
+		memberVo.setGender(gender);
+		memberDao.join(memberVo);
+	
+		request.setAttribute("mMainUrl", prefix + "member/mLogin.jsp");
+		return "redirect:/mLogin.listen";
+	}
+	
+	@RequestMapping("/mLogout.listen") // 로그아웃 
+	public String mLogout(HttpServletRequest request, HttpSession session){
+		System.out.println("Logout!!!!!");
+		session = request.getSession(false);
+		session.setAttribute("LoginYn", "N");
+		session.setAttribute("email", null);
+		return "member/mLogin";
+	}
+	
+	@RequestMapping("/mMemberInfo.listen") //회원정보보기
+	public String mMemberInfo(HttpServletRequest request, HttpSession session)
+	{
+		
+		String id = (String)session.getAttribute("email");
+
+		String email = "";
+		String password = "";
+		String gender = "";
+		String birthyear = "";
+		ArrayList InfoList = memberDao.getInfoList(id);
+		if(InfoList.size() != 0)
+		{
+			MemberVo mv = (MemberVo)InfoList.get(0);
+			email = (String)mv.getEmail();
+			password = (String)mv.getPassword();
+			gender = (String)mv.getGender();
+			birthyear = (String)mv.getBirthyear();
+		}
+		if(gender.equals("1"))
+		{
+			gender="남자";
+		}
+		if(gender.equals("2"))
+		{
+			gender="여자";
+		}
+		request.setAttribute("email", email);
+		request.setAttribute("password", password);
+		request.setAttribute("gender", gender);
+		request.setAttribute("birthyear", birthyear);
+		
+		return "member/mMemberInfo";
+	}
+	@RequestMapping("/mMemberUpdate.listen") //회원정보수정 페이지진입
+	public String mMemberUpdate(HttpServletRequest request, HttpSession session)
+	{
+		return "member/mMemberUpdate";
+	}
+	@RequestMapping("/mUpdate.listen") //회원정보 수정하기 submit
+	public String mUpdate(HttpServletRequest request, HttpSession session)
+	{
+		String realId = (String)session.getAttribute("email");
+		String password = (String)request.getParameter("password");
+		String birthyear = (String)request.getParameter("birthyear");
+		String gender = (String)request.getParameter("gender");
+		
+		
+		if(gender.equals("01"))
+		{
+			gender = "1";
+		}
+		else if(gender.equals("02"))
+		{
+			gender = "2";
+		}		
+
+		memberVo.setRealId(realId);
+		memberVo.setPassword(password);
+		memberVo.setBirthyear(birthyear);
+		memberVo.setGender(gender);
+		memberDao.memberUpdate(memberVo);
+		request.setAttribute("page", "mMain");
+		request.setAttribute("mMainUrl", prefix + "member/mLogin.jsp");
+		return "redirect:/mMain.listen";
 	}
 }

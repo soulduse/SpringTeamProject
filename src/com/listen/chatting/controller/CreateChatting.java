@@ -88,4 +88,44 @@ public class CreateChatting extends BaseController{
 		chattingDao.deletChat(map);
 		return frame;
 	}
+	
+	///////////////////////////////모바일
+	@RequestMapping("/m_createRoom.listen")
+	public void m_createPage(ChattingVo chattingVo, HttpServletRequest request, HttpSession session) {
+		String email = (String) session.getAttribute("email");
+		String notifications_seq = (String) request.getParameter("notifications_seq");
+		System.out.println("notification :"+notifications_seq);
+		String send_seq = (String) request.getParameter("send_seq");
+		String rec_seq = (String) request.getParameter("rec_seq");
+		String reg_ip = request.getRemoteAddr();
+		System.out.println(send_seq+"durl");
+		System.out.println(rec_seq);
+		ArrayList nickname = (ArrayList)chattingDao.RandomName(rec_seq ,send_seq);
+		ChattingMemberVo send = (ChattingMemberVo)nickname.get(0);
+		ChattingMemberVo send2 = (ChattingMemberVo)nickname.get(1);
+		ChattingMemberVo rec = (ChattingMemberVo)nickname.get(2);
+		ChattingMemberVo rec2 = (ChattingMemberVo)nickname.get(3);
+		String send_nickname = (String)send.getRandom_name1()+" "+(String)send2.getRandom_name2();
+		String rec_nickname = (String)rec.getRandom_name1()+" "+(String)rec2.getRandom_name2();
+		String chatting_name = (String)send.getRandom_name1()+" "+(String)send2.getRandom_name2() + "  "+ (String)rec.getRandom_name1()+" "+(String)rec2.getRandom_name2();
+		System.out.println(chatting_name);
+		chattingVo.setChatting_name(chatting_name);
+		chattingVo.setEmail(email);
+		chattingVo.setReg_ip(reg_ip);
+		HashMap map = new HashMap();
+		map.put("send_seq", send_seq);
+		map.put("rec_seq", rec_seq);
+		map.put("send_nickname", send_nickname);
+		map.put("rec_nickname", rec_nickname);
+		map.put("reg_ip", reg_ip);
+		
+		chattingDao.createRoom(map, chattingVo);
+		noticeDao.UpdateNotification(notifications_seq);
+		System.out.println("여기");
+		ArrayList noticeList = new ArrayList();
+		noticeList.add(chatting_name);
+		noticeList.add(rec_nickname);
+		noticeList.add(rec_seq);
+		request.setAttribute("noticeList",  noticeList);
+	}
 }
