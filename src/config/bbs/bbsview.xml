@@ -58,6 +58,8 @@
 		 ORDER BY A.BBS_SEQ DESC
       </isEqual>
       </dynamic>
+      
+      
    </select>
    
    <!-- 글공감 Like Update 처리 -->

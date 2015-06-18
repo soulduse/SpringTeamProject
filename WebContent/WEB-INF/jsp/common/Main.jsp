@@ -355,8 +355,8 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
              
              <div class="listen-content2" style="background-color:#f2f2f2; background-image:url(images/back3.png); height:150;">
             <center> <B><p><h2>베스트 이야기</h2></p></B>
-             <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 40px; cursor:pointer;" onclick="" >주간베스트 이야기</div>
-             <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 40px; cursor:pointer;" onclick="" >월간베스트 이야기</div>            
+             <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 40px; cursor:pointer;" onclick="location.href='/bbsPopList.listen?selectItem=weekBest'" >주간베스트 이야기</div>
+             <div class="listen-content2_1" style=" font-weight: 250; font-size: 1em;font-family: 맑은고딕; height: 40px; cursor:pointer;" onclick="location.href='/bbsPopList.listen?selectItem=monthBest'" >월간베스트 이야기</div>            
               </center>
              </div>          
       </div>
@@ -685,7 +685,7 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
     </div>
     
 <!-- Modal 글 List-->
-<div class="modal fade" style="width: 100%" id="myModal" tabindex="-1"
+<div class="modal fade" style="width:100%" id="myModal" tabindex="-1"
    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content">
