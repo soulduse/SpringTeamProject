@@ -195,7 +195,7 @@ if(session.getAttribute("email")!=null)
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"> 내 클로버 확인</a></li>
             <li class="divider"></li>
-            <li><a href="/bbsPopList.listen"><span class="glyphicon glyphicon-stats" aria-hidden="true"> 인기 있는 이야기</a></li>
+            <li><a href="/bbsPopList.listen?selectItem=bbs_hitCount"><span class="glyphicon glyphicon-stats" aria-hidden="true"> 인기 있는 이야기</a></li>
             <li class="divider"></li>
             <li><a href="/bbsIntList.listen"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"> 관심 있는 이야기</a></li>
             <li class="divider"></li>

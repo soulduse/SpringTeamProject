@@ -87,7 +87,7 @@ $(function() {
 
 %>
 <body>
-
+	<div>관심 있는 이야기</div>
    <FORM name="radioForm"  method="post" id="radioForm" action="/bbsIntList.listen">
    <div class="check" style="margin-left:700px;">
    <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_add_count" <%if(selectItem.equals("bbs_add_count")){%> checked<%}%>>&nbsp;<label for="">댓글</label>&nbsp;&nbsp;&nbsp;

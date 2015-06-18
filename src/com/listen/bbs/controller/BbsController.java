@@ -197,7 +197,7 @@ public class BbsController extends BaseController{
          }
          session.setAttribute("selectItem",selectItem);
          bbsVo.setSelectItem(selectItem);
-         ArrayList bbsIntList = bbsDao.bbsDetailView(bbsVo);
+         ArrayList bbsIntList = bbsDao.bbsInterestView(bbsVo);
          request.setAttribute("page", "interest");
          request.setAttribute("bbsIntList",  bbsIntList);
          request.setAttribute("selectItem", selectItem);

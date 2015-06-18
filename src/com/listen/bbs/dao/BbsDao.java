@@ -100,5 +100,9 @@ public class BbsDao {
 		{    
 			smct.update("dispUpload", bv);
 		} 
-	   
+		// 관심있는 글 보기
+		public ArrayList bbsInterestView(BbsVo bbsVo)
+		{
+			return (ArrayList) smct.queryForList("bbsInterestView",bbsVo);
+		}
 }

@@ -10,11 +10,9 @@
 <script type="text/javascript" src="js/ajax-chattingRequest.js"></script>
 <SCRIPT>
   $(function() {
-	  alert("dddd");
 	   $('.img').click(function() {
 		   clearTbody();
-	         var d = $(this).attr("src");
-	         
+	         var d = $(this).attr("src");	         
 	         var c = $(this).attr("contents");
 	         var bbs_seq = $(this).attr("name");
 	         var bbs_likeCount = $(this).attr("bbs_goodCount");
@@ -191,20 +189,22 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
       width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
    
         <div class="text2">
-           <table>
-              <TR height="70%">
-                 <TD>
-                      <H3><%=bbs_contents%></h3>
-                   </TD>
-                </TR>
-                <TR height="30%">
-                   <TD align="left">
-                      <%=bbs_hitCount%>
-                   </TD>
-                </TR>
-             </table>
-             
-          </div>
+              <table>
+                 <TR height="70%">
+                    <TD>
+                         <H3><%=bbs_contents%></h3>
+                      </TD>
+                   </TR>
+                   <TR height="30%">
+                      <TD align="left">
+                         	조회수 : <%=bbs_hitCount%> / <br>
+                         	좋아요 : <%=goodCount %> / <br>
+                         	댓글수 : <%=add_count %>
+                      </TD>
+                   </TR>
+                </table>
+                
+             </div>
           <form class="dispForm" method="post" id="dispForm1"action="/dispSave.listen">                  
                <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
                <input type="submit" class="dispBtn" value="공개"/>
