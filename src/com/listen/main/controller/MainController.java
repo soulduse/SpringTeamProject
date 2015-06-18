@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.listen.base.controller.BaseController;
 import com.listen.bbs.dao.BbsDao;
 import com.listen.bbs.vo.BbsVo;
+import com.listen.bbs.vo.MyBackGroundVo;
 import com.listen.main.dao.ItemDao;
 
 @Controller
@@ -37,6 +38,14 @@ public class MainController extends BaseController {
 		ArrayList bbsList = bbsDao.bbsViewList();
 		request.setAttribute("page", "main");
 		request.setAttribute("bbsList",  bbsList);
+		
+		
+		String reg_email = (String)session.getAttribute("email");      
+	      BbsVo bv = new BbsVo();
+	      bv.setReg_email(reg_email);      
+	      ArrayList mainMyStory = bbsDao.mainMyStory(bv);   
+	      request.setAttribute("page", "myStory");
+	      request.setAttribute("mainMyStory",  mainMyStory);
 		//request.setAttribute("mainUrl", prefix + "~~~.jsp");
 
 		return frame;
@@ -53,16 +62,23 @@ public class MainController extends BaseController {
 		return frame;
 	}
 	
-	@RequestMapping("/bbsMyViewList.listen")
-	public String bbsMyViewList(HttpServletRequest request, HttpSession session) {
-		String reg_email = (String)session.getAttribute("email");
-		BbsVo bv = new BbsVo();
-		bv.setReg_email(reg_email);
-		ArrayList bbsMyViewList = bbsDao.bbsMyViewList(bv);
-		request.setAttribute("page", "myStory");
-		request.setAttribute("bbsMyViewList",  bbsMyViewList);
-		request.setAttribute("mainUrl", prefix + "myStory/myStory.jsp");
+	
+	
+	//메인 마이스토리 부분
+	   @RequestMapping("/bbsMyViewList.listen")
+	   public String bbsMyViewList(HttpServletRequest request, HttpSession session) {
+	      String reg_email = (String)session.getAttribute("email");      
+	      BbsVo bv = new BbsVo();
+	      bv.setReg_email(reg_email);      
+	      ArrayList bbsMyViewList = bbsDao.bbsMyViewList(bv);
+	      
+	      MyBackGroundVo bbsMybgimg = bbsDao.bbsMybgimg(bv);
+	      
+	      request.setAttribute("page", "myStory");
+	      request.setAttribute("bbsMyViewList",  bbsMyViewList);
+	      request.setAttribute("bbsMybgimg",  bbsMybgimg);
+	      request.setAttribute("mainUrl", prefix + "myStory/myStory.jsp");
 
-		return frame;
-	}
+	      return frame;
+	   }
 }

@@ -21,7 +21,48 @@ public class BbsVo {
 	private String save_name;
 	private String selectItem;
 	private int add_count;
-	private int count;
+	private String selectAge;
+	private int no;
+	private int rn;
+	private int age;
+	
+	
+	
+	
+	
+	
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public int getRn() {
+		return rn;
+	}
+
+	public void setRn(int rn) {
+		this.rn = rn;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public String getSelectAge() {
+		return selectAge;
+	}
+
+	public void setSelectAge(String selectAge) {
+		this.selectAge = selectAge;
+	}
 
 	public int getBbs_seq() {
 		return bbs_seq;
@@ -174,13 +215,4 @@ public class BbsVo {
 	public void setAdd_count(int add_count) {
 		this.add_count = add_count;
 	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
 }

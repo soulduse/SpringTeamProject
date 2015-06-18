@@ -1,8 +1,29 @@
+a:link {
+	color: black;
+	text-decoration: none;
+}
+
+a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover {
+	color: black;
+	text-decoration: underline;
+}
+
 .listen-container {
 	background: #f6f6f6;
 	margin: 0px auto;
 	padding: 20px;
 	border: 1px solid #bcbcbc;
+}
+
+.listen-container1 {
+	width: 1200px;
+	margin: 0px auto;
+	padding: 5px;
 }
 
 .listen-header {
@@ -54,12 +75,11 @@
 
 .listen-content1_3 {
 	width: 350px;
-	height: 220px;
-	padding: 10px;
-	margin-bottom: 15px;
-	margin-left: 20px;
+	height: 230px;
+	padding: 5px;
+	margin-bottom: 12px;
+	margin-left: 25px;
 	float: left;
-	border: 1px solid #bcbcbc;
 }
 
 .listen-content2 {
@@ -203,6 +223,18 @@
 	float: left;
 	border: 1px solid #bcbcbc;
 	background-color: gray;
+}
+
+.listen-footer {
+	clear: both;
+	padding: 20px;
+}
+
+.cover {
+	width: 1240px;
+	margin: 0px auto;
+	padding: 10px;
+	float: center;
 }
 
 .listen-footer {

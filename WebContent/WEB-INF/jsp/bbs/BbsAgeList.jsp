@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/ajax-bbsview.js"></script>
 <script type="text/javascript" src="js/ajax-comment.js"></script>
+
 <SCRIPT>
 $(function() {
     $('.img').click(function() {
@@ -40,6 +41,7 @@ $(function() {
     <title>Listen</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+    
       .jb-content {
            width: 375px;
            padding: 5px;
@@ -82,29 +84,50 @@ $(function() {
       {
       String email = (String)session.getAttribute("email");
       String userIp = request.getRemoteAddr();
-      String selectItem = (String)session.getAttribute("selectItem");
-      System.out.println("jsp 들어옴 "+selectItem);
-
-%>
+      String selectItem=(String)session.getAttribute("selectItem");
+      String selectAge="";
+      
+      if((String)request.getAttribute("selectItem")!=null)
+      {
+    	  System.out.println("여기여기"+(String)request.getAttribute("selectItem")+"ㅇㅇㅇ");
+    	  selectItem = (String)request.getAttribute("selectItem");
+    	  session.setAttribute("selectItem", selectItem);
+    	  request.setAttribute("selectItem",selectItem);
+      }
+      
+      if((String)request.getAttribute("selectAge")!=null)
+      {
+    	  selectAge = (String)request.getAttribute("selectAge");
+    	  session.setAttribute("selectAge", selectAge);
+    	  request.setAttribute("selectAge",selectAge);
+      }
+ %>
 <body>
-	<div>관심 있는 이야기</div>
-   <FORM name="radioForm"  method="post" id="radioForm" action="/bbsIntList.listen">
+	<div><%=selectAge%>대 또래 이야기</div>
+   <FORM name="radioForm"  method="post" id="radioForm" action="/bbsAgeList.listen">
    <div class="check" style="margin-left:700px;">
+   
+   <input class="radiobox" name="selectAge" type="radio" style="width:17px;height:17px;" value="10" <%if(selectAge.equals("10")){%> checked<%}%>>&nbsp;<label for="">10대</label>
+   <input class="radiobox" name="selectAge" type="radio" style="width:17px;height:17px;" value="20" <%if(selectAge.equals("20")){%> checked<%}%>>&nbsp;<label for="">20대</label>
+   <input class="radiobox" name="selectAge" type="radio" style="width:17px;height:17px;" value="30" <%if(selectAge.equals("30")){%> checked<%}%>>&nbsp;<label for="">30대</label>
+   <input class="radiobox" name="selectAge" type="radio" style="width:17px;height:17px;" value="40" <%if(selectAge.equals("40")){%> checked<%}%>>&nbsp;<label for="">40대이상</label>
    <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_add_count" <%if(selectItem.equals("bbs_add_count")){%> checked<%}%>>&nbsp;<label for="">댓글</label>&nbsp;&nbsp;&nbsp;
    <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="goodCount" <%if(selectItem.equals("goodCount")){%> checked<%}%>>&nbsp;<label for="">공감</label>&nbsp;&nbsp;&nbsp;
    <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_hitCount" <%if(selectItem.equals("bbs_hitCount")){%> checked<%}%>>&nbsp;<label for="">조회수</label>
+   
+   
    </div>
    </FORM>
- 	<div class="divAll" style="width: 1250px; margin: 0px auto; padding: 10px; ">
-   <div class="jb-content" style="margin-left: 2px;">    
+  <div class="divAll"  style="width: 1250px; margin: 0px auto; padding: 5px; ">
+   <div class="jb-content" style="margin-left: 2%;">    
 
 <%
 
       int i =0;
-      ArrayList bbsIntList = (ArrayList)request.getAttribute("bbsIntList");
+      ArrayList bbsAgeList = (ArrayList)request.getAttribute("bbsAgeList");
        for(i=0; i<10; i++)
        {  
-         BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
+         BbsVo bbsVo = (BbsVo)bbsAgeList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
@@ -115,7 +138,7 @@ $(function() {
 		 int add_count = (int)bbsVo.getAdd_count();
          if(i%3==0){
    %>
-       <div class="image " id="imgRootDiv" style="margin-left: 15px;">
+       <div class="image " id="imgRootDiv" style="margin-left: 5px;">
            <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
          data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
          width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
@@ -144,15 +167,13 @@ $(function() {
      }
       
    %>
-       </div>
-                  </TD>
-                  <TD>        
+       </div>      
       <div class="jb-content" style="margin-left: 5px;">                 
    <%
       
       for(i=0; i<=10; i++)
       {  
-         BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
+         BbsVo bbsVo = (BbsVo)bbsAgeList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
@@ -199,13 +220,12 @@ $(function() {
      <a href="pages/2.html"></a>
    </nav>
       
-         </TD>
-         <TD>
+        
     <div class="jb-content" style="margin-left: 15px;">                 
    <%
       for(i=0; i<10; i++)
       {  
-         BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
+         BbsVo bbsVo = (BbsVo)bbsAgeList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
@@ -244,7 +264,7 @@ $(function() {
       }
     
    %></div>
-</div> 
+</div>
 <!-- Modal 글 List-->
 <div class="modal fade" style="width: 100%" id="myModal" tabindex="-1"
    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

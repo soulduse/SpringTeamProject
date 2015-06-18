@@ -1,11 +1,11 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="com.listen.admin.vo.BackgroundVo"%>
 
 <SCRIPT>
 	$(function(){
 		
-		// ¹è°æ ÀÌ¹ÌÁö µî·Ï
+		// ë°°ê²½ ì´ë¯¸ì§€ ë“±ë¡
 		var bgImgForm = $('#bgImgForm');
 		$('#bgWriteBtn').click(function(){
 			var state = $('#bgWriteState');
@@ -13,7 +13,7 @@
 			$('#bgImgForm').submit();
 		});
 		
-		// bg_img_seq °ª °¡Á®¿À±â À§ÇÑ ÀÌº¥Æ®
+		// bg_img_seq ê°’ ê°€ì ¸ì˜¤ê¸° ìœ„í•œ ì´ë²¤íŠ¸
 		var updateBgModal = $('.updateBgModal');
 		var bg_img_seq;
 		updateBgModal.click(function(){
@@ -21,7 +21,7 @@
 			bg_img_seq = th.attr('bg_img_seq');
 		});
 		
-		// ¹è°æ ÀÌ¹ÌÁö ¼öÁ¤
+		// ë°°ê²½ ì´ë¯¸ì§€ ìˆ˜ì •
 		var bgImgUpdateForm = $('#bgImgUpdateForm');
 		$('#bgUpdateBtn').click(function(){
 			var state = $('#bgUpdateState');
@@ -31,7 +31,7 @@
 			bgImgUpdateForm.submit();
 		});
 		
-		// ¹è°æ±×¸² ¸®½ºÆ® Ã¼Å©¹Ú½º ÀÌ¿ëÇÑ»èÁ¦
+		// ë°°ê²½ê·¸ë¦¼ ë¦¬ìŠ¤íŠ¸ ì²´í¬ë°•ìŠ¤ ì´ìš©í•œì‚­ì œ
 		$('#bgImgListDelete').click(function(){
 			var arr_seq = $('#array_bbs_seq');
 			var eachObj = document.getElementsByName("bgCheck");
@@ -54,7 +54,7 @@
 			}
 			else
 			{
-				alert("Ã¼Å©µÈ Ç×¸ñÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+				alert("ì²´í¬ëœ í•­ëª©ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 			}
 			
 		});
@@ -81,22 +81,22 @@
 
 <div class="btn-group" role="group" aria-label="menuGroup">
 	<button type="button" class="btn btn-success"
-		onclick="location.href='/admin/notice.listen'">°øÁö»çÇ×</button>
+		onclick="location.href='/admin/notice.listen'">ê³µì§€ì‚¬í•­</button>
 	<button type="button" class="btn btn-success"
-		onclick="location.href='/admin/background.listen'">¹è°æ±×¸² ¼³Á¤</button>
+		onclick="location.href='/admin/background.listen'">ë°°ê²½ê·¸ë¦¼ ì„¤ì •</button>
 	<button type="button" class="btn btn-success"
-		onclick="location.href='/admin/opinion.listen'">ÀÇ°ßº¸±â</button>
+		onclick="location.href='/admin/opinion.listen'">ì˜ê²¬ë³´ê¸°</button>
 </div>
 
 <BR>
 <BR>
 <BR>
-<H2 align="center">¹è°æ±×¸² °ü¸®</H2>
+<H2 align="center">ë°°ê²½ê·¸ë¦¼ ê´€ë¦¬</H2>
 <BR>
 <BR>
 <BR>
 
-<!-- »èÁ¦ È÷µç Æû -->
+<!-- ì‚­ì œ íˆë“  í¼ -->
 <FORM name="arrayDelForm" id="arrayDelForm" action="/admin/bgImgDel.listen" method="post">
 	<INPUT type="hidden" name="bg_img_seq" id="array_bbs_seq">
 </FORM>
@@ -104,9 +104,9 @@
 <DIV class="row">
 	<DIV class="col-md-6 col-md-offset-3">
 		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#deleteModal" id="imgDeleteModal">»èÁ¦</button>
+			data-target="#deleteModal" id="imgDeleteModal">ì‚­ì œ</button>
 		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#backgroundModal" id="imgModal">»çÁøµî·Ï</button>
+			data-target="#backgroundModal" id="imgModal">ì‚¬ì§„ë“±ë¡</button>
 	</DIV>
 </DIV>
 <BR><BR>
@@ -117,11 +117,11 @@
 				<tr>
 					<th class="col-md-1">#</th>
 					<th class="col-md-1">No.</th>
-					<th class="col-md-2">»çÁø</th>
-					<th class="col-md-1">»çÀÌÁî</th>
-					<th class="col-md-1">µî·ÏÀÚ</th>
-					<th class="col-md-1">µî·ÏÀÏ</th>
-					<th class="col-md-1">¼öÁ¤</th>
+					<th class="col-md-2">ì‚¬ì§„</th>
+					<th class="col-md-1">ì‚¬ì´ì¦ˆ</th>
+					<th class="col-md-1">ë“±ë¡ì</th>
+					<th class="col-md-1">ë“±ë¡ì¼</th>
+					<th class="col-md-1">ìˆ˜ì •</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -148,7 +148,7 @@
 						</div>
 					</td>
 					<th scope="row" align="center"><%=bg_img_seq%></th>
-					<!-- »çÁø Å¬¸¯½Ã »ó¼¼Á¤º¸ Ç¥½ÃÇØÁÜ(¸ğ´Ş) -->
+					<!-- ì‚¬ì§„ í´ë¦­ì‹œ ìƒì„¸ì •ë³´ í‘œì‹œí•´ì¤Œ(ëª¨ë‹¬) -->
 					<td align="center"><IMG src="<%=path%>/<%=save_name%>" width=220></td>
 					<td align="center"><%=file_size%></td>
 					<td align="center"><%=reg_email%></td>
@@ -170,7 +170,7 @@
 
 
 <!-- Modal -->
-<!-- »çÁøµî·Ï Modal -->
+<!-- ì‚¬ì§„ë“±ë¡ Modal -->
 <div class="modal fade" id="backgroundModal" tabindex="-1" role="dialog"
 	style="width: 100%" aria-labelledby="exampleModalLabel"
 	aria-hidden="true">
@@ -181,10 +181,10 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="exampleModalLabel">»çÁøµî·Ï</h4>
+				<h4 class="modal-title" id="exampleModalLabel">ì‚¬ì§„ë“±ë¡</h4>
 			</div>
 			<div class="modal-body">
-				<!-- »çÁøµî·Ï FORM -->
+				<!-- ì‚¬ì§„ë“±ë¡ FORM -->
 				<form name="bgImgForm" id="bgImgForm" enctype="multipart/form-data" method="post" action="/admin/bgImgWrite.listen">
 					<input id="file-0a" class="file" type="file" name="upload" multiple data-min-file-count="1"> <br>
 					<input type="hidden" name="reg_email" value="<%=userEmail %>">
@@ -193,14 +193,14 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="bgWriteBtn">µî·Ï</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Ãë¼Ò</button>
+				<button type="button" class="btn btn-primary" id="bgWriteBtn">ë“±ë¡</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">ì·¨ì†Œ</button>
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- »çÁø¼öÁ¤ Modal -->
+<!-- ì‚¬ì§„ìˆ˜ì • Modal -->
 <div class="modal fade" id="bgUpdateModal" tabindex="-1" role="dialog"
 	style="width: 100%" aria-labelledby="exampleModalLabel"
 	aria-hidden="true">
@@ -211,10 +211,10 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="exampleModalLabel">»çÁøµî·Ï</h4>
+				<h4 class="modal-title" id="exampleModalLabel">ì‚¬ì§„ë“±ë¡</h4>
 			</div>
 			<div class="modal-body">
-				<!-- »çÁøµî·Ï FORM -->
+				<!-- ì‚¬ì§„ë“±ë¡ FORM -->
 				<form name="bgImgUpdateForm" id="bgImgUpdateForm" enctype="multipart/form-data" method="post" action="/admin/bgImgWrite.listen">
 					<input id="file-0a" class="file" type="file" name="upload" multiple data-min-file-count="1"> <br>
 					<input type="hidden" name="reg_email" value="<%=userEmail %>">
@@ -224,29 +224,29 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="bgUpdateBtn">¼öÁ¤</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Ãë¼Ò</button>
+				<button type="button" class="btn btn-primary" id="bgUpdateBtn">ìˆ˜ì •</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">ì·¨ì†Œ</button>
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- »èÁ¦ È®ÀÎ-->
+<!-- ì‚­ì œ í™•ì¸-->
 <div class="modal fade" id="deleteModal" style="width: 100%"
 	tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-sm" style="margin-top: 200px">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel">»èÁ¦È®ÀÎ</h4>
+				<h4 class="modal-title" id="exampleModalLabel">ì‚­ì œí™•ì¸</h4>
 			</div>
 			<div class="modal-body">
-				<label for="recipient-name" class="control-label">Á¤¸» »èÁ¦
-					ÇÏ½Ã°Ú½À´Ï±î?</label>
+				<label for="recipient-name" class="control-label">ì •ë§ ì‚­ì œ
+					í•˜ì‹œê² ìŠµë‹ˆê¹Œ?</label>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="bgImgListDelete">»èÁ¦</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Ãë¼Ò</button>
+				<button type="button" class="btn btn-primary" id="bgImgListDelete">ì‚­ì œ</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">ì·¨ì†Œ</button>
 			</div>
 		</div>
 	</div>

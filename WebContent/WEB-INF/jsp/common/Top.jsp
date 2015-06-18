@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.listen.chatting.vo.*" %>
 <%@ page import="com.listen.notice.vo.*" %>
@@ -9,7 +9,7 @@
 %>
 
 <SCRIPT>
-	// ¼±ÅÃÇÑ ¸Ş´ºÀÇ ÆäÀÌÁö ÀÌ¸§À¸·Î ¹Ù²ãÁÖ´Â Script
+	// ì„ íƒí•œ ë©”ë‰´ì˜ í˜ì´ì§€ ì´ë¦„ìœ¼ë¡œ ë°”ê¿”ì£¼ëŠ” Script
 	$(function(){
 		
 		
@@ -18,14 +18,14 @@
 			  $(this).parents(".dropdown").find('.selection').val($(this).text());
 			});
 		
-		//¹æ¸¸µé±â 
+		//ë°©ë§Œë“¤ê¸° 
 		$(".room_make").click(function() {
 			var num = $(this).attr("id");
 			var CreateRoomForm = "#CreateRoomForm" + num;
 			$(CreateRoomForm).submit();
 		});
 		
-		// ¹æ ÀÔÀå
+		// ë°© ì…ì¥
 		$(".chattingroom").click(function() {
 			var num =  $(this).attr("id");
 			var roomname = $('#roomname'+num).val();
@@ -58,7 +58,7 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href="/main.listen">LISTEN ALL</a></li>
             <li class="divider"></li>
-            <li><a href="#">MY STORY&nbsp</a></li>
+            <li><a href="bbsMyViewList.listen">MY STORY&nbsp</a></li>
             <li class="divider"></li>
             <li><a href="#">LISTEN&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a></li>
           </ul>
@@ -71,25 +71,25 @@
         <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
       </form>
  <%
- System.out.println("Top.jspÁøÀÔ");
+ System.out.println("Top.jspì§„ì…");
  	if(session.getAttribute("LoginYn") == "Y")
  	{
  		%>
  		<a href="/memberInfo.listen">
- 		<font color="white" size="3"><%=session.getAttribute("email") %>´Ô</font> </a>
+ 		<font color="white" size="3"><%=session.getAttribute("email") %>ë‹˜</font> </a>
  	<%
  	}
  %>
       <ul class="nav navbar-nav navbar-right">
          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-wrench" aria-hidden="true">°ü¸®ÀÚ<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-wrench" aria-hidden="true">ê´€ë¦¬ì<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-          	<P><H3 align="center"><font color="#4C4C4C">°ü¸®ÀÚ ¸Ş´º</font></H3></P><BR>
-            <li><a href="/admin/notice.listen"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"> °øÁö»çÇ×</a></li>
+          	<P><H3 align="center"><font color="#4C4C4C">ê´€ë¦¬ì ë©”ë‰´</font></H3></P><BR>
+            <li><a href="/admin/notice.listen"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"> ê³µì§€ì‚¬í•­</a></li>
             <li class="divider"></li>
-            <li><a href="/admin/background.listen"><span class="glyphicon glyphicon-picture" aria-hidden="true"> ¹è°æ±×¸² ¼³Á¤</a></li>
+            <li><a href="/admin/background.listen"><span class="glyphicon glyphicon-picture" aria-hidden="true"> ë°°ê²½ê·¸ë¦¼ ì„¤ì •</a></li>
             <li class="divider"></li>
-            <li><a href="/admin/opinion.listen"><span class="glyphicon glyphicon-leaf" aria-hidden="true"> ÀÇ°ßº¸±â</a></li>
+            <li><a href="/admin/opinion.listen"><span class="glyphicon glyphicon-leaf" aria-hidden="true"> ì˜ê²¬ë³´ê¸°</a></li>
             <li class="divider"></li>
           </ul>
         </li>
@@ -125,7 +125,7 @@ if(session.getAttribute("email")!=null)
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-bell" aria-hidden="true"></a>
           <ul class="dropdown-menu" role="menu">
-          	<P><H3 align="center"><font color="#4C4C4C">¾Ë¸²</font></H3></P><BR>
+          	<P><H3 align="center"><font color="#4C4C4C">ì•Œë¦¼</font></H3></P><BR>
           	
 <% 
 if(session.getAttribute("email")!=null)
@@ -148,35 +148,35 @@ if(session.getAttribute("email")!=null)
 		if(noti_state_seq == 1)
 		{
 %>
-			<img src="/images/message.png">     <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "¼ö¶ô">
+			<img src="/images/message.png">     <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "ìˆ˜ë½">
             <li class="divider"></li>
 <%
 		}
 		if(noti_state_seq == 2)
 		{
 %>
-			<img src="/images/clover.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "¼ö¶ô">
+			<img src="/images/clover.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "ìˆ˜ë½">
     		<li class="divider"></li>
 <%
 		}
 		if(noti_state_seq == 4)
 		{
 %>
-			<img src="/images/heart.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "¼ö¶ô">
+			<img src="/images/heart.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "ìˆ˜ë½">
             <li class="divider"></li>
 <%
 		}
 		if(noti_state_seq == 5)
 		{
 %>
-			<img src="/images/port.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "¼ö¶ô">
+			<img src="/images/port.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "ìˆ˜ë½">
             <li class="divider"></li>
 <%
 		}
 		if(noti_state_seq == 6)
 		{
 %>
-			<img src="/images/notice.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "¼ö¶ô">
+			<img src="/images/notice.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "ìˆ˜ë½">
             <li class="divider"></li>
 <%
 		}
@@ -192,30 +192,30 @@ if(session.getAttribute("email")!=null)
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
              <P><H3 align="center"><font color="#4C4C4C">Listen</font></H3></P><BR>
-            <li><a href="#"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"> °øÁö»çÇ×</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"> ê³µì§€ì‚¬í•­</a></li>
             <li class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"> ³» Å¬·Î¹ö È®ÀÎ</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"> ë‚´ í´ë¡œë²„ í™•ì¸</a></li>
             <li class="divider"></li>
-            <li><a href="/bbsPopList.listen"><span class="glyphicon glyphicon-stats" aria-hidden="true"> ÀÎ±â ÀÖ´Â ÀÌ¾ß±â</a></li>
+            <li><a href="/bbsPopList.listen?selectItem=bbs_hitCount"><span class="glyphicon glyphicon-stats" aria-hidden="true"> ì¸ê¸° ìˆëŠ” ì´ì•¼ê¸°</a></li>
             <li class="divider"></li>
-            <li><a href="/bbsIntList.listen"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"> °ü½É ÀÖ´Â ÀÌ¾ß±â</a></li>
+            <li><a href="/bbsIntList.listen"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"> ê´€ì‹¬ ìˆëŠ” ì´ì•¼ê¸°</a></li>
             <li class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"> Å½»öÈ¯°æ ¼³Á¤</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"> íƒìƒ‰í™˜ê²½ ì„¤ì •</a></li>
             <li class="divider"></li>
             <li><a data-toggle="modal" data-target="#opinionModal" style="cursor:pointer;">
-            	<span class="glyphicon glyphicon-send" aria-hidden="true"> ÀÇ°ß º¸³»±â</a></li>
+            	<span class="glyphicon glyphicon-send" aria-hidden="true"> ì˜ê²¬ ë³´ë‚´ê¸°</a></li>
             <li class="divider"></li>
             <% 	
             	if (session.getAttribute("LoginYn") != null && ((String) session.getAttribute("LoginYn")).length() > 0
 					&& ((String) session.getAttribute("LoginYn")).equals("Y"))
 					{ 
 			%>
-            			<li><a href="/Logout.listen"><span class="glyphicon glyphicon-off" aria-hidden="true"> ·Î±×¾Æ¿ô</a></li>
+            			<li><a href="/Logout.listen"><span class="glyphicon glyphicon-off" aria-hidden="true"> ë¡œê·¸ì•„ì›ƒ</a></li>
 			            <li class="divider"></li>
             <% 	
             		}else{
             %>
-            			<li><a href="/Login.listen"><span class="glyphicon glyphicon-off" aria-hidden="true"> ·Î±×ÀÎ</a></li>
+            			<li><a href="/Login.listen"><span class="glyphicon glyphicon-off" aria-hidden="true"> ë¡œê·¸ì¸</a></li>
 			            <li class="divider"></li>
             <% 
             		}
@@ -228,21 +228,21 @@ if(session.getAttribute("email")!=null)
 </nav>
 
 <!-- 
-glyphicon glyphicon-home È¨
-glyphicon glyphicon-search °Ë»ö
-glyphicon glyphicon-pencil ±Û¾²±â
-glyphicon glyphicon-bell ¾Ë¸²
-glyphicon glyphicon-comment Ã¤ÆÃ
-glyphicon glyphicon-option-vertical ¸Ş´º
-glyphicon glyphicon-bullhorn °øÁö
-glyphicon glyphicon-stats ÀÎ±â
-glyphicon glyphicon-eye-open °ü½É
-glyphicon glyphicon-wrench À§Ä¡°ª ¼³Á¤
-glyphicon glyphicon-cog ¼³Á¤
-glyphicon glyphicon-send ÀÇ°ßº¸³»±â
-glyphicon glyphicon-camera »çÁø
-glyphicon glyphicon-picture ±×¸²
-glyphicon glyphicon-map-marker ³»À§Ä¡°ª
-glyphicon glyphicon-edit ±Û¼öÁ¤
-glyphicon glyphicon-user »ç¶÷¸ğ¾ç
+glyphicon glyphicon-home í™ˆ
+glyphicon glyphicon-search ê²€ìƒ‰
+glyphicon glyphicon-pencil ê¸€ì“°ê¸°
+glyphicon glyphicon-bell ì•Œë¦¼
+glyphicon glyphicon-comment ì±„íŒ…
+glyphicon glyphicon-option-vertical ë©”ë‰´
+glyphicon glyphicon-bullhorn ê³µì§€
+glyphicon glyphicon-stats ì¸ê¸°
+glyphicon glyphicon-eye-open ê´€ì‹¬
+glyphicon glyphicon-wrench ìœ„ì¹˜ê°’ ì„¤ì •
+glyphicon glyphicon-cog ì„¤ì •
+glyphicon glyphicon-send ì˜ê²¬ë³´ë‚´ê¸°
+glyphicon glyphicon-camera ì‚¬ì§„
+glyphicon glyphicon-picture ê·¸ë¦¼
+glyphicon glyphicon-map-marker ë‚´ìœ„ì¹˜ê°’
+glyphicon glyphicon-edit ê¸€ìˆ˜ì •
+glyphicon glyphicon-user ì‚¬ëŒëª¨ì–‘
  -->

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=euc-kr" %>
+<%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.listen.bbs.vo.*" %>
 
@@ -8,13 +8,13 @@
 <SCRIPT>
 $(function() {
     $('.img').click(function() {
-      clearTbody();
+  	 clearTbody();
        var d = $(this).attr("src");
        var c = $(this).attr("contents");
        var bbs_seq = $(this).attr("name");
        var bbs_likeCount = $(this).attr("bbs_goodCount");
 
-       $('.like-label').text(bbs_likeCount); // °ø°¨ ¹öÆ° µ¥ÀÌÅÍ DB°ª °¡Á®¿À±â
+       $('.like-label').text(bbs_likeCount); // ê³µê° ë²„íŠ¼ ë°ì´í„° DBê°’ ê°€ì ¸ì˜¤ê¸°
        $("#modalImg").attr("src", d);
        $("#bbs_seq").attr("value", bbs_seq);
        var modalContent = document.getElementById("modalContent");
@@ -84,28 +84,43 @@ $(function() {
       String email = (String)session.getAttribute("email");
       String userIp = request.getRemoteAddr();
       String selectItem = (String)session.getAttribute("selectItem");
-      System.out.println("Age jsp µé¾î¿È "+selectItem);
-
+      if((String)request.getAttribute("selectItem")!=null)
+      {
+    	  selectItem = (String)request.getAttribute("selectItem");
+      }
+      if(selectItem.equals("weekBest"))
+      {
+    	  %> <body>  <div>ì£¼ê°„ ë² ìŠ¤íŠ¸</div><%
+      }
+      else if(selectItem.equals("monthBest"))
+      {
+    	  %> <body>  <div>ì›”ê°„ ë² ìŠ¤íŠ¸</div><%
+      }
+      else
+      {
 %>
 <body>
-
-   <FORM name="radioForm"  method="post" id="radioForm" action="/bbPopList.listen">
+	<div>ì¸ê¸° ìžˆëŠ” ì´ì•¼ê¸°</div>
+   <FORM name="radioForm"  method="post" id="radioForm" action="/bbsPopList.listen">
    <div class="check" style="margin-left:700px;">
-   <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_add_count" <%if(selectItem.equals("bbs_add_count")){%> checked<%}%>>&nbsp;<label for="">´ñ±Û</label>&nbsp;&nbsp;&nbsp;
-   <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="goodCount" <%if(selectItem.equals("goodCount")){%> checked<%}%>>&nbsp;<label for="">°ø°¨</label>&nbsp;&nbsp;&nbsp;
-   <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_hitCount" <%if(selectItem.equals("bbs_hitCount")){%> checked<%}%>>&nbsp;<label for="">Á¶È¸¼ö</label>
+   <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_add_count" <%if(selectItem.equals("bbs_add_count")){%> checked<%}%>>&nbsp;<label for="">ëŒ“ê¸€</label>&nbsp;&nbsp;&nbsp;
+   <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="goodCount" <%if(selectItem.equals("goodCount")){%> checked<%}%>>&nbsp;<label for="">ê³µê°</label>&nbsp;&nbsp;&nbsp;
+   <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_hitCount" <%if(selectItem.equals("bbs_hitCount")){%> checked<%}%>>&nbsp;<label for="">ì¡°íšŒìˆ˜</label>
    </div>
    </FORM>
-  <div class="divAll">
-   <div class="jb-content" style="margin-left: 10%;">    
+<% 
+      }
+%> 
+  <div class="divAll" style="width: 1250px; margin: 0px auto; padding: 10px; ">
+   <div class="jb-content" style="margin-left: 2%;">    
 
 <%
 
-      int i =0;
-      ArrayList bbsIntList = (ArrayList)request.getAttribute("bbsIntList");
-       for(i=0; i<10; i++)
+      ArrayList bbsPopList = (ArrayList)request.getAttribute("bbsPopList");
+      
+       for(int i=0; i<bbsPopList.size(); i++)
        {  
-         BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
+         BbsVo bbsVo = (BbsVo)bbsPopList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
@@ -113,8 +128,9 @@ $(function() {
          String path = (String)bbsVo.getPath();
          String save_name = (String)bbsVo.getSave_name();
          int goodCount = (int)bbsVo.getGoodCount();
-       int add_count = (int)bbsVo.getAdd_count();
-         if(i%3==0){
+		 int add_count = (int)bbsVo.getAdd_count();
+         
+		 if(i%3==0){
    %>
        <div class="image " id="imgRootDiv" style="margin-left: 15px;">
            <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
@@ -130,9 +146,9 @@ $(function() {
                    </TR>
                    <TR height="30%">
                       <TD align="left">
-                            Á¶È¸¼ö : <%=bbs_hitCount%> / <br>
-                            ÁÁ¾Æ¿ä : <%=goodCount %> / <br>
-                            ´ñ±Û¼ö : <%=add_count %>
+                         	ì¡°íšŒìˆ˜ : <%=bbs_hitCount%> / <br>
+                         	ì¢‹ì•„ìš” : <%=goodCount %> / <br>
+                         	ëŒ“ê¸€ìˆ˜ : <%=add_count %>
                          
                       </TD>
                    </TR>
@@ -149,9 +165,9 @@ $(function() {
       <div class="jb-content" style="margin-left: 5px;">                 
    <%
       
-      for(i=0; i<=10; i++)
+      for(int i=0; i<bbsPopList.size(); i++)
       {  
-         BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
+         BbsVo bbsVo = (BbsVo)bbsPopList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
@@ -178,9 +194,9 @@ $(function() {
                    </TR>
                    <TR height="30%">
                       <TD align="left">
-                            Á¶È¸¼ö : <%=bbs_hitCount%> / <br>
-                            ÁÁ¾Æ¿ä : <%=goodCount %> / <br>
-                            ´ñ±Û¼ö : <%=add_count %>
+                      		ì¡°íšŒìˆ˜ : <%=bbs_hitCount%> / <br>
+                         	ì¢‹ì•„ìš” : <%=goodCount %> / <br>
+                         	ëŒ“ê¸€ìˆ˜ : <%=add_count %>
                       </TD>
                    </TR>
                 </table>
@@ -201,9 +217,9 @@ $(function() {
         
     <div class="jb-content" style="margin-left: 15px;">                 
    <%
-      for(i=0; i<10; i++)
+      for(int i=0; i<bbsPopList.size(); i++)
       {  
-         BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
+         BbsVo bbsVo = (BbsVo)bbsPopList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
@@ -228,9 +244,9 @@ $(function() {
                    </TR>
                    <TR height="30%">
                       <TD align="left">
-                            Á¶È¸¼ö : <%=bbs_hitCount%> / <br>
-                            ÁÁ¾Æ¿ä : <%=goodCount %> / <br>
-                             ´ñ±Û¼ö : <%=add_count %>
+                         	ì¡°íšŒìˆ˜ : <%=bbs_hitCount%> / <br>
+                         	ì¢‹ì•„ìš” : <%=goodCount %> / <br>
+                      		 ëŒ“ê¸€ìˆ˜ : <%=add_count %>
                       </TD>
                    </TR>
                 </table>
@@ -243,7 +259,7 @@ $(function() {
     
    %></div>
 </div>
-<!-- Modal ±Û List-->
+<!-- Modal ê¸€ List-->
 <div class="modal fade" style="width: 100%" id="myModal" tabindex="-1"
    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
@@ -254,7 +270,7 @@ $(function() {
                   <div class="container animation-1">
                      <div class="heartImg" alt="0"></div>
                   </div>
-                  <span class="ng-binding">ÁÁ¾Æ¿ä</span>
+                  <span class="ng-binding">ì¢‹ì•„ìš”</span>
                </div>
                <div class="like-label">0</div>
             </div>
@@ -274,19 +290,19 @@ $(function() {
 
 
          <div class="modal-footer">
-            <!-- ´ñ±ÛÀÌ º¸ÀÏ ºÎºÐ -->
+            <!-- ëŒ“ê¸€ì´ ë³´ì¼ ë¶€ë¶„ -->
             <DIV id="comment-list">
                <TABLE id="comment_table" bgcolor="#FFFAFA" border="2"
                   cellspacing="0" cellpadding="0">
                   <TBODY id="comment_table_body"></TBODY>
                </TABLE>
             </DIV>
-            <!-- ´ñ±Û ¾²±â ºÎºÐ -->
+            <!-- ëŒ“ê¸€ ì“°ê¸° ë¶€ë¶„ -->
             <FORM name="addForm" id="addForm" method="post"
                action="/bbsAdd.listen">
                <div class="comment-textarea">
                   <textarea name="content" id="comment"
-                     class="ng-pristine ng-valid ng-touched" placeholder="¾î¶»°Ô »ý°¢ÇÏ¼¼¿ä?"
+                     class="ng-pristine ng-valid ng-touched" placeholder="ì–´ë–»ê²Œ ìƒê°í•˜ì„¸ìš”?"
                      style="overflow: hidden; word-wrap: break-word; height: 50px;"></textarea>
                </div>
                <INPUT type="hidden" name="bbs_seq" id="bbs_seq" value="">
@@ -296,27 +312,27 @@ $(function() {
             </FORM>
             <BR>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="addWriteBtn">°Ô½Ã</button>
+            <button type="button" class="btn btn-primary" id="addWriteBtn">ê²Œì‹œ</button>
          </div>
       </div>
    </div>
 </div>
 
 
-<!-- Modal ´ñ±Û »èÁ¦ È®ÀÎ-->
+<!-- Modal ëŒ“ê¸€ ì‚­ì œ í™•ì¸-->
 <div class="modal fade comment-delete-modal" style="width: 100%" tabindex="-1" role="dialog"
    aria-labelledby="mySmallModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-sm" style="margin-top:200px">
       <div class="modal-content">
          <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">»èÁ¦È®ÀÎ</h4>
+            <h4 class="modal-title" id="exampleModalLabel">ì‚­ì œí™•ì¸</h4>
          </div>
          <div class="modal-body">
-            <label for="recipient-name" class="control-label">Á¤¸» »èÁ¦ ÇÏ½Ã°Ú½À´Ï±î?</label>
+            <label for="recipient-name" class="control-label">ì •ë§ ì‚­ì œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?</label>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">»èÁ¦</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Ãë¼Ò</button>
+            <button type="button" class="btn btn-primary">ì‚­ì œ</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">ì·¨ì†Œ</button>
          </div>
       </div>
    </div>
@@ -324,4 +340,4 @@ $(function() {
 </body>
 </html>         
 
-<%} %>          
+<%} %>
