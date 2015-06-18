@@ -71,6 +71,13 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
         padding: 20px;
         border: 1px solid #bcbcbc;
       }
+      .listen-container1 {
+        width: 1200px;
+        margin: 0px auto;
+        padding: 5px;
+       
+      }
+      
       .listen-header {
          
         padding: 20px;
@@ -318,6 +325,7 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
         <img alt="" src="images/logo1.png" height="200" width="700">
       </div>
       
+      <div class="listen-container1">
       <div class="listen-big">
        <div class="listen-content1_1">
                              
@@ -773,11 +781,13 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
 <%
    }
 %>
+</div>
+</div>
  <div class="listen-footer">
 
 </div> 
 
-</div>
+
 </div>
 </body>
 </html>
