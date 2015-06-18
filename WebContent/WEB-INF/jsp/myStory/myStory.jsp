@@ -126,8 +126,6 @@ background-size: cover;
     </style>
   </head>
   
-  
-  
     
   
   <body>
