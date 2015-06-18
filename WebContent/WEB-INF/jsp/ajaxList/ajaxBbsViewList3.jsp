@@ -39,7 +39,7 @@ ArrayList ajaxBbsViewList = (ArrayList)request.getAttribute("ajaxBbsViewList");
       if(i%3==0){
 %>
 
-    <div class="image"  style="margin-left: 15px;">
+    <div class="image"  style="margin-left: 33px;">
         <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
       width=300 contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"/>
