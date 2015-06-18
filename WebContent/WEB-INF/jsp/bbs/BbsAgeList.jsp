@@ -117,8 +117,8 @@ $(function() {
    
    </div>
    </FORM>
-  <div class="divAll">
-   <div class="jb-content" style="margin-left: 10%;">    
+  <div class="divAll"  style="width: 1250px; margin: 0px auto; padding: 5px; ">
+   <div class="jb-content" style="margin-left: 2%;">    
 
 <%
 
@@ -137,7 +137,7 @@ $(function() {
 		 int add_count = (int)bbsVo.getAdd_count();
          if(i%3==0){
    %>
-       <div class="image " id="imgRootDiv" style="margin-left: 15px;">
+       <div class="image " id="imgRootDiv" style="margin-left: 5px;">
            <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
          data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
          width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>

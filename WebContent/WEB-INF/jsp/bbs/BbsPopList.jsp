@@ -95,8 +95,8 @@ $(function() {
    <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_hitCount" <%if(selectItem.equals("bbs_hitCount")){%> checked<%}%>>&nbsp;<label for="">조회수</label>
    </div>
    </FORM>
-  <div class="divAll">
-   <div class="jb-content" style="margin-left: 10%;">    
+  <div class="divAll" style="width: 1250px; margin: 0px auto; padding: 10px; ">
+   <div class="jb-content" style="margin-left: 2%;">    
 
 <%
 

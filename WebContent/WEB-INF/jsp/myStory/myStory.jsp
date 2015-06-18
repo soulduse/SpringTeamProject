@@ -92,23 +92,21 @@ background-size: cover;
   
   <SCRIPT>
   $(function() {
-	   $('.img').click(function() {
-	    	 clearTbody();
-	         var d = $(this).attr("src");
-	         alert(d);
-	         var c = $(this).attr("contents");
-	         var bbs_seq = $(this).attr("name");
-	         var bbs_likeCount = $(this).attr("bbs_goodCount");
+      $('.img').click(function() {
+    	 clearTbody();
+         var d = $(this).attr("src");
+         var c = $(this).attr("contents");
+         var bbs_seq = $(this).attr("name");
+         var bbs_likeCount = $(this).attr("bbs_goodCount");
 
-	         $('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
-	         $("#modalImg").attr("src", d);
-	         $("#bbs_seq").attr("value", bbs_seq);
-	         var modalContent = document.getElementById("modalContent");
-	         modalContent.innerHTML = c;
-	         
-	         ajaxBbsAdd();
-	      });
-
+         $('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
+         $("#modalImg").attr("src", d);
+         $("#bbs_seq").attr("value", bbs_seq);
+         var modalContent = document.getElementById("modalContent");
+         modalContent.innerHTML = c;
+         
+         ajaxBbsAdd();
+      });
 	      var addForm = $('#addForm');
 	      $('#addWriteBtn').click(function() {
 	         ajaxBbsAdd();

@@ -64,6 +64,11 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
     
+    a:link{color:black; text-decoration:none;}
+	a:visited{color:black; text-decoration:none;}
+	a:hover{color:black; text-decoration:underline;}
+    
+    
     
       .listen-container {
         background: #f6f6f6;
@@ -130,13 +135,12 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
       .listen-content1_3 {
 
         width: 350px;
-        height: 220px; 
-        padding: 10px;
-        margin-bottom: 15px;
-        margin-left: 20px;
+        height: 230px; 
+        padding: 5px;
+        margin-bottom: 12px;
+        margin-left: 25px;
         float: left;
-        border: 1px solid #bcbcbc;
-        
+       
       }
       
       .listen-content2 {
@@ -378,10 +382,10 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
 %>
             <div class="listen-content1_3">
                <div class="image" id="imgRootDiv"
-                  style=" width: 320px; background-color:gray;  ">
+                  style=" width: 325px; height: 222px;  background-color:gray;  padding: 8px; margin-bottom: 7px;">
                   <img class="img imageShadow" name="<%=bbs_seq%>"
                      data-toggle="modal" data-target="#myModal"
-                     style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=300
+                     style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=300 height=200
                      contents="<%=bbs_contents%>" />
 			
 			<div class="text2">
@@ -412,7 +416,7 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
       
       
       
-         <div class="listen-content3">            
+         <div class="listen-content3" style="cursor:pointer;" onclick="">            
              <img alt="" width="370" height="450" src="images/love.png">
              <B><h2>우리들끼리 토론방</h2></B>
            <p>사랑이란?</p>
