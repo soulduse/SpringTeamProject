@@ -28,6 +28,7 @@ import com.listen.bbs.dto.BbsLikeSwitchDto;
 import com.listen.bbs.dto.BbsViewFilterDto;
 import com.listen.bbs.dto.BbsWriteDto;
 import com.listen.bbs.vo.BbsAddVo;
+import com.listen.bbs.vo.BbsSelectViewVo;
 import com.listen.bbs.vo.BbsVo;
 
 @Controller
@@ -52,13 +53,15 @@ public class BbsController extends BaseController{
    public String viewPage(BbsViewFilterDto bbsViewFilterDto, HttpServletRequest request, HttpSession session) {
       System.out.println("viewPage 들어옴");
       
-      bbsDao.bbsSelectView(bbsViewFilterDto);
+      BbsSelectViewVo bbsSelectViewVo = (BbsSelectViewVo)bbsDao.bbsSelectView(bbsViewFilterDto);
       
-      request.setAttribute("page", "view");
-      request.setAttribute("mainUrl", prefix + "bbs/BbsList.jsp");
+      request.setAttribute("bbsSelectViewVo", bbsSelectViewVo);
+      request.setAttribute("page", "SelectView");
       
-      return frame;
+      return "bbs/AjaxBbsView";
    }
+   
+   
    
    // 글 공감 버튼처리 Ajax
    @RequestMapping("/ajax/bbsLikeCount.listen")

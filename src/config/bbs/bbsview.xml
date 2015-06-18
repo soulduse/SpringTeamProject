@@ -18,22 +18,36 @@
    <!-- 글보기시 YN_FILTER INSERT Query -->
    <insert id="bbsViewInsertFilter" parameterClass="bbsViewFilterDto">
       INSERT INTO YN_FILTER 
-      (FILTER_SEQ, BBS_SEQ, MEMBERS_SEQ)
+      (FILTER_SEQ, BBS_SEQ, MEMBERS_SEQ, FILTER_COUNT_SEQ)
       VALUES
-      (FILTER_SEQ.NEXTVAL, #bbs_seq#, (SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#email#))
+      (FILTER_SEQ.NEXTVAL, #bbs_seq#, 
+      (SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#),
+      FILTER_COUNT_SEQ.NEXTVAL)
    </insert>
    
    <!-- 글보기 INSERT 전 Query -->
-   <update id="bbsViewSelectFilter" parameterClass="bbsViewFilterDto">
+   <update id="bbsViewUpdateFilter" parameterClass="bbsViewFilterDto">
    		UPDATE YN_FILTER SET
-   		BBS_SEQ
-   
+   		FILTER_COUNT_SEQ = FILTER_COUNT_SEQ.NEXTVAL
+   		WHERE BBS_SEQ = #bbs_seq# AND 
+   		MEMBERS_SEQ = (SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#)
    </update>
    
    <!-- 글을 볼때 Ajax 형식으로 데이터 가져오기 -->
    <select id="bbsSelectView" resultClass="bbsSelectViewVo" parameterClass="bbsViewFilterDto">
    		SELECT 
-   		FROM BBS
+	   		a.BBS_GOOD_YN, a.BBS_ADD_GOOD_YN, a.BBS_SEQ,
+	   		b.BBS_CONTENTS, b.BBS_HITCOUNT, b.GOODCOUNT, b.REG_EMAIL, TO_CHAR(b.REG_DATE, 'YYYY-MM-DD HH:MI:SS') REG_DATE,
+	   		c.PATH, c.SAVE_NAME
+   		FROM 
+   			YN_FILTER a, BBS b, BACKGROUND_IMG c
+   		WHERE 
+	   		a.BBS_SEQ = b.BBS_SEQ AND 
+	   		b.DISPYN='Y'
+	        AND b.BG_IMG_SEQ = c.BG_IMG_SEQ AND 
+	        b.BBS_INFO_SEQ = 2 AND b.BBS_SEQ = #bbs_seq#
+	        AND a.MEMBERS_SEQ = 
+	        (SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL = #reg_email#)
    </select>
    
    <select id="bbsDetailView" resultClass="bbsView" parameterClass="bbsView">

@@ -6,6 +6,7 @@ function ajaxBbsAdd() {
    var content = $('#comment').val();
    var bbs_seq = $('#bbs_seq').val();
    var reg_email = $('#reg_email').val();
+   var reg_ip = $('#reg_ip').val();
 
    $.ajax({
       url : "/ajax/bbsAdd.listen",

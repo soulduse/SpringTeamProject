@@ -9,6 +9,7 @@
 <script type="text/javascript" src="js/ajax-bbsview.js"></script>
 <script type="text/javascript" src="js/ajax-comment.js"></script>
 <script type="text/javascript" src="js/ajax-chattingRequest.js"></script>
+<script type="text/javascript" src="js/ajax-bbsSelect.js"></script>
 
 
 <SCRIPT>
@@ -17,12 +18,7 @@
     	 clearTbody();
          var d = $(this).attr("src");
          var c = $(this).attr("contents");
-         var email =$(this).attr('email');
-         var bbs_seq = $(this).attr("name");
-         
-      	// YnFilter 사용 및 BBS Re Select
-      	
-         
+         var bbs_seq = $(this).attr('name');
          var bbs_likeCount = $(this).attr("bbs_goodCount");
 
          $('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
@@ -30,6 +26,8 @@
          $("#bbs_seq").attr("value", bbs_seq);
          var modalContent = document.getElementById("modalContent");
          modalContent.innerHTML = c;
+      	// YnFilter 사용 및 BBS Re Select
+         ajaxBbsSelect(bbs_seq);
          ajaxBbsAdd();
       });
 
@@ -66,7 +64,6 @@
       %>
   <body>
   	<FORM name="filterForm" id="filterForm" method="post" action="ynFilter.listen">
-  		<INPUT type="hidden" name="bbs_seq"> 
   		<INPUT type="hidden" name="bbs_seq"> 
   	</FORM>
   
@@ -301,7 +298,8 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
     <div class="image " id="imgRootDiv" style="margin-left: 23px;" >
         <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
-      width=310 contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"/>
+      width=310 contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"
+      email="<%=email %>"/>
    
         <div class="text2">
            <table>
@@ -343,7 +341,8 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
     <div class="image " id="imgRootDiv" style="margin-left: 33px;">
         <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
-      width=300 contents="<%=bbs_contents%>"  bbs_goodCount="<%=bbs_goodCount%>"/>
+      width=300 contents="<%=bbs_contents%>"  bbs_goodCount="<%=bbs_goodCount%>"
+      email="<%=email %>"/>
    
         <div class="text2">
            <table>
@@ -419,10 +418,9 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
                      class="ng-pristine ng-valid ng-touched" placeholder="어떻게 생각하세요?"
                      style="overflow: hidden; word-wrap: break-word; height: 50px;"></textarea>
                </div>
-               <INPUT type="hidden" name="bbs_seq" id="bbs_seq" value="">
+               <INPUT type="hidden" name="bbs_seq" id="bbs_seq">
                <INPUT type="hidden" name="reg_ip" id="reg_ip" value="<%=userIp%>">
-               <INPUT type="hidden" name="reg_email" id="reg_email"
-                  value="<%=email%>">
+               <INPUT type="hidden" name="reg_email" id="reg_email" value="<%=email%>">
             </FORM>
             <BR>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -3,7 +3,7 @@ package com.listen.bbs.dto;
 public class BbsViewFilterDto {
 
 	private int bbs_seq;
-	private String email;
+	private String reg_email;
 
 	public int getBbs_seq() {
 		return bbs_seq;
@@ -13,12 +13,14 @@ public class BbsViewFilterDto {
 		this.bbs_seq = bbs_seq;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getReg_email() {
+		return reg_email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setReg_email(String reg_email) {
+		this.reg_email = reg_email;
 	}
+
+	
 
 }

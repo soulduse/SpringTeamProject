@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.listen.bbs.dto.BbsLikeSwitchDto;
 import com.listen.bbs.dto.BbsViewFilterDto;
 import com.listen.bbs.dto.BbsWriteDto;
+import com.listen.bbs.vo.BbsSelectViewVo;
 import com.listen.bbs.vo.BbsVo;
 
 @Repository
@@ -66,14 +67,18 @@ public class BbsDao {
 	}
 	
 	// 글 보기시 Ajax 처리 
-	public String bbsSelectView(BbsViewFilterDto bbsViewFilterDto){
-		ArrayList updCheck = (ArrayList)smct.queryForList("bbsViewSelectFilter", bbsViewFilterDto);
-		if(updCheck.size() == 0)
+	public BbsSelectViewVo bbsSelectView(BbsViewFilterDto bbsViewFilterDto){
+		int updCheck = (int)smct.update("bbsViewUpdateFilter", bbsViewFilterDto);
+		System.out.println("업데이트 성공!");
+		if(updCheck == 0)
 		{
 			smct.insert("bbsViewInsertFilter",bbsViewFilterDto);
+			System.out.println("업데이트 값이 없어서 INSERT 실행!");
 		}
-		smct.queryForObject("bbsSelectView",bbsViewFilterDto);
-		return "";
+		BbsSelectViewVo bbsSelectViewVo = (BbsSelectViewVo)smct.queryForObject("bbsSelectView",bbsViewFilterDto);
+		System.out.println("XML 데이터를 만들기위한 SELECT 작업 완료 ! ");
+		
+		return bbsSelectViewVo;
 	}
 	
 	// 마이 페이지
