@@ -145,6 +145,14 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
       BbsVo bbsVo = (BbsVo)bbsMyViewList.get(i);
       int bbs_seq = (int)bbsVo.getBbs_seq();
       String bbs_contents = (String)bbsVo.getBbs_contents();
+      
+      String mini_contents= bbs_contents;     
+      if (bbs_contents.length()>36){
+    	  mini_contents = bbs_contents.substring(0,34)+ "...";
+    	  
+      }
+      
+      
       int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
       String reg_email = (String)bbsVo.getReg_email();
       String path = (String)bbsVo.getPath();
@@ -162,22 +170,12 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
       width=300 contents="<%=bbs_contents%>"/>
    
         <div class="text2">
-              <table>
-                 <TR height="70%">
-                    <TD>
-                         <H3><%=bbs_contents%></h3>
-                      </TD>
-                   </TR>
-                   <TR height="30%">
-                      <TD align="left">
-                         	조회수 : <%=bbs_hitCount%> / <br>
-                         	좋아요 : <%=goodCount %> / <br>
-                         	댓글수 : <%=add_count %>
-                      </TD>
-                   </TR>
-                </table>
-                
-             </div>
+              <H3><%=mini_contents%></H3></div>
+              <div class="text2_1">   
+                         조회수 : <%=bbs_hitCount%>
+                         좋아요 : <%=goodCount %> 
+                         댓글수 : <%=add_count %></div>
+                         
    </div>
     <%
    }
@@ -188,6 +186,7 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
       width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
    
+<<<<<<< HEAD
         <div class="text2">
               <table>
                  <TR height="70%">
@@ -205,6 +204,12 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
                 </table>
                 
              </div>
+=======
+      <div class="text2">
+              <H4><%=mini_contents%></H4></div>
+             
+                         
+>>>>>>> branch 'theWar' of https://gitlab.com/kostaProject/listen.git
           <form class="dispForm" method="post" id="dispForm1"action="/dispSave.listen">                  
                <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
                <input type="submit" class="dispBtn" value="공개"/>
@@ -228,6 +233,13 @@ ArrayList bbsMyViewList1 = (ArrayList)request.getAttribute("bbsMyViewList");
       BbsVo bbsVo = (BbsVo)bbsMyViewList1.get(i);
       int bbs_seq = (int)bbsVo.getBbs_seq();
       String bbs_contents = (String)bbsVo.getBbs_contents();
+      
+      String mini_contents= bbs_contents;     
+      if (bbs_contents.length()>36){
+    	  mini_contents = bbs_contents.substring(0,34)+ "...";    	
+      }
+      
+      
       int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
       String reg_email = (String)bbsVo.getReg_email();
       String path = (String)bbsVo.getPath();
@@ -244,23 +256,13 @@ ArrayList bbsMyViewList1 = (ArrayList)request.getAttribute("bbsMyViewList");
    data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
    width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
 
-     <div class="text2">
-           <table>
-              <TR height="70%">
-                 <TD>
-                      <H3><%=bbs_contents%></h3>
-                   </TD>
-                </TR>
-                <TR height="30%">
-                   <TD align="left">
-                      	조회수 : <%=bbs_hitCount%> / <br>
-                      	좋아요 : <%=goodCount %> / <br>
-                      	댓글수 : <%=add_count %>
-                   </TD>
-                </TR>
-             </table>
-             
-          </div>
+    <div class="text2">
+              <H3><%=mini_contents%></H3></div>
+              <div class="text2_1">   
+                         조회수 : <%=bbs_hitCount%>
+                         좋아요 : <%=goodCount %> 
+                         댓글수 : <%=add_count %></div>
+                         
    </div>
     <%
    }
@@ -271,23 +273,10 @@ ArrayList bbsMyViewList1 = (ArrayList)request.getAttribute("bbsMyViewList");
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
       width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
    
-        <div class="text2">
-           <table>
-              <TR height="70%">
-                 <TD>
-                      <H3><%=bbs_contents%></h3>
-                   </TD>
-                </TR>
-                <TR height="30%">
-                   <TD align="left">
-                      	조회수 : <%=bbs_hitCount%> / <br>
-                      	좋아요 : <%=goodCount %> / <br>
-                      	댓글수 : <%=add_count %>
-                   </TD>
-                </TR>
-             </table>
-             
-          </div>
+     <div class="text2">
+              <H4><%=mini_contents%></H4></div>
+            
+                         
           <form class="dispForm" method="post" id="dispForm2"action="/dispSave.listen">                  
                <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
                <input type="submit" class="dispBtn" value="공개"/>
@@ -312,6 +301,12 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
       int bbs_seq = (int)bbsVo.getBbs_seq();
       String bbs_contents = (String)bbsVo.getBbs_contents();
       int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
+      
+      String mini_contents= bbs_contents;     
+      if (bbs_contents.length()>36){
+    	  mini_contents = bbs_contents.substring(0,34)+ "...";    	 
+      }
+      
       String reg_email = (String)bbsVo.getReg_email();
       String path = (String)bbsVo.getPath();
       String save_name = (String)bbsVo.getSave_name();
@@ -328,22 +323,12 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
    width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
 
      <div class="text2">
-           <table>
-              <TR height="70%">
-                 <TD>
-                      <H3><%=bbs_contents%></h3>
-                   </TD>
-                </TR>
-                <TR height="30%">
-                   <TD align="left">
-                      	조회수 : <%=bbs_hitCount%> / <br>
-                      	좋아요 : <%=goodCount %> / <br>
-                      	댓글수 : <%=add_count %>
-                   </TD>
-                </TR>
-             </table>
-             
-          </div>
+              <H3><%=mini_contents%></H3></div>
+              <div class="text2_1">   
+                         조회수 : <%=bbs_hitCount%>
+                         좋아요 : <%=goodCount %> 
+                         댓글수 : <%=add_count %></div>
+                         
    </div>
     <%
    }
@@ -354,23 +339,10 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
       width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
    
-        <div class="text2">
-           <table>
-              <TR height="70%">
-                 <TD>
-                      <H3><%=bbs_contents%></h3>
-                   </TD>
-                </TR>
-                <TR height="30%">
-                   <TD align="left">
-                      	조회수 : <%=bbs_hitCount%> / <br>
-                      	좋아요 : <%=goodCount %> / <br>
-                      	댓글수 : <%=add_count %>
-                   </TD>
-                </TR>
-             </table>
-             
-          </div>
+      <div class="text2" style="pont-color:black;">
+              <H4><%=mini_contents%></H4></div>
+            
+                         
           <form class="dispForm" method="post" id="dispForm3"action="/dispSave.listen">                  
                <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
                <input type="submit" class="dispBtn" value="공개"/>
