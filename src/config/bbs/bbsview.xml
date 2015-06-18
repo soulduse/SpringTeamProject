@@ -93,10 +93,10 @@
    
    <select id="mainMyStory" resultClass="bbsView" parameterClass="bbsView">
    <![CDATA[
-      select rownum ,A.BBS_SEQ,A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, A.DISPYN, A.REG_DATE, A.PATH, A.SAVE_NAME
-      from (select A.BBS_SEQ,A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, A.DISPYN, A.REG_DATE, B.PATH, B.SAVE_NAME
-      from BBS A, BACKGROUND_IMG B 
-      where A.reg_email = #reg_email#  order by A.reg_date desc) A
+      select rownum ,A.*
+      from (select A.BBS_SEQ,A.BG_IMG_SEQ, A.BBS_CONTENTS, A.GOODCOUNT,A.BBS_HITCOUNT, A.REG_EMAIL, A.DISPYN, A.REG_DATE, B.PATH, B.SAVE_NAME, nvl(c.add_count,0) add_count
+      from BBS A, BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) c 
+      where a.bg_img_seq = b.bg_img_seq and a.bbs_seq = c.bbs_seq(+) and A.reg_email = 'aperm86@gmail.com' order by A.BBS_SEQ desc) A
       where rownum > 0 and rownum < 3
     ]]>
    </select>
