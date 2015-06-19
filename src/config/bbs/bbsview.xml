@@ -12,7 +12,8 @@
 		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT,
 		A.REG_EMAIL, B.PATH, B.SAVE_NAME
 		FROM BBS A, BACKGROUND_IMG B
-		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+		WHERE
+		A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
 		ORDER BY A.BBS_SEQ DESC
 	</select>
 
@@ -185,8 +186,7 @@
       from (select A.BBS_SEQ,A.BG_IMG_SEQ, A.BBS_CONTENTS, A.GOODCOUNT,A.BBS_HITCOUNT, A.REG_EMAIL, A.DISPYN, A.REG_DATE, B.PATH, B.SAVE_NAME, nvl(c.add_count,0) add_count
       from BBS A, BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) c 
       where a.bg_img_seq = b.bg_img_seq and a.bbs_seq = c.bbs_seq(+) and A.reg_email = #reg_email#  order by A.BBS_SEQ desc) A
-      where rownum > 0 and rownum < 3
-    ]]>
+      where rownum > 0 and rownum < 3]]>
 	</select>
 
 	<!-- 메인에서 연령별 선택 쿼리 -->
@@ -200,7 +200,6 @@
 		d
 		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq =
 		c.bbs_seq(+) and a.reg_email = d.email
-
 		<dynamic>
 			<isEqual property="selectAge" compareValue="10">
 				and EXTRACT(YEAR
@@ -291,5 +290,74 @@
 			</isEqual>
 		</dynamic>
 	</select>
+
+	
+	<!-- 글공감 Like Update 처리 -->
+
+
+<!-- 모바일~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~` -->
+
+	<!-- 형준이가 사용했어요~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+	<select id="m_bbsViewList" resultClass="bbsView">
+		select *
+		from (
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, SUBSTR(A.BBS_CONTENTS, 0, 10)||'...' BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT,
+		A.REG_EMAIL, B.PATH, B.SAVE_NAME
+		FROM BBS A, BACKGROUND_IMG B
+		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+		ORDER BY A.BBS_SEQ DESC
+		)
+		where 20 >= ROWNUM
+	</select>
+	
+	
+	<select id="m_bbsTopStoriesList" resultClass="bbsView">
+
+		select *
+		from (
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT,
+		A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, c.add_count
+		FROM BBS A,
+		BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM
+		BBS_ADD GROUP
+		BY BBS_SEQ ) c
+		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and
+		a.bbs_seq =
+		c.bbs_seq(+)
+		ORDER BY a.bbs_hitcount DESC
+		)
+		where 20 >= ROWNUM
+	</select>
+
+
+	<select id="m_myBbsList" resultClass="bbsView" parameterClass="bbsView">
+		select *
+		from (
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT,
+		A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.DISPYN
+		FROM BBS A, BACKGROUND_IMG B
+		WHERE A.REG_EMAIL=#reg_email# AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+		ORDER BY A.BBS_SEQ DESC
+		)
+		where 20 >= ROWNUM
+	</select>
+
+	<select id="m_bbsinit" resultClass="bbsView" parameterClass="bbsView">
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT,
+		A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
+		FROM BBS A,
+		BACKGROUND_IMG B
+		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ AND
+		A.BBS_SEQ = #bbs_seq#
+	</select>	
+	
+	
+	<update id="myStoryDispY" parameterClass="bbsView">
+		UPDATE BBS SET
+		DISPYN = 'Y'
+		WHERE BBS_SEQ = #bbs_seq#
+	</update>
+	
 </sqlMap>
 

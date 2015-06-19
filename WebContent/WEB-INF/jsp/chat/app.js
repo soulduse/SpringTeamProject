@@ -17,16 +17,6 @@ server.listen(900, function(){
 var io=socketio.listen(server);
 
 
-app.get('/m_chatting/:room',function(request, response){
-	fs.readFile('views/m_chatting.html','utf-8', function(error,data){
-		response.send(ejs.render(data,{
-//			name:request.pa555pt555tram("c_id"),
-			room:request.param("room"),
-			name:request.param("name")
-			
-		}));
-	});
-});
 
 app.get('/m_chatting/:room',function(request, response){
 	fs.readFile('views/m_chatting.html','utf-8', function(error,data){

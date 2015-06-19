@@ -22,6 +22,7 @@ public class NoticeDao {
 	
 	public ArrayList getNoticelist(String email) {
 		// TODO Auto-generated method stub
+		System.out.println("dfhfdh");
 		return (ArrayList)smct.queryForList("notificationList",email);
 	}
 

@@ -20,10 +20,15 @@
 }
 .text3 {
     position:absolute;
-    color:white;
     top:30%; /* in conjunction with left property, decides the text position */
     left:32%;
     width:auto; /* optional, though better have one */
+}
+.text4 {
+    position:absolute;
+    color:white;
+    top:20%; /* in conjunction with left property, decides the text position */
+    width:200px; /* optional, though better have one */
 }
 .imageShadow {
 	filter:alhpa(opacity=10);

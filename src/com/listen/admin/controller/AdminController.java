@@ -230,6 +230,11 @@ public class AdminController extends BaseController {
 		return "redirect:/admin/background.listen";
 	}
 	
-	
-
+	   // 모바일 의견 작성하기
+	   @RequestMapping("/admin/m_opinionWrite.listen")
+	   public String m_opinionWrite(OpinionDto opinionDto, HttpServletRequest request) {
+	      adminDao.opinionWrite(opinionDto);
+	      System.out.println("의견등록 완료!");
+	      return "redirect:/m_main.listen";
+	   }
 }

@@ -16,7 +16,7 @@ public class BbsAddDao {
 
 	public BbsAddDao() {
 	}
-
+/////////////////////////////// 형준이가 사용했어요 bbsAddWrite
 	// 댓글 쓰기
 	public void bbsAddWrite(BbsAddWriteDto bbsAddWriteDto) {
 		smct.insert("bbsAddWrite", bbsAddWriteDto);
@@ -24,6 +24,11 @@ public class BbsAddDao {
 
 	// 댓글 보기
 	public ArrayList bbsAddList(BbsAddWriteDto bbsAddWriteDto) {
+		return (ArrayList) smct.queryForList("bbsAddList", bbsAddWriteDto);
+	}
+
+	public ArrayList m_bbsAddList(BbsAddWriteDto bbsAddWriteDto) {
+		// TODO Auto-generated method stub
 		return (ArrayList) smct.queryForList("bbsAddList", bbsAddWriteDto);
 	}
 }

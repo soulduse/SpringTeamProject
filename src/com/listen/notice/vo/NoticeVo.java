@@ -10,20 +10,6 @@ public class NoticeVo {
 	private int rec_seq;
 	private int bbs_add_seq;
 	private String email;
-	
-
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getState_name() {
-		return state_name;
-	}
-	public void setState_name(String state_name) {
-		this.state_name = state_name;
-	}
 	public int getNotifications_seq() {
 		return notifications_seq;
 	}
@@ -48,6 +34,12 @@ public class NoticeVo {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getState_name() {
+		return state_name;
+	}
+	public void setState_name(String state_name) {
+		this.state_name = state_name;
+	}
 	public int getMembers_seq() {
 		return members_seq;
 	}
@@ -65,5 +57,11 @@ public class NoticeVo {
 	}
 	public void setBbs_add_seq(int bbs_add_seq) {
 		this.bbs_add_seq = bbs_add_seq;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

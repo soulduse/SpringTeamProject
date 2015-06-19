@@ -4,7 +4,7 @@
    <typeAlias alias="MemberVo" type="com.listen.member.vo.MemberVo" />
 
    <select id="getEmailList" resultClass="MemberVo" parameterClass="java.lang.String">
-      SELECT EMAIL, PASSWORD, MEMBERS_SEQ FROM MEMBERS WHERE EMAIL = #id#  
+      SELECT EMAIL, PASSWORD, MEMBERS_SEQ, ADMIN_YN FROM MEMBERS WHERE EMAIL = #id#  
    </select>
    
      <update id="locationUpdate"  parameterClass="MemberVo">

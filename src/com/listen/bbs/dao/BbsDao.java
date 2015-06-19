@@ -104,12 +104,7 @@ public class BbsDao {
 	public MyBackGroundVo bbsMybgimg(BbsVo vo) {
 		return (MyBackGroundVo) smct.queryForObject("bbsMybgimg", vo);
 	}
-
-	// 무한스크롤 글 보기
-	public ArrayList bbsViewList2(BbsVo bbsVo) {
-		return (ArrayList) smct.queryForList("bbsViewList2", bbsVo);
-	}
-
+	
 	// 마이스토리 비공개글 -->공개
 	public void dispSave(BbsVo bv) {
 		smct.update("dispUpload", bv);
@@ -119,4 +114,34 @@ public class BbsDao {
 	public ArrayList bbsInterestView(BbsVo bbsVo) {
 		return (ArrayList) smct.queryForList("bbsInterestView", bbsVo);
 	}
+	
+	public void myStoryDispY(BbsVo bbsVo) {
+		smct.update("myStoryDispY", bbsVo);
+	}
+
+	// 무한스크롤 글 보기
+	public ArrayList bbsViewList2(BbsVo bbsVo) {
+		return (ArrayList) smct.queryForList("bbsViewList2", bbsVo);
+	}
+
+	
+///////////////////////////////////////모바일 부분
+
+	public ArrayList m_bbsViewList() {
+		return (ArrayList) smct.queryForList("m_bbsViewList");
+	}
+	
+	public ArrayList m_myBbsList(BbsVo bbsVo) {
+		return (ArrayList) smct.queryForList("m_myBbsList", bbsVo);
+	}
+
+	public ArrayList m_bbsTopStoriesList() {
+		return (ArrayList) smct.queryForList("m_bbsTopStoriesList");
+	}
+	
+	public ArrayList m_bbsinit(BbsVo bbsVo) {
+		return (ArrayList) smct.queryForList("m_bbsinit", bbsVo);
+	}
+
+
 }

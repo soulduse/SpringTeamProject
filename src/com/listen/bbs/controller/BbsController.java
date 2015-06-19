@@ -61,9 +61,6 @@ public class BbsController extends BaseController{
       
       return "bbs/AjaxBbsView";
    }
-   
-   
-   
    // 글 공감 버튼처리 Ajax
    @RequestMapping("/ajax/bbsLikeCount.listen")
    public void likeCount(BbsLikeSwitchDto bbsLikeSwitchDto)
@@ -116,6 +113,7 @@ public class BbsController extends BaseController{
       }
    }
 
+ 
    // 글쓰기 및 그림파일 등록
    @RequestMapping("/writeSave.listen")
    public String writePage(BbsWriteDto bbsWriteDto, HttpServletRequest request) {
@@ -184,6 +182,8 @@ public class BbsController extends BaseController{
 
       return "redirect:/main.listen";
    }
+   
+
    
    @RequestMapping("/bbsPopList.listen")
    public String bbsPopListPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
@@ -373,4 +373,121 @@ public class BbsController extends BaseController{
 
       return "redirect:bbsMyViewList.listen";
    }
+   
+   
+   
+   ///////////////////////////////모베일
+   
+   // 글 보기 
+   @RequestMapping("/m_bbsView.listen")
+   public String m_viewPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
+	   String bbs_seq = (String) request.getParameter("bbs_seq");
+      System.out.println(bbs_seq);
+
+      ArrayList m_bbsViewList = (ArrayList)bbsDao.m_bbsinit(bbsVo);
+      request.setAttribute("m_bbsViewList",  m_bbsViewList);
+      request.setAttribute("mainUrl", prefix + "bbs/m_dialogBbsinit.jsp");
+      
+      return frame;
+   }
+   
+   // 인기 있는 글 보기 
+   @RequestMapping("/topStories.listen")
+   public String m_topStoriesPage(HttpServletRequest request, HttpSession session) {
+      String selectStoryName = "인기 있는 글 보기";
+      ArrayList m_bbsViewList = (ArrayList)bbsDao.m_bbsTopStoriesList();
+      request.setAttribute("m_bbsViewList",  m_bbsViewList);
+      request.setAttribute("selectStoryName",  selectStoryName);
+      request.setAttribute("mainUrl", prefix + "bbs/selectStory.jsp");
+      
+      return m_frame;
+   }
+   
+   // 관심 있는 글 보기 
+   @RequestMapping("/interest.listen")
+   public String m_interestPage(HttpServletRequest request, HttpSession session) {
+	  String selectStoryName = "관심 있는 글 보기";
+      ArrayList m_bbsViewList = (ArrayList)bbsDao.m_bbsViewList();
+      request.setAttribute("m_bbsViewList",  m_bbsViewList);
+      request.setAttribute("selectStoryName",  selectStoryName);
+      request.setAttribute("mainUrl", prefix + "bbs/selectStory.jsp");
+      
+      return m_frame;
+   }
+   
+   // 모바일 글쓰기 및 그림파일 등록
+   @RequestMapping("/m_writeSave.listen")
+   public String m_writePage(BbsWriteDto bbsWriteDto, HttpServletRequest request) {
+      
+      // 글쓰기 부분 
+      try{
+         bbsDao.bbsWrite(bbsWriteDto);
+         message="작성완료";
+         request.setAttribute("message", message);
+      }catch(Exception e){
+         e.printStackTrace();
+         message="작성에 실패 했습니다.";
+         request.setAttribute("message", message);
+      }
+      
+      String confRoot = servletContext.getRealPath("/"); // WebContent경로
+      String path = "/upfile/bbs_file/"+TotalDate.getToday("yyyy/MM/dd");
+      String bbsFileUploadPath = confRoot + path;
+      
+      System.out.println("첫번째 경로 : "+bbsFileUploadPath);
+
+      File dayFile = new File(bbsFileUploadPath);
+      if (!dayFile.exists()) {
+         dayFile.mkdirs();
+      }
+
+      return "redirect:/m_main.listen";
+   }
+   
+   // 모바일 댓글 Ajax 입력
+   @RequestMapping("/ajax/m_bbsAdd.listen")
+   public void m_writeAddPage(BbsAddWriteDto bbsAddWriteDto, HttpServletRequest request, HttpServletResponse response) throws IOException
+   {
+      if(bbsAddWriteDto.getContent() != "" && bbsAddWriteDto.getContent().length()>0)
+      {
+         bbsAddDao.bbsAddWrite(bbsAddWriteDto);
+      }
+      ArrayList bbsAddList = (ArrayList)bbsAddDao.m_bbsAddList(bbsAddWriteDto);
+      response.setCharacterEncoding("utf-8");
+      if(bbsAddList.size()>0)
+      {
+         PrintWriter out = response.getWriter();
+         response.setContentType("text/html;charset=UTF-8");
+         out.print("<root>");
+         for(int i=0; i<bbsAddList.size(); i++)
+         {
+            BbsAddVo bbsAddVo = (BbsAddVo) bbsAddList.get(i);
+            String content = URLDecoder.decode(bbsAddVo.getContent(), "UTF-8");   // 한글처리부분
+            String reg_date = bbsAddVo.getReg_date();
+            int goodCount = bbsAddVo.getGoodCount();
+            out.println("<items>");
+            out.println("<content>"+content+"</content>");
+            out.println("<reg_date>"+reg_date+"</reg_date>");
+            out.println("<goodcount>"+goodCount+"</goodcount>");
+            out.println("</items>");
+         }
+         out.println("</root>");
+         out.close();
+      }
+      else
+      {
+         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+      }
+   }
+   
+	// 모바일 내가 작성 한 글 공개 입력
+	@RequestMapping("/m_dispYBbs.listen")
+	public String m_dispYBbsPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response,  HttpSession session) throws IOException {
+		bbsDao.myStoryDispY(bbsVo);
+		System.out.println("안녕 나 여기 들왔졍!!");
+		String email = (String)session.getAttribute("email");
+		return "redirect:/m_myStory.listen";
+	}
+   
+   
 }
