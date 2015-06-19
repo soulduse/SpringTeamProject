@@ -26,6 +26,7 @@ import com.listen.bbs.dto.BbsWriteDto;
 import com.listen.bbs.vo.BbsAddVo;
 import com.listen.bbs.vo.BbsVo;
 import com.listen.bbs.vo.MyBackGroundVo;
+import com.listen.member.vo.MemberVo;
 
 @Controller
 public class BbsController extends BaseController{
@@ -339,21 +340,54 @@ public class BbsController extends BaseController{
 	   request.setAttribute("ajaxBbsViewList", ajaxBbsViewList);
 	   return "ajaxList/ajaxBbsViewList3";  
    }
-   
+   //마이스토리 공개-->비공개
    @RequestMapping("/dispSave.listen")
    public String dispSave(HttpServletRequest request, HttpSession session) {
-
+	   session.setAttribute("message", "");
       String bbs_seq = (String) request.getParameter("seq");
-      System.out.println(bbs_seq);
       String reg_email = (String) session.getAttribute("email");
-      System.out.println(reg_email);
+      
+      MemberVo mv = new MemberVo();
+      mv.setReg_email(reg_email);
+      bbsDao.cloverCheck(mv);
+      MemberVo cloverList = (MemberVo)bbsDao.cloverCheck(mv);
+      
+      if (Integer.parseInt(cloverList.getClover()) >= 3){
+    	  BbsVo bv = new BbsVo();
+	      bv.setReg_email(reg_email);
+	      bv.setBbs_seq(Integer.parseInt(bbs_seq));
+	      
+	      bbsDao.dispSave(bv);
+	      
+	      MemberVo memVo = new MemberVo();	     
+	      memVo.setReg_email(reg_email);
+	      bbsDao.cloverDown(memVo);
+	      
+    	  message = "등록되었습니다.";
+    	  session.setAttribute("message", message);
+	      
+      } else {
+    	  message = "클로버 부족합니다.";
+    	  session.setAttribute("message", message);
+    	  
+      }
+      
+      return "redirect:bbsMyViewList.listen";
+   }
+   //마이스토리 비공개 --> 공개
+   @RequestMapping("/dispCencle.listen")
+   public String dispCencle(HttpServletRequest request, HttpSession session) {
+
+	  System.out.println("wㄹㅈㄷㄹㅈㄹㄷㄹㄹㄷㄹㄷㄹ");
+      String bbs_seq = (String) request.getParameter("seq");     
+      String reg_email = (String) session.getAttribute("email");   
       
       BbsVo bv = new BbsVo();
       bv.setReg_email(reg_email);
       bv.setBbs_seq(Integer.parseInt(bbs_seq));
-      
-      bbsDao.dispSave(bv);
-
+      System.out.println("wㄹㅈㄷㄹㄷㄴㅇㄹㅇㄹㄴㅇㄹㅈㄹㄷㄹㄹㄷㄹㄷㄹ");
+      bbsDao.dispCencle(bv);
+      session.setAttribute("message", "비공개 되었습니다.");
       return "redirect:bbsMyViewList.listen";
    }
 }

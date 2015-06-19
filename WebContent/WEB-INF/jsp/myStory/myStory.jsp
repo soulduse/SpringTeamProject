@@ -9,9 +9,12 @@
 <script type="text/javascript" src="js/ajax-comment.js"></script>
 <script type="text/javascript" src="js/ajax-chattingRequest.js"></script>
 <SCRIPT>
+<% 
+if(session.getAttribute("message") != null && ((String)session.getAttribute("message")).length()>0){ %>
+	alert("<%=session.getAttribute("message")%>");
+<% } %>
   $(function() {
-	  alert("dddd");
-	   $('.img').click(function() {
+	  $('.img').click(function() {
 		   clearTbody();
 	         var d = $(this).attr("src");
 	         
@@ -38,9 +41,43 @@
          $('#imgForm').submit();      
       });
    });
-  
    
+   //마이클로버 modal
+   $(function() {
+		  $('#storyClover').click(function() {
+			   clearTbody();
+		         var d = $(this).attr("src");
+		         
+		         var c = $(this).attr("contents");
+		         var bbs_seq = $(this).attr("name");
+		         var bbs_likeCount = $(this).attr("bbs_goodCount");
+
+		         $('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
+		         $("#modalImg").attr("src", d);
+		         $("#bbs_seq").attr("value", bbs_seq);
+		         var modalContent = document.getElementById("modalContent");
+		         modalContent.innerHTML = c;
+		         
+		         ajaxBbsAdd();
+		      });
+   });
+   
+	$(function() {
+		$('.dispBtn').click(function() {
+			var msg = "포인트가 소모됩니다 등록하시겠습니까?";
+			if($(this).val() == "비공개"){
+				msg = "공개된 개시물입니다. 비공개 하시겠습니까?";
+			}			
+			if(confirm(msg)){
+				$(this).parent().submit();
+			}
+			
+		});
+	});
+     
 </SCRIPT>
+
+
 <!doctype html>
 <html lang="ko">
  <head>
@@ -135,7 +172,9 @@ background-size: cover;
    
    <input type="file" name="upload" value="배경편집" style=" float: left;">
    <INPUT type="button" id="fileBtn" value="등록" style=" float: left;">
-   <img src="images/clover1.png" style=" margin-left: -350px;"/>
+   <div style=" border: 1px solid #bcbcbc;">
+   <img src="images/clover1.png" id="storyClover" 
+   	data-toggle="modal" data-target="#myClover"style=" margin-left: -350px;cursor:pointer; width:70;"/></div>
    </div></FORM>
   
  <div class="story_cover1">
@@ -174,10 +213,18 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
    
         <div class="text2">
               <H3><%=mini_contents%></H3></div>
-              <div class="text2_1">   
+              
+              
+              <div class="text2_1"> 
+              <form class="dispForm" method="post" id="dispForm1" action="/dispCencle.listen">             	              
+               <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />   
               <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
               <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
-              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %></div>
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %>&nbsp;&nbsp;&nbsp;&nbsp;     
+               <input type="button" class="dispBtn" value="비공개"  style="left:100;"/>              
+               </form>
+                </div>
+        
                          
    </div>
     <%
@@ -191,11 +238,12 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
    
       <div class="text2">
               <H4><%=mini_contents%></H4></div>
+          
              
                          
           <form class="dispForm" method="post" id="dispForm1"action="/dispSave.listen">                  
                <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
-               <input type="submit" class="dispBtn" value="공개"/>
+               <input type="button" class="dispBtn" value="공개"/>
                </form>
    </div>
    <%
@@ -260,7 +308,7 @@ ArrayList bbsMyViewList1 = (ArrayList)request.getAttribute("bbsMyViewList");
               <H4><%=mini_contents%></H4></div>
             
                          
-          <form class="dispForm" method="post" id="dispForm2"action="/dispSave.listen">                  
+          <form class="dispForm" method="post" id="dispForm2" action="/dispSave.listen">                  
                <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
                <input type="submit" class="dispBtn" value="공개"/>
                </form>
@@ -328,7 +376,7 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
                          
           <form class="dispForm" method="post" id="dispForm3"action="/dispSave.listen">                  
                <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
-               <input type="submit" class="dispBtn" value="공개"/>
+               <input type="submit" class="dispBtn" value="공개" style="padding:5px 0px 0px 10px;"/>
           </form>
    </div>
    <%
@@ -350,6 +398,36 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
  <div class="story_footer"></div> 
     
  </div>
+ 
+ 
+ <!-- MyClover modal 보기-->
+ 
+ <div class="modal fade" style="width: 100%" id="myClover" tabindex="-1"
+   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">        
+           
+            <button type="button" class="close" data-dismiss="modal"
+               aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body" style="background-color:gray;margin-left:0;border:30px white solid">
+            <img id="modalImg" class="imageShadow" src="#" width="500" />
+            <div class="text3">
+               <H3>
+                 
+               </H3>
+            </div>
+         </div>
+  </div>
+  </div>
+  </div>
+  
+  
+  
+  
  <!-- Modal 글 List-->
 <div class="modal fade" style="width: 100%" id="myModal" tabindex="-1"
    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

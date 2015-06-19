@@ -9,6 +9,8 @@ import com.listen.bbs.dto.BbsLikeSwitchDto;
 import com.listen.bbs.dto.BbsWriteDto;
 import com.listen.bbs.vo.BbsVo;
 import com.listen.bbs.vo.MyBackGroundVo;
+import com.listen.member.vo.MemberVo;
+
 
 @Repository
 public class BbsDao {
@@ -95,10 +97,27 @@ public class BbsDao {
 			return (ArrayList) smct.queryForList("bbsViewList2",bbsVo);
 		}
 		
+		//마이스토리 비공개글 -->공개 시 클로버 확인
+		public MemberVo cloverCheck(MemberVo mv)
+		{    
+			return (MemberVo) smct.queryForObject("cloverCheck", mv);
+		} 
+		
 		//마이스토리 비공개글 -->공개
 		public void dispSave(BbsVo bv)
 		{    
 			smct.update("dispUpload", bv);
 		} 
+		
+		//마이스토리 비공개글 -->공개시 크로버 차감
+		public void cloverDown(MemberVo memVo)
+		{    
+			smct.update("cloverUpload", memVo);
+		} 
 	   
+		//마이스토리 공개글 -->비공개
+		public void dispCencle(BbsVo bv)
+		{    
+			smct.update("dispUploadCencle", bv);
+		} 
 }
