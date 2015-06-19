@@ -70,7 +70,8 @@ public class MainController extends BaseController {
 	public String m_myStoryPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
 
 		System.out.println("m_myStoryPage 들어옴");
-			
+		String email = (String) session.getAttribute("email");
+		bbsVo.setReg_email(email);
 		ArrayList bbsList = bbsDao.m_myBbsList(bbsVo);
 		request.setAttribute("page", "main");
 		request.setAttribute("bbsList",  bbsList);

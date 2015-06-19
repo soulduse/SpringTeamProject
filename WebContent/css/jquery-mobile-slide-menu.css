@@ -55,9 +55,9 @@
 	position: relative;
 }
 
-.mobile_write {
-	width: 100px;
-	height: 100px;
-	background: transparent url('../images/mobile_write.jpg') 0 0 no-repeat;
+.pen {
+	width: 24px;
+	height: 24px;
+	background: transparent url('../images/pen.png') 0 0 no-repeat;
 	position: relative;
 }

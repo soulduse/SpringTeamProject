@@ -17,12 +17,15 @@
 	ArrayList noticeList = (ArrayList) session
 			.getAttribute("noticeList");
 	String email = "houng9065@hanmail.net";
+	email = (String) session.getAttribute("email");
 %>
 
 <script src="js/jquery-1.8.2.min.js"></script>
 <script>
 	$(function() {
 		$.mobile.ajaxEnabled = false;
+
+		var email = $('#email').val();
 
 		$('#select-h-2b').change(function() {
 			var selectvar = $('#select-h-2b').val();
@@ -34,16 +37,21 @@
 		});
 
 		//방만들기 
-		$(".room_make").click(function() {
-			window.open("http://localhost:900/m_chatting/"
-					+ encodeURIComponent(roomname) + "?name="
-					+ encodeURIComponent(nickname) + "?email="
-					+ encodeURIComponent(email), '1',
-					'width=600, height=800, resizable=no');
-			var num = $(this).attr("id");
-			var CreateRoomForm = "#CreateRoomForm" + num;
-			$(CreateRoomForm).submit();
-		});
+		$(".room_make").click(
+				function() {
+					alert();
+					var roomname = $('#roomname' + num).val();
+					var nickname = $('#nickname' + num).val();
+					var email = $('#email' + num).val();
+					window.open("http://106.242.203.67:900/m_chatting/"
+							+ encodeURIComponent(roomname) + "?name="
+							+ encodeURIComponent(nickname), '1',
+							'width=600, height=800, resizable=no');
+					var num = $(this).attr("id");
+					var CreateRoomForm = "#CreateRoomForm" + num;
+					alert();
+					$(CreateRoomForm).submit();
+				});
 
 		// 방 입장
 		$(".chattingroom").click(
@@ -52,10 +60,9 @@
 					var roomname = $('#roomname' + num).val();
 					var nickname = $('#nickname' + num).val();
 					var email = $('#email' + num).val();
-					window.open("http://localhost:900/m_chatting/"
+					window.open("http://106.242.203.67:900/m_chatting/"
 							+ encodeURIComponent(roomname) + "?name="
-							+ encodeURIComponent(nickname) + "?email="
-							+ encodeURIComponent(email), '1',
+							+ encodeURIComponent(nickname), '1',
 							'width=600, height=800, resizable=no');
 				});
 	});
@@ -78,9 +85,10 @@
 </head>
 <body>
 
+	<INPUT type="hidden" name="email" id="email" value="<%= email %>">
 	<div data-role="page" id="about-the-band" data-title="Page Title"
 		data-theme="b" class="pages">
-		<div class="ui-grid-b" data-role="header" data-theme="a">
+		<div class="ui-grid-b" data-role="header" data-theme="a" data-position="fixed">
 			<div class="ui-block-a" class="ui-grid-b">
 				<div class="ui-block-a">
 					<a href="#leftpanel3" data-role="button" data-shadow="true"
@@ -115,14 +123,32 @@
 
 				</div>
 				<div class="ui-block-c">
-					<a href="#rightpanel1" data-role="button" data-shadow="true"
-						data-icon="search" data-iconpos="notext">Search</a>
+					<a href="#popupWirth" data-role="button" data-rel="popup"
+						data-position-to="window" data-transition="pop"
+						class="pen" data-iconpos="notext">글쓰기</a>
 				</div>
 			</div>
 
 		</div>
-		<div data-role="content">
+		<div data-role="content" style="background: transparent url('../images/back4.png') 0 0 no-repeat; ">
 			<jsp:include page="<%=mainUrl%>" flush="true" />
+			
+	<div data-role="popup" id="popupWirth" data-theme="a"
+		class="ui-corner-all">
+		<FORM name="writeForm" method="post" id="writeForm"
+			enctype="multipart/form-data" action="/m_writeSave.listen">
+			<div style="padding: 10px 20px;">
+				<h3>글쓰기</h3>
+				<label for="bbs_contents">Textarea:</label>
+				<textarea data-mini="true" cols="40" rows="8" name="bbs_contents"
+					id="bbs_contents"></textarea>
+				<label for="upload">File</label> <input type="file"
+					data-clear-btn="false" name="upload" id="upload" value="">
+				<button type="submit" data-theme="b" data-icon="check">글등록</button>
+			</div>
+		</form>
+	</div>
+	
 		</div>
 
 
@@ -138,6 +164,8 @@
 					data-position-to="window" data-transition="pop">의견 보내기</a><span
 					class="icon"></span></li>
 				<li><a href="/page-2/">설정</a><span class="icon"></span></li>
+				
+				<li><a href="#rightpanel1" data-shadow="true">Search</a>
 			</ul>
 		</div>
 
@@ -151,7 +179,7 @@
 						id="bbs_contents"></textarea>
 					<button type="submit" data-theme="b" data-icon="check">보내기</button>
 				</div>
-				<INPUT type="hidden" name="reg_email" value="houng9065@hanmail.net">
+				<INPUT type="hidden" name="reg_email" value="<%= email %>">
 				<INPUT type="hidden" name="reg_ip" value="127.0.0.1">
 			</form>
 		</div>
@@ -168,7 +196,7 @@
 							ChattingVo chattingVo = (ChattingVo) chatList.get(i);
 							String roomname = (String) chattingVo.getChatting_name();
 							String nickname = (String) chattingVo.getRamdom_name();
-							email = (String) session.getAttribute("email");
+							
 							if (chatList.size() > 0) {
 				%>
 				<INPUT type="hidden" name="roomname<%=i%>" id="roomname<%=i%>"
@@ -290,5 +318,8 @@
 			</ul>
 		</div>
 	</div>
+
+
+
 </body>
 </html>

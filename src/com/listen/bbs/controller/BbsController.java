@@ -175,10 +175,10 @@ public class BbsController extends BaseController{
    
 	// 모바일 내가 작성 한 글 공개 입력
 	@RequestMapping("/m_dispYBbs.listen")
-	public String m_dispYBbsPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String m_dispYBbsPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response,  HttpSession session) throws IOException {
 		bbsDao.myStoryDispY(bbsVo);
 		System.out.println("안녕 나 여기 들왔졍!!");
-
+		String email = (String)session.getAttribute("email");
 		return "redirect:/m_myStory.listen";
 	}
    

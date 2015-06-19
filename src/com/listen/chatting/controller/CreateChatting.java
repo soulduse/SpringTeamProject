@@ -91,7 +91,7 @@ public class CreateChatting extends BaseController{
 	
 	///////////////////////////////모바일
 	@RequestMapping("/m_createRoom.listen")
-	public void m_createPage(ChattingVo chattingVo, HttpServletRequest request, HttpSession session) {
+	public String m_createPage(ChattingVo chattingVo, HttpServletRequest request, HttpSession session) {
 		String email = (String) session.getAttribute("email");
 		String notifications_seq = (String) request.getParameter("notifications_seq");
 		System.out.println("notification :"+notifications_seq);
@@ -127,5 +127,6 @@ public class CreateChatting extends BaseController{
 		noticeList.add(rec_nickname);
 		noticeList.add(rec_seq);
 		request.setAttribute("noticeList",  noticeList);
+		return m_popup;
 	}
 }

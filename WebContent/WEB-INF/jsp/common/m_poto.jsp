@@ -83,39 +83,10 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
 		<%
 			}
 		%>
-<%
-	bbsList = (ArrayList) request.getAttribute("bbsList");
-	for (int i = 0; i < bbsList.size(); i++) {
-		BbsVo bbsVo = (BbsVo) bbsList.get(i);
-		int bbs_seq = (int) bbsVo.getBbs_seq();
-		String bbs_contents = (String) bbsVo.getBbs_contents();
-		int bbs_hitCount = (int) bbsVo.getBbs_hitCount();
-		String reg_email = (String) bbsVo.getReg_email();
-		String path = (String) bbsVo.getPath();
-		String save_name = (String) bbsVo.getSave_name();
-		int bbs_goodCount = (int) bbsVo.getGoodCount();
-%>
 
-<%
-  }
-%>
 			
 </ul>   	
 
-               
-<a href="#popupWirth" class="mobile_write" data-rel="popup" data-position-to="window" data-inline="true" data-icon="check" data-theme="a" data-transition="pop" style=" position: relative; top: -70px; left : 140px"><img src="images/mobile_write.jpg"></a>
-<div data-role="popup" id="popupWirth" data-theme="a" class="ui-corner-all">
-	<FORM name="writeForm" method="post" id="writeForm" enctype="multipart/form-data" action="/m_writeSave.listen">
-        <div style="padding:10px 20px;">
-            <h3>글쓰기</h3>
-		    <label for="bbs_contents">Textarea:</label>
-		    <textarea data-mini="true" cols="40" rows="8" name="bbs_contents" id="bbs_contents"></textarea>
-		     <label for="upload">File</label>
-		     <input type="file" data-clear-btn="false" name="upload" id="upload" value="">
-            <button type="submit" data-theme="b" data-icon="check">글등록</button>
-        </div>
-    </form>
-</div>
 
 	
 		</div><!-- /container -->

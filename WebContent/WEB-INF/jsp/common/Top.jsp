@@ -30,7 +30,7 @@
 			var nickname = $('#nickname'+num).val();
 			var email = $('#email'+num).val();
 			window.open("http://localhost:900/chatting/"+encodeURIComponent(roomname)+"?name="
-					+encodeURIComponent(nickname)+"?email="+encodeURIComponent(email), '1', 'width=600, height=800, resizable=no');
+					+encodeURIComponent(nickname), '1', 'width=600, height=800, resizable=no');
 		});
 	});
 </SCRIPT>
