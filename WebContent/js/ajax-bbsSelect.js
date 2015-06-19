@@ -1,7 +1,8 @@
 function ajaxBbsSelect(bbs_seq) {
-	var itemImg = $('.img');
-	var email = itemImg.attr('email');
+	var email = $('input:hidden[name=viewEmail]').val();
 	//var bbs_seq = itemImg.attr('name');
+	//alert("bbs_seq : "+bbs_seq+"\n email : "+email);
+	
 
 	$.ajax({
 		url : "/ajax/bbsSelect.listen",
@@ -16,4 +17,5 @@ function ajaxBbsSelect(bbs_seq) {
 			}
 		}
 	});
+	
 }

@@ -16,23 +16,6 @@
 	var windowHeight = $(window).height();
 	var rownum2 = 9;
 	$(function() {
-		$('.img').click(function() {
-			clearTbody();
-			var d = $(this).attr("src");
-			var c = $(this).attr("contents");
-			var bbs_seq = $(this).attr('name');
-			var bbs_likeCount = $(this).attr("bbs_goodCount");
-
-			$('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
-			$("#modalImg").attr("src", d);
-			$("#bbs_seq").attr("value", bbs_seq);
-			var modalContent = document.getElementById("modalContent");
-			modalContent.innerHTML = c;
-			// YnFilter 사용 및 BBS Re Select
-			ajaxBbsSelect(bbs_seq);
-			ajaxBbsAdd();
-		});
-
 		var addForm = $('#addForm');
 		$('#addWriteBtn').click(function() {
 			ajaxBbsAdd();
@@ -42,24 +25,24 @@
 		$('#chattingRequset').click(function() {
 			chattingRequest();
 		});
-
+		
 		$(window).scroll(
+			    
 		function() { // ① 스크롤 이벤트 최초 발생
-			if ($(window).scrollTop() + windowHeight > ($(document)
-					.height() - 50)) {
+			if ($(window).scrollTop() + windowHeight > ($(document).height() - 50)) {
 				ajaxBbsList1(rownum2);
-				ajaxBbsList2(rownum2);
-				ajaxBbsList3(rownum2);
 				rownum2 = rownum2 + 9;
 			}
 		});
-
 	});
 </SCRIPT>
-<!doctype html>
-<html lang="ko">
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
 <head>
 <meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="css/default.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<script src="js/modernizr.custom.js"></script>
 <title>Listen</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -72,10 +55,7 @@
 		String userIp = request.getRemoteAddr();
 %>
 <body>
-	<FORM name="filterForm" id="filterForm" method="post"
-		action="ynFilter.listen">
-		<INPUT type="hidden" name="bbs_seq">
-	</FORM>
+	<INPUT type="hidden" name="viewEmail" value="<%=email%>">
 
 
 	<div class="listen-container">
@@ -163,8 +143,7 @@
 					</div>
 
 					<%
-						ArrayList mainMyStory = (ArrayList) request
-									.getAttribute("mainMyStory");
+						ArrayList mainMyStory = (ArrayList) request.getAttribute("mainMyStory");
 							for (int i = 0; i < mainMyStory.size(); i++) {
 								BbsVo bbsVo = (BbsVo) mainMyStory.get(i);
 								int bbs_seq = (int) bbsVo.getBbs_seq();
@@ -188,7 +167,7 @@
 							<img class="img imageShadow" name="<%=bbs_seq%>"
 								data-toggle="modal" data-target="#myModal"
 								style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=300
-								height=200 contents="<%=bbs_contents%>" />
+								height=200 contents="<%=bbs_contents%>" onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=goodCount%>','<%=bbs_contents%>','<%=email%>');"/>
 
 							<div class="text2">
 								<H3><%=mini_contents%></H3>
@@ -259,9 +238,10 @@
 					%>
 					<div class="listen-content5_5">
 						<img class="img" data-toggle="modal" data-target="#myModal"
+							name="<%=bbs_seq%>"
 							style="cursor: pointer" alt="" width="350" height=<%=imgHeight%>
 							src="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"
-							bbs_goodCount="<%=bbs_goodCount%>" />
+							bbs_goodCount="<%=bbs_goodCount%>" onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>');"/>
 					</div>
 					<div class="listen-content5"
 						style="background-image: url(images/textimg1.png);">
@@ -276,9 +256,10 @@
 					</div>
 					<div class="listen-content5_5">
 						<img class="img" data-toggle="modal" data-target="#myModal"
+							name="<%=bbs_seq%>"
 							style="cursor: pointer" alt="" width="350" height=<%=imgHeight%>
 							src="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"
-							bbs_goodCount="<%=bbs_goodCount%>" />
+							bbs_goodCount="<%=bbs_goodCount%>" onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>');"/>
 					</div>
 					<%
 						}
@@ -321,9 +302,9 @@
 			<div class="listen-content6">
 				<div class="listen-content7">
 					<img class="img" data-toggle="modal" data-target="#myModal"
-						style="cursor: pointer" alt="" width="480" height="360"
+						style="cursor: pointer" alt="" width="480" height="360" name="<%=bbs_seq%>"
 						src="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"
-						bbs_goodCount="<%=bbs_goodCount%>" />
+						bbs_goodCount="<%=bbs_goodCount%>" onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>');"/>
 				</div>
 				<div class="listen-content8"
 					style="background-image: url(images/textimg2.png);">
@@ -347,7 +328,7 @@
 						<img class="img" data-toggle="modal" data-target="#myModal"
 							style="cursor: pointer" alt="" width="309" height="188"
 							src="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"
-							bbs_goodCount="<%=bbs_goodCount%>" />
+							bbs_goodCount="<%=bbs_goodCount%>" onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>');"/>
 					</div>
 				</div>
 			</div>
@@ -358,9 +339,8 @@
 			%>
 
 			<!-- 메인 하단 부분 글 보여주기 -->
-			<div class="jb-content">
-
-				<div class="jb-content1" id="imgRootDiv1" style="margin-left: 5px;">
+			<div class="container">
+			<ul class="grid effect-2" id="grid">
 					<%
 						ArrayList bbsList = (ArrayList) request.getAttribute("bbsList");
 							for (int i = 0; i < 9; i++) {
@@ -382,15 +362,14 @@
 								int goodCount = (int) bbsVo.getGoodCount();
 								int add_count = (int) bbsVo.getAdd_count();
 
-								if (i % 3 == 1) {
 					%>
-
-					<div class="image" style="margin-left: 15px;">
+					<li>
+					<div class="image img-rounded" style="margin-left: 15px;">
 						<img class="img imageShadow" name="<%=bbs_seq%>"
 							data-toggle="modal" data-target="#myModal"
-							style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=300
+							style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=325
 							contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"
-							email="<%=email%>" />
+							email="<%=email%>" onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>');"/>
 
 						<div class="text2">
 							<H3><%=mini_contents%></H3>
@@ -402,116 +381,25 @@
 							<%=goodCount%>
 							댓글수 :
 							<%=add_count%></div>
-
-
-
-
 					</div>
+					</li>
 					<%
-						}
 							}
 					%>
-				</div>
-
-
-
-				<div class="jb-content1" id="imgRootDiv2" style="margin-left: 15px;">
-					<%
-						ArrayList bbsList2 = (ArrayList) request
-									.getAttribute("bbsList");
-							for (int i = 0; i < 9; i++) {
-								BbsVo bbsVo = (BbsVo) bbsList.get(i);
-								int bbs_seq = (int) bbsVo.getBbs_seq();
-								String bbs_contents = (String) bbsVo.getBbs_contents();
-
-								String mini_contents = bbs_contents;
-								if (bbs_contents.length() > 36) {
-									mini_contents = bbs_contents.substring(0, 34) + "...";
-								}
-
-								int bbs_hitCount = (int) bbsVo.getBbs_hitCount();
-								String reg_email = (String) bbsVo.getReg_email();
-								String path = (String) bbsVo.getPath();
-								String save_name = (String) bbsVo.getSave_name();
-								int bbs_goodCount = (int) bbsVo.getGoodCount();
-								int goodCount = (int) bbsVo.getGoodCount();
-								int add_count = (int) bbsVo.getAdd_count();
-								if (i % 3 == 2) {
-					%>
-					<div class="image " style="margin-left: 23px;">
-						<img class="img imageShadow" name="<%=bbs_seq%>"
-							data-toggle="modal" data-target="#myModal"
-							style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=310
-							contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"
-							email="<%=email%>" />
-
-						<div class="text2">
-							<H3><%=mini_contents%></H3>
-						</div>
-						<div class="text2_1">
-							조회수 :
-							<%=bbs_hitCount%>
-							좋아요 :
-							<%=goodCount%>
-							댓글수 :
-							<%=add_count%></div>
-
-					</div>
-					<%
-						}
-							}
-					%>
-				</div>
-
-				<div class="jb-content1" id="imgRootDiv3" style="margin-left: 15px;">
-					<%
-						ArrayList bbsList3 = (ArrayList) request
-									.getAttribute("bbsList");
-							for (int i = 0; i < 9; i++) {
-								BbsVo bbsVo = (BbsVo) bbsList.get(i);
-								int bbs_seq = (int) bbsVo.getBbs_seq();
-								String bbs_contents = (String) bbsVo.getBbs_contents();
-
-								String mini_contents = bbs_contents;
-								if (bbs_contents.length() > 36) {
-									mini_contents = bbs_contents.substring(0, 34) + "...";
-
-								}
-
-								int bbs_hitCount = (int) bbsVo.getBbs_hitCount();
-								String reg_email = (String) bbsVo.getReg_email();
-								String path = (String) bbsVo.getPath();
-								String save_name = (String) bbsVo.getSave_name();
-								int bbs_goodCount = (int) bbsVo.getGoodCount();
-								int goodCount = (int) bbsVo.getGoodCount();
-								int add_count = (int) bbsVo.getAdd_count();
-								if (i % 3 == 0) {
-					%>
-					<div class="image " style="margin-left: 33px;">
-						<img class="img imageShadow" name="<%=bbs_seq%>"
-							data-toggle="modal" data-target="#myModal"
-							style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=300
-							contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"
-							email="<%=email%>" />
-
-						<div class="text2" style="color: white;">
-							<H3><%=mini_contents%></H3>
-						</div>
-						<div class="text2_1">
-							조회수 :
-							<%=bbs_hitCount%>
-							좋아요 :
-							<%=goodCount%>
-							댓글수 :
-							<%=add_count%></div>
-
-					</div>
-					<%
-						}
-							}
-					%>
-				</div>
-
+					</ul>
+			</div>
+			<script src="js/masonry.pkgd.min.js"></script>
+			<script src="js/imagesloaded.js"></script>
+			<script src="js/classie.js"></script>
+			<script src="js/AnimOnScroll.js"></script>
+			<script>
+				new AnimOnScroll( document.getElementById( 'grid' ), {
+					minDuration : 0.4,
+					maxDuration : 0.7,
+					viewportFactor : 0.2
+				} );
+			</script>
+					
 				<!-- Modal 글 List-->
 				<div class="modal fade" style="width: 100%" id="myModal"
 					tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -526,12 +414,12 @@
 								</FORM>
 								<div class="lcard-button-wrapper">
 									<div class="lcard-button">
-										<div class="container animation-1">
-											<div class="heartImg" alt="N"></div>
+										<div class="container-title animation-1">
+											<div class="heartImg" alt="N" onclick="toggle();"></div>
 										</div>
 										<span class="ng-binding">좋아요</span>
 									</div>
-									<div class="like-label" email=<%=email%>>0</div>
+									<div class="like-label">0</div>
 								</div>
 								<div id="chattingRequset" class="glyphicon glyphicon-comment"
 									style="left: 100px; cursor: pointer;">채팅 요청</div>
