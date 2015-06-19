@@ -16,7 +16,7 @@ public class BbsAddDao {
 
 	public BbsAddDao() {
 	}
-
+/////////////////////////////// 형준이가 사용했어요 bbsAddWrite
 	// 댓글 쓰기
 	public void bbsAddWrite(BbsAddWriteDto bbsAddWriteDto) {
 		smct.insert("bbsAddWrite", bbsAddWriteDto);

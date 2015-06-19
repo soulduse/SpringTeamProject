@@ -21,7 +21,8 @@ public class BbsDao {
 
 	public BbsDao() {
 	}
-
+	
+/////////////////////////////형준이가 사용했어요 bbsWrite
 	// 글쓰기
 	public void bbsWrite(BbsWriteDto bbsWriteDto) {
 		smct.insert("bbsTextWrite", bbsWriteDto);
@@ -76,19 +77,9 @@ public class BbsDao {
 		return (MyBackGroundVo) smct.queryForObject("bbsMybgimg", vo);
 	}
 
-	public ArrayList m_bbsViewList() {
-		// TODO Auto-generated method stub
-		return (ArrayList) smct.queryForList("m_bbsViewList");
-	}
-
 	// 무한스크롤 글 보기
 	public ArrayList bbsViewList2(BbsVo bbsVo) {
 		return (ArrayList) smct.queryForList("bbsViewList2", bbsVo);
-	}
-
-	public ArrayList m_bbsinit(BbsVo bbsVo) {
-		// TODO Auto-generated method stub
-		return (ArrayList) smct.queryForList("m_bbsinit", bbsVo);
 	}
 
 	// 파일이 있을때 BBS TABLE의 BBS_FILE_SEQ 값을 UPDATE 해줌
@@ -97,10 +88,13 @@ public class BbsDao {
 	}
 
 
-	public void myStoryDispY(BbsVo bbsVo) {
+	
+	
+///////////////////////////////////////모바일 부분
+
+	public ArrayList m_bbsViewList() {
 		// TODO Auto-generated method stub
-		smct.update("myStoryDispY", bbsVo);
-		
+		return (ArrayList) smct.queryForList("m_bbsViewList");
 	}
 	
 	public ArrayList m_myBbsList(BbsVo bbsVo) {
@@ -112,6 +106,16 @@ public class BbsDao {
 		// TODO Auto-generated method stub
 		return (ArrayList) smct.queryForList("m_bbsTopStoriesList");
 	}
+	
+	public ArrayList m_bbsinit(BbsVo bbsVo) {
+		// TODO Auto-generated method stub
+		return (ArrayList) smct.queryForList("m_bbsinit", bbsVo);
+	}
 
+	public void myStoryDispY(BbsVo bbsVo) {
+		// TODO Auto-generated method stub
+		smct.update("myStoryDispY", bbsVo);
+		
+	}
 
 }

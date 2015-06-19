@@ -4,6 +4,7 @@
 	<typeAlias alias="bbsWriteDto" type="com.listen.bbs.dto.BbsWriteDto" />
 
 	<!-- 글 등록 -->
+	<!-- 형준이가 사용했어요~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 	<insert id="bbsTextWrite" parameterClass="bbsWriteDto">
 		INSERT INTO BBS
 		(BBS_SEQ, BG_IMG_SEQ, BBS_INFO_SEQ,

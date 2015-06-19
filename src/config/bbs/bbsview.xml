@@ -184,15 +184,11 @@
 
 	
 	<!-- 글공감 Like Update 처리 -->
-	<update id="myStoryDispY" parameterClass="bbsView">
-		UPDATE BBS SET
-		DISPYN = 'Y'
-		WHERE BBS_SEQ = #bbs_seq#
-	</update>
 
 
 <!-- 모바일~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~` -->
 
+	<!-- 형준이가 사용했어요~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
 	<select id="m_bbsViewList" resultClass="bbsView">
 		select *
@@ -245,6 +241,14 @@
 		BACKGROUND_IMG B
 		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ AND
 		A.BBS_SEQ = #bbs_seq#
-	</select>
+	</select>	
+	
+	
+	<update id="myStoryDispY" parameterClass="bbsView">
+		UPDATE BBS SET
+		DISPYN = 'Y'
+		WHERE BBS_SEQ = #bbs_seq#
+	</update>
+	
 </sqlMap>
 
