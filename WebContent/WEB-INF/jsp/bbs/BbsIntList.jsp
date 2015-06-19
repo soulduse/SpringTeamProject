@@ -107,6 +107,12 @@ $(function() {
          BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
+         
+         String mini_contents= bbs_contents;      
+         if (bbs_contents.length()>36){
+       	  mini_contents = bbs_contents.substring(0,34)+ "...";       	
+         }
+         
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
          String reg_email = (String)bbsVo.getReg_email();
          String path = (String)bbsVo.getPath();
@@ -120,24 +126,12 @@ $(function() {
          data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
          width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
       
-           <div class="text2">
-              <table>
-                 <TR height="70%">
-                    <TD>
-                         <H3><%=bbs_contents%></h3>
-                      </TD>
-                   </TR>
-                   <TR height="30%">
-                      <TD align="left">
-                         	조회수 : <%=bbs_hitCount%> / <br>
-                         	좋아요 : <%=goodCount %> / <br>
-                         	댓글수 : <%=add_count %>
-                         
-                      </TD>
-                   </TR>
-                </table>
-                
-             </div>
+           <div class="text2" style="color:white;">
+              <H3><%=mini_contents%></H3></div>
+              <div class="text2_1">   
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %></div>
       </div>
          <%
       }
@@ -155,6 +149,12 @@ $(function() {
          BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
+         
+         String mini_contents= bbs_contents;      
+         if (bbs_contents.length()>36){
+       	  mini_contents = bbs_contents.substring(0,34)+ "...";       	
+         }
+         
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
          String reg_email = (String)bbsVo.getReg_email();
          String path = (String)bbsVo.getPath();
@@ -170,23 +170,12 @@ $(function() {
          data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
          width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
       
-           <div class="text2">
-              <table>
-                 <TR height="70%">
-                    <TD>
-                         <H3><%=bbs_contents%></h3>
-                      </TD>
-                   </TR>
-                   <TR height="30%">
-                      <TD align="left">
-                      		조회수 : <%=bbs_hitCount%> / <br>
-                         	좋아요 : <%=goodCount %> / <br>
-                         	댓글수 : <%=add_count %>
-                      </TD>
-                   </TR>
-                </table>
-                
-             </div>
+           <div class="text2" style="color:white;">
+              <H3><%=mini_contents%></H3></div>
+              <div class="text2_1">   
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %></div>
       </div>
          <%
       }
@@ -209,6 +198,12 @@ $(function() {
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
+         
+         String mini_contents= bbs_contents;      
+         if (bbs_contents.length()>36){
+       	  mini_contents = bbs_contents.substring(0,34)+ "...";       	
+         }
+         
          String reg_email = (String)bbsVo.getReg_email();
          String path = (String)bbsVo.getPath();
          String save_name = (String)bbsVo.getSave_name();
@@ -221,23 +216,12 @@ $(function() {
          data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
          width=310 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
       
-           <div class="text2">
-              <table>
-                 <TR height="70%">
-                    <TD>
-                         <H3><%=bbs_contents%></h3>
-                      </TD>
-                   </TR>
-                   <TR height="30%">
-                      <TD align="left">
-                         	조회수 : <%=bbs_hitCount%> / <br>
-                         	좋아요 : <%=goodCount %> / <br>
-                      		 댓글수 : <%=add_count %>
-                      </TD>
-                   </TR>
-                </table>
-                
-             </div>
+           <div class="text2" style="color:white;">
+              <H3><%=mini_contents%></H3></div>
+              <div class="text2_1">   
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %></div>
       </div>
          <%
          }

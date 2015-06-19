@@ -384,7 +384,7 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
       String path = (String)bbsVo.getPath();
       String save_name = (String)bbsVo.getSave_name();
       int goodCount = (int)bbsVo.getGoodCount();
-		 int add_count = (int)bbsVo.getAdd_count();
+	  int add_count = (int)bbsVo.getAdd_count();
 %>
             <div class="listen-content1_3">
                <div class="image" id="imgRootDiv"
@@ -397,9 +397,9 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
 			<div class="text2">
               <H3><%=mini_contents%></H3></div>
               <div class="text2_1">   
-                         조회수 : <%=bbs_hitCount%>
-                         좋아요 : <%=goodCount %> 
-                         댓글수 : <%=add_count %></div>
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %></div>
                </div>
             </div>
             <%
@@ -431,9 +431,17 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
 	      int bbs_seq = (int)bbsVo.getBbs_seq();
 	      String bbs_contents = (String)bbsVo.getBbs_contents();
 	      int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
+	      
+	      String mini_contents= bbs_contents;      
+	      if (bbs_contents.length()>36){
+	    	  mini_contents = bbs_contents.substring(0,34)+ "...";    	 
+	      }
+	      
 	      String reg_email = (String)bbsVo.getReg_email();
 	      int bbs_goodCount = (int) bbsVo.getGoodCount();
 	      String path = (String)bbsVo.getPath();
+	      int goodCount = (int)bbsVo.getGoodCount();
+		  int add_count = (int)bbsVo.getAdd_count();
 	      String save_name = (String)bbsVo.getSave_name();
 	       // 이미지 파일 위치
 	      String filename = root+path+"/"+save_name ;
@@ -466,13 +474,24 @@ $(window).scroll(function(){ // ① 스크롤 이벤트 최초 발생
               contents="<%=bbs_contents%>"  bbs_goodCount="<%=bbs_goodCount%>"/>
                </div>
              <div class="listen-content5" style="background-image:url(images/textimg1.png);"> 
-              <B><p><%=bbs_contents %></p></B></div>
+              <B><p><%=mini_contents%></p></B><br><br><br><br>
+              
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %>
+              </div>
+              
               <% }
               else 
               {
               %>
               <div class="listen-content5" style="background-image:url(images/textimg1.png);"> 
-              <B><p><%=bbs_contents %></p></B></div>
+              <B><p><%=mini_contents%></p></B><br><br><br><br>
+              
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %>
+              </div>
                <div class="listen-content5_5">
               <img class = "img" data-toggle="modal" data-target="#myModal" style="cursor:pointer" 
               alt="" width="350"  height=<%=imgHeight%> src="<%=path%>/<%=save_name%>"
@@ -493,9 +512,17 @@ for(int i=0; count1<=1; i++)
    BbsVo bbsVo = (BbsVo)bbsList5.get(i);
    int bbs_seq = (int)bbsVo.getBbs_seq();
    String bbs_contents = (String)bbsVo.getBbs_contents();
+   
+   String mini_contents= bbs_contents;      
+   if (bbs_contents.length()>36){
+ 	  mini_contents = bbs_contents.substring(0,34)+ "...";    	 
+   }
+   
    int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
    String reg_email = (String)bbsVo.getReg_email();
    int bbs_goodCount = (int) bbsVo.getGoodCount();
+   int goodCount = (int)bbsVo.getGoodCount();
+   int add_count = (int)bbsVo.getAdd_count();
    String path = (String)bbsVo.getPath();
    String save_name = (String)bbsVo.getSave_name();
      // 이미지 파일 위치
@@ -520,7 +547,10 @@ for(int i=0; count1<=1; i++)
               contents="<%=bbs_contents%>"  bbs_goodCount="<%=bbs_goodCount%>"/>           
               </div>
              <div class="listen-content8" style="background-image:url(images/textimg2.png);">
-                 <center><B><p><%=bbs_contents %></p></B></center>
+                 <center><B><p><%=mini_contents%></p></B></center><br><br><br><br><br>
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %>
              </div>
 <% } 
       else
@@ -528,7 +558,10 @@ for(int i=0; count1<=1; i++)
              <div class="listen-content9">
                 <div class="listen-content10" style="background-image:url(images/textimg1.png);">
                  <div class="listen-content11" > 
-                   <center><p><%=bbs_contents %></p></center>
+                    <center><B><p><%=mini_contents%></p></B></center><br><br><br><br><br><br>
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %>
                 </div> 
                 </div>
                 <div class="listen-content12">
@@ -581,12 +614,9 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
         <div class="text2">
               <H3><%=mini_contents%></H3></div>
               <div class="text2_1">   
-                         조회수 : <%=bbs_hitCount%>
-                         좋아요 : <%=goodCount %> 
-                         댓글수 : <%=add_count %></div>
-                         
-                     
-                
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %></div>
              
    </div>
       <%
@@ -628,10 +658,9 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
        <div class="text2">
               <H3><%=mini_contents%></H3></div>
               <div class="text2_1">   
-                         조회수 : <%=bbs_hitCount%>
-                         좋아요 : <%=goodCount %> 
-                         댓글수 : <%=add_count %></div>
-                         
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %></div>                        
    </div>
       <%
    }
@@ -672,10 +701,9 @@ ArrayList bbsList = (ArrayList)request.getAttribute("bbsList");
          <div class="text2" style="color:white;">
               <H3><%=mini_contents%></H3></div>
               <div class="text2_1">   
-                         조회수 : <%=bbs_hitCount%>
-                         좋아요 : <%=goodCount %> 
-                         댓글수 : <%=add_count %></div>
-                         
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %></div>
    </div>
       <%
    }

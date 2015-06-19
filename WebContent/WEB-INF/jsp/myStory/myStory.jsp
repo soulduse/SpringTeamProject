@@ -135,6 +135,7 @@ background-size: cover;
    
    <input type="file" name="upload" value="배경편집" style=" float: left;">
    <INPUT type="button" id="fileBtn" value="등록" style=" float: left;">
+   <img src="images/clover1.png" style=" margin-left: -350px;"/>
    </div></FORM>
   
  <div class="story_cover1">
@@ -174,9 +175,9 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
         <div class="text2">
               <H3><%=mini_contents%></H3></div>
               <div class="text2_1">   
-                         조회수 : <%=bbs_hitCount%>
-                         좋아요 : <%=goodCount %> 
-                         댓글수 : <%=add_count %></div>
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %></div>
                          
    </div>
     <%
@@ -241,9 +242,9 @@ ArrayList bbsMyViewList1 = (ArrayList)request.getAttribute("bbsMyViewList");
     <div class="text2">
               <H3><%=mini_contents%></H3></div>
               <div class="text2_1">   
-                         조회수 : <%=bbs_hitCount%>
-                         좋아요 : <%=goodCount %> 
-                         댓글수 : <%=add_count %></div>
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %></div>
                          
    </div>
     <%
@@ -307,9 +308,9 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
      <div class="text2">
               <H3><%=mini_contents%></H3></div>
               <div class="text2_1">   
-                         조회수 : <%=bbs_hitCount%>
-                         좋아요 : <%=goodCount %> 
-                         댓글수 : <%=add_count %></div>
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;<%=add_count %></div>
                          
    </div>
     <%
