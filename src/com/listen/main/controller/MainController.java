@@ -34,7 +34,7 @@ public class MainController extends BaseController {
 	public String mainPage(HttpServletRequest request, HttpSession session) {
 
 		System.out.println("mainPage 들어옴");
-			
+		String email = (String)session.getAttribute("email");
 		ArrayList bbsList = bbsDao.bbsViewList();
 		request.setAttribute("page", "main");
 		request.setAttribute("bbsList",  bbsList);
@@ -46,6 +46,7 @@ public class MainController extends BaseController {
 	      ArrayList mainMyStory = bbsDao.mainMyStory(bv);   
 	      request.setAttribute("page", "myStory");
 	      request.setAttribute("mainMyStory",  mainMyStory);
+
 		//request.setAttribute("mainUrl", prefix + "~~~.jsp");
 
 		return frame;

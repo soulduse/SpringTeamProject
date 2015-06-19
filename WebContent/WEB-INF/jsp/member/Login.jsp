@@ -17,11 +17,6 @@
         <link rel="stylesheet" href="css/supersized.css">
         <link rel="stylesheet" href="css/login.css">
 
-        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-
     </head>
 <%
 if(request.getAttribute("Error") == "N")
@@ -45,7 +40,7 @@ if(request.getAttribute("Error") == "N")
                 <input type="password" name="password" class="password" placeholder="Password">
                 <button type="submit" class="basicBtn">Sign me in</button>
                 <button type="button"  class="basicBtn" onclick="location.href='/join.listen'"> Join </button>
-					<button type="button"  id="facebookBtn"> Facebook </button>      
+				<button type="button"  id="facebookBtn" onclick="location.href='/facebookLogin.listen'"> Facebook </button>
                 <div class="error"><span>+</span></div>
             </form>
             
@@ -57,6 +52,7 @@ if(request.getAttribute("Error") == "N")
         <script src="js/supersized.3.2.7.min.js"></script>
         <script src="js/supersized-init.js"></script>
         <script src="js/scripts.js"></script>
+        <!-- <script src="js/login.js"></script>-->
 
     </body>
 

@@ -2,11 +2,12 @@
 <%
 	String mainUrl = "/WEB-INF/jsp/common/Main.jsp";
 	System.out.println("frame.jsp");
-	if (request.getAttribute("mainUrl") != null
-			&& ((String) request.getAttribute("mainUrl")).length() > 0) {
-		mainUrl = (String) request.getAttribute("mainUrl");
-		System.out.println("mainUrl: " + mainUrl);
-	}
+	//if (request.getAttribute("mainUrl") != null
+		//	&& ((String) request.getAttribute("mainUrl")).length() > 0) {
+		//mainUrl = (String) request.getAttribute("mainUrl");
+		//System.out.println("mainUrl: " + mainUrl);
+	//}
+	System.out.println("2");
 %>
 
 <HTML>

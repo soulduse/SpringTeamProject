@@ -12,6 +12,7 @@ import com.listen.base.controller.BaseController;
 import com.listen.chatting.dao.ChattingDao;
 import com.listen.member.dao.MemberDao;
 import com.listen.member.vo.MemberVo;
+import com.listen.member.vo.facebookVo;
 import com.listen.notice.dao.NoticeDao;
 
 @Controller
@@ -40,7 +41,13 @@ public class LoginAction extends BaseController {
 
 		return "member/Login";
 	}
+	
+	@RequestMapping("/facebookLogin.listen")
+	// facebookLogin
+	public String facebookLogin(HttpServletRequest request, HttpSession session) {
 
+		return "member/FBLogin";
+	}
 	@RequestMapping("/loginAction.listen")
 	   // login.jsp에서 submit하면 들어오는 listen
 	   public String login(HttpServletRequest request, HttpSession session) {
@@ -165,14 +172,14 @@ public class LoginAction extends BaseController {
 	// 회원가입 결과 submit
 	public String joinResult(HttpServletRequest request, MemberVo memberVo) {
 		String email_id = (String) request.getParameter("email_id");
-		String email_kind = (String) request.getParameter("email_domain");
+		String realId = (String) request.getParameter("realId");
 		String password = (String) request.getParameter("password");
 		String birthyear = (String) request.getParameter("birthyear");
 		String gender = (String) request.getParameter("gender");
-		String realId = email_id + "@" + email_kind;
+		//String realId = email_id + "@" + email_kind;
 		String latitude = (String) request.getParameter("latitude");
 		String longitude = (String) request.getParameter("longitude");
-
+		
 		if (gender.equals("01")) {
 			gender = "1";
 		} else if (gender.equals("02")) {
@@ -436,5 +443,26 @@ public class LoginAction extends BaseController {
 		request.setAttribute("page", "mMain");
 		request.setAttribute("mMainUrl", prefix + "member/mLogin.jsp");
 		return "redirect:/mMain.listen";
+	}
+	
+	@RequestMapping("/facebookJoin.listen") //
+	public String facebookJoin(HttpServletRequest request, HttpSession session,facebookVo fbv)
+	{
+		
+		String email = fbv.getEmail();
+		if(memberDao.getEmailList(email).size() == 0)
+		{
+			memberDao.fjoin(fbv);
+		}
+			session.setAttribute("LoginYn", "Y");
+			 session.setAttribute("selectItem", "main");
+	         ArrayList chatList = chattingDao.getChattinglist(email);
+	         session.setAttribute("chatList",  chatList);
+	         System.out.println(chatList.size());
+	         ArrayList noticeList = noticeDao.getNoticelist(email);
+	         session.setAttribute("noticeList",  noticeList);
+	         System.out.println(noticeList.size());
+			session.setAttribute("email", email);
+			return "redirect:/main.listen";
 	}
 }
