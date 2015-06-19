@@ -17,39 +17,6 @@
 	</select>
 
 
-	<select id="m_bbsViewList" resultClass="bbsView">
-		select *
-		from (
-		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, SUBSTR(A.BBS_CONTENTS, 0, 10)||'...' BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT,
-		A.REG_EMAIL, B.PATH, B.SAVE_NAME
-		FROM BBS A, BACKGROUND_IMG B
-		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
-		ORDER BY A.BBS_SEQ DESC
-		)
-		where 20 >= ROWNUM
-	</select>
-
-	<select id="m_myBbsList" resultClass="bbsView" parameterClass="bbsView">
-		select *
-		from (
-		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT,
-		A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.DISPYN
-		FROM BBS A, BACKGROUND_IMG B
-		WHERE A.REG_EMAIL=#reg_email# AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
-		ORDER BY A.BBS_SEQ DESC
-		)
-		where 20 >= ROWNUM
-	</select>
-
-	<select id="m_bbsinit" resultClass="bbsView" parameterClass="bbsView">
-		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT,
-		A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
-		FROM BBS A,
-		BACKGROUND_IMG B
-		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ AND
-		A.BBS_SEQ = #bbs_seq#
-	</select>
-
 	<select id="bbsViewList2" resultClass="bbsView" parameterClass="bbsView">
 		SELECT *
 		FROM
@@ -215,6 +182,31 @@
 
 	</select>
 
+	
+	<!-- 글공감 Like Update 처리 -->
+	<update id="myStoryDispY" parameterClass="bbsView">
+		UPDATE BBS SET
+		DISPYN = 'Y'
+		WHERE BBS_SEQ = #bbs_seq#
+	</update>
+
+
+<!-- 모바일~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~` -->
+
+
+	<select id="m_bbsViewList" resultClass="bbsView">
+		select *
+		from (
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, SUBSTR(A.BBS_CONTENTS, 0, 10)||'...' BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT,
+		A.REG_EMAIL, B.PATH, B.SAVE_NAME
+		FROM BBS A, BACKGROUND_IMG B
+		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+		ORDER BY A.BBS_SEQ DESC
+		)
+		where 20 >= ROWNUM
+	</select>
+	
+	
 	<select id="m_bbsTopStoriesList" resultClass="bbsView">
 
 		select *
@@ -232,13 +224,27 @@
 		)
 		where 20 >= ROWNUM
 	</select>
-	
-	<!-- 글공감 Like Update 처리 -->
-	<update id="myStoryDispY" parameterClass="bbsView">
-		UPDATE BBS SET
-		DISPYN = 'Y'
-		WHERE BBS_SEQ = #bbs_seq#
-	</update>
 
+
+	<select id="m_myBbsList" resultClass="bbsView" parameterClass="bbsView">
+		select *
+		from (
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.GOODCOUNT,
+		A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.DISPYN
+		FROM BBS A, BACKGROUND_IMG B
+		WHERE A.REG_EMAIL=#reg_email# AND A.BG_IMG_SEQ = B.BG_IMG_SEQ
+		ORDER BY A.BBS_SEQ DESC
+		)
+		where 20 >= ROWNUM
+	</select>
+
+	<select id="m_bbsinit" resultClass="bbsView" parameterClass="bbsView">
+		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT,
+		A.GOODCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME
+		FROM BBS A,
+		BACKGROUND_IMG B
+		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ AND
+		A.BBS_SEQ = #bbs_seq#
+	</select>
 </sqlMap>
 

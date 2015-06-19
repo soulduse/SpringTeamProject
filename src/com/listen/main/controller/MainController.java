@@ -52,35 +52,7 @@ public class MainController extends BaseController {
 	}
 	
 
-	@RequestMapping("/m_main.listen")
-	public String m_mainPage(HttpServletRequest request, HttpSession session) {
 
-		System.out.println("m_mainPage 들어옴");
-			
-		ArrayList bbsList = bbsDao.m_bbsViewList();
-		request.setAttribute("page", "main");
-		request.setAttribute("bbsList",  bbsList);
-
-		request.setAttribute("mainUrl", prefix + "common/m_poto.jsp");
-
-		return m_frame;
-	}
-	
-	@RequestMapping("/m_myStory.listen")
-	public String m_myStoryPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
-
-		System.out.println("m_myStoryPage 들어옴");
-		String email = (String) session.getAttribute("email");
-		bbsVo.setReg_email(email);
-		ArrayList bbsList = bbsDao.m_myBbsList(bbsVo);
-		request.setAttribute("page", "main");
-		request.setAttribute("bbsList",  bbsList);
-
-		request.setAttribute("mainUrl", prefix + "myStory/m_myStory.jsp");
-
-		return m_frame;
-	}
-	
 	@RequestMapping("/write.listen")
 	public String writePage(HttpServletRequest request, HttpSession session) {
 		
@@ -91,18 +63,7 @@ public class MainController extends BaseController {
 		
 		return frame;
 	}
-	
-	@RequestMapping("/m_write.listen")
-	public String m_writePage(HttpServletRequest request, HttpSession session) {
-		
-		System.out.println("m_writePage 들어옴");
-		
-		request.setAttribute("page", "write");
-		request.setAttribute("mainUrl", prefix + "bbs/m_BbsWrite.jsp");
-		
-		return m_frame;
-	}
-	
+
 	//메인 마이스토리 부분
 	   @RequestMapping("/bbsMyViewList.listen")
 	   public String bbsMyViewList(HttpServletRequest request, HttpSession session) {
@@ -120,4 +81,48 @@ public class MainController extends BaseController {
 
 	      return frame;
 	   }
+	   
+	   
+	   ///////////////////////////////모바일
+	   
+		@RequestMapping("/m_main.listen")
+		public String m_mainPage(HttpServletRequest request, HttpSession session) {
+
+			System.out.println("m_mainPage 들어옴");
+				
+			ArrayList bbsList = bbsDao.m_bbsViewList();
+			request.setAttribute("page", "main");
+			request.setAttribute("bbsList",  bbsList);
+
+			request.setAttribute("mainUrl", prefix + "common/m_poto.jsp");
+
+			return m_frame;
+		}
+		
+		@RequestMapping("/m_myStory.listen")
+		public String m_myStoryPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
+
+			System.out.println("m_myStoryPage 들어옴");
+			String email = (String) session.getAttribute("email");
+			bbsVo.setReg_email(email);
+			ArrayList bbsList = bbsDao.m_myBbsList(bbsVo);
+			request.setAttribute("page", "main");
+			request.setAttribute("bbsList",  bbsList);
+
+			request.setAttribute("mainUrl", prefix + "myStory/m_myStory.jsp");
+
+			return m_frame;
+		}
+		
+		@RequestMapping("/m_write.listen")
+		public String m_writePage(HttpServletRequest request, HttpSession session) {
+			
+			System.out.println("m_writePage 들어옴");
+			
+			request.setAttribute("page", "write");
+			request.setAttribute("mainUrl", prefix + "bbs/m_BbsWrite.jsp");
+			
+			return m_frame;
+		}
+		
 }
