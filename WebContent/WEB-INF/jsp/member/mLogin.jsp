@@ -45,7 +45,7 @@ if(request.getAttribute("Error") == "N")
                 <input type="password" name="password" class="password" placeholder="Password">
                 <button type="submit" class="basicBtn">Sign me in</button>
                 <button type="button"  class="basicBtn" onclick="location.href='/mJoin.listen'"> Join </button>
-					<button type="button"  id="facebookBtn"> Facebook </button>      
+					<button type="button"  onclick="location.href='/m_facebookLogin.listen'" id="facebookBtn"> Facebook </button>      
                 <div class="error"><span>+</span></div>
             </form>
             

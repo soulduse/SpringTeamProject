@@ -23,8 +23,7 @@
 <script src="js/svgcheckbx.js"></script>
 <link rel="stylesheet" type="text/css" href="css/component.css" />
 <script src="js/modernizr.custom.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<SCRIPT>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script><SCRIPT>
 
 function emailChoice()
 {  
@@ -75,7 +74,7 @@ function cancel()
 					<!-- <button class="btn btn-7 btn-7b icon-envelope" name="idCheckBtn" id="idCheckBtn" style="cursor:pointer">Check</button>-->
 				</p>
 			</section>
-        <INPUT type="button" class="btn btn-7 btn-7b icon-envelope"  value="중복 검사"  id="idCheckBtn" name="idCheckBtn" style="cursor:pointer">
+        <button class="btn btn-7 btn-7b icon-envelope"  id="idCheckBtn" name="idCheckBtn" style="cursor:pointer">중복 검사</button>
 
           <INPUT type="hidden" name="idCheckFilter" value="N">
           <INPUT type="hidden" name="latitude" value="#">
@@ -121,19 +120,20 @@ function cancel()
 		</script>
 
       </FORM>
-   </TABLE>
+      
+  </TABLE>
    <TABLE cellspacing="0" cellpadding="0" width="700">
       <TR><TD height="10"></TD></TR>
       <TR>
          <TD align="center">
-            <button class ="btn btn-7 btn-7h icon=envelope" id="joinBtn" style="cursor:pointer">Submit</button>
+            <button class ="btn btn-7 btn-7h icon-envelope" id="joinBtn" style="cursor:pointer">가입</button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class ="btn btn-7 btn-7h icon=envelope" id="cancelBtn" onclick="cancel();" style="cursor:pointer">Cancel</button>
+            <button class ="btn btn-7 btn-7h icon-envelope" id="cancelBtn" onclick="cancel();" style="cursor:pointer">취소</button>
          </TD>
       </TR>
    </TABLE>
 
-   </td>
+</td>
    </tr>
 
 </CENTER>

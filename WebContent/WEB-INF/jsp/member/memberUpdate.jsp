@@ -35,7 +35,7 @@ function emailChoice()
 
 function cancel()
 {
-	location.href = "/Login.listen";
+	location.href = "/main.listen";
 }
 
 </SCRIPT>
@@ -108,9 +108,9 @@ function cancel()
       <TR><TD height="10"></TD></TR>
       <TR>
          <TD align="center">
-            <button class ="btn btn-7 btn-7h icon=envelope" id="joinBtn" style="cursor:pointer">Submit</button>
+            <button class ="btn btn-7 btn-7h icon-envelope" id="joinBtn" style="cursor:pointer">Submit</button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class ="btn btn-7 btn-7h icon=envelope" id="cancelBtn" onclick="cancel();" style="cursor:pointer">Cancel</button>
+            <button class ="btn btn-7 btn-7h icon-envelope" id="cancelBtn" onclick="cancel();" style="cursor:pointer">Cancel</button>
          </TD>
       </TR>
    </TABLE>

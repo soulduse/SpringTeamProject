@@ -12,7 +12,7 @@
 			 	{
 			   		alert("모바일 기기에서 접속");
 			   		// 아래 주소로 이동한다.
-			   		location.href = "/mLogin.listen";
+			   		location.href = "/m_Login.listen";
 			  
 			  	}else{
 			   		//alert("PC에서 접속");

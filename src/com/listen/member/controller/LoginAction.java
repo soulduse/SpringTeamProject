@@ -48,6 +48,12 @@ public class LoginAction extends BaseController {
 
 		return "member/FBLogin";
 	}
+	@RequestMapping("/m_facebookLogin.listen")
+	// facebookLogin
+	public String m_facebookLogin(HttpServletRequest request, HttpSession session) {
+
+		return "member/m_FBLogin";
+	}
 	@RequestMapping("/loginAction.listen")
 	   // login.jsp에서 submit하면 들어오는 listen
 	   public String login(HttpServletRequest request, HttpSession session) {
@@ -287,48 +293,6 @@ public class LoginAction extends BaseController {
 
 		return "member/mLogin";
 	}
-	/*@RequestMapping("/mLoginAction.listen") //모바일 로그인
-	public String mLoginAction(HttpServletRequest request, HttpSession session)
-	{
-		String id = (String)request.getParameter("username");
-		String pass = (String)request.getParameter("password");
-		String latitude = (String)request.getParameter("latitude");
-		String longitude = (String)request.getParameter("longitude");
-		String email = "";
-		String password ="";
-		
-		ArrayList EmailList = memberDao.getEmailList(id);
-		if(EmailList.size() != 0)
-		{
-			MemberVo mv = (MemberVo)EmailList.get(0);
-			email = (String)mv.getEmail();
-			password = (String)mv.getPassword();
-		}
-
-
-		memberVo = new MemberVo();
-		if(EmailList.size()!=0 && pass.equals(password))
-		{
-			MemberVo memberVo = (MemberVo)EmailList.get(0);
-			session.setAttribute("email", memberVo.getEmail());
-			session.setAttribute("pass", memberVo.getPassword()); 
-
-			session.setAttribute("LoginYn", "Y");
-			session.setAttribute("selectItem", "bbs_hitCount");
-			memberVo.setEmail(email);
-			memberVo.setLatitude(latitude);
-			memberVo.setLongitude(longitude);
-			memberDao.locationUpdate(memberVo);
-
-			return "redirect:/mMain.listen";  // main.jsp 넘어가는부분  web과 다른페이지로 넘겨야할듯... mMain.jsp라던지
-		}
-		else{
-			request.setAttribute("Error", "N");
-			return "member/mLogin";
-		}
-
-
-	}*/
 	
 	
 	@RequestMapping("/mJoin.listen") // join.jsp로 진입
@@ -464,5 +428,26 @@ public class LoginAction extends BaseController {
 	         System.out.println(noticeList.size());
 			session.setAttribute("email", email);
 			return "redirect:/main.listen";
+	}
+	
+	@RequestMapping("/m_facebookJoin.listen") //
+	public String m_facebookJoin(HttpServletRequest request, HttpSession session,facebookVo fbv)
+	{
+		
+		String email = fbv.getEmail();
+		if(memberDao.getEmailList(email).size() == 0)
+		{
+			memberDao.fjoin(fbv);
+		}
+			session.setAttribute("LoginYn", "Y");
+			 session.setAttribute("selectItem", "main");
+	         ArrayList chatList = chattingDao.getChattinglist(email);
+	         session.setAttribute("chatList",  chatList);
+	         System.out.println(chatList.size());
+	         ArrayList noticeList = noticeDao.getNoticelist(email);
+	         session.setAttribute("noticeList",  noticeList);
+	         System.out.println(noticeList.size());
+			session.setAttribute("email", email);
+			return "redirect:/mMain.listen";
 	}
 }
