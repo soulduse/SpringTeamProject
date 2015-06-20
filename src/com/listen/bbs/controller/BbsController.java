@@ -363,7 +363,7 @@ public class BbsController extends BaseController{
 	      memVo.setReg_email(reg_email);
 	      bbsDao.cloverDown(memVo);
 	      
-    	  message = "등록되었습니다.";
+    	  message = "클로버 3개가 차감되었습니다.등록되었습니다.";
     	  session.setAttribute("message", message);
 	      
       } else {
@@ -378,7 +378,7 @@ public class BbsController extends BaseController{
    @RequestMapping("/dispCencle.listen")
    public String dispCencle(HttpServletRequest request, HttpSession session) {
 
-	  System.out.println("wㄹㅈㄷㄹㅈㄹㄷㄹㄹㄷㄹㄷㄹ");
+	  
       String bbs_seq = (String) request.getParameter("seq");     
       String reg_email = (String) session.getAttribute("email");   
       
