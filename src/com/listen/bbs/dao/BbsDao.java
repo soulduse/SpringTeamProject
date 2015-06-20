@@ -142,6 +142,11 @@ public class BbsDao {
 	public ArrayList m_bbsinit(BbsVo bbsVo) {
 		return (ArrayList) smct.queryForList("m_bbsinit", bbsVo);
 	}
+	
+	// 메인 글목록 보기
+		public ArrayList bbsMainList(BbsVo bbsVo) {
+			return (ArrayList) smct.queryForList("bbsMainList",bbsVo);
+		}
 
 
 }

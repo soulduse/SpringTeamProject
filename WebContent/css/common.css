@@ -44,7 +44,7 @@
 }
 
 .mastfoot {
-    position: fixed;
+    position: bottom:200px;
     bottom: 0;
     width: 100%;
   }

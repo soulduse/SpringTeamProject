@@ -42,8 +42,8 @@
 
 	<center>
 		<div id="wrap">
-			<div id="header">
-				<jsp:include page="Top.jsp" />
+			<div id="header" >
+				<jsp:include page="Top.jsp"  />
 			</div>
 			<div id="content">
 				<jsp:include page="<%=mainUrl%>" flush="true" />

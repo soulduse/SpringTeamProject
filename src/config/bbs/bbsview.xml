@@ -55,19 +55,30 @@
 	</select>
 
 	<select id="bbsViewList2" resultClass="bbsView" parameterClass="bbsView">
-		SELECT *
-		FROM
-		(SELECT ROWNUM RN, C.*
-		FROM (SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS,
-		A.REG_EMAIL, A.BBS_HITCOUNT, A.GOODCOUNT, A.MEMBERS_SEQ,
-		nvl(b.add_count,0) add_count, C.PATH, C.SAVE_NAME
-		FROM BBS A, (SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY
-		BBS_SEQ ) B, BACKGROUND_IMG C
-		WHERE A.BBS_SEQ = B.BBS_SEQ(+) AND A.DISPYN='Y'AND A.BG_IMG_SEQ =
-		C.BG_IMG_SEQ
-		ORDER BY A.BBS_SEQ DESC) C) D
-		WHERE RN > #no# AND #no#+10 >
-		RN
+		select *
+from 
+(select rownum rn, z.*
+from (SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.REG_EMAIL, A.BBS_HITCOUNT, A.GOODCOUNT, A.MEMBERS_SEQ, 
+nvl(b.add_count,0) add_count, 
+case 
+when nvl(a.bbs_file_seq,0) != 0
+then (select path from bbs d, bbs_file e where d.bbs_file_seq = e.bbs_file_seq and a.bbs_seq = d.bbs_seq)
+when nvl(a.bbs_file_seq,0) = 0
+then (select path from bbs f, background_img g where f.bg_img_seq = g.bg_img_seq and a.bbs_seq = f.bbs_seq)
+end as path,
+case 
+when nvl(a.bbs_file_seq,0) != 0
+then (select save_name from bbs c, bbs_file d where c.bbs_file_seq = d.bbs_file_seq and a.bbs_seq = c.bbs_seq)
+when nvl(a.bbs_file_seq,0) = 0
+then (select save_name from bbs e, background_img f where e.bg_img_seq = f.bg_img_seq and a.bbs_seq = e.bbs_seq)
+end as save_name, nvl(y.bbs_good_yn,'N') bbs_good_yn
+
+FROM BBS A, (SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) B, BACKGROUND_IMG C, (select distinct bbs_seq, bbs_good_yn from yn_filter where members_seq =(select members_seq from members where email=#reg_email#)) y
+WHERE A.BBS_SEQ = B.BBS_SEQ(+) AND A.DISPYN='Y'AND A.BG_IMG_SEQ = C.BG_IMG_SEQ and y.bbs_seq(+) = a.bbs_seq
+ORDER BY A.BBS_SEQ DESC) z)
+
+WHERE RN > 9 AND 9+10 > RN
+
 	</select>
 
 
@@ -243,23 +254,34 @@
 	</update>
 
 	<!-- 관심있는 이야기 댓글작성한것 / 좋아요누른것 / 본것 -->
-	<select id="bbsInterestView" resultClass="bbsView"
-		parameterClass="bbsView">
-		<dynamic>
+	<select id="bbsInterestView" resultClass="bbsView"  parameterClass="bbsView">
+		<dynamic> <!-- 댓글작성한 것 가져오기 완료 / 비공개 글은 가져오지 않음.-->
 			<isEqual property="selectItem" compareValue="bbs_add_count">
-				select a.bbs_seq, a.bbs_contents, a.bbs_hitcount, a.bg_img_seq,
-				a.goodcount, b.path, b.save_name, nvl(d.add_count,0) add_count,
-				d.reg_email
-				from bbs a, background_img b, (select distinct bbs_seq from bbs_add) c,
-				(SELECT BBS_SEQ,reg_email, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY
-				BBS_SEQ,reg_email ) d
-				where a.bg_img_seq = b.bg_img_seq and a.bbs_seq = c.bbs_seq and A.BBS_SEQ
-				= d.BBS_SEQ and d.reg_email=#email#
+				select a.bbs_seq, a.bbs_contents, a.bbs_hitcount, a.bg_img_seq, a.goodcount,
+				case
+				when nvl(a.bbs_file_seq,0) != 0
+				then (select path from bbs d, bbs_file e where d.bbs_file_seq = 	e.bbs_file_seq and a.bbs_seq = d.bbs_seq)
+				when nvl(a.bbs_file_seq,0) = 0
+				then (select path from bbs f,	background_img g where f.bg_img_seq = g.bg_img_seq and a.bbs_seq = f.bbs_seq)
+				end as path,
+				case
+				when nvl(a.bbs_file_seq,0) != 0
+				then (select save_name from bbs c, bbs_file d where c.bbs_file_seq = d.bbs_file_seq
+				and a.bbs_seq = c.bbs_seq)
+				when nvl(a.bbs_file_seq,0) = 0
+				then (select save_name from bbs e, background_img f where e.bg_img_seq =
+				f.bg_img_seq and a.bbs_seq = e.bbs_seq)
+				end as save_name,
+				nvl(d.add_count,0) add_count,d.reg_email 	
+				from bbs a, background_img b,
+				(select distinct bbs_seq from bbs_add) c,
+				(SELECT BBS_SEQ,reg_email, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ,reg_email ) d
+				where
+				a.bg_img_seq = b.bg_img_seq and a.bbs_seq = c.bbs_seq 
+				and A.BBS_SEQ 	= d.BBS_SEQ and d.reg_email=#reg_email# and a.dispyn = 'Y'
 				order by a.bbs_seq desc
 			</isEqual>
-		</dynamic>
-
-		<dynamic>
+		
 			<isEqual property="selectItem" compareValue="bbs_like">
 				select a.bbs_seq, a.bbs_contents, a.bbs_hitcount, a.bg_img_seq,
 				a.goodcount, b.path, b.save_name, nvl(d.add_count,0) add_count,
@@ -268,12 +290,10 @@
 				(SELECT BBS_SEQ,reg_email, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY
 				BBS_SEQ,reg_email ) d
 				where a.bg_img_seq = b.bg_img_seq and a.bbs_seq = c.bbs_seq and A.BBS_SEQ
-				= d.BBS_SEQ and d.reg_email=#email#
+				= d.BBS_SEQ and d.reg_email=#reg_email#
 				order by a.bbs_seq desc
 			</isEqual>
-		</dynamic>
-
-		<dynamic>
+	
 			<isEqual property="selectItem" compareValue="viewed">
 				select a.bbs_seq, a.bbs_contents, a.bbs_hitcount, a.bg_img_seq,
 				a.goodcount, b.path, b.save_name, c.filter_seq, nvl(d.add_count,0)
@@ -285,7 +305,33 @@
 				BBS_SEQ,reg_email ) d, members e
 				where a.bg_img_seq = b.bg_img_seq and a.bbs_seq = c.bbs_seq and A.BBS_SEQ
 				= d.BBS_SEQ(+)
-				and c.members_seq = e.members_seq and e.email=#email#
+				and c.members_seq = e.members_seq and e.email=#reg_email#
+				order by a.bbs_seq desc
+			</isEqual>
+			
+			<isEqual property="selectItem" compareValue="main">
+				select a.bbs_seq, a.bbs_contents, a.bbs_hitcount, a.bg_img_seq, a.goodcount,
+				case
+				when nvl(a.bbs_file_seq,0) != 0
+				then (select path from bbs d, bbs_file e where d.bbs_file_seq = 	e.bbs_file_seq and a.bbs_seq = d.bbs_seq)
+				when nvl(a.bbs_file_seq,0) = 0
+				then (select path from bbs f,	background_img g where f.bg_img_seq = g.bg_img_seq and a.bbs_seq = f.bbs_seq)
+				end as path,
+				case
+				when nvl(a.bbs_file_seq,0) != 0
+				then (select save_name from bbs c, bbs_file d where c.bbs_file_seq = d.bbs_file_seq
+				and a.bbs_seq = c.bbs_seq)
+				when nvl(a.bbs_file_seq,0) = 0
+				then (select save_name from bbs e, background_img f where e.bg_img_seq =
+				f.bg_img_seq and a.bbs_seq = e.bbs_seq)
+				end as save_name,
+				nvl(d.add_count,0) add_count,d.reg_email 	
+				from bbs a, background_img b,
+				(select distinct bbs_seq from bbs_add) c,
+				(SELECT BBS_SEQ,reg_email, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ,reg_email ) d
+				where
+				a.bg_img_seq = b.bg_img_seq and a.bbs_seq = c.bbs_seq 
+				and A.BBS_SEQ 	= d.BBS_SEQ and d.reg_email=#reg_email# and a.dispyn = 'Y'
 				order by a.bbs_seq desc
 			</isEqual>
 		</dynamic>
@@ -359,5 +405,24 @@
 		WHERE BBS_SEQ = #bbs_seq#
 	</update>
 	
-</sqlMap>
+	<select id="bbsMainList" resultClass="bbsView" parameterClass="bbsView">
+SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.REG_EMAIL, A.BBS_HITCOUNT, A.GOODCOUNT, A.MEMBERS_SEQ, 
+nvl(b.add_count,0) add_count, 
+case 
+when nvl(a.bbs_file_seq,0) != 0
+then (select path from bbs d, bbs_file e where d.bbs_file_seq = e.bbs_file_seq and a.bbs_seq = d.bbs_seq)
+when nvl(a.bbs_file_seq,0) = 0
+then (select path from bbs f, background_img g where f.bg_img_seq = g.bg_img_seq and a.bbs_seq = f.bbs_seq)
+end as path,
+case 
+when nvl(a.bbs_file_seq,0) != 0
+then (select save_name from bbs c, bbs_file d where c.bbs_file_seq = d.bbs_file_seq and a.bbs_seq = c.bbs_seq)
+when nvl(a.bbs_file_seq,0) = 0
+then (select save_name from bbs e, background_img f where e.bg_img_seq = f.bg_img_seq and a.bbs_seq = e.bbs_seq)
+end as save_name, nvl(y.bbs_good_yn,'N') bbs_good_yn
 
+FROM BBS A, (SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) B, BACKGROUND_IMG C, (select distinct bbs_seq, bbs_good_yn from yn_filter where members_seq =(select members_seq from members where email=#reg_email#)) y
+WHERE A.BBS_SEQ = B.BBS_SEQ(+) AND A.DISPYN='Y'AND A.BG_IMG_SEQ = C.BG_IMG_SEQ and y.bbs_seq(+) = a.bbs_seq
+ORDER BY A.BBS_SEQ DESC
+	</select>
+</sqlMap>

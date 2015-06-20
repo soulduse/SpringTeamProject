@@ -206,14 +206,17 @@ public class BbsController extends BaseController{
    
    @RequestMapping("/bbsIntList.listen")
       public String bbsIntListPage(BbsVo bbsVo,HttpServletRequest request, HttpSession session) {
- 
-         String selectItem=(String)session.getAttribute("selectItem");
+	     String reg_email = (String)session.getAttribute("email");  
+	   	 String selectItem=(String)session.getAttribute("selectItem");
          if((String)request.getParameter("selectItem")!=null)
          {
             selectItem = (String)request.getParameter("selectItem");
          }
          session.setAttribute("selectItem",selectItem);
-         bbsVo.setSelectItem(selectItem);
+         bbsVo.setReg_email(reg_email);
+         
+         System.out.println(reg_email);
+         System.out.println(selectItem);
          ArrayList bbsIntList = bbsDao.bbsInterestView(bbsVo);
          request.setAttribute("page", "interest");
          request.setAttribute("bbsIntList",  bbsIntList);
@@ -325,10 +328,13 @@ public class BbsController extends BaseController{
    
    
    @RequestMapping("/ajax/bbsViewListAdd1.listen")
-   public String bbsViewListAddPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException
+   public String bbsViewListAddPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException
    {
 	   int rownum2 = (int)bbsVo.getNo();
 	   request.setAttribute("rownum2", rownum2);
+	   String reg_email = (String)session.getAttribute("email");
+	   bbsVo.setReg_email(reg_email);
+	 	   
 	   ArrayList ajaxBbsViewList = (ArrayList)bbsDao.bbsViewList2(bbsVo);
 	   
 	   request.setAttribute("ajaxBbsViewList", ajaxBbsViewList);

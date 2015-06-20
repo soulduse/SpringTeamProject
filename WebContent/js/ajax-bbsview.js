@@ -66,10 +66,12 @@ function ajaxBbsList1(no) {
    })
 }
 
-
 function imgClick(bbs_seq,path,save_name,bbs_goodCount,bbs_contents,email) {
       clearTbody();
-      
+
+      var heartImg = $('.heartImg');
+      var attrVal = heartImg.attr('alt');
+       
       var src = path+"/"+save_name;
       //$('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
       $("#modalImg").attr("src",src);
