@@ -27,8 +27,12 @@
       $('.radiobox').click(function(){
           $('#radioForm').submit();
        })
+       $('.img').click(function(){
+  		var th = $(this);
+  		var bbsGoodYn = th.attr('bbs_good_yn');
+  	});
        
-      
+     /*//무한스크롤 안쓸거같음
       $(window).scroll(          
       function() { // ① 스크롤 이벤트 최초 발생
          if ($(window).scrollTop() + windowHeight > ($(document).height() - 50)) {
@@ -36,6 +40,7 @@
             rownum2 = rownum2 + 9;
          }
       });
+      */
    });
 </SCRIPT>
 <!doctype html>
@@ -87,8 +92,11 @@
       {
       String email = (String)session.getAttribute("email");
       String userIp = request.getRemoteAddr();
-      String selectItem = (String)session.getAttribute("selectItem");
-      System.out.println("jsp 들어옴 "+selectItem);
+      String selectInt = (String)session.getAttribute("selectInt");
+      if((String)request.getAttribute("selectInt")!=null)
+      {
+    	  selectInt = (String)request.getAttribute("selectInt");
+      }
 
 %>
 <body>
@@ -96,9 +104,9 @@
 	<div>관심 있는 이야기</div>	
    <FORM name="radioForm"  method="post" id="radioForm" action="/bbsIntList.listen">
    <div class="check" style="margin-left:700px;">
-   <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_add_count" <%if(selectItem.equals("bbs_add_count")){%> checked<%}%>>&nbsp;<label for="">댓글단글</label>&nbsp;&nbsp;&nbsp;
-   <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_like" <%if(selectItem.equals("bbs_like")){%> checked<%}%>>&nbsp;<label for="">공감한글</label>&nbsp;&nbsp;&nbsp;
-   <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="viewed" <%if(selectItem.equals("viewed")){%> checked<%}%>>&nbsp;<label for="">읽은글</label>
+   <input class="radiobox" name="selectInt" type="radio" style="width:17px;height:17px;" value="bbs_add_count" <%if(selectInt.equals("bbs_add_count")){%> checked<%}%>>&nbsp;<label for="">댓글단글</label>&nbsp;&nbsp;&nbsp;
+   <input class="radiobox" name="selectInt" type="radio" style="width:17px;height:17px;" value="bbs_like" <%if(selectInt.equals("bbs_like")){%> checked<%}%>>&nbsp;<label for="">공감한글</label>&nbsp;&nbsp;&nbsp;
+   <input class="radiobox" name="selectInt" type="radio" style="width:17px;height:17px;" value="viewed" <%if(selectInt.equals("viewed")){%> checked<%}%>>&nbsp;<label for="">읽은글</label>
    </div>
    </FORM>
    
@@ -107,8 +115,17 @@
          <div class="container">
          <ul class="grid effect-2" id="grid">
                <%
+               int forCount = 0;
                   ArrayList bbsIntList = (ArrayList) request.getAttribute("bbsIntList");
-                     for (int i = 0; i < 9; i++) {
+		   			if(bbsIntList.size()>30)
+		   			{
+		   				forCount = 30;
+		   			}
+		   			else
+		   			{
+		   				forCount = bbsIntList.size();
+		   			}
+                     for (int i = 0; i < forCount; i++) {
 
                         BbsVo bbsVo = (BbsVo) bbsIntList.get(i);
                         int bbs_seq = (int) bbsVo.getBbs_seq();
@@ -134,8 +151,8 @@
                   <img class="img imageShadow" name="<%=bbs_seq%>"
                      data-toggle="modal" data-target="#myModal"
                      style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=325
-                     contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"
-                     email="<%=email%>" onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>','<%=bbs_good_yn%>');"/>
+                     contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"bbs_good_yn="<%=bbs_good_yn %>"
+                     email="<%=email%>" onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>');"/>
 
                   <div class="text2">
                      <H3><%=mini_contents%></H3>

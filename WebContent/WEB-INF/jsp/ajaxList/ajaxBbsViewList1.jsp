@@ -10,7 +10,6 @@
 $('.img').click(function(){
 		var th = $(this);
 		var bbsGoodYn = th.attr('bbs_good_yn');
-		alert(bbsGoodYn);
 	});
 </script>
 

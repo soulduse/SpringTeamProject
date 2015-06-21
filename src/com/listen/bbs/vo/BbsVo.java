@@ -27,8 +27,19 @@ public class BbsVo {
 	private int age;
 	private String bbs_good_yn;
 	private int members_seq;
+	private String selectInt;
 	
 	
+	
+	
+	public String getSelectInt() {
+		return selectInt;
+	}
+
+	public void setSelectInt(String selectInt) {
+		this.selectInt = selectInt;
+	}
+
 	public int getMembers_seq() {
 		return members_seq;
 	}

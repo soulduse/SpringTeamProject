@@ -63,9 +63,11 @@ public class BbsController extends BaseController{
    }
    // 글 공감 버튼처리 Ajax
    @RequestMapping("/ajax/bbsLikeCount.listen")
-   public void likeCount(BbsLikeSwitchDto bbsLikeSwitchDto)
+   public String likeCount(BbsLikeSwitchDto bbsLikeSwitchDto)
    {
       bbsDao.likeCountUpdate(bbsLikeSwitchDto);
+      
+      return "admin/Nothing";
    }
    
    // 댓글 Ajax 입력
@@ -207,20 +209,19 @@ public class BbsController extends BaseController{
    @RequestMapping("/bbsIntList.listen")
       public String bbsIntListPage(BbsVo bbsVo,HttpServletRequest request, HttpSession session) {
 	     String reg_email = (String)session.getAttribute("email");  
-	   	 String selectItem=(String)session.getAttribute("selectItem");
-         if((String)request.getParameter("selectItem")!=null)
+	   	 String selectInt=(String)session.getAttribute("selectInt");
+         if((String)request.getParameter("selectInt")!=null)
          {
-            selectItem = (String)request.getParameter("selectItem");
+        	 selectInt = (String)request.getParameter("selectInt");
          }
-         session.setAttribute("selectItem",selectItem);
+         session.setAttribute("selectInt",selectInt);
          bbsVo.setReg_email(reg_email);
+         bbsVo.setSelectInt(selectInt);
          
-         System.out.println(reg_email);
-         System.out.println(selectItem);
          ArrayList bbsIntList = bbsDao.bbsInterestView(bbsVo);
          request.setAttribute("page", "interest");
          request.setAttribute("bbsIntList",  bbsIntList);
-         request.setAttribute("selectItem", selectItem);
+         request.setAttribute("selectInt", selectInt);
          request.setAttribute("mainUrl", prefix + "bbs/BbsIntList.jsp");
          
          return frame;

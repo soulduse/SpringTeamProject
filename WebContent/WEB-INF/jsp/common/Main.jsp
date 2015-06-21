@@ -29,7 +29,20 @@
       $('.img').click(function(){
   		var th = $(this);
   		var bbsGoodYn = th.attr('bbs_good_yn');
-  		alert(bbsGoodYn);
+  		
+  		var heartImg = $('.heartImg');
+  		var attrVal = heartImg.attr('alt');
+  		 
+  		if(bbsGoodYn=="Y")
+  		{
+  			heartImg.attr('alt', 'Y');
+  			heartImg.addClass('toggle-animation');
+  		}
+  		else
+      	{
+  			heartImg.attr('alt', 'N');
+  			heartImg.removeClass('toggle-animation');
+      	}
   	});
       
       $(window).scroll(          
@@ -153,7 +166,7 @@
                         BbsVo bbsVo = (BbsVo) mainMyStory.get(i);
                         int bbs_seq = (int) bbsVo.getBbs_seq();
                         String bbs_contents = (String) bbsVo.getBbs_contents();
-
+						
                         String mini_contents = bbs_contents;
                         if (bbs_contents.length() > 36) {
                            mini_contents = bbs_contents.substring(0, 34) + "...";
@@ -177,13 +190,7 @@
                      <div class="text2">
                         <H3><%=mini_contents%></H3>
                      </div>
-                     <div class="text2_1">
-                        조회수 :
-                        <%=bbs_hitCount%>
-                        좋아요 :
-                        <%=goodCount%>
-                        댓글수 :
-                        <%=add_count%></div>
+                     <div class="text2_1" name="<%=bbs_seq%>">조회수 : <%=bbs_hitCount%> 좋아요 : <%=goodCount%> 댓글수 : <%=add_count%></div>
                   </div>
                </div>
                <%
@@ -353,7 +360,8 @@
                         BbsVo bbsVo = (BbsVo) bbsList.get(i);
                         int bbs_seq = (int) bbsVo.getBbs_seq();
                         String bbs_contents = (String) bbsVo.getBbs_contents();
-
+                        bbs_contents = bbs_contents.replaceAll("\r\n","</BR>");
+                        bbs_contents = bbs_contents.replaceAll("\u0020"," ");
                         String mini_contents = bbs_contents;
                         if (bbs_contents.length() > 36) {
                            mini_contents = bbs_contents.substring(0, 34) + "...";
@@ -375,18 +383,12 @@
                      data-toggle="modal" data-target="#myModal"
                      style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=325
                      contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>" bbs_good_yn="<%=bbs_good_yn %>"
-                     email="<%=email%>" onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>');"/>
+                     reg_email="<%=reg_email%>" onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_contents%>','<%=reg_email%>','<%=email%>');"/>
 
                   <div class="text2">
                      <H3><%=mini_contents%></H3>
                   </div>
-                  <div class="text2_1">
-                     조회수 :
-                     <%=bbs_hitCount%>
-                     좋아요 :
-                     <%=goodCount%>
-                     댓글수 :
-                     <%=add_count%></div>
+                  <div class="text2_1" name="<%=bbs_seq%>">조회수 : <%=bbs_hitCount%> 좋아요 : <%=goodCount%> 댓글수 : <%=add_count%></div>
                </div>
                </li>
                <%
@@ -413,10 +415,12 @@
                <div class="modal-dialog">
                   <div class="modal-content">
                      <div class="modal-header">
+                     	
                         <FORM name="chatReqForm" id="chatReqForm" method="post"
                            action="/chattingRequest.listen">
                            <INPUT type="hidden" name="bbs_seq" id="bbs_seq" value="">
                            <INPUT type="hidden" name="email" id="email" value="<%=email%>">
+                           <INPUT type="hidden" name="reg_email" id="reg_email" value"">
                         </FORM>
                         <div class="lcard-button-wrapper">
                            <div class="lcard-button">
@@ -461,7 +465,8 @@
                                  placeholder="어떻게 생각하세요?"
                                  style="overflow: hidden; word-wrap: break-word; height: 50px;"></textarea>
                            </div>
-                           <INPUT type="hidden" name="bbs_seq" id="bbs_seq"> <INPUT
+                           <INPUT type="hidden" name="bbs_seq" id="bbs_seq"> 
+                           <INPUT
                               type="hidden" name="reg_ip" id="reg_ip" value="<%=userIp%>">
                            <INPUT type="hidden" name="reg_email" id="reg_email"
                               value="<%=email%>">
