@@ -14,7 +14,7 @@
 	$(function() {
 		var addForm = $('#addForm');
 		$('#addWriteBtn').click(function() {
-			ajaxBbsAdd();
+			ajaxBbsAdd($('input:hidden[name=bbs_seqVal]').val());
 		});
 	});
 </SCRIPT>
