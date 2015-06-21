@@ -31,27 +31,30 @@
       <isEqual property="selectItem" compareValue="bbs_add_count">
          SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.REG_EMAIL, A.BBS_HITCOUNT, A.GOODCOUNT, A.MEMBERS_SEQ, nvl(b.add_count,0) add_count, C.PATH, C.SAVE_NAME
          FROM BBS A, (SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) B, BACKGROUND_IMG C
-         WHERE A.BBS_SEQ = B.BBS_SEQ(+) AND A.DISPYN='Y'AND A.BG_IMG_SEQ = C.BG_IMG_SEQ
+         WHERE A.BBS_SEQ = B.BBS_SEQ(+) AND A.DISPYN='Y'AND A.BG_IMG_SEQ = C.BG_IMG_SEQ and a.bbs_hitcount != 0
          ORDER BY ADD_COUNT DESC 
       </isEqual>
-      </dynamic>      
+      </dynamic>   
+         
       <dynamic>
       <isEqual property="selectItem" compareValue="goodCount">
          SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, nvl(c.add_count,0) add_count
          FROM BBS A, BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) c
-         WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq = c.bbs_seq(+)
+         WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq = c.bbs_seq(+) and a.bbs_hitcount != 0
          ORDER BY a.GOODCOUNT DESC
       </isEqual>
       </dynamic>
+      
       <dynamic>
       <isEqual property="selectItem" compareValue="bbs_hitCount">
          SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, nvl(c.add_count,0) add_count 
          FROM BBS A, BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) c
-         WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq = c.bbs_seq(+)
+         WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_seq = c.bbs_seq(+) and a.bbs_hitcount != 0
          ORDER BY a.bbs_hitcount DESC
       </isEqual>
       </dynamic>
-       <dynamic>
+      
+		<dynamic>
       <isEqual property="selectItem" compareValue="main">
          SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.REG_EMAIL, A.BBS_HITCOUNT, A.GOODCOUNT, A.MEMBERS_SEQ, nvl(b.add_count,0) add_count, C.PATH, C.SAVE_NAME
          FROM BBS A, (SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) B, BACKGROUND_IMG C
@@ -59,6 +62,24 @@
 		 ORDER BY A.BBS_SEQ DESC
       </isEqual>
       </dynamic>
+
+      <dynamic>
+       <isEqual property="selectItem" compareValue="weekBest">
+         SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.REG_EMAIL, A.BBS_HITCOUNT, A.GOODCOUNT, A.MEMBERS_SEQ, nvl(b.add_count,0) add_count, C.PATH, C.SAVE_NAME
+         FROM BBS A, (SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) B, BACKGROUND_IMG C
+         WHERE A.BBS_SEQ = B.BBS_SEQ(+) AND A.DISPYN='Y' and a.bbs_hitcount != 0 AND A.BG_IMG_SEQ = C.BG_IMG_SEQ and 8 > to_char(sysdate,'dd')- to_char(a.reg_date,'dd')  
+		 ORDER BY A.BBS_SEQ DESC
+      </isEqual>
+      </dynamic>
+		<dynamic>
+       <isEqual property="selectItem" compareValue="monthBest">
+         SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT, A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, nvl(c.add_count,0) add_count 
+         FROM BBS A, BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) c
+         WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and a.bbs_hitcount != 0 and a.bbs_seq = c.bbs_seq(+) and to_char(months_between(sysdate,a.reg_date),9) = 0
+         ORDER BY a.bbs_hitcount DESC
+      </isEqual>
+      </dynamic>
+      
       
       
    </select>
@@ -152,7 +173,7 @@
    
    <!-- 마이스토리 비공개->공개 클로버 확인 -->
    <select id="cloverCheck" resultClass="cloverCheck" parameterClass="cloverCheck">
-      SELECT EMAIL, CLOVER
+      SELECT EMAIL, USECLOVER
       FROM  MEMBERS 
       WHERE  EMAIL = #reg_email#
    </select>
@@ -163,9 +184,10 @@
       WHERE BBS_SEQ = #bbs_seq#
    </update>
    
+
     <!-- 마이스토리 비공개->공개시 클로버 차감-->
    <update id="cloverUpload" parameterClass="cloverCheck">
-      update MEMBERS SET CLOVER = (CLOVER - 3)      
+      update MEMBERS SET USECLOVER = (USECLOVER - 3)      
       WHERE EMAIL = #reg_email#
    </update>
    
@@ -174,5 +196,47 @@
       update BBS SET DISPYN ='N'     
       WHERE BBS_SEQ = #bbs_seq#
    </update>
+
+   <!-- 관심있는 이야기 댓글작성한것 / 좋아요누른것 / 본것 -->
+   <select id="bbsInterestView" resultClass="bbsView" parameterClass="bbsView">
+      <dynamic>
+      <isEqual property="selectItem" compareValue="bbs_add_count">
+        select a.bbs_seq, a.bbs_contents, a.bbs_hitcount, a.bg_img_seq, a.goodcount, b.path, b.save_name, nvl(d.add_count,0) add_count, d.reg_email
+		from bbs a, background_img b, (select distinct bbs_seq from bbs_add) c, (SELECT BBS_SEQ,reg_email, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ,reg_email ) d
+		where a.bg_img_seq = b.bg_img_seq and a.bbs_seq = c.bbs_seq and A.BBS_SEQ = d.BBS_SEQ and d.reg_email=#email#
+		order by a.bbs_seq desc
+      </isEqual>
+      </dynamic>
+      
+      <dynamic>
+      <isEqual property="selectItem" compareValue="bbs_like">
+        select a.bbs_seq, a.bbs_contents, a.bbs_hitcount, a.bg_img_seq, a.goodcount, b.path, b.save_name, nvl(d.add_count,0) add_count, d.reg_email
+		from bbs a, background_img b, (select distinct bbs_seq from bbs_add) c, (SELECT BBS_SEQ,reg_email, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ,reg_email ) d
+		where a.bg_img_seq = b.bg_img_seq and a.bbs_seq = c.bbs_seq and A.BBS_SEQ = d.BBS_SEQ and d.reg_email=#email#
+		order by a.bbs_seq desc
+      </isEqual>
+      </dynamic> 
+      
+      <dynamic>
+      <isEqual property="selectItem" compareValue="viewed">
+        select a.bbs_seq, a.bbs_contents, a.bbs_hitcount, a.bg_img_seq, a.goodcount, b.path, b.save_name, c.filter_seq, nvl(d.add_count,0) add_count, c.bbs_good_yn, d.reg_email
+		from bbs a, background_img b, (select distinct bbs_seq, bbs_good_yn,members_seq,filter_seq from yn_filter where bbs_good_yn='Y') c, 
+		(SELECT BBS_SEQ,reg_email, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ,reg_email ) d, members e
+		where a.bg_img_seq = b.bg_img_seq and a.bbs_seq = c.bbs_seq and A.BBS_SEQ = d.BBS_SEQ(+)
+		and c.members_seq = e.members_seq and e.email=#email#
+		order by a.bbs_seq desc
+      </isEqual>
+      </dynamic> 
+      
+        
+   </select>
+   
+      
+   <!-- 마이스토리 비공개->공개 클로버 확인 -->
+   <select id="myCloverView" resultClass="cloverCheck" parameterClass="java.lang.String">
+      SELECT CLOVER, USECLOVER
+      FROM  MEMBERS 
+      WHERE  EMAIL = #reg_email#
+   </select>
 </sqlMap>
 

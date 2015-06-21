@@ -84,11 +84,12 @@ $(function() {
       {
       String email = (String)session.getAttribute("email");
       String userIp = request.getRemoteAddr();
-      String selectItem="";
+      String selectItem=(String)session.getAttribute("selectItem");
       String selectAge="";
       
       if((String)request.getAttribute("selectItem")!=null)
       {
+    	  System.out.println("여기여기"+(String)request.getAttribute("selectItem")+"ㅇㅇㅇ");
     	  selectItem = (String)request.getAttribute("selectItem");
     	  session.setAttribute("selectItem", selectItem);
     	  request.setAttribute("selectItem",selectItem);
@@ -102,7 +103,7 @@ $(function() {
       }
  %>
 <body>
-
+	<div><%=selectAge%>대 또래 이야기</div>
    <FORM name="radioForm"  method="post" id="radioForm" action="/bbsAgeList.listen">
    <div class="check" style="margin-left:700px;">
    

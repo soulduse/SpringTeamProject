@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=euc-kr"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.listen.bbs.vo.*"%>
+<%@ page import="com.listen.member.vo.*"%>
 <%@ page import="java.awt.Image" %>
 <%@ page import="javax.swing.ImageIcon" %>
 
@@ -12,12 +13,14 @@
 <% 
 if(session.getAttribute("message") != null && ((String)session.getAttribute("message")).length()>0){ %>
 	alert("<%=session.getAttribute("message")%>");
-<% } %>
+	
+<% 
+session.setAttribute("message", "");
+} %>
   $(function() {
-	  $('.img').click(function() {
+	   $('.img').click(function() {
 		   clearTbody();
-	         var d = $(this).attr("src");
-	         
+	         var d = $(this).attr("src");	         
 	         var c = $(this).attr("contents");
 	         var bbs_seq = $(this).attr("name");
 	         var bbs_likeCount = $(this).attr("bbs_goodCount");
@@ -45,20 +48,7 @@ if(session.getAttribute("message") != null && ((String)session.getAttribute("mes
    //마이클로버 modal
    $(function() {
 		  $('#storyClover').click(function() {
-			   clearTbody();
-		         var d = $(this).attr("src");
-		         
-		         var c = $(this).attr("contents");
-		         var bbs_seq = $(this).attr("name");
-		         var bbs_likeCount = $(this).attr("bbs_goodCount");
 
-		         $('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기
-		         $("#modalImg").attr("src", d);
-		         $("#bbs_seq").attr("value", bbs_seq);
-		         var modalContent = document.getElementById("modalContent");
-		         modalContent.innerHTML = c;
-		         
-		         ajaxBbsAdd();
 		      });
    });
    
@@ -172,9 +162,9 @@ background-size: cover;
    
    <input type="file" name="upload" value="배경편집" style=" float: left;">
    <INPUT type="button" id="fileBtn" value="등록" style=" float: left;">
-   <div style=" border: 1px solid #bcbcbc;">
+   
    <img src="images/clover1.png" id="storyClover" 
-   	data-toggle="modal" data-target="#myClover"style=" margin-left: -350px;cursor:pointer; width:70;"/></div>
+   	data-toggle="modal" data-target="#myClover"style=" margin-left: -350px;cursor:pointer; width:70;"/>
    </div></FORM>
   
  <div class="story_cover1">
@@ -221,7 +211,7 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
               <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
               <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
               <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %>&nbsp;&nbsp;&nbsp;&nbsp;     
-               <input type="button" class="dispBtn" value="비공개"  style="left:100;"/>              
+               <input type="button" class="dispBtn" value="비공개"  style="color:black; left:100;"/>              
                </form>
                 </div>
         
@@ -236,11 +226,13 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
       data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
       width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
    
+
       <div class="text2">
               <H4><%=mini_contents%></H4></div>
           
              
                          
+
           <form class="dispForm" method="post" id="dispForm1"action="/dispSave.listen">                  
                <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
                <input type="button" class="dispBtn" value="공개"/>
@@ -286,13 +278,19 @@ ArrayList bbsMyViewList1 = (ArrayList)request.getAttribute("bbsMyViewList");
      <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
    data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
    width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
-
-    <div class="text2">
+   
+   			<div class="text2">
               <H3><%=mini_contents%></H3></div>
-              <div class="text2_1">   
+
+   			  <div class="text2_1"> 
+              <form class="dispForm" method="post" id="dispForm1" action="/dispCencle.listen">             	              
+               <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />   
               <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
               <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
-              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %></div>
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %>&nbsp;&nbsp;&nbsp;&nbsp;     
+               <input type="button" class="dispBtn" value="비공개"  style="color:black; left:100;"/>              
+               </form>
+                </div>
                          
    </div>
     <%
@@ -352,13 +350,19 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
      <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
    data-target="#myModal"  style="cursor:pointer" src="<%=path%>/<%=save_name%>" 
    width=300 data-img-url="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"/>
-
-     <div class="text2">
+   
+   			<div class="text2">
               <H3><%=mini_contents%></H3></div>
-              <div class="text2_1">   
+
+     			<div class="text2_1"> 
+              <form class="dispForm" method="post" id="dispForm1" action="/dispCencle.listen">             	              
+               <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />   
               <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
               <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
-              <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;<%=add_count %></div>
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %>&nbsp;&nbsp;&nbsp;&nbsp;     
+               <input type="button" class="dispBtn" value="비공개"  style=" color:black; left:100;"/>              
+               </form>
+                </div>
                          
    </div>
     <%
@@ -401,6 +405,14 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
  
  
  <!-- MyClover modal 보기-->
+ <% 
+ 	ArrayList CloverList = (ArrayList)request.getAttribute("myClover");
+	MemberVo memVo = (MemberVo) CloverList.get(0); 
+  	String clover = (String)memVo.getClover();
+ 	String UseClover = (String)memVo.getUseClover();
+ 
+ %>
+
  
  <div class="modal fade" style="width: 100%" id="myClover" tabindex="-1"
    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -414,11 +426,20 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
             </button>
          </div>
          <div class="modal-body" style="background-color:gray;margin-left:0;border:30px white solid">
-            <img id="modalImg" class="imageShadow" src="#" width="500" />
-            <div class="text3">
-               <H3>
-                 
-               </H3>
+          <div style=" width: 500px;  height: 380px;">
+            <div style=" width: 480px;  height: 150px; border-bottom-width:0.1em; border-bottom-style: solid; border-bottom-color: white;">
+           
+           <H3 style="color:black;"><B>Clover</B></H3> <BR> 
+           	<H4 style="color:black;">클로버는 내가 단 댓글에 누군가 공감하면 받고,<BR><BR> 나의 이야기를 공개하는데 사용됩니다.</H4></div>
+            	<div style=" width: 480px;  height: 170px;  ">
+            		<div style=" width: 238px;  height: 200px; border-right-width:0.1em; border-right-style: solid; border-right-color: white; float: left;">
+            		<BR><H4 style="color:black;"><B>받은 총 클로버 수</B></H4><BR><BR>
+            		<img src="images/clover1.png" style="float: left; margin-left:60;"> <H4><B><%= clover %>개</B></H4>
+            		</div>
+            		<div style=" width: 238px;  height: 200px; float: right;">
+            		<BR><H4 style="color:black;"><B>사용 가능한 클로버 수</B></H4><BR><BR>
+            		<img src="images/clover1.png" style="float: left; margin-left:50;"> <H4><B><%= UseClover %>개</B></H4>
+            		</div>
             </div>
          </div>
   </div>

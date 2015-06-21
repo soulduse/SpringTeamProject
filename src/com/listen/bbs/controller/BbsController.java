@@ -198,7 +198,7 @@ public class BbsController extends BaseController{
          }
          session.setAttribute("selectItem",selectItem);
          bbsVo.setSelectItem(selectItem);
-         ArrayList bbsIntList = bbsDao.bbsDetailView(bbsVo);
+         ArrayList bbsIntList = bbsDao.bbsInterestView(bbsVo);
          request.setAttribute("page", "interest");
          request.setAttribute("bbsIntList",  bbsIntList);
          request.setAttribute("selectItem", selectItem);
@@ -295,10 +295,12 @@ public class BbsController extends BaseController{
       BbsVo bv = new BbsVo();
       bv.setReg_email(reg_email);
       ArrayList bbsMyViewList = bbsDao.bbsMyViewList(bv);
+      ArrayList myClover = bbsDao.myClover(reg_email);
       
       MyBackGroundVo bbsMybgimg = bbsDao.bbsMybgimg(bv);
       
       request.setAttribute("page", "myStory");
+      request.setAttribute("myClover",  myClover);
       request.setAttribute("bbsMyViewList",  bbsMyViewList);
       request.setAttribute("bbsMybgimg",  bbsMybgimg);
       
@@ -340,7 +342,7 @@ public class BbsController extends BaseController{
 	   request.setAttribute("ajaxBbsViewList", ajaxBbsViewList);
 	   return "ajaxList/ajaxBbsViewList3";  
    }
-   //마이스토리 공개-->비공개
+   //마이스토리 비공개-->공개
    @RequestMapping("/dispSave.listen")
    public String dispSave(HttpServletRequest request, HttpSession session) {
 	   session.setAttribute("message", "");
@@ -351,12 +353,12 @@ public class BbsController extends BaseController{
       mv.setReg_email(reg_email);
       bbsDao.cloverCheck(mv);
       MemberVo cloverList = (MemberVo)bbsDao.cloverCheck(mv);
+      System.out.println("sfsfsfsfsf");
       
-      if (Integer.parseInt(cloverList.getClover()) >= 3){
+      if (Integer.parseInt(cloverList.getUseClover()) >= 3){
     	  BbsVo bv = new BbsVo();
 	      bv.setReg_email(reg_email);
-	      bv.setBbs_seq(Integer.parseInt(bbs_seq));
-	      
+	      bv.setBbs_seq(Integer.parseInt(bbs_seq));	      
 	      bbsDao.dispSave(bv);
 	      
 	      MemberVo memVo = new MemberVo();	     
@@ -374,7 +376,7 @@ public class BbsController extends BaseController{
       
       return "redirect:bbsMyViewList.listen";
    }
-   //마이스토리 비공개 --> 공개
+   //마이스토리 공개 --> 비공개
    @RequestMapping("/dispCencle.listen")
    public String dispCencle(HttpServletRequest request, HttpSession session) {
 
@@ -385,7 +387,6 @@ public class BbsController extends BaseController{
       BbsVo bv = new BbsVo();
       bv.setReg_email(reg_email);
       bv.setBbs_seq(Integer.parseInt(bbs_seq));
-      System.out.println("wㄹㅈㄷㄹㄷㄴㅇㄹㅇㄹㄴㅇㄹㅈㄹㄷㄹㄹㄷㄹㄷㄹ");
       bbsDao.dispCencle(bv);
       session.setAttribute("message", "비공개 되었습니다.");
       return "redirect:bbsMyViewList.listen";

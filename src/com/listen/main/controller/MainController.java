@@ -71,11 +71,12 @@ public class MainController extends BaseController {
 	      BbsVo bv = new BbsVo();
 	      bv.setReg_email(reg_email);      
 	      ArrayList bbsMyViewList = bbsDao.bbsMyViewList(bv);
-	      
+	      ArrayList myClover = bbsDao.myClover(reg_email);
 	      MyBackGroundVo bbsMybgimg = bbsDao.bbsMybgimg(bv);
 	      
 	      request.setAttribute("page", "myStory");
 	      request.setAttribute("bbsMyViewList",  bbsMyViewList);
+	      request.setAttribute("myClover",  myClover);
 	      request.setAttribute("bbsMybgimg",  bbsMybgimg);
 	      request.setAttribute("mainUrl", prefix + "myStory/myStory.jsp");
 

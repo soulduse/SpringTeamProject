@@ -108,6 +108,7 @@ public class BbsDao {
 		{    
 			smct.update("dispUpload", bv);
 		} 
+
 		
 		//마이스토리 비공개글 -->공개시 크로버 차감
 		public void cloverDown(MemberVo memVo)
@@ -120,4 +121,18 @@ public class BbsDao {
 		{    
 			smct.update("dispUploadCencle", bv);
 		} 
+
+		// 관심있는 글 보기
+		public ArrayList bbsInterestView(BbsVo bbsVo)
+		{
+			return (ArrayList) smct.queryForList("bbsInterestView",bbsVo);
+		}
+//gitlab.com/kostaProject/listen.git
+
+		public ArrayList myClover(String reg_email) {
+			// TODO Auto-generated method stub
+
+			return (ArrayList) smct.queryForList("myCloverView",reg_email);
+		}
+
 }
