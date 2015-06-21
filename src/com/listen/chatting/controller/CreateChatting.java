@@ -1,5 +1,6 @@
 package com.listen.chatting.controller;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.listen.base.controller.BaseController;
+import com.listen.bbs.dao.BbsDao;
+import com.listen.bbs.vo.BbsVo;
 import com.listen.chatting.dao.ChattingDao;
 import com.listen.chatting.vo.ChattingMemberVo;
 import com.listen.chatting.vo.ChattingVo;
@@ -27,6 +30,12 @@ public class CreateChatting extends BaseController{
 	
 	private NoticeDao noticeDao;
 	
+	private BbsDao bbsDao;
+	
+	public void setBbsDao(BbsDao bbsDao) {
+		this.bbsDao = bbsDao;
+	}
+
 	public void setChattingDao(ChattingDao chattingDao) {
 		this.chattingDao = chattingDao;
 	}
@@ -51,6 +60,7 @@ public class CreateChatting extends BaseController{
 		ChattingMemberVo send2 = (ChattingMemberVo)nickname.get(1);
 		ChattingMemberVo rec = (ChattingMemberVo)nickname.get(2);
 		ChattingMemberVo rec2 = (ChattingMemberVo)nickname.get(3);
+		System.out.println("보낸 사람 이름 "+ send);
 		String send_nickname = (String)send.getRandom_name1()+" "+(String)send2.getRandom_name2();
 		String rec_nickname = (String)rec.getRandom_name1()+" "+(String)rec2.getRandom_name2();
 		String chatting_name = (String)send.getRandom_name1()+" "+(String)send2.getRandom_name2() + "  "+ (String)rec.getRandom_name1()+" "+(String)rec2.getRandom_name2();
@@ -73,6 +83,21 @@ public class CreateChatting extends BaseController{
 		noticeList.add(rec_nickname);
 		noticeList.add(rec_seq);
 		request.setAttribute("noticeList",  noticeList);
+
+		
+		ArrayList bbsList = bbsDao.bbsViewList();
+		request.setAttribute("page", "main");
+		request.setAttribute("bbsList",  bbsList);
+		
+		
+		String reg_email = (String)session.getAttribute("email");      
+	      BbsVo bv = new BbsVo();
+	      bv.setReg_email(reg_email);      
+	      ArrayList mainMyStory = bbsDao.mainMyStory(bv);   
+	      request.setAttribute("page", "myStory");
+	      request.setAttribute("mainMyStory",  mainMyStory);
+	      
+	      
 		return popup;
 	}
 
@@ -127,6 +152,10 @@ public class CreateChatting extends BaseController{
 		noticeList.add(rec_nickname);
 		noticeList.add(rec_seq);
 		request.setAttribute("noticeList",  noticeList);
-		return m_popup;
+		ArrayList bbsList = bbsDao.m_bbsViewList();
+		request.setAttribute("page", "main");
+		request.setAttribute("bbsList",  bbsList);
+		
+		return "redirect:http://106.242.203.67:900/m_chatting/" + URLEncoder.encode(chatting_name) + "?name="+URLEncoder.encode(rec_nickname);
 	}
 }

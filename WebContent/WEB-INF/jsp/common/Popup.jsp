@@ -21,7 +21,6 @@
 $(function() {
 	var roomname = $('#roomname').val();
 	var nickname = $('#nickname').val();
-	var nickname = $('#email').val();
 	window.open("http://106.242.203.67:900/chatting/"+encodeURIComponent(roomname)+"?name="+encodeURIComponent(nickname), '1', 'width=600, height=800, resizable=no');
 
 });
@@ -35,7 +34,6 @@ $(function() {
 	
 	<INPUT type="hidden" name="roomname" id="roomname" value="<%=roomname %>">
 	<INPUT type="hidden" name="nickname" id="nickname" value="<%=nickname %>">
-	<INPUT type="hidden" name="email" id="email" value="<%=email %>">
 		<TITLE>마음이 따뜻해지는 익명SNS - Listen</TITLE>
 		
 		 <!-- 부트스트랩 -->

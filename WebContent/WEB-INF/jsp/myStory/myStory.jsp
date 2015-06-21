@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.listen.bbs.vo.*"%>
 <%@ page import="java.awt.Image" %>
@@ -17,7 +17,7 @@
 	         var bbs_seq = $(this).attr("name");
 	         var bbs_likeCount = $(this).attr("bbs_goodCount");
 
-	         $('.like-label').text(bbs_likeCount); // °ø°¨ ¹öÆ° µ¥ÀÌÅÍ DB°ª °¡Á®¿À±â
+	         $('.like-label').text(bbs_likeCount); // ê³µê° ë²„íŠ¼ ë°ì´í„° DBê°’ ê°€ì ¸ì˜¤ê¸°
 	         $("#modalImg").attr("src", d);
 	         $("#bbs_seq").attr("value", bbs_seq);
 	         var modalContent = document.getElementById("modalContent");
@@ -131,8 +131,8 @@ background-size: cover;
   <FORM name="imgForm" method="post" id="imgForm" enctype="multipart/form-data" action="/myImgSave.listen">
    <div class="story-header"><B><H1>MY STORY</H1></B>
    
-   <input type="file" name="upload" value="¹è°æÆíÁı" style=" float: left;">
-   <INPUT type="button" id="fileBtn" value="µî·Ï" style=" float: left;">
+   <input type="file" name="upload" value="ë°°ê²½í¸ì§‘" style=" float: left;">
+   <INPUT type="button" id="fileBtn" value="ë“±ë¡" style=" float: left;">
    </div></FORM>
   
  <div class="story_cover1">
@@ -172,9 +172,9 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
         <div class="text2">
               <H3><%=mini_contents%></H3></div>
               <div class="text2_1">   
-                         Á¶È¸¼ö : <%=bbs_hitCount%>
-                         ÁÁ¾Æ¿ä : <%=goodCount %> 
-                         ´ñ±Û¼ö : <%=add_count %></div>
+                         ì¡°íšŒìˆ˜ : <%=bbs_hitCount%>
+                         ì¢‹ì•„ìš” : <%=goodCount %> 
+                         ëŒ“ê¸€ìˆ˜ : <%=add_count %></div>
                          
    </div>
     <%
@@ -196,9 +196,9 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
                    </TR>
                    <TR height="30%">
                       <TD align="left">
-                         	Á¶È¸¼ö : <%=bbs_hitCount%> / <br>
-                         	ÁÁ¾Æ¿ä : <%=goodCount %> / <br>
-                         	´ñ±Û¼ö : <%=add_count %>
+                         	ì¡°íšŒìˆ˜ : <%=bbs_hitCount%> / <br>
+                         	ì¢‹ì•„ìš” : <%=goodCount %> / <br>
+                         	ëŒ“ê¸€ìˆ˜ : <%=add_count %>
                       </TD>
                    </TR>
                 </table>
@@ -212,7 +212,7 @@ ArrayList bbsMyViewList = (ArrayList)request.getAttribute("bbsMyViewList");
 >>>>>>> branch 'theWar' of https://gitlab.com/kostaProject/listen.git
           <form class="dispForm" method="post" id="dispForm1"action="/dispSave.listen">                  
                <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
-               <input type="submit" class="dispBtn" value="°ø°³"/>
+               <input type="submit" class="dispBtn" value="ê³µê°œ"/>
                </form>
    </div>
    <%
@@ -259,9 +259,9 @@ ArrayList bbsMyViewList1 = (ArrayList)request.getAttribute("bbsMyViewList");
     <div class="text2">
               <H3><%=mini_contents%></H3></div>
               <div class="text2_1">   
-                         Á¶È¸¼ö : <%=bbs_hitCount%>
-                         ÁÁ¾Æ¿ä : <%=goodCount %> 
-                         ´ñ±Û¼ö : <%=add_count %></div>
+                         ì¡°íšŒìˆ˜ : <%=bbs_hitCount%>
+                         ì¢‹ì•„ìš” : <%=goodCount %> 
+                         ëŒ“ê¸€ìˆ˜ : <%=add_count %></div>
                          
    </div>
     <%
@@ -279,7 +279,7 @@ ArrayList bbsMyViewList1 = (ArrayList)request.getAttribute("bbsMyViewList");
                          
           <form class="dispForm" method="post" id="dispForm2"action="/dispSave.listen">                  
                <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
-               <input type="submit" class="dispBtn" value="°ø°³"/>
+               <input type="submit" class="dispBtn" value="ê³µê°œ"/>
                </form>
    </div>
    <%
@@ -325,9 +325,9 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
      <div class="text2">
               <H3><%=mini_contents%></H3></div>
               <div class="text2_1">   
-                         Á¶È¸¼ö : <%=bbs_hitCount%>
-                         ÁÁ¾Æ¿ä : <%=goodCount %> 
-                         ´ñ±Û¼ö : <%=add_count %></div>
+                         ì¡°íšŒìˆ˜ : <%=bbs_hitCount%>
+                         ì¢‹ì•„ìš” : <%=goodCount %> 
+                         ëŒ“ê¸€ìˆ˜ : <%=add_count %></div>
                          
    </div>
     <%
@@ -345,7 +345,7 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
                          
           <form class="dispForm" method="post" id="dispForm3"action="/dispSave.listen">                  
                <input type="hidden" name="seq" id="seq" value="<%=bbs_seq%>" />
-               <input type="submit" class="dispBtn" value="°ø°³"/>
+               <input type="submit" class="dispBtn" value="ê³µê°œ"/>
           </form>
    </div>
    <%
@@ -367,7 +367,7 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
  <div class="story_footer"></div> 
     
  </div>
- <!-- Modal ±Û List-->
+ <!-- Modal ê¸€ List-->
 <div class="modal fade" style="width: 100%" id="myModal" tabindex="-1"
    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
@@ -379,7 +379,7 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
                   <div class="container animation-1">
                      <div class="heartImg" alt="0"></div>
                   </div>
-                  <span class="ng-binding">ÁÁ¾Æ¿ä</span>
+                  <span class="ng-binding">ì¢‹ì•„ìš”</span>
                </div>
                <div class="like-label">0</div>
             </div>
@@ -400,19 +400,19 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
 
 
          <div class="modal-footer">
-            <!-- ´ñ±ÛÀÌ º¸ÀÏ ºÎºĞ -->
+            <!-- ëŒ“ê¸€ì´ ë³´ì¼ ë¶€ë¶„ -->
             <DIV id="comment-list">
                <TABLE id="comment_table" bgcolor="#FFFAFA" border="2"
                   cellspacing="0" cellpadding="0">
                   <TBODY id="comment_table_body"></TBODY>
                </TABLE>
             </DIV>
-            <!-- ´ñ±Û ¾²±â ºÎºĞ -->
+            <!-- ëŒ“ê¸€ ì“°ê¸° ë¶€ë¶„ -->
             <FORM name="addForm" id="addForm" method="post"
                action="/bbsAdd.listen">
                <div class="comment-textarea">
                   <textarea name="content" id="comment"
-                     class="ng-pristine ng-valid ng-touched" placeholder="¾î¶»°Ô »ı°¢ÇÏ¼¼¿ä?"
+                     class="ng-pristine ng-valid ng-touched" placeholder="ì–´ë–»ê²Œ ìƒê°í•˜ì„¸ìš”?"
                      style="overflow: hidden; word-wrap: break-word; height: 50px;"></textarea>
                </div>
                <INPUT type="hidden" name="bbs_seq" id="bbs_seq" value="">
@@ -422,27 +422,27 @@ ArrayList bbsMyViewList2 = (ArrayList)request.getAttribute("bbsMyViewList");
             </FORM>
             <BR>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="addWriteBtn">°Ô½Ã</button>
+            <button type="button" class="btn btn-primary" id="addWriteBtn">ê²Œì‹œ</button>
          </div>
       </div>
    </div>
 </div>
 
 
-<!-- Modal ´ñ±Û »èÁ¦ È®ÀÎ-->
+<!-- Modal ëŒ“ê¸€ ì‚­ì œ í™•ì¸-->
 <div class="modal fade comment-delete-modal" style="width: 100%" tabindex="-1" role="dialog"
    aria-labelledby="mySmallModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-sm" style="margin-top:200px">
       <div class="modal-content">
          <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">»èÁ¦È®ÀÎ</h4>
+            <h4 class="modal-title" id="exampleModalLabel">ì‚­ì œí™•ì¸</h4>
          </div>
          <div class="modal-body">
-            <label for="recipient-name" class="control-label">Á¤¸» »èÁ¦ ÇÏ½Ã°Ú½À´Ï±î?</label>
+            <label for="recipient-name" class="control-label">ì •ë§ ì‚­ì œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?</label>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">»èÁ¦</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Ãë¼Ò</button>
+            <button type="button" class="btn btn-primary">ì‚­ì œ</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">ì·¨ì†Œ</button>
          </div>
       </div>
    </div>

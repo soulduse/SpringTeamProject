@@ -143,5 +143,11 @@ public class BbsDao {
 		return (ArrayList) smct.queryForList("m_bbsinit", bbsVo);
 	}
 
+	public void myStoryDispN(BbsVo bbsVo) {
+		// TODO Auto-generated method stub
+		smct.update("myStoryDispN", bbsVo);
+		
+	}
+
 
 }

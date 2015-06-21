@@ -123,6 +123,5 @@ public class MainController extends BaseController {
 			request.setAttribute("mainUrl", prefix + "bbs/m_BbsWrite.jsp");
 			
 			return m_frame;
-		}
-		
+		}	   		
 }

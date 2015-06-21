@@ -416,33 +416,73 @@ public class BbsController extends BaseController{
    }
    
    // 모바일 글쓰기 및 그림파일 등록
-   @RequestMapping("/m_writeSave.listen")
-   public String m_writePage(BbsWriteDto bbsWriteDto, HttpServletRequest request) {
-      
-      // 글쓰기 부분 
-      try{
-         bbsDao.bbsWrite(bbsWriteDto);
-         message="작성완료";
-         request.setAttribute("message", message);
-      }catch(Exception e){
-         e.printStackTrace();
-         message="작성에 실패 했습니다.";
-         request.setAttribute("message", message);
-      }
-      
-      String confRoot = servletContext.getRealPath("/"); // WebContent경로
-      String path = "/upfile/bbs_file/"+TotalDate.getToday("yyyy/MM/dd");
-      String bbsFileUploadPath = confRoot + path;
-      
-      System.out.println("첫번째 경로 : "+bbsFileUploadPath);
+	@RequestMapping("/m_writeSave.listen")
+	public String m_writePage(BbsWriteDto bbsWriteDto, HttpServletRequest request) {
 
-      File dayFile = new File(bbsFileUploadPath);
-      if (!dayFile.exists()) {
-         dayFile.mkdirs();
-      }
+		// 글쓰기 부분
+		try {
+			bbsDao.bbsWrite(bbsWriteDto);
+			message = "작성완료";
+			request.setAttribute("message", message);
+		} catch (Exception e) {
+			e.printStackTrace();
+			message = "작성에 실패 했습니다.";
+			request.setAttribute("message", message);
+		}
 
-      return "redirect:/m_main.listen";
-   }
+		String confRoot = servletContext.getRealPath("/"); // WebContent경로
+		String path = "/upfile/bbs_file/" + TotalDate.getToday("yyyy/MM/dd");
+		String bbsFileUploadPath = confRoot + path;
+
+		System.out.println("첫번째 경로 : " + bbsFileUploadPath);
+
+		File dayFile = new File(bbsFileUploadPath);
+		if (!dayFile.exists()) {
+			dayFile.mkdirs();
+		}
+
+		String savePath = dayFile.getAbsolutePath();
+
+		MultipartFile resPic = bbsWriteDto.getUpload();
+		if (resPic.getSize() > 0) {
+			String fileName = resPic.getOriginalFilename(); // 파일의 이름
+			String imgExt = fileName.substring(fileName.lastIndexOf(".") + 1,
+					fileName.length()); // 파일 확장자
+			long fileSize = resPic.getSize(); // 파일 사이즈
+			String saveName = System.currentTimeMillis() + "_" + fileName;
+
+			bbsWriteDto.setOrg_name(fileName);
+			bbsWriteDto.setPath(path);
+			bbsWriteDto.setSave_name(saveName);
+			bbsWriteDto.setFile_size(fileSize);
+
+			// upload 가능한 파일 타입 지정
+			// equalsIgnoreCase 의 경우 대소문자 구분하지 않고 비교함
+			if (imgExt.equalsIgnoreCase("JPG")
+					|| imgExt.equalsIgnoreCase("JPEG")
+					|| imgExt.equalsIgnoreCase("PNG")
+					|| imgExt.equalsIgnoreCase("GIF")) {
+				File outFileName = new File(savePath + "\\" + saveName);
+				System.out.println("두번째 경로 : " + savePath + "\\" + fileName);
+				try {
+					resPic.transferTo(outFileName);
+					bbsDao.updateRes_pic(bbsWriteDto);
+					bbsDao.fileSeqUpdate(bbsWriteDto);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				System.err.println("파일 형식이 올바르지 않습니다.");
+				message = "파일 형식이 올바르지 않습니다.";
+			}
+		}
+		System.out.println("writePage 들어옴");
+		System.out.println(bbsWriteDto.getBbs_contents());
+
+		return "redirect:/m_main.listen";
+	}
    
    // 모바일 댓글 Ajax 입력
    @RequestMapping("/ajax/m_bbsAdd.listen")
@@ -488,6 +528,12 @@ public class BbsController extends BaseController{
 		String email = (String)session.getAttribute("email");
 		return "redirect:/m_myStory.listen";
 	}
-   
+
+	@RequestMapping("/m_dispYBbsN.listen")
+	public String m_dispNBbsPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response,  HttpSession session) throws IOException {
+		bbsDao.myStoryDispN(bbsVo);
+		String email = (String)session.getAttribute("email");
+		return "redirect:/m_myStory.listen";
+	}
    
 }

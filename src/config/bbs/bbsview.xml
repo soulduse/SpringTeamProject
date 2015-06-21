@@ -359,5 +359,11 @@
 		WHERE BBS_SEQ = #bbs_seq#
 	</update>
 	
+	<update id="myStoryDispN" parameterClass="bbsView">
+		UPDATE BBS SET
+		DISPYN = 'N'
+		WHERE BBS_SEQ = #bbs_seq#
+	</update>
+	
 </sqlMap>
 

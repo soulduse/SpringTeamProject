@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.io.PrintWriter"%>
 <%@ page import="java.io.IOException"%>
@@ -27,7 +27,7 @@
 		PrintWriter outer = response.getWriter();
 		response.setContentType("text/html;charset=UTF-8");
 		out.print("<root>");
-		String content = URLDecoder.decode(contents, "UTF-8"); // ÇÑ±ÛÃ³¸®ºÎºÐ
+		String content = URLDecoder.decode(contents, "UTF-8"); // í•œê¸€ì²˜ë¦¬ë¶€ë¶„
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String msg = "";
 		try {
