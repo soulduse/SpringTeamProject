@@ -6,6 +6,7 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.listen.bbs.dto.BbsLikeSwitchDto;
+import com.listen.bbs.dto.BbsSearchDto;
 import com.listen.bbs.dto.BbsViewFilterDto;
 import com.listen.bbs.dto.BbsWriteDto;
 import com.listen.bbs.vo.BbsSelectViewVo;
@@ -64,15 +65,14 @@ public class BbsDao {
 
 	// 글 보기시 Ajax 처리
 	public BbsSelectViewVo bbsSelectView(BbsViewFilterDto bbsViewFilterDto) {
-		int updCheck = (int) smct.update("bbsViewUpdateFilter",
-				bbsViewFilterDto);
+		int updCheck = (int) smct.update("bbsViewUpdateFilter",bbsViewFilterDto);
 		System.out.println("업데이트 성공!");
 		if (updCheck == 0) {
 			smct.insert("bbsViewInsertFilter", bbsViewFilterDto);
 			System.out.println("업데이트 값이 없어서 INSERT 실행!");
 		}
-		BbsSelectViewVo bbsSelectViewVo = (BbsSelectViewVo) smct
-				.queryForObject("bbsSelectView", bbsViewFilterDto);
+		BbsSelectViewVo bbsSelectViewVo = (BbsSelectViewVo) smct.queryForObject("bbsSelectView", bbsViewFilterDto);
+		//ArrayList list = (ArrayList)smct.queryForList("bbsSelectView", bbsViewFilterDto);
 		System.out.println("XML 데이터를 만들기위한 SELECT 작업 완료 ! ");
 
 		return bbsSelectViewVo;
@@ -99,6 +99,11 @@ public class BbsDao {
 			smct.insert("myBgFileInsert", myBgImg);
 		}
 	}
+	
+	// 메인 글목록 보기
+    public ArrayList bbsMainList(BbsVo bbsVo) {
+       return (ArrayList) smct.queryForList("bbsMainList",bbsVo);
+    }
 
 	// 마이 스토리 배경화면
 	public MyBackGroundVo bbsMybgimg(BbsVo vo) {
@@ -124,6 +129,10 @@ public class BbsDao {
 		return (ArrayList) smct.queryForList("bbsViewList2", bbsVo);
 	}
 
+	public ArrayList searchSelect(BbsSearchDto bbsSearchDto) {
+		
+		return (ArrayList) smct.queryForList("bbsSerchList", bbsSearchDto);
+	}
 	
 ///////////////////////////////////////모바일 부분
 
@@ -142,6 +151,7 @@ public class BbsDao {
 	public ArrayList m_bbsinit(BbsVo bbsVo) {
 		return (ArrayList) smct.queryForList("m_bbsinit", bbsVo);
 	}
+
 
 
 }

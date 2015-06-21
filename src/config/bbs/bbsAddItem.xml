@@ -5,6 +5,8 @@
 	<typeAlias alias="bbsAddVo" type="com.listen.bbs.vo.BbsAddVo" />
 	<typeAlias alias="myBackGroundVo" type="com.listen.bbs.vo.MyBackGroundVo" />
     <typeAlias alias="bbsVo" type="com.listen.bbs.vo.BbsVo" /> 
+    <typeAlias alias="Vo" type="com.listen.bbs.vo.BbsVo" /> 
+    
 
 	<!-- 댓글 등록 -->
 	<!-- 형준이가 사용했어요~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
@@ -18,7 +20,7 @@
 	<!-- 댓글 보기 -->
 	<!-- 형준이가 사용했어요~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
    <select id="bbsAddList" resultClass="bbsAddVo" parameterClass="bbsAddWriteDto">
-      SELECT CONTENT, TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') REG_DATE, GOODCOUNT
+      SELECT BBS_ADD_SEQ, CONTENT, TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') REG_DATE, GOODCOUNT
       FROM BBS_ADD WHERE BBS_SEQ=#bbs_seq# order by bbs_add_seq desc
    </select>
    
@@ -39,6 +41,33 @@
        from MYBACKGROUND_IMG
         where reg_email =#reg_email#
    </select>
+   
+   <!-- MEMBERS의 클로버 증가 -->
+   <update id="memberCloverUpdate" parameterClass="bbsAddWriteDto">
+   		UPDATE MEMBERS SET
+   		CLOVER = CLOVER+1, USECLOVER = USECLOVER+1
+   		WHERE MEMBERS_SEQ = (SELECT MEMBERS_SEQ FROM BBS WHERE BBS_SEQ = 
+		(SELECT BBS_SEQ FROM BBS_ADD WHERE BBS_ADD_SEQ = #bbs_add_seq#))
+   </update>
+   
+   <!-- BBS_ADD 클로버 받은 개수 증가 -->
+   <update id="bbsAddCountUpdate" parameterClass="bbsAddWriteDto">
+   		UPDATE BBS_ADD SET
+   		GOODCOUNT = GOODCOUNT + 1
+   		WHERE BBS_ADD_SEQ = #bbs_add_seq#
+   </update>
+   
+   <!-- YN_FILTER에 클로버 눌렀는지 INSERT -->
+   <insert id="ynFilterAddInsert" parameterClass="bbsAddWriteDto">
+   		INSERT INTO YN_FILTER
+   		(FILTER_SEQ, BBS_SEQ, BBS_ADD_SEQ, MEMBERS_SEQ, SEND_CLOVER)
+   		VALUES
+   		(FILTER_SEQ.NEXTVAL, 
+   		(SELECT BBS_SEQ FROM BBS_ADD WHERE BBS_ADD_SEQ=#bbs_add_seq#),
+   		#bbs_add_seq#, 
+   		(SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#),
+   		'Y')
+   </insert>
    
    
 </sqlMap>

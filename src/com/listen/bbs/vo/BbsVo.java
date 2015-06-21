@@ -25,12 +25,15 @@ public class BbsVo {
 	private int no;
 	private int rn;
 	private int age;
-	
-	
-	
-	
-	
-	
+	private String word;
+
+	public String getWord() {
+		return word;
+	}
+
+	public void setWord(String word) {
+		this.word = word;
+	}
 
 	public int getAge() {
 		return age;

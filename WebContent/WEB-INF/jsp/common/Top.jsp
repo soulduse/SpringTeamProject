@@ -34,9 +34,32 @@
 			window.open("http://localhost:900/chatting/"+encodeURIComponent(roomname)+"?name="
 					+encodeURIComponent(nickname), '1', 'width=600, height=800, resizable=no');
 		});
+		
+		$('#searchBtn').click(function(){
+			var word = $('input:text[name=word]').val();
+			if(word == "" || word == null)
+			{
+				alert("검색어를 입력하세요.");
+				return false;
+			}
+			
+			$('#serachForm').submit();
+		});
+		
+		$('#word').keypress(function(e){
+			if (e.keyCode === 13) 
+			{
+				var word = $('input:text[name=word]').val();
+				if(word == "" || word == null)
+				{
+					alert("검색어를 입력하세요.");
+					return false;
+				}
+				$('#serachForm').submit();
+			}
+		});
 	});
 </SCRIPT>
-
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -64,11 +87,12 @@
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+      <form class="navbar-form navbar-left" id="serachForm" role="search" method="post" action="/bbsSearchSet.listen">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" class="form-control" placeholder="Search" name="word" id="word">
+          <input type="hidden" name="reg_email" value="<%=session.getAttribute("email") %>">
         </div>
-        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
+        <button type="button" class="btn btn-default" id="searchBtn"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
       </form>
  <%
  System.out.println("Top.jsp진입");

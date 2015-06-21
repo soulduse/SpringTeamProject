@@ -67,6 +67,7 @@ color: black;
 .comment-textarea textarea {
   padding: 14px 20px;
   margin: 0;
+  margin-right:25;
   margin-top: 50;
   resize: none;
   width: 90%;

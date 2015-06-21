@@ -25,6 +25,7 @@ import com.listen.bbs.dao.BbsAddDao;
 import com.listen.bbs.dao.BbsDao;
 import com.listen.bbs.dto.BbsAddWriteDto;
 import com.listen.bbs.dto.BbsLikeSwitchDto;
+import com.listen.bbs.dto.BbsSearchDto;
 import com.listen.bbs.dto.BbsViewFilterDto;
 import com.listen.bbs.dto.BbsWriteDto;
 import com.listen.bbs.vo.BbsAddVo;
@@ -55,7 +56,8 @@ public class BbsController extends BaseController{
       System.out.println("viewPage 들어옴");
       
       BbsSelectViewVo bbsSelectViewVo = (BbsSelectViewVo)bbsDao.bbsSelectView(bbsViewFilterDto);
-      
+      //ArrayList bbsSelectList = (ArrayList)bbsDao.bbsSelectView(bbsViewFilterDto);
+      //System.out.println("ArrayList Size = "+bbsSelectList.size());
       request.setAttribute("bbsSelectViewVo", bbsSelectViewVo);
       request.setAttribute("page", "SelectView");
       
@@ -88,11 +90,16 @@ public class BbsController extends BaseController{
             BbsAddVo bbsAddVo = (BbsAddVo) bbsAddList.get(i);
             String content = URLDecoder.decode(bbsAddVo.getContent(), "UTF-8");   // 한글처리부분
             String reg_date = bbsAddVo.getReg_date();
+            int bbs_add_seq = bbsAddVo.getBbs_add_seq();
+            System.out.println("댓글 목록 날짜 : "+reg_date);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String msg = "";
+            Date date;
             try {
-            	Date date = format.parse(reg_date);
+            	date = format.parse(reg_date);
+            	System.out.println("댓글 목록 dateValue = "+date);
 				msg = TotalDate.formatTimeString(date);
+				System.out.println("날짜별로 계산된 dateValue = "+msg);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -102,6 +109,7 @@ public class BbsController extends BaseController{
             out.println("<content>"+content+"</content>");
             out.println("<reg_date>"+msg+"</reg_date>");
             out.println("<goodcount>"+goodCount+"</goodcount>");
+            out.println("<bbs_add_seq>"+bbs_add_seq+"</bbs_add_seq>");
             out.println("</items>");
          }
          out.println("</root>");
@@ -111,6 +119,15 @@ public class BbsController extends BaseController{
       {
          response.setStatus(HttpServletResponse.SC_NO_CONTENT);
       }
+   }
+   
+   // 댓글 클로버 증가 Ajax
+   @RequestMapping("/ajax/bbsAddGood.listen")
+   public void bbsAddClover(BbsAddWriteDto bbsAddWriteDto)
+   {
+	   System.out.println("클로버 클릭 들어옴");
+	   bbsAddDao.CloverEvent(bbsAddWriteDto);
+	   System.out.println("업데이트 완료 ! ");
    }
 
  
@@ -335,28 +352,6 @@ public class BbsController extends BaseController{
 	   return "ajaxList/ajaxBbsViewList1";  
    }
    
-   @RequestMapping("/ajax/bbsViewListAdd2.listen")
-   public String bbsViewListAddPage2(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException
-   {
-	   int rownum2 = (int)bbsVo.getNo();
-	   request.setAttribute("rownum2", rownum2);
-	   ArrayList ajaxBbsViewList = (ArrayList)bbsDao.bbsViewList2(bbsVo);
-	   
-	   request.setAttribute("ajaxBbsViewList", ajaxBbsViewList);
-	   return "ajaxList/ajaxBbsViewList2";  
-   }
-   
-   @RequestMapping("/ajax/bbsViewListAdd3.listen")
-   public String bbsViewListAddPage3(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException
-   {
-	   int rownum2 = (int)bbsVo.getNo();
-	   request.setAttribute("rownum2", rownum2);
-	   ArrayList ajaxBbsViewList = (ArrayList)bbsDao.bbsViewList2(bbsVo);
-	   
-	   request.setAttribute("ajaxBbsViewList", ajaxBbsViewList);
-	   return "ajaxList/ajaxBbsViewList3";  
-   }
-   
    @RequestMapping("/dispSave.listen")
    public String dispSave(HttpServletRequest request, HttpSession session) {
 
@@ -372,6 +367,18 @@ public class BbsController extends BaseController{
       bbsDao.dispSave(bv);
 
       return "redirect:bbsMyViewList.listen";
+   }
+   
+   // 검색 
+   @RequestMapping("/bbsSearchSet.listen")
+   public String SearchList(BbsSearchDto bbsSearchDto, HttpServletRequest request, HttpSession session){
+	   ArrayList serchList = (ArrayList)bbsDao.searchSelect(bbsSearchDto);
+	   System.out.println("...............검색 쿼리 돌고 ArrayList에 담아옴");
+	   System.out.println("............................................ArrayList Size : "+serchList.size());
+	   request.setAttribute("serchList", serchList);
+	   request.setAttribute("mainUrl", prefix + "bbs/SearchSetView.jsp");
+	   System.out.println(".................................................request로 담음");
+	   return frame;
    }
    
    

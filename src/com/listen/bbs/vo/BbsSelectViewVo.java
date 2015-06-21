@@ -3,15 +3,44 @@ package com.listen.bbs.vo;
 public class BbsSelectViewVo {
 
 	private int bbs_seq;
+	private int bg_img_seq;
+	private int members_seq;
 	private String bbs_contents;
 	private int bbs_hitcount;
 	private int goodcount;
+	private int add_count;
 	private String reg_email;
 	private String reg_date;
 	private String path;
 	private String save_name;
 	private String bbs_good_yn;
 	private String bbs_add_good_yn;
+
+	
+	
+	public int getBg_img_seq() {
+		return bg_img_seq;
+	}
+
+	public void setBg_img_seq(int bg_img_seq) {
+		this.bg_img_seq = bg_img_seq;
+	}
+
+	public int getMembers_seq() {
+		return members_seq;
+	}
+
+	public void setMembers_seq(int members_seq) {
+		this.members_seq = members_seq;
+	}
+
+	public int getAdd_count() {
+		return add_count;
+	}
+
+	public void setAdd_count(int add_count) {
+		this.add_count = add_count;
+	}
 
 	public String getReg_date() {
 		return reg_date;

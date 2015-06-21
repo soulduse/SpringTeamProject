@@ -11,6 +11,11 @@ public class TotalDate
 {
 	private static String pattern = "yyyy년 M월 d일  a h시 m분";
 	private static Locale nation = new Locale("ko","KOREA");
+	private static final int SEC = 60;
+	private static final int MIN = 60;
+	private static final int HOUR = 24;
+	private static final int DAY = 30;
+	private static final int MONTH = 12;
 
 	/**
 	 * 내용		: 오늘 날짜를 Default Format으로 return
@@ -162,35 +167,30 @@ public class TotalDate
 
 		return (int)(duration/(1000 * 60 * 60 * 24));
 	}
-	
-	private static class TIME_MAXIMUM {
-		public static final int SEC = 60;
-		public static final int MIN = 60;
-		public static final int HOUR = 24;
-		public static final int DAY = 30;
-		public static final int MONTH = 12;
-	}
 
 	public static String formatTimeString(Date tempDate) {
-
+		System.out.println("1. tempDate[parameter] =  "+tempDate);
 		long curTime = System.currentTimeMillis();
+		System.out.println("2. nowTime = "+curTime);
 		long regTime = tempDate.getTime();
-		long diffTime = (curTime - regTime) / 1000;
+		System.out.println("3. regTime = "+regTime);
+		long diffTime = ((curTime - regTime) / 1000)-43200;
+		System.out.println("현재 시간("+curTime+") - 가져온 시간("+regTime+") / 1000 = "+diffTime);
 
 		String msg = null;
-		if (diffTime < TIME_MAXIMUM.SEC) {
+		if (diffTime < SEC) {
 			// sec
 			msg = "방금 전";
-		} else if ((diffTime /= TIME_MAXIMUM.SEC) < TIME_MAXIMUM.MIN) {
+		} else if ((diffTime /= SEC) < MIN) {
 			// min
 			msg = diffTime + "분 전";
-		} else if ((diffTime /= TIME_MAXIMUM.MIN) < TIME_MAXIMUM.HOUR) {
+		} else if ((diffTime /= MIN) < HOUR) {
 			// hour
 			msg = (diffTime) + "시간 전";
-		} else if ((diffTime /= TIME_MAXIMUM.HOUR) < TIME_MAXIMUM.DAY) {
+		} else if ((diffTime /= HOUR) < DAY) {
 			// day
 			msg = (diffTime) + "일 전";
-		} else if ((diffTime /= TIME_MAXIMUM.DAY) < TIME_MAXIMUM.MONTH) {
+		} else if ((diffTime /= DAY) < MONTH) {
 			// day
 			msg = (diffTime) + "달 전";
 		} else {
