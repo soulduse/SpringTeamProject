@@ -1,10 +1,9 @@
 // Ajax 댓글 처리 function
-function ajaxBbsAdd() {
+function ajaxBbsAdd(bbs_seq) {
 
    var commentTableBody = $('#comment_table_body');
    // 댓글 내용
    var content = $('#comment').val();
-   var bbs_seq = $('#bbs_seq').val();
    var reg_email = $('#reg_email').val();
    var reg_ip = $('#reg_ip').val();
 

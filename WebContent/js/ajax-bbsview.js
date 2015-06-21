@@ -72,5 +72,5 @@ function imgClick(bbs_seq, path, save_name, bbs_goodCount, bbs_contents, email,
 
 	// YnFilter 사용 및 BBS Re Select
 	ajaxBbsSelect(bbs_seq);
-	ajaxBbsAdd();
+	ajaxBbsAdd(bbs_seq);
 }
