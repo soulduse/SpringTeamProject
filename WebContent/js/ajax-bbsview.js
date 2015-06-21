@@ -100,7 +100,7 @@ function imgClick(bbs_seq,path,save_name,bbs_contents,reg_email,email) {
       var heartImg = $('.heartImg');
       var attrVal = heartImg.attr('alt');
       
-      /*
+      
       if(reg_email==email)
       {
          $('#chattingRequset').attr('style','display:none');
@@ -110,7 +110,7 @@ function imgClick(bbs_seq,path,save_name,bbs_contents,reg_email,email) {
       {
          $('#chattingRequset').attr('style','left: 100px; cursor: pointer;');
       }
-      */
+      
      
       var src = path+"/"+save_name;
       //$('.like-label').text(bbs_likeCount); // 공감 버튼 데이터 DB값 가져오기

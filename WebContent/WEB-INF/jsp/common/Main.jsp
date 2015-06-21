@@ -362,6 +362,7 @@
                         String bbs_contents = (String) bbsVo.getBbs_contents();
                         bbs_contents = bbs_contents.replaceAll("\r\n","</BR>");
                         bbs_contents = bbs_contents.replaceAll("\u0020"," ");
+                        bbs_contents = bbs_contents.replaceAll("'", "''");
                         String mini_contents = bbs_contents;
                         if (bbs_contents.length() > 36) {
                            mini_contents = bbs_contents.substring(0, 34) + "...";
@@ -384,7 +385,7 @@
                      style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=325
                      contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>" bbs_good_yn="<%=bbs_good_yn %>"
                      reg_email="<%=reg_email%>" onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_contents%>','<%=reg_email%>','<%=email%>');"/>
-
+																								
                   <div class="text2">
                      <H3><%=mini_contents%></H3>
                   </div>

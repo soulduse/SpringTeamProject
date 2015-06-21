@@ -80,7 +80,6 @@ public class LoginAction extends BaseController {
             session.setAttribute("noticeList",  noticeList);
             System.out.println(noticeList.size());
          }
-
          memberVo = new MemberVo();
          if (EmailList.size() != 0 && pass.equals(password)) {
             MemberVo memberVo = (MemberVo) EmailList.get(0);

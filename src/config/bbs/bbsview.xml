@@ -405,25 +405,75 @@ ORDER BY A.BBS_SEQ DESC
 		where 20 >= ROWNUM
 	</select>
 
-
+	<!-- 인기 있는 이야기 -->
 	<select id="m_bbsTopStoriesList" resultClass="bbsView">
 
 		select *
-		from (
-		SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT,
-		A.REG_EMAIL, B.PATH, B.SAVE_NAME, A.GOODCOUNT, c.add_count
-		FROM BBS A,
-		BACKGROUND_IMG B,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM
-		BBS_ADD GROUP
-		BY BBS_SEQ ) c
-		WHERE A.DISPYN='Y'AND A.BG_IMG_SEQ = B.BG_IMG_SEQ and
-		a.bbs_seq =
-		c.bbs_seq(+)
-		ORDER BY a.bbs_hitcount DESC
-		)
+		from(
+            SELECT A.BBS_SEQ, A.BG_IMG_SEQ, A.BBS_CONTENTS, A.BBS_HITCOUNT,
+            A.REG_EMAIL, 
+            case
+            when nvl(a.bbs_file_seq,0) != 0
+            then (select path from bbs d, bbs_file e where d.bbs_file_seq = e.bbs_file_seq and a.bbs_seq = d.bbs_seq)
+            when nvl(a.bbs_file_seq,0) = 0
+            then (select path from bbs f,   background_img g where f.bg_img_seq = g.bg_img_seq and a.bbs_seq = f.bbs_seq)
+            end as path,
+            case
+            when nvl(a.bbs_file_seq,0) != 0
+            then (select save_name from bbs c, bbs_file d where c.bbs_file_seq = d.bbs_file_seq
+            and a.bbs_seq = c.bbs_seq)
+            when nvl(a.bbs_file_seq,0) = 0
+            then (select save_name from bbs e, background_img f where e.bg_img_seq =
+            f.bg_img_seq and a.bbs_seq = e.bbs_seq)
+            end as save_name
+            , A.GOODCOUNT, nvl(c.add_count,0)
+            add_count
+            FROM BBS A,(SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM
+            BBS_ADD GROUP BY BBS_SEQ ) c
+            WHERE A.DISPYN='Y'AND  a.bbs_seq =
+            c.bbs_seq(+) and a.bbs_hitcount != 0
+            ORDER BY a.bbs_hitcount DESC
+            )
 		where 20 >= ROWNUM
 	</select>
 
+	<!-- 관심 잇는 이야기  -->
+	<select id="m_bbsinterestList" resultClass="bbsView"  parameterClass="java.lang.String">
+
+		select *
+		from(
+            select a.bbs_seq, a.bbs_contents, a.bbs_hitcount, a.bg_img_seq, a.goodcount,
+            case
+            when nvl(a.bbs_file_seq,0) != 0
+            then (select path from bbs d, bbs_file e where d.bbs_file_seq = e.bbs_file_seq and a.bbs_seq = d.bbs_seq)
+            when nvl(a.bbs_file_seq,0) = 0
+            then (select path from bbs f,   background_img g where f.bg_img_seq = g.bg_img_seq and a.bbs_seq = f.bbs_seq)
+            end as path,
+            case
+            when nvl(a.bbs_file_seq,0) != 0
+            then (select save_name from bbs c, bbs_file d where c.bbs_file_seq = d.bbs_file_seq
+            and a.bbs_seq = c.bbs_seq)
+            when nvl(a.bbs_file_seq,0) = 0
+            then (select save_name from bbs e, background_img f where e.bg_img_seq =
+            f.bg_img_seq and a.bbs_seq = e.bbs_seq)
+            end as save_name,
+            nvl(d.add_count,0) add_count,d.reg_email , nvl(y.bbs_good_yn,'N') bbs_good_yn
+        
+        
+            from bbs a, background_img b,
+            (select distinct bbs_seq from bbs_add) c,
+            (SELECT BBS_SEQ,reg_email, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ,reg_email ) d ,
+        (select distinct bbs_seq, bbs_good_yn from yn_filter where members_seq =
+        (select members_seq from members where email=#reg_email#)) y
+        
+        
+            where
+            a.bg_img_seq = b.bg_img_seq and a.bbs_seq = c.bbs_seq 
+            and A.BBS_SEQ = d.BBS_SEQ and d.reg_email=#reg_email# and a.dispyn = 'Y' and y.bbs_seq(+) = a.bbs_seq
+            order by a.bbs_seq desc
+            )
+		where 20 >= ROWNUM
+	</select>
 
 	<select id="m_myBbsList" resultClass="bbsView" parameterClass="bbsView">
 		select *

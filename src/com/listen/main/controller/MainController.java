@@ -36,10 +36,13 @@ public class MainController extends BaseController {
 		System.out.println("mainPage 들어옴");
 		String reg_email = (String)session.getAttribute("email");  
 		bbsVo.setReg_email(reg_email);
+		System.out.println(bbsVo.getReg_email());
+		System.out.println("이밤이 지나면 이대로 우리 해여져야 만");
 		ArrayList bbsList = bbsDao.bbsMainList(bbsVo);
 		request.setAttribute("page", "main");
 		request.setAttribute("bbsList",  bbsList);
 		
+		System.out.println("이밤이 지나면 이대로 우리 해여져야 만");
 		
 		   
 	      BbsVo bv = new BbsVo();

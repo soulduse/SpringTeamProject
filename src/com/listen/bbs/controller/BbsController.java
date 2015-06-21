@@ -460,7 +460,8 @@ public class BbsController extends BaseController{
    @RequestMapping("/interest.listen")
    public String m_interestPage(HttpServletRequest request, HttpSession session) {
 	  String selectStoryName = "관심 있는 글 보기";
-      ArrayList m_bbsViewList = (ArrayList)bbsDao.m_bbsViewList();
+	  String email = (String)session.getAttribute("email");
+      ArrayList m_bbsViewList = (ArrayList)bbsDao.m_bbsinterestList(email);
       request.setAttribute("m_bbsViewList",  m_bbsViewList);
       request.setAttribute("selectStoryName",  selectStoryName);
       request.setAttribute("mainUrl", prefix + "bbs/selectStory.jsp");

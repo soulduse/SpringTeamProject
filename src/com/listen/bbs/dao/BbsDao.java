@@ -154,13 +154,19 @@ public class BbsDao {
 	public ArrayList m_bbsTopStoriesList() {
 		return (ArrayList) smct.queryForList("m_bbsTopStoriesList");
 	}
-
+	
+	public ArrayList m_bbsinterestList(String email) {
+		// TODO Auto-generated method stub
+		return (ArrayList) smct.queryForList("m_bbsinterestList", email);
+	}
+	
 	public ArrayList m_bbsinit(BbsVo bbsVo) {
 		return (ArrayList) smct.queryForList("m_bbsinit", bbsVo);
 	}
 	
 	// 메인 글목록 보기
 		public ArrayList bbsMainList(BbsVo bbsVo) {
+			System.out.println("이밤이 지나면 이대로 우리 해여져야 만");
 			return (ArrayList) smct.queryForList("bbsMainList",bbsVo);
 		}
 
@@ -175,4 +181,6 @@ public class BbsDao {
 
        return (ArrayList) smct.queryForList("myCloverView",reg_email);
     }
+
+
 }
