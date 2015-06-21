@@ -4,8 +4,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class BbsFileVo {
 
-	private String bbs_file_seq; // 파일 SEQ
-	private String bbs_seq; // 게시판 SEQ
+	private int bbs_file_seq; // 파일 SEQ
+	private int bbs_seq; // 게시판 SEQ
 	private String path; // 경로
 	private String org_name; // 원래의 파일이름
 	private String save_name; // 저장된 이름
@@ -13,20 +13,21 @@ public class BbsFileVo {
 	private MultipartFile upload; // 업로드할 파일
 
 	// setter , getter
-	public String getBbs_seq() {
-		return bbs_seq;
-	}
 
-	public void setBbs_seq(String bbs_seq) {
-		this.bbs_seq = bbs_seq;
-	}
-
-	public String getBbs_file_seq() {
+	public int getBbs_file_seq() {
 		return bbs_file_seq;
 	}
 
-	public void setBbs_file_seq(String bbs_file_seq) {
+	public void setBbs_file_seq(int bbs_file_seq) {
 		this.bbs_file_seq = bbs_file_seq;
+	}
+
+	public int getBbs_seq() {
+		return bbs_seq;
+	}
+
+	public void setBbs_seq(int bbs_seq) {
+		this.bbs_seq = bbs_seq;
 	}
 
 	public String getPath() {
@@ -57,8 +58,8 @@ public class BbsFileVo {
 		return file_size;
 	}
 
-	public void setFile_size(long l) {
-		this.file_size = l;
+	public void setFile_size(long file_size) {
+		this.file_size = file_size;
 	}
 
 	public MultipartFile getUpload() {
@@ -68,4 +69,5 @@ public class BbsFileVo {
 	public void setUpload(MultipartFile upload) {
 		this.upload = upload;
 	}
+
 }

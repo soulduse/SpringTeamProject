@@ -17,7 +17,7 @@
 		#bbs_contents#, #reg_email#, #reg_ip#, #reg_email#, #reg_ip#,
 		(SELECT LATITUDE FROM MEMBERS WHERE EMAIL = #reg_email#), 
 		(SELECT LONGITUDE FROM MEMBERS WHERE EMAIL = #reg_email#))
-		<selectKey resultClass="java.lang.String" keyProperty="bbs_seq">
+		<selectKey resultClass="java.lang.Integer" keyProperty="bbs_seq">
 			SELECT BBS_SEQ.CURRVAL BBS_SEQ FROM DUAL
 		</selectKey>
 	</insert>
@@ -39,7 +39,7 @@
 		VALUES
 		(BBS_FILE_SEQ.NEXTVAL, #bbs_seq#, #path#, #org_name#, #save_name#, #file_size#,
 		#reg_email#, #reg_ip#, #reg_email#, #reg_ip#)
-		<selectKey resultClass="java.lang.String" keyProperty="bbs_file_seq">
+		<selectKey resultClass="java.lang.Integer" keyProperty="bbs_file_seq">
 			SELECT BBS_FILE_SEQ.CURRVAL BBS_FILE_SEQ FROM DUAL
 		</selectKey>
 	</insert>

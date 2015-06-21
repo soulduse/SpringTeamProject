@@ -26,6 +26,15 @@ public class BbsVo {
 	private int rn;
 	private int age;
 	private String word;
+	private String bbs_good_yn;
+
+	public String getBbs_good_yn() {
+		return bbs_good_yn;
+	}
+
+	public void setBbs_good_yn(String bbs_good_yn) {
+		this.bbs_good_yn = bbs_good_yn;
+	}
 
 	public String getWord() {
 		return word;

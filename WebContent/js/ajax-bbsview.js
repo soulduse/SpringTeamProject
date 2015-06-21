@@ -66,11 +66,11 @@ function ajaxBbsList1(no) {
 	})
 }
 
-function imgClick(bbs_seq, path, save_name, bbs_goodCount, bbs_contents, email,
-		add_count) {
+function imgClick(bbs_seq) {
 	clearTbody();
 
 	// YnFilter 사용 및 BBS Re Select
+	var bbsSeqVal = $('input:hidden[name=bbs_seqVal]').val(bbs_seq);
 	ajaxBbsSelect(bbs_seq);
-	ajaxBbsAdd(bbs_seq);
+	ajaxBbsAdd($('input:hidden[name=bbs_seqVal]').val());
 }

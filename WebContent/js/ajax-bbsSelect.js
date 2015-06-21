@@ -30,7 +30,15 @@ function ajaxBbsSelect(bbs_seq) {
 					$('.like-label').text(goodcount);
 					$('#note-count').text(add_count);
 					$('#modalContent').text(content);
-					$('.heartImg').attr('alt',bbs_good_yn);
+					
+					var heartImg = $('.heartImg');
+					 if (bbs_good_yn == "Y") {
+						heartImg.attr('alt', 'Y');
+						heartImg.addClass('toggle-animation');
+					} else {
+						heartImg.attr('alt', 'N');
+						heartImg.removeClass('toggle-animation');
+					}
 				});
 			}
 		}

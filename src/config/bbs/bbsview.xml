@@ -57,7 +57,7 @@
 		FROM BBS A, (SELECT BBS_SEQ, COUNT(*) ADD_COUNT FROM BBS_ADD GROUP BY BBS_SEQ ) B, 
 		(select distinct bbs_seq, bbs_good_yn from yn_filter where members_seq =
 		(select members_seq from members where email=#reg_email#)) y
-		WHERE A.BBS_SEQ = B.BBS_SEQ(+) AND A.DISPYN='Y' and y.bbs_seq = a.bbs_seq AND a.BBS_SEQ = #bbs_seq#
+		WHERE A.BBS_SEQ = B.BBS_SEQ(+) AND A.DISPYN='Y' and y.bbs_seq = a.bbs_seq AND a.BBS_SEQ = #bbs_seq# AND a.BBS_INFO_SEQ = 2
 	</select>
 
 	<select id="bbsViewList2" resultClass="bbsView" parameterClass="bbsView">
@@ -472,7 +472,7 @@
 		from yn_filter where members_seq =(select members_seq from members
 		where email=#reg_email#)) y
 		WHERE A.BBS_SEQ = B.BBS_SEQ(+) AND A.DISPYN='Y'AND A.BG_IMG_SEQ =
-		C.BG_IMG_SEQ and y.bbs_seq(+) = a.bbs_seq
+		C.BG_IMG_SEQ and y.bbs_seq(+) = a.bbs_seq AND a.BBS_INFO_SEQ = 2
 		ORDER BY A.BBS_SEQ DESC
 	</select>
 </sqlMap>

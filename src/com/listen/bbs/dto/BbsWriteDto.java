@@ -5,20 +5,19 @@ import org.springframework.web.multipart.MultipartFile;
 public class BbsWriteDto {
 
 	private String bbs_contents; // 게시글 내용
-	private String bbs_file_seq; // 파일 SEQ
-	private String next_bbs_seq; // 게시판 SEQ
+	private int bbs_file_seq; // 파일 SEQ
+	private int next_bbs_seq; // 게시판 SEQ
 	private String path; // 경로
 	private String org_name; // 원래의 파일이름
 	private String save_name; // 저장된 이름
 	private long file_size; // 파일 사이즈
 	private MultipartFile upload; // 업로드할 파일
 	private int bbs_hitCount; // 조회수
-	private String bbs_seq;
+	private int bbs_seq;
 	private String reg_email;
 	private String reg_ip;
 
 	// setter , getter
-
 	public String getBbs_contents() {
 		return bbs_contents;
 	}
@@ -27,19 +26,19 @@ public class BbsWriteDto {
 		this.bbs_contents = bbs_contents;
 	}
 
-	public String getBbs_file_seq() {
+	public int getBbs_file_seq() {
 		return bbs_file_seq;
 	}
 
-	public void setBbs_file_seq(String bbs_file_seq) {
+	public void setBbs_file_seq(int bbs_file_seq) {
 		this.bbs_file_seq = bbs_file_seq;
 	}
 
-	public String getNext_bbs_seq() {
+	public int getNext_bbs_seq() {
 		return next_bbs_seq;
 	}
 
-	public void setNext_bbs_seq(String next_bbs_seq) {
+	public void setNext_bbs_seq(int next_bbs_seq) {
 		this.next_bbs_seq = next_bbs_seq;
 	}
 
@@ -91,11 +90,11 @@ public class BbsWriteDto {
 		this.bbs_hitCount = bbs_hitCount;
 	}
 
-	public String getBbs_seq() {
+	public int getBbs_seq() {
 		return bbs_seq;
 	}
 
-	public void setBbs_seq(String bbs_seq) {
+	public void setBbs_seq(int bbs_seq) {
 		this.bbs_seq = bbs_seq;
 	}
 

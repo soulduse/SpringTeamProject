@@ -18,7 +18,7 @@
 	$(function() {
 		var addForm = $('#addForm');
 		$('#addWriteBtn').click(function() {
-			ajaxBbsAdd();
+			ajaxBbsAdd($('input:hidden[name=bbs_seqVal]').val());
 		});
 
 		var chatReqForm = $('#chatReqForm');
@@ -26,7 +26,6 @@
 			chattingRequest();
 		});
 		
-
 		$(window).scroll(
 
 				function() { // ① 스크롤 이벤트 최초 발생
@@ -58,6 +57,7 @@
 %>
 <body>
 	<INPUT type="hidden" name="viewEmail" value="<%=email%>">
+	<INPUT type="hidden" name="bbs_seqVal">
 
 	<div class="listen-container">
 		<div class="listen-header">
@@ -171,7 +171,7 @@
 								data-toggle="modal" data-target="#myModal"
 								style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=300
 								height=200 contents="<%=bbs_contents%>"
-								onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=goodCount%>','<%=bbs_contents%>','<%=email%>','<%=add_count%>');" />
+								onclick="imgClick('<%=bbs_seq%>');" />
 
 							<div class="text2">
 								<H3><%=mini_contents%></H3>
@@ -248,7 +248,7 @@
 							name="<%=bbs_seq%>" style="cursor: pointer" alt="" width="350"
 							height=<%=imgHeight%> src="<%=path%>/<%=save_name%>"
 							contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"
-							onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>','<%=add_count%>');" />
+							onclick="imgClick('<%=bbs_seq%>');" />
 					</div>
 					<div class="listen-content5"
 						style="background-image: url(images/textimg1.png);">
@@ -266,7 +266,7 @@
 							name="<%=bbs_seq%>" style="cursor: pointer" alt="" width="350"
 							height=<%=imgHeight%> src="<%=path%>/<%=save_name%>"
 							contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"
-							onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>','<%=add_count%>');" />
+							onclick="imgClick('<%=bbs_seq%>');" />
 					</div>
 					<%
 						}
@@ -315,7 +315,7 @@
 						style="cursor: pointer" alt="" width="480" height="360"
 						name="<%=bbs_seq%>" src="<%=path%>/<%=save_name%>"
 						contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"
-						onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>','<%=add_count%>');" />
+						onclick="imgClick('<%=bbs_seq%>';" />
 				</div>
 				<div class="listen-content8"
 					style="background-image: url(images/textimg2.png);">
@@ -340,7 +340,7 @@
 							style="cursor: pointer" alt="" width="309" height="188"
 							src="<%=path%>/<%=save_name%>" contents="<%=bbs_contents%>"
 							bbs_goodCount="<%=bbs_goodCount%>"
-							onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>','<%=add_count%>');" />
+							onclick="imgClick('<%=bbs_seq%>'" />
 					</div>
 				</div>
 			</div>
@@ -375,6 +375,7 @@
 								int bbs_goodCount = (int) bbsVo.getGoodCount();
 								int goodCount = (int) bbsVo.getGoodCount();
 								int add_count = (int) bbsVo.getAdd_count();
+								String bbs_good_yn = bbsVo.getBbs_good_yn();
 					%>
 					<li>
 						<div class="image img-rounded" style="margin-left: 15px;">
@@ -382,8 +383,8 @@
 								data-toggle="modal" data-target="#myModal"
 								style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=325
 								contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"
-								email="<%=email%>"
-								onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>','<%=add_count%>');" />
+								email="<%=email%>" bbs_good_yn = "<%=bbs_good_yn %>"
+								onclick="imgClick('<%=bbs_seq%>');" />
 
 							<div class="text2">
 								<H3><%=mini_contents%></H3>
@@ -462,7 +463,7 @@
 
 											<li id="note-title" class="list-group-item note-title" style="margin-right: 40;" >
 												<h3 class="panel-title">
-													댓글 <span id="note-count">4</span>
+													댓글 <span id="note-count"></span>
 												</h3>
 											</li>
 

@@ -61,4 +61,3 @@
 		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 %>
-<H1>111111</H1>
