@@ -5,6 +5,16 @@
 <link rel="stylesheet" type="text/css" href="css/component.css" />
 <script src="js/modernizr.custom.js"></script>
 <script type="text/javascript" src="js/ajax-bbsview.js"></script>
+
+<SCRIPT>
+$('.img').click(function(){
+		var th = $(this);
+		var bbsGoodYn = th.attr('bbs_good_yn');
+	});
+</script>
+
+
+
 <%
 	ArrayList ajaxBbsViewList = (ArrayList) request.getAttribute("ajaxBbsViewList");
 	String email = (String) session.getAttribute("email");
@@ -23,13 +33,14 @@
 		int bbs_goodCount = (int) bbsVo.getGoodCount();
 		int goodCount = (int) bbsVo.getGoodCount();
 		int add_count = (int) bbsVo.getAdd_count();
+		 String bbs_good_yn = (String)bbsVo.getBbs_good_yn();
 %>
 <li>
 	<div class="image img-rounded" style="margin-left: 15px;">
 		<img class="img imageShadow" name="<%=bbs_seq%>"
 			data-toggle="modal" data-target="#myModal"
 			style="cursor: pointer" src="<%=path%>/<%=save_name%>" width=325
-			contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"
+			contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>" bbs_good_yn="<%=bbs_good_yn %>"
 			email="<%=email%>" onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>');" />
 
 		<div class="text2">

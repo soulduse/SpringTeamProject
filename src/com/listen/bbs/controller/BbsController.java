@@ -77,9 +77,11 @@ public class BbsController extends BaseController{
    }
    // 글 공감 버튼처리 Ajax
    @RequestMapping("/ajax/bbsLikeCount.listen")
-   public void likeCount(BbsLikeSwitchDto bbsLikeSwitchDto)
+   public String likeCount(BbsLikeSwitchDto bbsLikeSwitchDto)
    {
       bbsDao.likeCountUpdate(bbsLikeSwitchDto);
+      
+      return "admin/Nothing";
    }
    
    // 댓글 Ajax 입력
@@ -197,12 +199,10 @@ public class BbsController extends BaseController{
       return "redirect:/main.listen";
    }
    
-
-   
    @RequestMapping("/bbsPopList.listen")
    public String bbsPopListPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
       
-	   String selectItem=(String)session.getAttribute("selectItem");
+      String selectItem=(String)session.getAttribute("selectItem");
        if((String)request.getParameter("selectItem")!=null)
        {
           selectItem = (String)request.getParameter("selectItem");
@@ -220,18 +220,20 @@ public class BbsController extends BaseController{
    
    @RequestMapping("/bbsIntList.listen")
       public String bbsIntListPage(BbsVo bbsVo,HttpServletRequest request, HttpSession session) {
- 
-         String selectItem=(String)session.getAttribute("selectItem");
-         if((String)request.getParameter("selectItem")!=null)
+        String reg_email = (String)session.getAttribute("email");  
+          String selectInt=(String)session.getAttribute("selectInt");
+         if((String)request.getParameter("selectInt")!=null)
          {
-            selectItem = (String)request.getParameter("selectItem");
+            selectInt = (String)request.getParameter("selectInt");
          }
-         session.setAttribute("selectItem",selectItem);
-         bbsVo.setSelectItem(selectItem);
+         session.setAttribute("selectInt",selectInt);
+         bbsVo.setReg_email(reg_email);
+         bbsVo.setSelectInt(selectInt);
+         
          ArrayList bbsIntList = bbsDao.bbsInterestView(bbsVo);
          request.setAttribute("page", "interest");
          request.setAttribute("bbsIntList",  bbsIntList);
-         request.setAttribute("selectItem", selectItem);
+         request.setAttribute("selectInt", selectInt);
          request.setAttribute("mainUrl", prefix + "bbs/BbsIntList.jsp");
          
          return frame;
@@ -240,30 +242,30 @@ public class BbsController extends BaseController{
    @RequestMapping("/bbsAgeList.listen")
    public String bbsAgePage(BbsVo bbsVo,HttpServletRequest request, HttpSession session) {
 
-	  String selectAge = "";
-	  String selectItem = "";
-	  
-	  if((String)request.getParameter("selectItem")!=null)
-	  {
-	      selectItem = (String)request.getParameter("selectItem");
-	  }
-	  
-	  if((String)request.getParameter("selectAge")!=null)
-	  {
-		  selectAge = (String)request.getParameter("selectAge");
-	  }
-	  session.setAttribute("selectItem",selectItem);
-	  session.setAttribute("selectAge",selectAge);
-	  
-	  bbsVo.setSelectItem(selectItem);
-	  bbsVo.setSelectAge(selectAge);
-	  
-	  ArrayList bbsAgeList = bbsDao.bbsAgeList(bbsVo);
-	  request.setAttribute("page", "bbsAgeList");
-	  request.setAttribute("bbsAgeList",  bbsAgeList);
-	  request.setAttribute("selectAge", selectAge);
-	  request.setAttribute("selectItem", selectItem);
-	  request.setAttribute("mainUrl", prefix + "bbs/BbsAgeList.jsp");
+     String selectAge = "";
+     String selectItem = "";
+     
+     if((String)request.getParameter("selectItem")!=null)
+     {
+         selectItem = (String)request.getParameter("selectItem");
+     }
+     
+     if((String)request.getParameter("selectAge")!=null)
+     {
+        selectAge = (String)request.getParameter("selectAge");
+     }
+     session.setAttribute("selectItem",selectItem);
+     session.setAttribute("selectAge",selectAge);
+     
+     bbsVo.setSelectItem(selectItem);
+     bbsVo.setSelectAge(selectAge);
+     
+     ArrayList bbsAgeList = bbsDao.bbsAgeList(bbsVo);
+     request.setAttribute("page", "bbsAgeList");
+     request.setAttribute("bbsAgeList",  bbsAgeList);
+     request.setAttribute("selectAge", selectAge);
+     request.setAttribute("selectItem", selectItem);
+     request.setAttribute("mainUrl", prefix + "bbs/BbsAgeList.jsp");
       
       return frame;
    }
@@ -341,10 +343,13 @@ public class BbsController extends BaseController{
    
    
    @RequestMapping("/ajax/bbsViewListAdd1.listen")
-   public String bbsViewListAddPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException
+   public String bbsViewListAddPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException
    {
 	   int rownum2 = (int)bbsVo.getNo();
 	   request.setAttribute("rownum2", rownum2);
+	   String reg_email = (String)session.getAttribute("email");
+	   bbsVo.setReg_email(reg_email);
+	 	   
 	   ArrayList ajaxBbsViewList = (ArrayList)bbsDao.bbsViewList2(bbsVo);
 	   
 	   request.setAttribute("ajaxBbsViewList", ajaxBbsViewList);

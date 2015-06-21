@@ -25,12 +25,36 @@ public class BbsVo {
 	private int no;
 	private int rn;
 	private int age;
+	private String bbs_good_yn;
+	private int members_seq;
+	private String selectInt;
 	
 	
 	
 	
-	
-	
+	public String getSelectInt() {
+		return selectInt;
+	}
+
+	public void setSelectInt(String selectInt) {
+		this.selectInt = selectInt;
+	}
+
+	public int getMembers_seq() {
+		return members_seq;
+	}
+
+	public void setMembers_seq(int members_seq) {
+		this.members_seq = members_seq;
+	}
+
+	public String getBbs_good_yn() {
+		return bbs_good_yn;
+	}
+
+	public void setBbs_good_yn(String bbs_good_yn) {
+		this.bbs_good_yn = bbs_good_yn;
+	}
 
 	public int getAge() {
 		return age;

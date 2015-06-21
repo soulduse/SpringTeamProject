@@ -5,20 +5,23 @@
 
 
 		<SCRIPT type="text/javascript">
-			 var loginFrom = dcument.loginFrom;
+			 
+		var loginForm = document.loginForm;
+		document.loginForm.username.focus();
+		
 			 var filter = "win16|win32|win64|mac";
-			
+			 
 			 if( navigator.platform  )
 			 {
 			 	if( filter.indexOf(navigator.platform.toLowerCase())<0 )
 			 	{
 			   		alert("모바일 기기에서 접속");
 			   		// 아래 주소로 이동한다.
-			   		loginFrom.action = "/loginAction.listen";
+			   		loginForm.action = "/loginAction.listen";
 			  
 			  	}else{
 			   		//alert("PC에서 접속");
-			   		loginFrom.action = "/m_loginAction.listen";
+			   		loginForm.action = "/m_loginAction.listen";
 			  	}
 			}
 		</SCRIPT>
@@ -53,17 +56,16 @@ if(request.getAttribute("Error") == "N")
         <div class="page-container">
             <h1>Login</h1>
             
-            <form name="loginFrom" action="loginAction.listen" method="post">
+            <form name="loginForm" action="loginAction.listen" method="post">
                 <INPUT type="hidden" name="latitude" value="#">
          		<INPUT type="hidden" name="longitude"  value="#">
-                <input type="text" name="username" class="username" placeholder="Username">
+                <input type="text" id="username" name="username" class="username" placeholder="Username">
                 <input type="password" name="password" class="password" placeholder="Password">
                 <button type="submit" class="basicBtn">Sign me in</button>
                 <button type="button"  class="basicBtn" onclick="location.href='/join.listen'"> Join </button>
 				<button type="button"  id="facebookBtn" onclick="location.href='/facebookLogin.listen'"> Facebook </button>
                 <div class="error"><span>+</span></div>
             </form>
-            
         </div>
 
         <!-- Javascript -->

@@ -31,16 +31,17 @@ public class MainController extends BaseController {
 
 
 	@RequestMapping("/main.listen")
-	public String mainPage(HttpServletRequest request, HttpSession session) {
+	public String mainPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
 
 		System.out.println("mainPage 들어옴");
-		String email = (String)session.getAttribute("email");
-		ArrayList bbsList = bbsDao.bbsViewList();
+		String reg_email = (String)session.getAttribute("email");  
+		bbsVo.setReg_email(reg_email);
+		ArrayList bbsList = bbsDao.bbsMainList(bbsVo);
 		request.setAttribute("page", "main");
 		request.setAttribute("bbsList",  bbsList);
 		
 		
-		String reg_email = (String)session.getAttribute("email");      
+		   
 	      BbsVo bv = new BbsVo();
 	      bv.setReg_email(reg_email);      
 	      ArrayList mainMyStory = bbsDao.mainMyStory(bv);   

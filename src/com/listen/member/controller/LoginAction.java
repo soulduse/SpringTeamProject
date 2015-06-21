@@ -89,6 +89,7 @@ public class LoginAction extends BaseController {
 
             session.setAttribute("LoginYn", "Y");
             session.setAttribute("selectItem", "main");
+			session.setAttribute("selectInt", "bbs_add_count");
             memberVo.setEmail(email);
             memberVo.setLatitude(latitude);
             memberVo.setLongitude(longitude);

@@ -1,7 +1,6 @@
 
 //Ajax 글 채팅요청 처리
 function chattingRequest() {
-	alert("asdfasdf");
 	var bbs_seq = $("#bbs_seq").attr("value");
 	var email = $("#email").attr("value");
 	
