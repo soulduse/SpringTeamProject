@@ -14,19 +14,13 @@ public class BbsWriteDto {
 	private MultipartFile upload; // 업로드할 파일
 	private int bbs_hitCount; // 조회수
 	private String bbs_seq;
+	private String reg_email;
+	private String reg_ip;
 
 	// setter , getter
 
 	public String getBbs_contents() {
 		return bbs_contents;
-	}
-
-	public String getBbs_seq() {
-		return bbs_seq;
-	}
-
-	public void setBbs_seq(String bbs_seq) {
-		this.bbs_seq = bbs_seq;
 	}
 
 	public void setBbs_contents(String bbs_contents) {
@@ -96,4 +90,29 @@ public class BbsWriteDto {
 	public void setBbs_hitCount(int bbs_hitCount) {
 		this.bbs_hitCount = bbs_hitCount;
 	}
+
+	public String getBbs_seq() {
+		return bbs_seq;
+	}
+
+	public void setBbs_seq(String bbs_seq) {
+		this.bbs_seq = bbs_seq;
+	}
+
+	public String getReg_email() {
+		return reg_email;
+	}
+
+	public void setReg_email(String reg_email) {
+		this.reg_email = reg_email;
+	}
+
+	public String getReg_ip() {
+		return reg_ip;
+	}
+
+	public void setReg_ip(String reg_ip) {
+		this.reg_ip = reg_ip;
+	}
+
 }

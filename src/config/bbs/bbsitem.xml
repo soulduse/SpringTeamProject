@@ -5,7 +5,18 @@
 
 	<!-- 글 등록 -->
 	<insert id="bbsTextWrite" parameterClass="bbsWriteDto">
-		INSERT INTO BBS (BBS_SEQ, BBS_CONTENTS, BBS_INFO_SEQ) VALUES (BBS_SEQ.NEXTVAL, #bbs_contents# '2')
+		INSERT INTO BBS 
+		(BBS_SEQ, BG_IMG_SEQ, BBS_INFO_SEQ, BBS_FILE_SEQ,MEMBERS_SEQ, BBS_CONTENTS, 
+		REG_EMAIL, REG_IP, UPD_EMAIL, UPD_IP, LATITUDE, LONGITUDE) 
+		VALUES 
+		(BBS_SEQ.NEXTVAL, 
+		(SELECT * FROM 
+		(SELECT BG_IMG_SEQ FROM BACKGROUND_IMG 
+        ORDER BY DBMS_RANDOM.RANDOM()) WHERE <![CDATA[ROWNUM <=1 ]]>),
+        '2', #bbs_file_seq#, (SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL=#reg_email#),
+		#bbs_contents#, #reg_email#, #reg_ip#, #reg_email#, #reg_ip#,
+		(SELECT LATITUDE FROM MEMBERS WHERE EMAIL = #reg_email#), 
+		(SELECT LONGITUDE FROM MEMBERS WHERE EMAIL = #reg_email#))
 		<selectKey resultClass="java.lang.String" keyProperty="bbs_seq">
 			SELECT BBS_SEQ.CURRVAL BBS_SEQ FROM DUAL
 		</selectKey>
@@ -14,25 +25,32 @@
 		insert 태그 안에 selectKey를 사용할 수 있다.
 		역할은 SELECT한 결과를 insert시 parameterClass로 전달 할수 있음.
 	 -->
+	 
+	 <update id="fileSeqUpdate" parameterClass="bbsWriteDto">
+		UPDATE BBS SET BBS_FILE_SEQ=#bbs_file_seq#
+		WHERE BBS_SEQ = #bbs_seq#	 
+	 </update>
 	
 	<!-- 파일등록 -->
 	<insert id="bbsFileUpload" parameterClass="bbsWriteDto">
 		INSERT INTO BBS_FILE
-		(BBS_FILE_SEQ, BBS_SEQ, PATH, ORG_NAME, SAVE_NAME, FILE_SIZE)
+		(BBS_FILE_SEQ, BBS_SEQ, PATH, ORG_NAME, SAVE_NAME, FILE_SIZE,
+		REG_EMAIL, REG_IP, UPD_EMAIL, UPD_IP)
 		VALUES
-		(BBS_FILE_SEQ.NEXTVAL, #bbs_seq#, #path#, #org_name#, #save_name#, #file_size#)
+		(BBS_FILE_SEQ.NEXTVAL, #bbs_seq#, #path#, #org_name#, #save_name#, #file_size#,
+		#reg_email#, #reg_ip#, #reg_email#, #reg_ip#)
+		<selectKey resultClass="java.lang.String" keyProperty="bbs_file_seq">
+			SELECT BBS_FILE_SEQ.CURRVAL BBS_FILE_SEQ FROM DUAL
+		</selectKey>
 	</insert>
 	
-	<!-- 게시글 조회수 증가 --> 
+	<!-- 게시글 조회수 증가 -->
 	<update id="hitPlus" parameterClass="java.lang.Integer">
 		UPDATE BBS SET BBS_HITCOUNT = BBS_HITCOUNT+1
 		WHERE BBS_SEQ=#bbs_seq#
 	</update>
-	
+
 	<!-- 글쓰기 전 Background 갯수 구하기위한 Query -->
-	<!--  <select id="background" resultClass="">
-	
-	</select>
-	-->
+	<!-- <select id="background" resultClass=""> </select> -->
 
 </sqlMap>

@@ -5754,7 +5754,7 @@ button.close {
   top: 0;
   right: 0;
   left: 0;
-  background-color: #000;
+  background-color: #f5f5f5;
 }
 .modal-backdrop.fade {
   filter: alpha(opacity=0);
@@ -5762,7 +5762,7 @@ button.close {
 }
 .modal-backdrop.in {
   filter: alpha(opacity=50);
-  opacity: .5;
+  opacity: .6;
 }
 .modal-header {
   min-height: 16.42857143px;
