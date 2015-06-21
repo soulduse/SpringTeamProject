@@ -12,6 +12,7 @@ import com.listen.bbs.dto.BbsWriteDto;
 import com.listen.bbs.vo.BbsSelectViewVo;
 import com.listen.bbs.vo.BbsVo;
 import com.listen.bbs.vo.MyBackGroundVo;
+import com.listen.member.vo.MemberVo;
 
 @Repository
 public class BbsDao {
@@ -65,6 +66,9 @@ public class BbsDao {
 
 	// 글 보기시 Ajax 처리
 	public BbsSelectViewVo bbsSelectView(BbsViewFilterDto bbsViewFilterDto) {
+		int bbs_seq = bbsViewFilterDto.getBbs_seq();
+		smct.update("hitPlus",bbs_seq);
+		System.out.println("조회수 증가");
 		int updCheck = (int) smct.update("bbsViewUpdateFilter",bbsViewFilterDto);
 		System.out.println("업데이트 성공!");
 		if (updCheck == 0) {
@@ -110,16 +114,32 @@ public class BbsDao {
 		return (MyBackGroundVo) smct.queryForObject("bbsMybgimg", vo);
 	}
 	
+    //마이스토리 비공개글 -->공개 시 클로버 확인
+    public MemberVo cloverCheck(MemberVo mv)
+    {    
+       return (MemberVo) smct.queryForObject("cloverCheck", mv);
+    } 
+    
 	// 마이스토리 비공개글 -->공개
 	public void dispSave(BbsVo bv) {
 		smct.update("dispUpload", bv);
+	}
+
+	// 마이스토리 비공개글 -->공개시 크로버 차감
+	public void cloverDown(MemberVo memVo) {
+		smct.update("cloverUpload", memVo);
+	}
+
+	// 마이스토리 공개글 -->비공개
+	public void dispCencle(BbsVo bv) {
+		smct.update("dispUploadCencle", bv);
 	}
 
 	// 관심있는 글 보기
 	public ArrayList bbsInterestView(BbsVo bbsVo) {
 		return (ArrayList) smct.queryForList("bbsInterestView", bbsVo);
 	}
-	
+
 	public void myStoryDispY(BbsVo bbsVo) {
 		smct.update("myStoryDispY", bbsVo);
 	}
@@ -130,16 +150,15 @@ public class BbsDao {
 	}
 
 	public ArrayList searchSelect(BbsSearchDto bbsSearchDto) {
-		
 		return (ArrayList) smct.queryForList("bbsSerchList", bbsSearchDto);
 	}
 	
-///////////////////////////////////////모바일 부분
+	// /////////////////////////////////////모바일 부분
 
 	public ArrayList m_bbsViewList() {
 		return (ArrayList) smct.queryForList("m_bbsViewList");
 	}
-	
+
 	public ArrayList m_myBbsList(BbsVo bbsVo) {
 		return (ArrayList) smct.queryForList("m_myBbsList", bbsVo);
 	}
@@ -148,9 +167,26 @@ public class BbsDao {
 		return (ArrayList) smct.queryForList("m_bbsTopStoriesList");
 	}
 	
+	public ArrayList m_bbsinterestList(String email) {
+		// TODO Auto-generated method stub
+		return (ArrayList) smct.queryForList("m_bbsinterestList", email);
+	}
+	
 	public ArrayList m_bbsinit(BbsVo bbsVo) {
 		return (ArrayList) smct.queryForList("m_bbsinit", bbsVo);
 	}
+	
+	public void myStoryDispN(BbsVo bbsVo) {
+		// TODO Auto-generated method stub
+		smct.update("myStoryDispN", bbsVo);
+
+	}
+
+    public ArrayList myClover(String reg_email) {
+       // TODO Auto-generated method stub
+
+       return (ArrayList) smct.queryForList("myCloverView",reg_email);
+    }
 
 
 

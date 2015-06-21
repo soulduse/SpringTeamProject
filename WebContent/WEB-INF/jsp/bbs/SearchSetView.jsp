@@ -34,6 +34,7 @@
 					String bbs_contents = (String) bbsVo.getBbs_contents();
 					bbs_contents = bbs_contents.replaceAll("\r\n","</BR>");
 					bbs_contents = bbs_contents.replaceAll("\u0020"," ");
+					bbs_contents = bbs_contents.replaceAll("'", "''");
 					String mini_contents = bbs_contents;
 					if (bbs_contents.length() > 36) {
 						mini_contents = bbs_contents.substring(0, 34) + "...";
@@ -46,6 +47,8 @@
 					int goodCount = (int) bbsVo.getGoodCount();
 					int add_count = (int) bbsVo.getAdd_count();
 		%>
+		<INPUT type="hidden" name="viewEmail" value="<%=email%>">
+	<INPUT type="hidden" name="bbs_seqVal">
 		<li>
 			<div class="image img-rounded" style="margin-left: 15px;">
 				<img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal"
@@ -53,18 +56,15 @@
 					src="<%=path%>/<%=save_name%>" width=325
 					contents="<%=bbs_contents%>" bbs_goodCount="<%=bbs_goodCount%>"
 					email="<%=email%>"
-					onclick="imgClick('<%=bbs_seq%>','<%=path%>','<%=save_name%>','<%=bbs_goodCount%>','<%=bbs_contents%>','<%=email%>','<%=add_count%>');" />
+					onclick="imgClick('<%=bbs_seq%>');" />
 
 				<div class="text2">
 					<H3><%=mini_contents%></H3>
 				</div>
 				<div class="text2_1">
-					조회수 :
-					<%=bbs_hitCount%>
-					좋아요 :
-					<%=goodCount%>
-					댓글수 :
-					<%=add_count%></div>
+					<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;<%=bbs_hitCount%>&nbsp;
+	              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<%=goodCount %>&nbsp; 
+	              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<%=add_count %>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 			</div>
 		</li>
 		<%

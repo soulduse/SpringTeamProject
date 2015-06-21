@@ -8,11 +8,6 @@
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
-	$(function() {
-		$('.buttonClick').click(function() {
-			alert();
-	    });
-	});
 ;( function( window ) {
 	
 	'use strict';

@@ -27,68 +27,66 @@ $(function() {
 <link rel="stylesheet" type="text/css" href="css/default.css" />
 <link rel="stylesheet" type="text/css" href="css/component.css" />
 <script src="js/modernizr.custom.js"></script>
-    <style>
-    
-      .jb-content {
-           width: 375px;
-           padding: 5px;
-           margin-bottom: 25px;        
-           float: left;
-      }
-      
-      .image{
-           width: 350px;
-           padding: 10px;
-           margin-bottom: 10px;        
-           float: left;
-           border: 1px solid #bcbcbc;
-           background-color:gray;
-      }
-       
-       .chkbox{
-             width:13px;
-             height:13px;
-             vertical-align:text-top
-      }
-      
-      label{
-            vertical-align:-3px
-      }
-      .dd{
-      top: 0;
-  right:50%;
-  bottom: 0;
-  left: 0;
-  z-index: 1040;
-      }
-      
-   </style>
+<style>
+	.jb-content {
+		width: 375px;
+		padding: 5px;
+		margin-bottom: 25px;
+		float: left;
+	}
+	
+	.image {
+		width: 350px;
+		padding: 10px;
+		margin-bottom: 10px;
+		float: left;
+		border: 1px solid #bcbcbc;
+		background-color: gray;
+	}
+	
+	.chkbox {
+		width: 13px;
+		height: 13px;
+		vertical-align: text-top
+	}
+	
+	label {
+		vertical-align: -3px
+	}
+	
+	.dd {
+		top: 0;
+		right: 50%;
+		bottom: 0;
+		left: 0;
+		z-index: 1040;
+	}
+</style>
 </head>
-<% 
-   if(session.getAttribute("email")!=null 
-      && session.getAttribute("LoginYn") != null 
-      &&((String)session.getAttribute("LoginYn")).equals("Y"))
-      {
-      String email = (String)session.getAttribute("email");
-      String userIp = request.getRemoteAddr();
-      String selectItem=(String)session.getAttribute("selectItem");
-      String selectAge="";
-      
-      if((String)request.getAttribute("selectItem")!=null)
-      {
-    	  System.out.println("여기여기"+(String)request.getAttribute("selectItem")+"ㅇㅇㅇ");
-    	  selectItem = (String)request.getAttribute("selectItem");
-    	  session.setAttribute("selectItem", selectItem);
-    	  request.setAttribute("selectItem",selectItem);
-      }
-      
-      if((String)request.getAttribute("selectAge")!=null)
-      {
-    	  selectAge = (String)request.getAttribute("selectAge");
-    	  session.setAttribute("selectAge", selectAge);
-    	  request.setAttribute("selectAge",selectAge);
-      }
- %>
+<%
+	if (session.getAttribute("email") != null
+			&& session.getAttribute("LoginYn") != null
+			&& ((String) session.getAttribute("LoginYn")).equals("Y")) {
+		String email = (String) session.getAttribute("email");
+		String userIp = request.getRemoteAddr();
+		String selectItem = (String) session.getAttribute("selectItem");
+		String selectAge = "";
+
+		if ((String) request.getAttribute("selectItem") != null) {
+			System.out.println("여기여기"
+					+ (String) request.getAttribute("selectItem")
+					+ "ㅇㅇㅇ");
+			selectItem = (String) request.getAttribute("selectItem");
+			session.setAttribute("selectItem", selectItem);
+			request.setAttribute("selectItem", selectItem);
+		}
+
+		if ((String) request.getAttribute("selectAge") != null) {
+			selectAge = (String) request.getAttribute("selectAge");
+			session.setAttribute("selectAge", selectAge);
+			request.setAttribute("selectAge", selectAge);
+		}
+%>
 <body>
 	<INPUT type="hidden" name="viewEmail" value="<%=email%>">
 	<div><%=selectAge%>대 또래 이야기</div>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Facebook Login JavaScript Example</title>
+<meta charset="euc-kr">
+</head>
+<body>
+<script>
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    if (response.status === 'connected') {
+      testAPI();
+    } else if (response.status === 'not_authorized') {
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this app.';
+    } else {
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into Facebook.';
+    }
+  }
+
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '383705378499256',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.3' // use version 2.2
+  });
+
+  FB.logout(function(response) {
+  // user is now logged out
+	});
+
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+	  var image = document.getElementById('image');
+		image.src = 'http://graph.facebook.com/' + response.id + '/picture';
+		var email = document.getElementById('email');
+		alert(response.email);
+		email.innerHTML = response.email;
+		var gender = document.getElementById('gender');
+		if(response.gender==("male"))
+		{
+			var gender2 = "1";
+		}
+		else
+		{
+			var gender2 = "2";
+		}
+		gender.innerHTML = gender2;
+		var birthday = document.getElementById('birthday');
+		var date = new Date(response.birthday);
+		var y = date.getFullYear();
+		birthday.innerHTML = y;
+		console.log(birthday);
+    });
+  }
+</script>
+
+<fb:login-button scope="public_profile,email,user_birthday" onlogin="checkLoginState();">
+</fb:login-button>
+
+ <a href="#" onclick="FB.logout();">[logout]</a><br>
+
+</div>
+
+
+ <p>사용자정보 출력</p>
+    <div align="left">
+        <img id="image"/>
+		<div id="gender"></div>
+		<div id="email"></div>
+		<div id="birthday"></div>
+	</div>
+
+</body>
+</html>

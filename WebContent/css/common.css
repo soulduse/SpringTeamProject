@@ -15,7 +15,7 @@
     position:absolute;
     color:white;
     bottom:5%; /* in conjunction with left property, decides the text position */
-    left:20%;
+    left:-2%;
     width:250px; /* optional, though better have one */
 }
 .text3 {
@@ -44,7 +44,7 @@
 }
 
 .mastfoot {
-    position: fixed;
+    position: bottom:200px;
     bottom: 0;
     width: 100%;
   }

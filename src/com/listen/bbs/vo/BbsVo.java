@@ -25,56 +25,9 @@ public class BbsVo {
 	private int no;
 	private int rn;
 	private int age;
-	private String word;
 	private String bbs_good_yn;
-
-	public String getBbs_good_yn() {
-		return bbs_good_yn;
-	}
-
-	public void setBbs_good_yn(String bbs_good_yn) {
-		this.bbs_good_yn = bbs_good_yn;
-	}
-
-	public String getWord() {
-		return word;
-	}
-
-	public void setWord(String word) {
-		this.word = word;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	public int getRn() {
-		return rn;
-	}
-
-	public void setRn(int rn) {
-		this.rn = rn;
-	}
-
-	public int getNo() {
-		return no;
-	}
-
-	public void setNo(int no) {
-		this.no = no;
-	}
-
-	public String getSelectAge() {
-		return selectAge;
-	}
-
-	public void setSelectAge(String selectAge) {
-		this.selectAge = selectAge;
-	}
+	private int members_seq;
+	private String selectInt;
 
 	public int getBbs_seq() {
 		return bbs_seq;
@@ -226,5 +179,61 @@ public class BbsVo {
 
 	public void setAdd_count(int add_count) {
 		this.add_count = add_count;
+	}
+
+	public String getSelectAge() {
+		return selectAge;
+	}
+
+	public void setSelectAge(String selectAge) {
+		this.selectAge = selectAge;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public int getRn() {
+		return rn;
+	}
+
+	public void setRn(int rn) {
+		this.rn = rn;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getBbs_good_yn() {
+		return bbs_good_yn;
+	}
+
+	public void setBbs_good_yn(String bbs_good_yn) {
+		this.bbs_good_yn = bbs_good_yn;
+	}
+
+	public int getMembers_seq() {
+		return members_seq;
+	}
+
+	public void setMembers_seq(int members_seq) {
+		this.members_seq = members_seq;
+	}
+
+	public String getSelectInt() {
+		return selectInt;
+	}
+
+	public void setSelectInt(String selectInt) {
+		this.selectInt = selectInt;
 	}
 }

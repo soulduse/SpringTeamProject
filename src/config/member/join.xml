@@ -2,13 +2,22 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="Data">
 	<typeAlias alias="memberVo" type="com.listen.member.vo.MemberVo" />
+		<typeAlias alias="facebookVo" type="com.listen.member.vo.facebookVo" />
 		<insert id="join" parameterClass="MemberVo">
 		INSERT INTO MEMBERS 
 		(MEMBERS_SEQ, GENDER, BIRTHYEAR, EMAIL, REG_EMAIL, REG_IP, UPD_EMAIL, UPD_IP, LATITUDE, LONGITUDE, PASSWORD ) 
 		VALUES (MEMBERS_SEQ.NEXTVAL, #gender#, #birthyear#, #realId#, #realId#, '127.0.0.1', #realId#, '127.0.0.1', #latitude#, #longitude# , #password#)
 	</insert>
+
+	<insert id="fjoin" parameterClass="facebookVo">
+		INSERT INTO MEMBERS 
+		(MEMBERS_SEQ, GENDER, BIRTHYEAR, EMAIL, REG_EMAIL, REG_IP, UPD_EMAIL, UPD_IP, LATITUDE, LONGITUDE ) 
+		VALUES (MEMBERS_SEQ.NEXTVAL, #gender#, #birthyear#, #email#, #email#, '127.0.0.1', #email#, '127.0.0.1', #latitude#, #longitude#)
+	</insert>
+
+	
 	
 	<select id="getCheckEmail"  resultClass="MemberVo" parameterClass="java.lang.String">
-		SELECT EMAIL FROM MEMBERS WHERE EMAIL=#realId#
+		SELECT EMAIL FROM MEMBERS WHERE EMAIL=#id#
 	</select>
 </sqlMap>

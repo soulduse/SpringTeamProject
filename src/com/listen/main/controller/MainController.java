@@ -31,19 +31,23 @@ public class MainController extends BaseController {
 	@RequestMapping("/main.listen")
 	public String mainPage(BbsVo bbsVo, HttpServletRequest request,
 			HttpSession session) {
-
 		System.out.println("mainPage 들어옴");
 		String reg_email = (String) session.getAttribute("email");
 		bbsVo.setReg_email(reg_email);
+		System.out.println(bbsVo.getReg_email());
+		System.out.println("이밤이 지나면 이대로 우리 해여져야 만");
 		ArrayList bbsList = bbsDao.bbsMainList(bbsVo);
 		request.setAttribute("page", "main");
 		request.setAttribute("bbsList", bbsList);
+
+		System.out.println("이밤이 지나면 이대로 우리 해여져야 만");
 
 		BbsVo bv = new BbsVo();
 		bv.setReg_email(reg_email);
 		ArrayList mainMyStory = bbsDao.mainMyStory(bv);
 		request.setAttribute("page", "myStory");
 		request.setAttribute("mainMyStory", mainMyStory);
+
 		// request.setAttribute("mainUrl", prefix + "~~~.jsp");
 
 		return frame;
@@ -67,11 +71,12 @@ public class MainController extends BaseController {
 		BbsVo bv = new BbsVo();
 		bv.setReg_email(reg_email);
 		ArrayList bbsMyViewList = bbsDao.bbsMyViewList(bv);
-
+		ArrayList myClover = bbsDao.myClover(reg_email);
 		MyBackGroundVo bbsMybgimg = bbsDao.bbsMybgimg(bv);
 
 		request.setAttribute("page", "myStory");
 		request.setAttribute("bbsMyViewList", bbsMyViewList);
+		request.setAttribute("myClover", myClover);
 		request.setAttribute("bbsMybgimg", bbsMybgimg);
 		request.setAttribute("mainUrl", prefix + "myStory/myStory.jsp");
 
@@ -120,5 +125,4 @@ public class MainController extends BaseController {
 
 		return m_frame;
 	}
-
 }

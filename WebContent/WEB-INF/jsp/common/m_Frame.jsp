@@ -16,15 +16,69 @@
 	ArrayList chatList = (ArrayList) session.getAttribute("chatList");
 	ArrayList noticeList = (ArrayList) session
 			.getAttribute("noticeList");
-	String email = "houng9065@hanmail.net";
-	email = (String) session.getAttribute("email");
+	String email = (String) session.getAttribute("email");
+	String reg_ip = request.getRemoteAddr();
 %>
 
 <script src="js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/ajax-bbsview.js"></script>
+<script type="text/javascript" src="js/ajax-comment.js"></script>
+<script type="text/javascript" src="js/ajax-bbsview.js"></script>
+<script type="text/javascript" src="js/ajax-bbsSelect.js"></script>
 <script>
 	$(function() {
 		$.mobile.ajaxEnabled = false;
 
+		var notificationList = $('#notificationList');
+		   $.ajax({
+		      url : "/ajax/notificationList.listen",
+		      type : 'POST',
+		      dataType : "xml",
+		      success : function(response, status, request) {
+		         if (request.status == 200) {
+		            $(response).find('root').each(function() {
+		               $(response).find('items').each(function() {
+				          var count = $('count', this).text();
+			              var notifications_seq = $('notifications_seq', this).text();
+			              var send_seq = $('send_seq', this).text();
+		                  var rec_seq = $('rec_seq', this).text();
+		                  var noti_state_seq = $('noti_state_seq', this).text();
+		                  var content = $('content', this).text();
+		                  if( noti_state_seq == 1)
+		                	  {
+				                  notificationList.append('<li><FORM name="CreateRoomForm'+count+'" method="post" id="CreateRoomForm'+count+'" action="/m_createRoom.listen">'+'<INPUT type="hidden" name="notifications_seq" id="notifications_seq" value="'+notifications_seq+'"> <INPUT type="hidden" name="send_seq" id="send_seq" value="'+send_seq+'">	<INPUT type="hidden" name="rec_seq" id="rec_seq" value="'+rec_seq+'"> <INPUT type="hidden" name="noti_state_seq" id="noti_state_seq" value="'+ noti_state_seq+'"><INPUT type="hidden" name="content" id="content" value="'+ content+'"> <img src="/images/message.png">'+content+'&nbsp;&nbsp;<input class="room_make" id="'+count+'" type = "submit" value = "수락"></li>');
+				                  notificationList.append('</FORM>');
+		                	  }
+
+		                  if( noti_state_seq == 2)
+		                	  {
+				                  notificationList.append('<li><a href="http://www.naver.com"><img src="/images/clover1	.png">'+content+'&nbsp;&nbsp;</a></li>');
+		                	  }
+		                  if( noti_state_seq == 4)
+	                	  {
+			                  notificationList.append('<li><a href="#"><img src="/images/heart.png">'+content+'&nbsp;&nbsp;</a></li>');
+	                	  }
+		                  if( noti_state_seq == 5)
+	                	  {
+			                  notificationList.append('<a href="#"><img src="/images/port.png">'+content+'&nbsp;&nbsp;</a>');
+			                  notificationList.append('<li class="divider"></li>');
+	                	  }
+		                  if( noti_state_seq == 6)
+	                	  {
+			                  notificationList.append('<li><a href="#"><img src="/images/notice.png">'+content+'&nbsp;&nbsp;</a></li>');
+	                	  }
+
+
+		               })
+		            });
+		         } else
+		        	 {
+		        	 notificationList.append('<li>회원자에게 온 알림이 없습니다.</li>');
+		        	 }
+		      }
+		   });
+		
+		
 		var email = $('#email').val();
 
 		$('#select-h-2b').change(function() {
@@ -43,10 +97,6 @@
 					var roomname = $('#roomname' + num).val();
 					var nickname = $('#nickname' + num).val();
 					var email = $('#email' + num).val();
-					window.open("http://106.242.203.67:900/m_chatting/"
-							+ encodeURIComponent(roomname) + "?name="
-							+ encodeURIComponent(nickname), '1',
-							'width=600, height=800, resizable=no');
 					var num = $(this).attr("id");
 					var CreateRoomForm = "#CreateRoomForm" + num;
 					alert();
@@ -85,10 +135,11 @@
 </head>
 <body>
 
-	<INPUT type="hidden" name="email" id="email" value="<%= email %>">
+	<INPUT type="hidden" name="email" id="email" value="<%=email%>">
 	<div data-role="page" id="about-the-band" data-title="Page Title"
 		data-theme="b" class="pages">
-		<div class="ui-grid-b" data-role="header" data-theme="a" data-position="fixed">
+		<div class="ui-grid-b" data-role="header" data-theme="a"
+			data-position="fixed">
 			<div class="ui-block-a" class="ui-grid-b">
 				<div class="ui-block-a">
 					<a href="#leftpanel3" data-role="button" data-shadow="true"
@@ -124,31 +175,36 @@
 				</div>
 				<div class="ui-block-c">
 					<a href="#popupWirth" data-role="button" data-rel="popup"
-						data-position-to="window" data-transition="pop"
-						class="pen" data-iconpos="notext">글쓰기</a>
+						data-position-to="window" data-transition="pop" class="pen"
+						data-iconpos="notext">글쓰기</a>
 				</div>
 			</div>
 
 		</div>
-		<div data-role="content" style="background: transparent url('../images/back4.png') 0 0 no-repeat; ">
+		<div data-role="content"
+			style="background: transparent url('../images/back4.png') 0 0 no-repeat;">
 			<jsp:include page="<%=mainUrl%>" flush="true" />
-			
-	<div data-role="popup" id="popupWirth" data-theme="a"
-		class="ui-corner-all">
-		<FORM name="writeForm" method="post" id="writeForm"
-			enctype="multipart/form-data" action="/m_writeSave.listen">
-			<div style="padding: 10px 20px;">
-				<h3>글쓰기</h3>
-				<label for="bbs_contents">Textarea:</label>
-				<textarea data-mini="true" cols="40" rows="8" name="bbs_contents"
-					id="bbs_contents"></textarea>
-				<label for="upload">File</label> <input type="file"
-					data-clear-btn="false" name="upload" id="upload" value="">
-				<button type="submit" data-theme="b" data-icon="check">글등록</button>
+
+			<div data-role="popup" id="popupWirth" data-theme="a"
+				class="ui-corner-all">
+				<FORM name="writeForm" method="post" id="writeForm"
+					enctype="multipart/form-data" action="/m_writeSave.listen">
+					<div style="padding: 10px 20px;">
+						<h3>글쓰기</h3>
+						<label for="bbs_contents">Textarea:</label>
+						<textarea data-mini="true" cols="40" rows="8" name="bbs_contents"
+							id="bbs_contents"></textarea>
+						<label for="upload">File</label> <input type="file"
+							data-clear-btn="false" name="upload" id="upload" value="">
+						<button type="submit" data-theme="b" data-icon="check">글등록</button>
+					</div>
+					
+					<input type="hidden" name="reg_email" value="<%=email %>">
+					<input type="hidden" name="reg_ip" value="<%=reg_ip %>">
+					<input type="hidden" name="state" id="bgWriteState">
+				</form>
 			</div>
-		</form>
-	</div>
-	
+
 		</div>
 
 
@@ -164,7 +220,7 @@
 					data-position-to="window" data-transition="pop">의견 보내기</a><span
 					class="icon"></span></li>
 				<li><a href="/page-2/">설정</a><span class="icon"></span></li>
-				
+
 				<li><a href="#rightpanel1" data-shadow="true">Search</a>
 			</ul>
 		</div>
@@ -179,8 +235,8 @@
 						id="bbs_contents"></textarea>
 					<button type="submit" data-theme="b" data-icon="check">보내기</button>
 				</div>
-				<INPUT type="hidden" name="reg_email" value="<%= email %>">
-				<INPUT type="hidden" name="reg_ip" value="127.0.0.1">
+				<INPUT type="hidden" name="reg_email" value="<%=email%>">
+				<INPUT type="hidden" name="reg_ip" value="<%=reg_ip%>">
 			</form>
 		</div>
 
@@ -196,7 +252,7 @@
 							ChattingVo chattingVo = (ChattingVo) chatList.get(i);
 							String roomname = (String) chattingVo.getChatting_name();
 							String nickname = (String) chattingVo.getRamdom_name();
-							
+
 							if (chatList.size() > 0) {
 				%>
 				<INPUT type="hidden" name="roomname<%=i%>" id="roomname<%=i%>"
@@ -225,67 +281,9 @@
 			<ul data-role="listview" data-inset="true" style="min-width: 210px;"
 				data-theme="d">
 				<li data-role="divider" data-theme="a">알림</li>
-				<%
-					if (session.getAttribute("email") != null) {
-						for (int i = 0; i < noticeList.size(); i++) {
-							NoticeVo noticeVo = (NoticeVo) noticeList.get(i);
-							int notifications_seq = (int) noticeVo
-									.getNotifications_seq();
-							int send_seq = (int) noticeVo.getMembers_seq();
-							int rec_seq = (int) noticeVo.getRec_seq();
-							int noti_state_seq = (int) noticeVo.getNoti_state_seq();
-							String content = (String) noticeVo.getContent();
-							if (noticeList.size() > 0) {
-				%>
-				<FORM name="CreateRoomForm<%=i%>>" method="post"
-					id="CreateRoomForm<%=i%>" action="/m_createRoom.listen">
-					<INPUT type="hidden" name="notifications_seq"
-						value="<%=notifications_seq%>"> <INPUT type="hidden"
-						name="send_seq" value="<%=send_seq%>"> <INPUT
-						type="hidden" name="rec_seq" value="<%=rec_seq%>">
-					<%
-						if (noti_state_seq == 1) {
-					%>
-					<li><img src="/images/message.png"><%=content%>&nbsp;&nbsp;<input
-						class="room_make" id="<%=i%>" type="button" value="수락"></li>
-					<%
-						}
-									if (noti_state_seq == 2) {
-					%>
-					<li><img src="/images/clover.png"></li>
-					<%
-						}
-									if (noti_state_seq == 4) {
-					%>
-					<li><img src="/images/heart.png"><a><%=content%></a>&nbsp;&nbsp;
-					</li>
-					<%
-						}
-									if (noti_state_seq == 5) {
-					%>
-					<li><img src="/images/port.png"><a><%=content%></a>&nbsp;&nbsp;
-					</li>
-					<%
-						}
-									if (noti_state_seq == 6) {
-					%>
-					<li><img src="/images/notice.png"><a><%=content%></a>&nbsp;&nbsp;
-					</li>
-					<%
-						}
-								} else {
-					%>
-
-					<li><a href="#">회원자의 개설된 채팅 방이 없습니다.</a></li>
-
-					<%
-						}
-					%>
-				</FORM>
-				<%
-					}
-					}
-				%>
+				<!-- 알림 창 리스트 -->
+				<div id="notificationList">
+				</div>
 			</ul>
 		</div>
 

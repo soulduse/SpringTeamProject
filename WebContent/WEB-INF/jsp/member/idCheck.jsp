@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=utf-8" %>
+<%@ page contentType="text/html;charset=euc-kr" %>
 <%@ page import="java.util.*" %>
 <%
 	String code = (String)request.getAttribute("code");
@@ -7,14 +7,14 @@
 	if(code.equals("1"))
 	{
 	%>
-	<%= "1^"+id+"^íšŒì› ê°€ìž…ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤." %>
+	<%= "1^"+id+"^È¸¿ø °¡ÀÔÀÌ °¡´ÉÇÕ´Ï´Ù." %>
 	<%
 	}
 	
 	else if(code.equals("2"))
 	{
 %>
-		<%= "2^"+id+"^ì´ë¯¸ íšŒì›ìœ¼ë¡œ ê°€ìž…ë˜ì–´ ìžˆìŠµë‹ˆë‹¤."%>
+		<%= "2^"+id+"^ÀÌ¹Ì È¸¿øÀ¸·Î °¡ÀÔµÇ¾î ÀÖ½À´Ï´Ù."%>
 <%
 	}
 %>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 
 import com.listen.member.vo.MemberVo;
+import com.listen.member.vo.facebookVo;
 
 public class MemberDao 
 {
@@ -35,6 +36,10 @@ public class MemberDao
 	public void join(MemberVo memberVo)
 	{
 		smct.insert("join", memberVo);		
+	}
+	public void fjoin(facebookVo facebookVo)
+	{
+		smct.insert("fjoin", facebookVo);
 	}
 	public void memberUpdate(MemberVo memberVo)
 	{
