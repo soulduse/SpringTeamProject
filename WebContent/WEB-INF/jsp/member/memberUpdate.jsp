@@ -48,8 +48,7 @@ function cancel()
 <section class="content">
        <span class="input input--hoshi">
          <input type="text" name="email_id" id="email_id" class="input__field input__field--hoshi"   style="" /> 
-         
-        
+
 		<span class="input__label-content input__label-content--hoshi"><%=session.getAttribute("email")  %></span>
 	
 	</label>

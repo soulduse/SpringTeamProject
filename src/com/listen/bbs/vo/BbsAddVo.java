@@ -3,9 +3,9 @@ package com.listen.bbs.vo;
 import javax.xml.bind.annotation.XmlRootElement;
 
 public class BbsAddVo {
-	
-	private String bbs_add_seq;
-	private String bbs_seq;
+
+	private int bbs_add_seq;
+	private int bbs_seq;
 	private String content;
 	private String reg_email;
 	private String reg_date;
@@ -13,19 +13,19 @@ public class BbsAddVo {
 	private int badCount;
 	private int goodCount;
 
-	public String getBbs_add_seq() {
+	public int getBbs_add_seq() {
 		return bbs_add_seq;
 	}
 
-	public void setBbs_add_seq(String bbs_add_seq) {
+	public void setBbs_add_seq(int bbs_add_seq) {
 		this.bbs_add_seq = bbs_add_seq;
 	}
 
-	public String getBbs_seq() {
+	public int getBbs_seq() {
 		return bbs_seq;
 	}
 
-	public void setBbs_seq(String bbs_seq) {
+	public void setBbs_seq(int bbs_seq) {
 		this.bbs_seq = bbs_seq;
 	}
 
@@ -76,5 +76,5 @@ public class BbsAddVo {
 	public void setGoodCount(int goodCount) {
 		this.goodCount = goodCount;
 	}
-	
+
 }

@@ -1,6 +1,7 @@
 package com.listen.bbs.dto;
 
 public class BbsViewFilterDto {
+
 	private int bbs_seq;
 	private String reg_email;
 
@@ -19,5 +20,7 @@ public class BbsViewFilterDto {
 	public void setReg_email(String reg_email) {
 		this.reg_email = reg_email;
 	}
+
+	
 
 }

@@ -65,26 +65,30 @@
 
 		// 공지사항 리스트 체크박스 이용한삭제
 		$('#noticeListDelete').click(function(){
+			var arr_seq = $('#array_bbs_seq');
 			var eachObj = document.getElementsByName("noticeCheck");
 			var eachObjSize = eachObj.length;  
 			var arrFir = new Array();
 			var cnt = 0;
-			
-			alert(eachObjSize);
 			
 			for (var i = 0; i < eachObjSize; ++i) 
 			{
 				if (eachObj[i].checked == true) 
 				{
 					arrFir[cnt] = eachObj[i].value;
-					$('#array_bbs_seq').val(arrFir[i]);
 					cnt++;
 				}
 			}
-			if(arrFir.length != 0)
+			if(arrFir.length > 0 && arrFir.length != null)
 			{
+				arr_seq.val(arrFir);
 				$('#arrayDelForm').submit();
 			}
+			else
+			{
+				alert("체크된 항목이 존재하지 않습니다.");
+			}
+			
 		});
 	});
 

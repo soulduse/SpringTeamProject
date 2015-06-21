@@ -33,11 +33,11 @@
 
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '383705378499256',
+    appId      : '859744360729602',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.3' // use version 2.2
+    version    : 'v2.2' // use version 2.2
   });
 
  // FB.logout(function(response) {
@@ -81,6 +81,7 @@
 		var f = document.facebookJoin; 
 		var date = new Date(response.birthday);
 		var y = date.getFullYear();
+		alert(y);
 		var email = $('[name=email]').attr("value", response.email);
 		var gender = $('[name=gender]').attr("value", gender2);
 		var birthyear = $('[name=birthyear]').attr("value", y);

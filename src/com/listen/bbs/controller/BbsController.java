@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +25,10 @@ import com.listen.bbs.dao.BbsAddDao;
 import com.listen.bbs.dao.BbsDao;
 import com.listen.bbs.dto.BbsAddWriteDto;
 import com.listen.bbs.dto.BbsLikeSwitchDto;
+import com.listen.bbs.dto.BbsViewFilterDto;
 import com.listen.bbs.dto.BbsWriteDto;
 import com.listen.bbs.vo.BbsAddVo;
+import com.listen.bbs.vo.BbsSelectViewVo;
 import com.listen.bbs.vo.BbsVo;
 import com.listen.bbs.vo.MyBackGroundVo;
 
@@ -44,20 +49,18 @@ public class BbsController extends BaseController{
       this.bbsAddDao = bbsAddDao;
    }
    
-   // 글 보기 
-   @RequestMapping("/view.listen")
-   public String viewPage(HttpServletRequest request, HttpSession session) {
+   // 글 클릭시 Ajax 처리 부분 
+   @RequestMapping("/ajax/bbsSelect.listen")
+   public String viewPage(BbsViewFilterDto bbsViewFilterDto, HttpServletRequest request, HttpSession session) {
       System.out.println("viewPage 들어옴");
       
+      BbsSelectViewVo bbsSelectViewVo = (BbsSelectViewVo)bbsDao.bbsSelectView(bbsViewFilterDto);
       
-      ArrayList bbsList = bbsDao.bbsViewList();
-      request.setAttribute("page", "view");
-      request.setAttribute("bbsList",  bbsList);
-      request.setAttribute("mainUrl", prefix + "bbs/BbsList.jsp");
+      request.setAttribute("bbsSelectViewVo", bbsSelectViewVo);
+      request.setAttribute("page", "SelectView");
       
-      return frame;
+      return "bbs/AjaxBbsView";
    }
-   
    // 글 공감 버튼처리 Ajax
    @RequestMapping("/ajax/bbsLikeCount.listen")
    public void likeCount(BbsLikeSwitchDto bbsLikeSwitchDto)
@@ -85,10 +88,19 @@ public class BbsController extends BaseController{
             BbsAddVo bbsAddVo = (BbsAddVo) bbsAddList.get(i);
             String content = URLDecoder.decode(bbsAddVo.getContent(), "UTF-8");   // 한글처리부분
             String reg_date = bbsAddVo.getReg_date();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String msg = "";
+            try {
+            	Date date = format.parse(reg_date);
+				msg = TotalDate.formatTimeString(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+            
             int goodCount = bbsAddVo.getGoodCount();
             out.println("<items>");
             out.println("<content>"+content+"</content>");
-            out.println("<reg_date>"+reg_date+"</reg_date>");
+            out.println("<reg_date>"+msg+"</reg_date>");
             out.println("<goodcount>"+goodCount+"</goodcount>");
             out.println("</items>");
          }
@@ -101,6 +113,7 @@ public class BbsController extends BaseController{
       }
    }
 
+ 
    // 글쓰기 및 그림파일 등록
    @RequestMapping("/writeSave.listen")
    public String writePage(BbsWriteDto bbsWriteDto, HttpServletRequest request) {
@@ -136,22 +149,24 @@ public class BbsController extends BaseController{
          String fileName = resPic.getOriginalFilename();                                          // 파일의 이름
          String imgExt = fileName.substring(fileName.lastIndexOf(".")+1, fileName.length());         // 파일 확장자
          long fileSize = resPic.getSize();      // 파일 사이즈
+         String saveName = System.currentTimeMillis()+"_"+fileName;
          
          bbsWriteDto.setOrg_name(fileName);
          bbsWriteDto.setPath(path);
-         bbsWriteDto.setSave_name(System.currentTimeMillis() + "_" +bbsWriteDto.getOrg_name());
+         bbsWriteDto.setSave_name(saveName);
          bbsWriteDto.setFile_size(fileSize);
          
          // upload 가능한 파일 타입 지정
          // equalsIgnoreCase 의 경우 대소문자 구분하지 않고 비교함
          if(imgExt.equalsIgnoreCase("JPG") || imgExt.equalsIgnoreCase("JPEG") || imgExt.equalsIgnoreCase("PNG") || imgExt.equalsIgnoreCase("GIF"))
          {
-            File outFileName = new File(savePath+"\\"+fileName);
+            File outFileName = new File(savePath+"\\"+saveName);
             System.out.println("두번째 경로 : "+savePath+"\\"+fileName);
             try
             {
                resPic.transferTo(outFileName);
                bbsDao.updateRes_pic(bbsWriteDto);
+               bbsDao.fileSeqUpdate(bbsWriteDto);
             } catch(IllegalStateException e) {
                e.printStackTrace();
             } catch(IOException e) {
@@ -165,8 +180,10 @@ public class BbsController extends BaseController{
       System.out.println("writePage 들어옴");
       System.out.println(bbsWriteDto.getBbs_contents());
 
-      return frame;
+      return "redirect:/main.listen";
    }
+   
+
    
    @RequestMapping("/bbsPopList.listen")
    public String bbsPopListPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
@@ -178,9 +195,9 @@ public class BbsController extends BaseController{
        }
        session.setAttribute("selectItem",selectItem);
        bbsVo.setSelectItem(selectItem);
-       ArrayList bbsIntList = bbsDao.bbsDetailView(bbsVo);
+       ArrayList bbsPopList = bbsDao.bbsDetailView(bbsVo);
        request.setAttribute("page", "interest");
-       request.setAttribute("bbsIntList",  bbsIntList);
+       request.setAttribute("bbsPopList",  bbsPopList);
        request.setAttribute("selectItem", selectItem);
       request.setAttribute("mainUrl", prefix + "bbs/BbsPopList.jsp");
       return frame;
@@ -197,7 +214,7 @@ public class BbsController extends BaseController{
          }
          session.setAttribute("selectItem",selectItem);
          bbsVo.setSelectItem(selectItem);
-         ArrayList bbsIntList = bbsDao.bbsDetailView(bbsVo);
+         ArrayList bbsIntList = bbsDao.bbsInterestView(bbsVo);
          request.setAttribute("page", "interest");
          request.setAttribute("bbsIntList",  bbsIntList);
          request.setAttribute("selectItem", selectItem);
@@ -208,30 +225,30 @@ public class BbsController extends BaseController{
    
    @RequestMapping("/bbsAgeList.listen")
    public String bbsAgePage(BbsVo bbsVo,HttpServletRequest request, HttpSession session) {
-	   
-	  String selectAge = (String)request.getParameter("selectAge");
-	  String selectItem=(String)session.getAttribute("selectItem");
+
+	  String selectAge = "";
+	  String selectItem = "";
 	  
 	  if((String)request.getParameter("selectItem")!=null)
 	  {
-		  System.out.println("어 있네 셀렉트아이템");
 	      selectItem = (String)request.getParameter("selectItem");
 	  }
+	  
+	  if((String)request.getParameter("selectAge")!=null)
+	  {
+		  selectAge = (String)request.getParameter("selectAge");
+	  }
 	  session.setAttribute("selectItem",selectItem);
-	 
-	  System.out.println("요기도 들어왔지 아이템을 찍어라 " +(String)request.getParameter("selectItem"));
+	  session.setAttribute("selectAge",selectAge);
 	  
 	  bbsVo.setSelectItem(selectItem);
-	  request.setAttribute("selectItem", selectItem);
-	  
-	  
-	  System.out.println("여기 들어왔다 나이를 찍거라 "+(String)request.getParameter("selectAge"));
 	  bbsVo.setSelectAge(selectAge);
+	  
 	  ArrayList bbsAgeList = bbsDao.bbsAgeList(bbsVo);
-	  request.setAttribute("page", "all");
+	  request.setAttribute("page", "bbsAgeList");
 	  request.setAttribute("bbsAgeList",  bbsAgeList);
 	  request.setAttribute("selectAge", selectAge);
-	 
+	  request.setAttribute("selectItem", selectItem);
 	  request.setAttribute("mainUrl", prefix + "bbs/BbsAgeList.jsp");
       
       return frame;
@@ -307,18 +324,175 @@ public class BbsController extends BaseController{
    }
    
    
-   @RequestMapping("/ajax/bbsViewListAdd.listen")
-   public void bbsViewListAddPage(HttpServletRequest request, HttpServletResponse response) throws IOException
+   @RequestMapping("/ajax/bbsViewListAdd1.listen")
+   public String bbsViewListAddPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException
    {
+	   int rownum2 = (int)bbsVo.getNo();
+	   request.setAttribute("rownum2", rownum2);
+	   ArrayList ajaxBbsViewList = (ArrayList)bbsDao.bbsViewList2(bbsVo);
 	   
-	   System.out.println("여기까찐 되네");
+	   request.setAttribute("ajaxBbsViewList", ajaxBbsViewList);
+	   return "ajaxList/ajaxBbsViewList1";  
+   }
+   
+   @RequestMapping("/ajax/bbsViewListAdd2.listen")
+   public String bbsViewListAddPage2(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException
+   {
+	   int rownum2 = (int)bbsVo.getNo();
+	   request.setAttribute("rownum2", rownum2);
+	   ArrayList ajaxBbsViewList = (ArrayList)bbsDao.bbsViewList2(bbsVo);
 	   
-	   /*
+	   request.setAttribute("ajaxBbsViewList", ajaxBbsViewList);
+	   return "ajaxList/ajaxBbsViewList2";  
+   }
+   
+   @RequestMapping("/ajax/bbsViewListAdd3.listen")
+   public String bbsViewListAddPage3(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response) throws IOException
+   {
+	   int rownum2 = (int)bbsVo.getNo();
+	   request.setAttribute("rownum2", rownum2);
+	   ArrayList ajaxBbsViewList = (ArrayList)bbsDao.bbsViewList2(bbsVo);
+	   
+	   request.setAttribute("ajaxBbsViewList", ajaxBbsViewList);
+	   return "ajaxList/ajaxBbsViewList3";  
+   }
+   
+   @RequestMapping("/dispSave.listen")
+   public String dispSave(HttpServletRequest request, HttpSession session) {
+
+      String bbs_seq = (String) request.getParameter("seq");
+      System.out.println(bbs_seq);
+      String reg_email = (String) session.getAttribute("email");
+      System.out.println(reg_email);
+      
+      BbsVo bv = new BbsVo();
+      bv.setReg_email(reg_email);
+      bv.setBbs_seq(Integer.parseInt(bbs_seq));
+      
+      bbsDao.dispSave(bv);
+
+      return "redirect:bbsMyViewList.listen";
+   }
+   
+   
+   
+   ///////////////////////////////모베일
+   
+   // 글 보기 
+   @RequestMapping("/m_bbsView.listen")
+   public String m_viewPage(BbsVo bbsVo, HttpServletRequest request, HttpSession session) {
+	   String bbs_seq = (String) request.getParameter("bbs_seq");
+      System.out.println(bbs_seq);
+
+      ArrayList m_bbsViewList = (ArrayList)bbsDao.m_bbsinit(bbsVo);
+      request.setAttribute("m_bbsViewList",  m_bbsViewList);
+      request.setAttribute("mainUrl", prefix + "bbs/m_dialogBbsinit.jsp");
+      
+      return frame;
+   }
+   
+   // 인기 있는 글 보기 
+   @RequestMapping("/topStories.listen")
+   public String m_topStoriesPage(HttpServletRequest request, HttpSession session) {
+      String selectStoryName = "인기 있는 글 보기";
+      ArrayList m_bbsViewList = (ArrayList)bbsDao.m_bbsTopStoriesList();
+      request.setAttribute("m_bbsViewList",  m_bbsViewList);
+      request.setAttribute("selectStoryName",  selectStoryName);
+      request.setAttribute("mainUrl", prefix + "bbs/selectStory.jsp");
+      
+      return m_frame;
+   }
+   
+   // 관심 있는 글 보기 
+   @RequestMapping("/interest.listen")
+   public String m_interestPage(HttpServletRequest request, HttpSession session) {
+	  String selectStoryName = "관심 있는 글 보기";
+      ArrayList m_bbsViewList = (ArrayList)bbsDao.m_bbsViewList();
+      request.setAttribute("m_bbsViewList",  m_bbsViewList);
+      request.setAttribute("selectStoryName",  selectStoryName);
+      request.setAttribute("mainUrl", prefix + "bbs/selectStory.jsp");
+      
+      return m_frame;
+   }
+   
+   // 모바일 글쓰기 및 그림파일 등록
+	@RequestMapping("/m_writeSave.listen")
+	public String m_writePage(BbsWriteDto bbsWriteDto, HttpServletRequest request) {
+
+		// 글쓰기 부분
+		try {
+			bbsDao.bbsWrite(bbsWriteDto);
+			message = "작성완료";
+			request.setAttribute("message", message);
+		} catch (Exception e) {
+			e.printStackTrace();
+			message = "작성에 실패 했습니다.";
+			request.setAttribute("message", message);
+		}
+
+		String confRoot = servletContext.getRealPath("/"); // WebContent경로
+		String path = "/upfile/bbs_file/" + TotalDate.getToday("yyyy/MM/dd");
+		String bbsFileUploadPath = confRoot + path;
+
+		System.out.println("첫번째 경로 : " + bbsFileUploadPath);
+
+		File dayFile = new File(bbsFileUploadPath);
+		if (!dayFile.exists()) {
+			dayFile.mkdirs();
+		}
+
+		String savePath = dayFile.getAbsolutePath();
+
+		MultipartFile resPic = bbsWriteDto.getUpload();
+		if (resPic.getSize() > 0) {
+			String fileName = resPic.getOriginalFilename(); // 파일의 이름
+			String imgExt = fileName.substring(fileName.lastIndexOf(".") + 1,
+					fileName.length()); // 파일 확장자
+			long fileSize = resPic.getSize(); // 파일 사이즈
+			String saveName = System.currentTimeMillis() + "_" + fileName;
+
+			bbsWriteDto.setOrg_name(fileName);
+			bbsWriteDto.setPath(path);
+			bbsWriteDto.setSave_name(saveName);
+			bbsWriteDto.setFile_size(fileSize);
+
+			// upload 가능한 파일 타입 지정
+			// equalsIgnoreCase 의 경우 대소문자 구분하지 않고 비교함
+			if (imgExt.equalsIgnoreCase("JPG")
+					|| imgExt.equalsIgnoreCase("JPEG")
+					|| imgExt.equalsIgnoreCase("PNG")
+					|| imgExt.equalsIgnoreCase("GIF")) {
+				File outFileName = new File(savePath + "\\" + saveName);
+				System.out.println("두번째 경로 : " + savePath + "\\" + fileName);
+				try {
+					resPic.transferTo(outFileName);
+					bbsDao.updateRes_pic(bbsWriteDto);
+					bbsDao.fileSeqUpdate(bbsWriteDto);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				System.err.println("파일 형식이 올바르지 않습니다.");
+				message = "파일 형식이 올바르지 않습니다.";
+			}
+		}
+		System.out.println("writePage 들어옴");
+		System.out.println(bbsWriteDto.getBbs_contents());
+
+		return "redirect:/m_main.listen";
+	}
+   
+   // 모바일 댓글 Ajax 입력
+   @RequestMapping("/ajax/m_bbsAdd.listen")
+   public void m_writeAddPage(BbsAddWriteDto bbsAddWriteDto, HttpServletRequest request, HttpServletResponse response) throws IOException
+   {
       if(bbsAddWriteDto.getContent() != "" && bbsAddWriteDto.getContent().length()>0)
       {
          bbsAddDao.bbsAddWrite(bbsAddWriteDto);
       }
-      ArrayList bbsAddList = (ArrayList)bbsAddDao.bbsAddList(bbsAddWriteDto);
+      ArrayList bbsAddList = (ArrayList)bbsAddDao.m_bbsAddList(bbsAddWriteDto);
       response.setCharacterEncoding("utf-8");
       if(bbsAddList.size()>0)
       {
@@ -344,6 +518,22 @@ public class BbsController extends BaseController{
       {
          response.setStatus(HttpServletResponse.SC_NO_CONTENT);
       }
-      */
    }
+   
+	// 모바일 내가 작성 한 글 공개 입력
+	@RequestMapping("/m_dispYBbs.listen")
+	public String m_dispYBbsPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response,  HttpSession session) throws IOException {
+		bbsDao.myStoryDispY(bbsVo);
+		System.out.println("안녕 나 여기 들왔졍!!");
+		String email = (String)session.getAttribute("email");
+		return "redirect:/m_myStory.listen";
+	}
+
+	@RequestMapping("/m_dispYBbsN.listen")
+	public String m_dispNBbsPage(BbsVo bbsVo, HttpServletRequest request, HttpServletResponse response,  HttpSession session) throws IOException {
+		bbsDao.myStoryDispN(bbsVo);
+		String email = (String)session.getAttribute("email");
+		return "redirect:/m_myStory.listen";
+	}
+   
 }

@@ -24,10 +24,21 @@ public class BbsVo {
 	private String selectAge;
 	private int no;
 	private int rn;
+	private int age;
 	
 	
 	
 	
+	
+	
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
 
 	public int getRn() {
 		return rn;

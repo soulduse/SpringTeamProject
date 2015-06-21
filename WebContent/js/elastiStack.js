@@ -12,6 +12,7 @@
 	
 	'use strict';
 
+	
 	function extend( a, b ) {
 		for( var key in b ) { 
 			if( b.hasOwnProperty( key ) ) {
@@ -39,6 +40,7 @@
 		this.options = extend( {}, this.options );
   		extend( this.options, options );
   		this._init();
+  //		var button = this.attr('href');
 	}
 
 	function setTransformStyle( el, tval ) {
@@ -179,10 +181,12 @@
 			onEndTransFn.call();
 		}
 	};
+	
 
+	
 	ElastiStack.prototype._moveBack = function( instance ) {
-		var item2 = this._secondItem(), item3 = this._thirdItem();
-
+		var item2 = this._secondItem(), item3 = this._thirdItem(), item1 = this._firstItem();
+		
 		classie.add( instance.element, 'move-back' );
 		classie.add( instance.element, 'animate' );
 		setTransformStyle( instance.element, is3d ? 'translate3d(0,0,0)' : 'translate(0,0)' );

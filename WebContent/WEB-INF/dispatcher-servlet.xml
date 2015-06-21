@@ -41,6 +41,7 @@
 	<bean id="createChatting" class="com.listen.chatting.controller.CreateChatting">
 		<property name="chattingDao" ref="chattingDao"/>
 		<property name="noticeDao" ref="noticeDao"/>
+		<property name="bbsDao" ref="bbsDao" />
 	</bean>
 	
 	<bean id="noticeAdd" class="com.listen.notice.controller.NoticeAdd">

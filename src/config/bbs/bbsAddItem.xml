@@ -7,6 +7,7 @@
     <typeAlias alias="bbsVo" type="com.listen.bbs.vo.BbsVo" /> 
 
 	<!-- 댓글 등록 -->
+	<!-- 형준이가 사용했어요~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 	<insert id="bbsAddWrite" parameterClass="bbsAddWriteDto">
 		INSERT INTO BBS_ADD 
 		(BBS_ADD_SEQ, BBS_SEQ, CONTENT, REG_EMAIL, REG_IP, UPD_EMAIL, UPD_IP) 
@@ -15,8 +16,9 @@
 	</insert>
 	
 	<!-- 댓글 보기 -->
+	<!-- 형준이가 사용했어요~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
    <select id="bbsAddList" resultClass="bbsAddVo" parameterClass="bbsAddWriteDto">
-      SELECT CONTENT, TO_CHAR(REG_DATE, 'YYYY-MM-DD AM HH:MI:SS') REG_DATE, GOODCOUNT
+      SELECT CONTENT, TO_CHAR(REG_DATE, 'YYYY-MM-DD HH:MI:SS') REG_DATE, GOODCOUNT
       FROM BBS_ADD WHERE BBS_SEQ=#bbs_seq# order by bbs_add_seq desc
    </select>
    

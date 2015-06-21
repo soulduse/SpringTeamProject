@@ -1,8 +1,9 @@
-div.container {
+div.container-title {
   width: 70px;
   height: 70px;
   float: left;
 }
+
 
 div.heartImg {
   background: url('../images/animation-example-sprite2.png') no-repeat 0 0;

@@ -51,6 +51,13 @@
 .chaticon {
 	width: 24px;
 	height: 24px;
-	background: transparent url('../images/bell.png') 0 0 no-repeat;
+	background: transparent url('../images/chat.png') 0 0 no-repeat;
+	position: relative;
+}
+
+.pen {
+	width: 24px;
+	height: 24px;
+	background: transparent url('../images/pen.png') 0 0 no-repeat;
 	position: relative;
 }

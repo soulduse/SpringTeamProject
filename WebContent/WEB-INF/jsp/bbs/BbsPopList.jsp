@@ -84,28 +84,43 @@ $(function() {
       String email = (String)session.getAttribute("email");
       String userIp = request.getRemoteAddr();
       String selectItem = (String)session.getAttribute("selectItem");
-      System.out.println("Age jsp 들어옴 "+selectItem);
-
+      if((String)request.getAttribute("selectItem")!=null)
+      {
+    	  selectItem = (String)request.getAttribute("selectItem");
+      }
+      if(selectItem.equals("weekBest"))
+      {
+    	  %> <body>  <div>주간 베스트</div><%
+      }
+      else if(selectItem.equals("monthBest"))
+      {
+    	  %> <body>  <div>월간 베스트</div><%
+      }
+      else
+      {
 %>
 <body>
-
-   <FORM name="radioForm"  method="post" id="radioForm" action="/bbPopList.listen">
+	<div>인기 있는 이야기</div>
+   <FORM name="radioForm"  method="post" id="radioForm" action="/bbsPopList.listen">
    <div class="check" style="margin-left:700px;">
    <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_add_count" <%if(selectItem.equals("bbs_add_count")){%> checked<%}%>>&nbsp;<label for="">댓글</label>&nbsp;&nbsp;&nbsp;
    <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="goodCount" <%if(selectItem.equals("goodCount")){%> checked<%}%>>&nbsp;<label for="">공감</label>&nbsp;&nbsp;&nbsp;
    <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_hitCount" <%if(selectItem.equals("bbs_hitCount")){%> checked<%}%>>&nbsp;<label for="">조회수</label>
    </div>
    </FORM>
-  <div class="divAll">
-   <div class="jb-content" style="margin-left: 10%;">    
+<% 
+      }
+%> 
+  <div class="divAll" style="width: 1250px; margin: 0px auto; padding: 10px; ">
+   <div class="jb-content" style="margin-left: 2%;">    
 
 <%
 
-      int i =0;
-      ArrayList bbsIntList = (ArrayList)request.getAttribute("bbsIntList");
-       for(i=0; i<10; i++)
+      ArrayList bbsPopList = (ArrayList)request.getAttribute("bbsPopList");
+      
+       for(int i=0; i<bbsPopList.size(); i++)
        {  
-         BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
+         BbsVo bbsVo = (BbsVo)bbsPopList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
@@ -114,7 +129,8 @@ $(function() {
          String save_name = (String)bbsVo.getSave_name();
          int goodCount = (int)bbsVo.getGoodCount();
 		 int add_count = (int)bbsVo.getAdd_count();
-         if(i%3==0){
+         
+		 if(i%3==0){
    %>
        <div class="image " id="imgRootDiv" style="margin-left: 15px;">
            <img class="img imageShadow" name="<%=bbs_seq%>" data-toggle="modal" 
@@ -149,9 +165,9 @@ $(function() {
       <div class="jb-content" style="margin-left: 5px;">                 
    <%
       
-      for(i=0; i<=10; i++)
+      for(int i=0; i<bbsPopList.size(); i++)
       {  
-         BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
+         BbsVo bbsVo = (BbsVo)bbsPopList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();
@@ -201,9 +217,9 @@ $(function() {
         
     <div class="jb-content" style="margin-left: 15px;">                 
    <%
-      for(i=0; i<10; i++)
+      for(int i=0; i<bbsPopList.size(); i++)
       {  
-         BbsVo bbsVo = (BbsVo)bbsIntList.get(i);
+         BbsVo bbsVo = (BbsVo)bbsPopList.get(i);
          int bbs_seq = (int)bbsVo.getBbs_seq();
          String bbs_contents = (String)bbsVo.getBbs_contents();
          int bbs_hitCount = (int)bbsVo.getBbs_hitCount();

@@ -1,21 +1,21 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="com.listen.admin.vo.OpinionVo"%>
 <%@ page import="java.util.ArrayList"%>
 
 
 <div class="btn-group" role="group" aria-label="menuGroup">
 	<button type="button" class="btn btn-success"
-		onclick="location.href='/admin/notice.listen'">°øÁö»çÇ×</button>
+		onclick="location.href='/admin/notice.listen'">ê³µì§€ì‚¬í•­</button>
 	<button type="button" class="btn btn-success"
-		onclick="location.href='/admin/background.listen'">¹è°æ±×¸² ¼³Á¤</button>
+		onclick="location.href='/admin/background.listen'">ë°°ê²½ê·¸ë¦¼ ì„¤ì •</button>
 	<button type="button" class="btn btn-success"
-		onclick="location.href='/admin/opinion.listen'">ÀÇ°ßº¸±â</button>
+		onclick="location.href='/admin/opinion.listen'">ì˜ê²¬ë³´ê¸°</button>
 </div>
 
 <BR>
 <BR>
 <BR>
-<H2 align="center">ÀÇ°ß º¸±â</H2>
+<H2 align="center">ì˜ê²¬ ë³´ê¸°</H2>
 <BR>
 <BR>
 <BR>

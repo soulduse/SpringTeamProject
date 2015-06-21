@@ -6,7 +6,7 @@
 	});
 </SCRIPT>
 <ul>
-    <li><
+    <li>
     <a name="d" id="d" href="#myModal" data-toggle="modal" data-img-url="http://placehold.it/200x200/dddddd/ffffff">62 Teams</a></li>
 <li><a href="#myModal" data-toggle="modal" data-img-url="http://placehold.it/200x200/dddddd/ffffff&text=Hey3">5 Teams</a></li>
 <li><a href="#myModal" data-toggle="modal" data-img-url="http://placehold.it/200x200/dddddd/ffffff&text=Hey4">4 Teams</a></li>

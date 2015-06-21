@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=euc-kr"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="com.listen.admin.vo.AdminNoticeVo"%>
 
@@ -7,12 +7,12 @@
 
 <SCRIPT>
 	$(function(){
-		// °øÁö»çÇ× µî·Ï
+		// ê³µì§€ì‚¬í•­ ë“±ë¡
 		$('#write-btn').click(function() {
 			var titleInput = $('input:text[name=bbs_title]');
 			var titleValue = trim(titleInput.val());
 			if (titleValue === "") {
-				window.alert("±Û Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+				window.alert("ê¸€ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”.");
 				titleInput.select();
 				return false;
 			}
@@ -21,7 +21,7 @@
 			var contentInput = $('[name=bbs_contents]');
 			var contentValue = trim(contentInput.val());
 			if (contentValue === "") {
-				window.alert("±Û ³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+				window.alert("ê¸€ ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”.");
 				contentInput.select();
 				return false;
 			}
@@ -34,7 +34,7 @@
 			textClear();
 		});
 		
-		
+		// ìˆ˜ì •
 		$('#update-btn').click(function(){
 			$('#updateForm').submit();
 		});
@@ -74,22 +74,22 @@
 
 <div class="btn-group" role="group" aria-label="menuGroup">
 	<button type="button" class="btn btn-success"
-		onclick="location.href='/admin/notice.listen'">°øÁö»çÇ×</button>
+		onclick="location.href='/admin/notice.listen'">ê³µì§€ì‚¬í•­</button>
 	<button type="button" class="btn btn-success"
-		onclick="location.href='/admin/background.listen'">¹è°æ±×¸² ¼³Á¤</button>
+		onclick="location.href='/admin/background.listen'">ë°°ê²½ê·¸ë¦¼ ì„¤ì •</button>
 	<button type="button" class="btn btn-success"
-		onclick="location.href='/admin/opinion.listen'">ÀÇ°ßº¸±â</button>
+		onclick="location.href='/admin/opinion.listen'">ì˜ê²¬ë³´ê¸°</button>
 </div>
 
 <BR>
 <BR>
 <BR>
-<H2 align="center">°øÁö»çÇ×</H2>
+<H2 align="center">ê³µì§€ì‚¬í•­</H2>
 <BR>
 <BR>
 <BR>
 
-<FORM name="delForm" id="delForm" action="/admin/noticeDelete.listen" method="POST">
+<FORM name="delForm" id="delForm" action="/admin/noticeArrayDel.listen" method="POST">
 	<INPUT type="hidden" name="bbs_seq" value="<%=bbs_seq %>">
 </FORM>
 
@@ -99,7 +99,7 @@
 			<div class="avatar avatar-medium clearfix pull-left">
 				<img src="//www.gravatar.com/avatar/5fc6278d4ceeb746341f448c03d045b7?d=identicon&amp;s=40">
 				<div class="avatar-info">
-					<DIV>°ü¸®ÀÚ</DIV>
+					<DIV>ê´€ë¦¬ì</DIV>
 					<div class="date-created timeago" title="2015-06-14 11:36:12.0"><%=date %></div>
 				</div>
 			</div>
@@ -125,16 +125,16 @@
 
 <div class="row" style="margin-bottom:150px;">
   	<div class="col-md-7 col-md-offset-6 pull-right" >
-		<button type="button" class="btn btn-primary"	onclick="location.href='/admin/notice.listen'">¸ñ·Ï</button>
-		<button type="button" class="btn btn-primary" data-toggle="modal"	data-target="#updateModal" id="modalUpdateBtn">¼öÁ¤</button>
-		<button type="button" class="btn btn-primary" data-toggle="modal"	data-target="#deleteModal" id="modalDelBtn">»èÁ¦</button>
-		<button type="button" class="btn btn-primary" data-toggle="modal"	data-target="#writeModal" id="modalWriteBtn">±Û¾²±â</button>
+		<button type="button" class="btn btn-primary"	onclick="location.href='/admin/notice.listen'">ëª©ë¡</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal"	data-target="#updateModal" id="modalUpdateBtn">ìˆ˜ì •</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal"	data-target="#deleteModal" id="modalDelBtn">ì‚­ì œ</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal"	data-target="#writeModal" id="modalWriteBtn">ê¸€ì“°ê¸°</button>
 	</div>
 </div>
 
 
 
-<!-- ±Û ¾²±â Modal --> 
+<!-- ê¸€ ì“°ê¸° Modal --> 
 <div class="modal fade" id="writeModal" style="width: 100%" tabindex="-1" role="dialog" 
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" style="margin-top:150px;">
@@ -144,56 +144,56 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="exampleModalLabel">°øÁö»çÇ× ±Û¾²±â</h4>
+				<h4 class="modal-title" id="exampleModalLabel">ê³µì§€ì‚¬í•­ ê¸€ì“°ê¸°</h4>
 			</div>
 			<div class="modal-body">
 				<form name="writeForm" id="writeForm" action="/admin/noticeWrite.listen" method="post">
 					<div class="form-group">
-						<label for="recipient-name" class="control-label">Á¦¸ñ</label>
-						<input type="text" class="form-control" id="bbs_title" name="bbs_title" placeholder="±Û Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä." >
+						<label for="recipient-name" class="control-label">ì œëª©</label>
+						<input type="text" class="form-control" id="bbs_title" name="bbs_title" placeholder="ê¸€ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”." >
 					</div>
 					<div class="form-group">
-						<label for="message-text" class="control-label">³»¿ë</label>
-						<textarea class="form-control" id="bbs_contents" name="bbs_contents" rows="12" placeholder="±Û ³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä."></textarea>
+						<label for="message-text" class="control-label">ë‚´ìš©</label>
+						<textarea class="form-control" id="bbs_contents" name="bbs_contents" rows="12" placeholder="ê¸€ ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”."></textarea>
 					</div>
 					<INPUT type="hidden" name="reg_email" value="<%=reg_email%>">
 					<INPUT type="hidden" name="reg_ip" value="<%=reg_ip%>">
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="write-btn">±Û¾²±â</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Ãë¼Ò</button>
+				<button type="button" class="btn btn-primary" id="write-btn">ê¸€ì“°ê¸°</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">ì·¨ì†Œ</button>
 			</div>
 		</div>
 	</div>
 </div>
 
 
-<!-- »èÁ¦ È®ÀÎ-->
+<!-- ì‚­ì œ í™•ì¸-->
 <div class="modal fade" id="deleteModal" style="width: 100%" tabindex="-1" role="dialog"
    aria-labelledby="mySmallModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-sm" style="margin-top:200px">
       <div class="modal-content">
          <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">»èÁ¦È®ÀÎ</h4>
+            <h4 class="modal-title" id="exampleModalLabel">ì‚­ì œí™•ì¸</h4>
          </div>
          <div class="modal-body">
          	<% if (title.length() > 10) {
          			title = title.substring(0, 7) + "...";
 			} %>
-            <label for="recipient-name" class="control-label">"<%=title %>"ÀÇ ±ÛÀ»</label>
-            <label for="recipient-name" class="control-label">Á¤¸» »èÁ¦ ÇÏ½Ã°Ú½À´Ï±î?</label>
+            <label for="recipient-name" class="control-label">"<%=title %>"ì˜ ê¸€ì„</label>
+            <label for="recipient-name" class="control-label">ì •ë§ ì‚­ì œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?</label>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="noticeDelBtn">»èÁ¦</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Ãë¼Ò</button>
+            <button type="button" class="btn btn-primary" id="noticeDelBtn">ì‚­ì œ</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">ì·¨ì†Œ</button>
          </div>
       </div>
    </div>
 </div>
 
 
-<!-- ±Û ¼öÁ¤ Modal --> 
+<!-- ê¸€ ìˆ˜ì • Modal --> 
 <div class="modal fade" id="updateModal" style="width: 100%" tabindex="-1" role="dialog" 
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" style="margin-top:150px;">
@@ -203,17 +203,17 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="exampleModalLabel">°øÁö»çÇ× ±Û¼öÁ¤</h4>
+				<h4 class="modal-title" id="exampleModalLabel">ê³µì§€ì‚¬í•­ ê¸€ìˆ˜ì •</h4>
 			</div>
 			<div class="modal-body">
 				<form name="updateForm" id="updateForm" action="/admin/noticeUpdate.listen" method="post">
 					<div class="form-group">
-						<label for="recipient-name" class="control-label">Á¦¸ñ</label>
-						<input type="text" class="form-control" id="bbs_title" name="bbs_title" placeholder="±Û Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä." value="<%=title%>">
+						<label for="recipient-name" class="control-label">ì œëª©</label>
+						<input type="text" class="form-control" id="bbs_title" name="bbs_title" placeholder="ê¸€ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”." value="<%=title%>">
 					</div>
 					<div class="form-group">
-						<label for="message-text" class="control-label">³»¿ë</label>
-						<textarea class="form-control" id="bbs_contents" name="bbs_contents" rows="12" placeholder="±Û ³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä."><%=contents%></textarea>
+						<label for="message-text" class="control-label">ë‚´ìš©</label>
+						<textarea class="form-control" id="bbs_contents" name="bbs_contents" rows="12" placeholder="ê¸€ ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”."><%=contents%></textarea>
 					</div>
 					<INPUT type="hidden" name="bbs_seq" value="<%=bbs_seq%>">
 					<INPUT type="hidden" name="reg_email" value="<%=reg_email%>">
@@ -221,8 +221,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="update-btn">±Û¼öÁ¤</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Ãë¼Ò</button>
+				<button type="button" class="btn btn-primary" id="update-btn">ê¸€ìˆ˜ì •</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">ì·¨ì†Œ</button>
 			</div>
 		</div>
 	</div>

@@ -87,18 +87,16 @@ $(function() {
 
 %>
 <body>
-
+	<div>관심 있는 이야기</div>
    <FORM name="radioForm"  method="post" id="radioForm" action="/bbsIntList.listen">
    <div class="check" style="margin-left:700px;">
-   <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="댓글" <%if(selectItem.equals("댓글")){%> checked<%}%>>&nbsp;<label for="">댓글</label>&nbsp;&nbsp;&nbsp;
+   <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_add_count" <%if(selectItem.equals("bbs_add_count")){%> checked<%}%>>&nbsp;<label for="">댓글</label>&nbsp;&nbsp;&nbsp;
    <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="goodCount" <%if(selectItem.equals("goodCount")){%> checked<%}%>>&nbsp;<label for="">공감</label>&nbsp;&nbsp;&nbsp;
    <input class="radiobox" name="selectItem" type="radio" style="width:17px;height:17px;" value="bbs_hitCount" <%if(selectItem.equals("bbs_hitCount")){%> checked<%}%>>&nbsp;<label for="">조회수</label>
    </div>
    </FORM>
-  <table >
-  <TR colspan="3">
-  <TD>
-   <div class="jb-content" style="margin-left: 15px;">    
+ 	<div class="divAll" style="width: 1250px; margin: 0px auto; padding: 10px; ">
+   <div class="jb-content" style="margin-left: 2px;">    
 
 <%
 
@@ -246,8 +244,7 @@ $(function() {
       }
     
    %></div>
-   </TD>
-      </table>
+</div> 
 <!-- Modal 글 List-->
 <div class="modal fade" style="width: 100%" id="myModal" tabindex="-1"
    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

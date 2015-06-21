@@ -21,7 +21,7 @@
 	<select id="opinionList" resultClass="opinionVo">
 		SELECT BBS_SEQ, BBS_CONTENTS, REG_EMAIL, REG_DATE
 		FROM BBS
-		WHERE BBS_INFO_SEQ = '4'
+		WHERE BBS_INFO_SEQ = '4' ORDER BY BBS_SEQ DESC
 	</select>
 	
 </sqlMap>

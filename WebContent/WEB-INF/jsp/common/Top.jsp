@@ -5,21 +5,77 @@
 
 <% 
 	ArrayList chatList = (ArrayList)session.getAttribute("chatList");
-	ArrayList noticeList = (ArrayList)session.getAttribute("noticeList");
 %>
 
 <SCRIPT>
-	// 선택한 메뉴의 페이지 이름으로 바꿔주는 Script
+	// 화면이 바뀔때마다 화면 가져오기
 	$(function(){
+			var notificationList = $('#notificationList');
+		   $.ajax({
+		      url : "/ajax/notificationList.listen",
+		      type : 'POST',
+		      dataType : "xml",
+		      success : function(response, status, request) {
+		         if (request.status == 200) {
+		            $(response).find('root').each(function() {
+		               $(response).find('items').each(function() {
+				          var count = $('count', this).text();
+			              var notifications_seq = $('notifications_seq', this).text();
+			              var send_seq = $('send_seq', this).text();
+		                  var rec_seq = $('rec_seq', this).text();
+		                  var noti_state_seq = $('noti_state_seq', this).text();
+		                  var content = $('content', this).text();
+		                  if( noti_state_seq == 1)
+		                	  {
+				                  notificationList.append('<FORM name="CreateRoomForm'+count+'" method="post" id="CreateRoomForm'+count+'" action="/createRoom.listen">'+'<INPUT type="hidden" name="notifications_seq" id="notifications_seq" value="'+notifications_seq+'"> <INPUT type="hidden" name="send_seq" id="send_seq" value="'+send_seq+'">	<INPUT type="hidden" name="rec_seq" id="rec_seq" value="'+rec_seq+'"> <INPUT type="hidden" name="noti_state_seq" id="noti_state_seq" value="'+ noti_state_seq+'"><INPUT type="hidden" name="content" id="content" value="'+ content+'"> <img src="/images/message.png">'+content+'&nbsp;&nbsp;<input class="roomMake" id="'+count+'" type = "submit" value = "수락">');
+				                  notificationList.append('<li class="divider"></li>');
+				                  notificationList.append('</FORM>');
+		                	  }
+
+		                  if( noti_state_seq == 2)
+		                	  {
+				                  notificationList.append('<a href="http://www.naver.com"><img src="/images/clover1	.png">'+content+'&nbsp;&nbsp;</a>');
+				                  notificationList.append('<li class="divider"></li>');
+		                	  }
+		                  if( noti_state_seq == 4)
+	                	  {
+			                  notificationList.append('<a href="#"><img src="/images/heart.png">'+content+'&nbsp;&nbsp;</a>');
+			                  notificationList.append('<li class="divider"></li>');
+	                	  }
+		                  if( noti_state_seq == 5)
+	                	  {
+			                  notificationList.append('<a href="#"><img src="/images/port.png">'+content+'&nbsp;&nbsp;</a>');
+			                  notificationList.append('<li class="divider"></li>');
+	                	  }
+		                  if( noti_state_seq == 6)
+	                	  {
+			                  notificationList.append('<a href="#"><img src="/images/notice.png">'+content+'&nbsp;&nbsp;</a>');
+			                  notificationList.append('<li class="divider"></li>');
+	                	  }
+
+
+		               })
+		            });
+		         } else
+		        	 {
+		        	 notificationList.append('<li>회원자에게 온 알림이 없습니다.</li>');
+		        	 }
+		      }
+		   });
+
+		
 		$(".dropdown-menu li a").click(function(){
 			  $(this).parents(".dropdown").find('.selection').text($(this).text());
 			  $(this).parents(".dropdown").find('.selection').val($(this).text());
 			});
 		
 		//방만들기 
-		$(".room_make").click(function() {
+		$(".roomMake").click(function() {
+			alert();
 			var num = $(this).attr("id");
+			alert();
 			var CreateRoomForm = "#CreateRoomForm" + num;
+			alert();
 			$(CreateRoomForm).submit();
 		});
 		
@@ -30,7 +86,7 @@
 			var nickname = $('#nickname'+num).val();
 			var email = $('#email'+num).val();
 			window.open("http://localhost:900/chatting/"+encodeURIComponent(roomname)+"?name="
-					+encodeURIComponent(nickname)+"?email="+encodeURIComponent(email), '1', 'width=600, height=800, resizable=no');
+					+encodeURIComponent(nickname), '1', 'width=600, height=800, resizable=no');
 		});
 	});
 </SCRIPT>
@@ -69,6 +125,7 @@
         <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
       </form>
  <%
+ System.out.println("Top.jsp진입");
  	if(session.getAttribute("LoginYn") == "Y")
  	{
  		%>
@@ -91,7 +148,6 @@
           </ul>
         </li>
         
-        <li><a href="/view.listen"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-comment" aria-hidden="true"></a>
           <ul class="dropdown-menu" role="menu">
@@ -119,71 +175,15 @@ if(session.getAttribute("email")!=null)
 %>
           </ul>
         </li>
-        <li><a href="/write.listen"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a></li>
+        <li><a id="bbsWriteModalBtn" data-toggle="modal" data-target="#BbswriteModal" style="cursor:pointer;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-bell" aria-hidden="true"></a>
           <ul class="dropdown-menu" role="menu">
           	<P><H3 align="center"><font color="#4C4C4C">알림</font></H3></P><BR>
           	
-<% 
-if(session.getAttribute("email")!=null)
-{
-	for(int i=0; i < noticeList.size(); i++)
-	{
-		NoticeVo noticeVo = (NoticeVo) noticeList.get(i);
-		int notifications_seq = (int)noticeVo.getNotifications_seq();	
-		int send_seq = (int)noticeVo.getMembers_seq();
-		int rec_seq = (int)noticeVo.getRec_seq();
-		int noti_state_seq = (int)noticeVo.getNoti_state_seq();
-		String content = (String)noticeVo.getContent();
-			
-%>
-	<FORM name="CreateRoomForm<%=i %>>" method="post" id="CreateRoomForm<%=i %>" action="/createRoom.listen">
-				<INPUT type="hidden" name="notifications_seq" value="<%= notifications_seq%>">
-				<INPUT type="hidden" name="send_seq" value="<%= send_seq%>">
-				<INPUT type="hidden" name="rec_seq" value="<%= rec_seq%>">
-<%
-		if(noti_state_seq == 1)
-		{
-%>
-			<img src="/images/message.png">     <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "수락">
-            <li class="divider"></li>
-<%
-		}
-		if(noti_state_seq == 2)
-		{
-%>
-			<img src="/images/clover.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "수락">
-    		<li class="divider"></li>
-<%
-		}
-		if(noti_state_seq == 4)
-		{
-%>
-			<img src="/images/heart.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "수락">
-            <li class="divider"></li>
-<%
-		}
-		if(noti_state_seq == 5)
-		{
-%>
-			<img src="/images/port.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "수락">
-            <li class="divider"></li>
-<%
-		}
-		if(noti_state_seq == 6)
-		{
-%>
-			<img src="/images/notice.png">    <%= content%>&nbsp;&nbsp;<input class= "room_make" id="<%=i %>" type = "button" value = "수락">
-            <li class="divider"></li>
-<%
-		}
-%>
-	</FORM> 
-<%
-	}
-}
-%>
+          	<!-- 알림 창 리스트 -->
+          	<div id="notificationList">
+			</div>
           </ul>
         </li>
         <li class="dropdown">
@@ -194,13 +194,11 @@ if(session.getAttribute("email")!=null)
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"> 내 클로버 확인</a></li>
             <li class="divider"></li>
-            <li><a href="/bbsPopList.listen"><span class="glyphicon glyphicon-stats" aria-hidden="true"> 인기 있는 이야기</a></li>
+            <li><a href="/bbsPopList.listen?selectItem=bbs_hitCount"><span class="glyphicon glyphicon-stats" aria-hidden="true"> 인기 있는 이야기</a></li>
             <li class="divider"></li>
             <li><a href="/bbsIntList.listen"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"> 관심 있는 이야기</a></li>
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"> 탐색환경 설정</a></li>
-            <li class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"> 설정</a></li>
             <li class="divider"></li>
             <li><a data-toggle="modal" data-target="#opinionModal" style="cursor:pointer;">
             	<span class="glyphicon glyphicon-send" aria-hidden="true"> 의견 보내기</a></li>
