@@ -64,6 +64,10 @@ $(function() {
          
       });
    });
+   
+   $.fn.fileinputLocales.en = {
+	        browseLabel: '배경선택'
+   }
      
 </SCRIPT>
 
@@ -160,8 +164,8 @@ background-size: cover;
   <FORM name="imgForm" method="post" id="imgForm" enctype="multipart/form-data" action="/myImgSave.listen">
    <div class="story-header"><B><H1>MY STORY</H1></B>
    
-   <input type="file" name="upload" value="배경편집" style=" float: left;">
-   <INPUT type="button" id="fileBtn" value="등록" style=" float: left;">
+   <input type="file" name="upload" class="file"  multiple data-min-file-count="1" >
+   <INPUT class="btn btn-info" type="button" id="fileBtn" value="등록" style=" float: left;">
    
    <img src="images/clover1.png" id="storyClover" 
       data-toggle="modal" data-target="#myClover"style=" margin-left: -350px;cursor:pointer; width:70;"/>
