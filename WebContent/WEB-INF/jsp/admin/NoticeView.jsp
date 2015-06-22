@@ -54,12 +54,10 @@
 			&& ((String) session.getAttribute("LoginYn")).equals("Y")) {
 		loginYn = true;
 	}
-	/*
 	if(loginYn && ((String)session.getAttribute("adminYn")).equals("Y"))
 	{
 		adminYn = true;
 	}
-	 */
 
 	AdminNoticeVo adminNoticeVo = (AdminNoticeVo) request.getAttribute("adminNoticeVo");
 	int bbs_seq = adminNoticeVo.getBbs_seq();
@@ -69,6 +67,9 @@
 	contents = contents.replaceAll("\u0020"," ");
 	int hit = adminNoticeVo.getBbs_hitCount();
 	String date = adminNoticeVo.getReg_date();
+	
+	if(loginYn && adminYn)
+	{
 %>
 
 
@@ -80,6 +81,7 @@
 	<button type="button" class="btn btn-success"
 		onclick="location.href='/admin/opinion.listen'">의견보기</button>
 </div>
+<%} %>
 
 <BR>
 <BR>
@@ -122,7 +124,7 @@
 	</div>
 </CENTER>
 <BR>
-
+<%if(loginYn && adminYn){%>
 <div class="row" style="margin-bottom:150px;">
   	<div class="col-md-7 col-md-offset-6 pull-right" >
 		<button type="button" class="btn btn-primary"	onclick="location.href='/admin/notice.listen'">목록</button>
@@ -131,7 +133,7 @@
 		<button type="button" class="btn btn-primary" data-toggle="modal"	data-target="#writeModal" id="modalWriteBtn">글쓰기</button>
 	</div>
 </div>
-
+<%} %>
 
 
 <!-- 글 쓰기 Modal --> 

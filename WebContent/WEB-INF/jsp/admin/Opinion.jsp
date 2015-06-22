@@ -1,8 +1,21 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="com.listen.admin.vo.OpinionVo"%>
 <%@ page import="java.util.ArrayList"%>
-
-
+<% 
+	boolean loginYn = false;
+	boolean adminYn = false;
+	if (session != null && session.getAttribute("LoginYn") != null
+			&& ((String) session.getAttribute("LoginYn")).equals("Y")) {
+		loginYn = true;
+	}
+	if(loginYn && ((String)session.getAttribute("adminYn")).equals("Y"))
+	{
+		adminYn = true;
+	}
+	
+	if(loginYn && adminYn)
+	{
+%>
 <div class="btn-group" role="group" aria-label="menuGroup">
 	<button type="button" class="btn btn-success"
 		onclick="location.href='/admin/notice.listen'">공지사항</button>
@@ -51,3 +64,5 @@
 		%>
 	</DIV>
 </DIV>
+
+<%}%>

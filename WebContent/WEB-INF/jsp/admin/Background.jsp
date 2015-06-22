@@ -71,12 +71,13 @@
 			&& ((String) session.getAttribute("LoginYn")).equals("Y")) {
 		loginYn = true;
 	}
-	/*
 	if(loginYn && ((String)session.getAttribute("adminYn")).equals("Y"))
 	{
 		adminYn = true;
 	}
-	 */
+	
+	if(loginYn && adminYn)
+	{
 %>
 
 <div class="btn-group" role="group" aria-label="menuGroup">
@@ -167,7 +168,7 @@
 		</table>
 	</DIV>
 </DIV>
-
+<%} %>
 
 <!-- Modal -->
 <!-- 사진등록 Modal -->

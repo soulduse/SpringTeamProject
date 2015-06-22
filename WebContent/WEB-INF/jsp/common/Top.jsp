@@ -159,6 +159,7 @@
  	}
  %>
       <ul class="nav navbar-nav navbar-right">
+          <%if(((String)session.getAttribute("adminYn")).equals("Y")){ %>
          <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-wrench" aria-hidden="true">관리자<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -171,6 +172,7 @@
             <li class="divider"></li>
           </ul>
         </li>
+          	<%} %>
         
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-comment" aria-hidden="true"></a>
@@ -214,7 +216,7 @@ if(session.getAttribute("email")!=null)
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
              <P><H3 align="center"><font color="#4C4C4C">Listen</font></H3></P><BR>
-            <li><a href="#"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"> 공지사항</a></li>
+            <li><a href="/admin/notice.listen"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"> 공지사항</a></li>
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"> 내 클로버 확인</a></li>
             <li class="divider"></li>

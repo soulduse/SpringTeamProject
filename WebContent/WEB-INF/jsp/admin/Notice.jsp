@@ -12,12 +12,11 @@
 			&& ((String) session.getAttribute("LoginYn")).equals("Y")) {
 		loginYn = true;
 	}
-	/*
 	if(loginYn && ((String)session.getAttribute("adminYn")).equals("Y"))
 	{
 		adminYn = true;
 	}
-	 */
+
 %>
 <SCRIPT>
 	$(function() {
@@ -117,7 +116,11 @@
 		}
 	}
 </SCRIPT>
+<%
 
+if(loginYn && adminYn)
+{
+%>
 <div class="btn-group" role="group" aria-label="menuGroup">
 	<button type="button" class="btn btn-success"
 		onclick="location.href='/admin/notice.listen'">공지사항</button>
@@ -126,7 +129,7 @@
 	<button type="button" class="btn btn-success"
 		onclick="location.href='/admin/opinion.listen'">의견보기</button>
 </div>
-
+<%} %>
 <BR>
 <BR>
 <BR>
@@ -187,8 +190,9 @@
 			<tr>
 				<td align="center">
 					<div class="checkbox">
+						<%if(loginYn && adminYn){%>
 						<label> <input type="checkbox" name="noticeCheck" value="<%=bbs_seq%>">
-						</label>
+						</label><%} %>
 					</div>
 				</td>
 				<th scope="row"><%=bbs_seq%></th>
@@ -208,6 +212,7 @@
 </DIV>
 </DIV>
 </CENTER>
+<%if(loginYn && adminYn){%>
 <DIV class="col-md-5">
 		<input type="checkbox" name="selectAll" value="selectAll" onclick="selectAllCheckBox(this)">전체선택
 </DIV>
@@ -217,7 +222,7 @@
 	<button type="button" class="btn btn-primary" data-toggle="modal"
 		data-target="#writeModal" id="modalWriteBtn">글쓰기</button>
 </DIV>
-
+<%} %>
 <!-- 글 쓰기 Modal -->
 <div class="modal fade" id="writeModal" style="width: 100%"
 	tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
