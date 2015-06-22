@@ -12,9 +12,10 @@
 	<!-- 형준이가 사용했어요~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 	<insert id="bbsAddWrite" parameterClass="bbsAddWriteDto">
 		INSERT INTO BBS_ADD 
-		(BBS_ADD_SEQ, BBS_SEQ, CONTENT, REG_EMAIL, REG_IP, UPD_EMAIL, UPD_IP) 
+		(BBS_ADD_SEQ, BBS_SEQ, CONTENT, REG_EMAIL, REG_IP, UPD_EMAIL, UPD_IP, MEMBERS_SEQ) 
 		VALUES 
-		(BBS_ADD_SEQ.NEXTVAL, #bbs_seq#, #content#, #reg_email#, #reg_ip#, #reg_email#, #reg_ip#)
+		(BBS_ADD_SEQ.NEXTVAL, #bbs_seq#, #content#, #reg_email#, #reg_ip#, #reg_email#, #reg_ip#,
+		(SELECT MEMBERS_SEQ FROM MEMBERS WHERE EMAIL = #reg_email#))
 	</insert>
 	
 	<!-- 댓글 보기 -->

@@ -133,11 +133,11 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="selection">LISTEN ALL</span><span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="/main.listen">LISTEN ALL</a></li>
+            <li class="divider"></li>
+            <li><a href="/main.listen">LISTEN</a></li>
             <li class="divider"></li>
             <li><a href="bbsMyViewList.listen">MY STORY&nbsp</a></li>
             <li class="divider"></li>
-            <li><a href="#">LISTEN&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a></li>
           </ul>
         </li>
       </ul>

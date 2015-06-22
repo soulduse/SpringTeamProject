@@ -5,6 +5,7 @@
 <%@ page import="java.awt.Image" %>
 <%@ page import="javax.swing.ImageIcon" %>
 
+<SCRIPT src="/js/common.js"></SCRIPT>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/ajax-bbsview.js"></script>
 <script type="text/javascript" src="js/ajax-comment.js"></script>
@@ -172,9 +173,6 @@ background-size: cover;
     <INPUT class="btn btn-info" type="button" id="fileBtn" value="µî·Ï" style=" float: left;">
   </div>
   </DIV>
-   
-   
-   
    <img src="images/clover1.png" id="storyClover" 
       data-toggle="modal" data-target="#myClover"style=" margin-left: -50px;cursor:pointer; width:70;"/>
    </div></FORM>
