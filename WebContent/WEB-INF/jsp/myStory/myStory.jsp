@@ -161,14 +161,22 @@ background-size: cover;
   
   <body>
   <div class="story">
-  <FORM name="imgForm" method="post" id="imgForm" enctype="multipart/form-data" action="/myImgSave.listen">
+  <FORM class="form-inline" name="imgForm" method="post" id="imgForm" enctype="multipart/form-data" action="/myImgSave.listen">
    <div class="story-header"><B><H1>MY STORY</H1></B>
    
-   <input type="file" name="upload" class="file"  multiple data-min-file-count="1" >
-   <INPUT class="btn btn-info" type="button" id="fileBtn" value="등록" style=" float: left;">
+   <DIV style="width:600px;">
+  <div class="form-group">
+    <input type="file" name="upload" class="file"  multiple data-min-file-count="1" >
+  </div>
+  <div class="form-group">
+    <INPUT class="btn btn-info" type="button" id="fileBtn" value="등록" style=" float: left;">
+  </div>
+  </DIV>
+   
+   
    
    <img src="images/clover1.png" id="storyClover" 
-      data-toggle="modal" data-target="#myClover"style=" margin-left: -350px;cursor:pointer; width:70;"/>
+      data-toggle="modal" data-target="#myClover"style=" margin-left: -50px;cursor:pointer; width:70;"/>
    </div></FORM>
   
  <div class="story_cover1">
