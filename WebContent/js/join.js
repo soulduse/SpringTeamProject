@@ -21,17 +21,13 @@ $(function(){
 
 		  if( event.shiftKey) 
 			 {
-
 			  alert("특수문자x");
 			 }
-		  
-
 		 });
 
 		});
 
 	$('#idCheckBtn').click(function(){
-		alert("11");
 		idCheckAction();		
 	});
 	

@@ -1,12 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.*" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="Simple ideas for enhancing text input interactions" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="Simple ideas for enhancing text input interactions" />
 <meta name="keywords" content="button styles, css3, modern, flat button, subtle, effects, hover, web design, animated checkbox, svg, radio button, styled checkbox, css, pseudo element, form, animated svg" />
 <SCRIPT type="text/JavaScript" src="/js/jquery-2.1.3.js"></SCRIPT>
 <SCRIPT type="text/JavaScript" src="/js/join.js"></SCRIPT>
@@ -74,7 +76,7 @@ function cancel()
 					<!-- <button class="btn btn-7 btn-7b icon-envelope" name="idCheckBtn" id="idCheckBtn" style="cursor:pointer">Check</button>-->
 				</p>
 			</section>
-        <button class="btn btn-7 btn-7b icon-envelope"  id="idCheckBtn" name="idCheckBtn" style="cursor:pointer">중복 검사</button>
+        <input type= "button" class="btn btn-7 btn-7b icon-envelope"  id="idCheckBtn" name="idCheckBtn" style="cursor:pointer" value="중복검사">
 
           <INPUT type="hidden" name="idCheckFilter" value="N">
           <INPUT type="hidden" name="latitude" value="#">
