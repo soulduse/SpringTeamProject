@@ -1,3 +1,5 @@
+
+
 function ajaxBbsSelect(bbs_seq) {
 	var email = $('input:hidden[name=viewEmail]').val();
 	// var bbs_seq = itemImg.attr('name');
@@ -23,6 +25,8 @@ function ajaxBbsSelect(bbs_seq) {
 					var save_name = $('savename', this).text();
 					var content = $('content', this).text();
 					var reg_date = $('reg_date', this).text();
+					//content = content.replaceAll("\r\n","</BR>");
+					//content = content.replaceAll("\u0020"," ");
 					
 					var src = path + "/" + save_name;
 					$("#modalImg").attr("src", src);
@@ -30,6 +34,7 @@ function ajaxBbsSelect(bbs_seq) {
 					$('.like-label').text(goodcount);
 					$('#note-count').text(add_count);
 					$('#modalContent').text(content);
+					
 					
 					var heartImg = $('.heartImg');
 					 if (bbs_good_yn == "Y") {
